@@ -33,7 +33,16 @@
     "audience": "General Audience; adults and teenagers may play",
     "childDirected": false,
     "appleKidsCategory": false,
-    "underAgeRequirement": "Apply appropriate protections; do not classify everyone as children or assume everyone is 18+."
+    "underAgeRequirement": "Apply appropriate protections; do not classify everyone as children or assume everyone is 18+.",
+    "approvedAgeBandPolicy": "Under 13, 13-17, 18+, prefer not to answer; no Google requests for under-18/unspecified players, free eligible Hints, IAP/Restore available to all; no birth date; revisable in Settings"
+  },
+  "appStoreAgeRatingDecision": {
+    "targetBrazil": "A12",
+    "reference": "https://apps.apple.com/br/app/arrows-puzzle-escape/id6748397500",
+    "referenceVerified": "Brazil listing displays A12, advertising and infrequent mature/suggestive themes",
+    "pawsDeclaration": "Advertising present; answer Paws' own content questionnaire accurately, without copying another game's mature-themes descriptor",
+    "privacyPolicyUnaffected": "Content rating does not replace local ad privacy age bands or consent",
+    "consoleStatus": "No change performed; owner must verify calculated regional ratings in App Store Connect"
   },
   "productionResourceOwnerReport": "Owner has not confirmed whether live AdMob identifiers, published UMP messages, or public privacy/support URLs exist; local inspection authorized.",
   "localResourceAudit": {

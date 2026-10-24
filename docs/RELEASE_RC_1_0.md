@@ -116,7 +116,7 @@ is general, not child-directed, not Apple's Kids Category; adults and teenagers
 may play. Do not infer that all users are adults or classify all users as children.
 Under-age handling must be explicit before Google requests; UMP does not determine
 a player's age or automatically forward its TFUA flag to the ad SDK. The
-conservative candidate implementation offers local bands under 13, 13–17, 18+
+owner-approved conservative policy offers local bands under 13, 13–17, 18+
 and prefer not to answer. Only a declared adult starts Google/UMP; under-18,
 unanswered and prefer-not users get no Google requests and free eligible Hints.
 IAP/Restore stay available to all; local age choice is revisable in Settings.
@@ -153,6 +153,23 @@ agreements and the existing SKU's price/territories/localizations, IAP review
 screenshot/notes and inclusion with the first submitted version. Offer Code
 production distribution remains separate. No enrollment, console change or spend
 is authorized by this preparation.
+
+### App Store age rating — owner decision, 2026-10-24
+
+Target **A12 in Brazil**, using [Arrows – Puzzle Escape](https://apps.apple.com/br/app/arrows-puzzle-escape/id6748397500)
+as the owner's reference. Its Brazilian listing displays A12, advertising and
+infrequent mature/suggestive themes. Paws must answer its own questionnaire
+truthfully: advertising is present; do not add a mature-themes declaration merely
+to match another game. Apple's [regional definitions](https://developer.apple.com/help/app-store-connect/reference/app-information/age-ratings-values-and-definitions)
+include advertising under A12. Apple calculates regional ratings from the
+[questionnaire](https://developer.apple.com/help/app-store-connect/manage-app-information/set-an-app-age-rating/);
+the final country/OS-specific results remain an owner App Store Connect check.
+No console setting was changed here.
+
+This content-suitability target does not replace the approved local ad privacy
+age bands, establish a player's age/consent or permit ads for under-18/unspecified
+players. Keep G-rated ad requests and the existing conservative policy. Paws
+remains general audience, outside Apple's Kids Category.
 
 ## External build configuration
 

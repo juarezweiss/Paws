@@ -215,6 +215,11 @@ def inspect_il2cpp(export, profile="disabled"):
         raise InspectionError("Missing generated IL2CPP sources; cannot verify diagnostic exclusion.")
     found = set()
     required = (b"ApplePurchaseService", b"GoogleAdsBridge", b"AdMobAdService")
+    # IL2CPP appends `_t...`/method suffixes to concrete names. An identifier
+    # prefix (notably the provider-independent IGoogleAdsBridge interface) is
+    # not evidence that the Google binding itself was compiled into the player.
+    provider_types = {name: re.compile(rb"(?<![A-Za-z0-9_])" + name + rb"(?:_|(?=[^A-Za-z0-9_]|$))")
+                      for name in required}
     for source in sources:
         if EXCLUDED_TYPES.search(source.name.encode()):
             raise InspectionError("Review, benchmark or mock type found in production IL2CPP output.")
@@ -226,8 +231,12 @@ def inspect_il2cpp(export, profile="disabled"):
                     raise InspectionError("Review, benchmark or mock type found in production IL2CPP output.")
                 if profile == "production" and TEST_PUBLISHER.encode() in data:
                     raise InspectionError("Google test identifier found in production IL2CPP output.")
-                for provider in required:
-                    if provider in data:
+                # An overlap may begin inside a longer identifier. Its first
+                # character has already been scanned, so prevent a false token
+                # boundary there while still checking all split provider names.
+                type_data = b"_" + data if tail else data
+                for provider, pattern in provider_types.items():
+                    if pattern.search(type_data):
                         found.add(provider)
                 tail = data[-256:]
     if profile != "disabled" and found != set(required):

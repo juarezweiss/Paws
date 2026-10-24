@@ -469,6 +469,31 @@ class IOSReleaseTests(unittest.TestCase):
         with self.assertRaises(ios.InspectionError):
             self.receipt()
 
+    def test_disabled_allows_sdk_independent_interface_but_rejects_concrete_google_binding(self):
+        self.generated.write_text("struct IGoogleAdsBridge_tABC123; void IGoogleAdsBridge_Load_m123();")
+        self.assertEqual(self.receipt()["stage"], "export-validated")
+        for symbol in ("struct GoogleAdsBridge_tABC123;", "void GoogleAdsBridge__ctor_mABC();"):
+            with self.subTest(symbol=symbol):
+                self.generated.write_text(symbol)
+                with self.assertRaisesRegex(ios.InspectionError, "Google provider binding"):
+                    self.receipt()
+
+    def test_enabled_requires_concrete_google_binding_not_interface_substring(self):
+        self.enable()
+        self.generated.write_text("struct ApplePurchaseService_tABC; struct IGoogleAdsBridge_tABC; struct AdMobAdService_tABC;")
+        with self.assertRaisesRegex(ios.InspectionError, "missing a real"):
+            self.receipt()
+        self.generated.write_text(self.generated.read_text() + "struct GoogleAdsBridge_tABC;")
+        self.assertEqual(self.receipt()["stage"], "export-validated")
+
+    def test_interface_overlap_does_not_create_concrete_type_and_split_concrete_is_detected(self):
+        # Place G at the overlap start to exercise the missing-left-context case.
+        self.generated.write_bytes(b" " * (1024 * 1024 - 257) + b"IGoogleAdsBridge_tABC;" + b" " * 237 + b"next")
+        self.assertEqual(self.receipt()["stage"], "export-validated")
+        self.generated.write_bytes(b" " * (1024 * 1024 - 5) + b"GoogleAdsBridge_tABC;")
+        with self.assertRaisesRegex(ios.InspectionError, "Google provider binding"):
+            self.receipt()
+
     def test_export_plist_identity_version_family_and_os_are_verified(self):
         for key, value in {"CFBundleIdentifier": "old.bundle", "CFBundleDisplayName": "Other",
                            "CFBundleShortVersionString": "0.2.0", "CFBundleVersion": "2",
