@@ -1,0 +1,22 @@
+{
+  "schema": "paws-local-validation-signing-v1",
+  "sourceSha": "86487b2d363d0e32de8f2a392e0f21ae99bcfbfa",
+  "unsignedArchive": "Builds/Issue67-1.0.0-validation-v2.xcarchive",
+  "unsignedArchiveTreeSha256": "9760a1642e289e13b998792b46c7033ff74c117abe3bbe2f45b9d4f40d034e9d",
+  "localApp": "Builds/Issue67-LocalValidation/Paws.app",
+  "localAppTreeSha256": "35471a848bfb66c69bebdb45b9fcd48f3890207f7c976d2556b8e4fdb5b86dae",
+  "signatureVerified": true,
+  "existingDevelopmentProfileExpiryUTC": "2026-10-27T17:36:44+00:00",
+  "bundleIdentifier": "com.jweiss.paws",
+  "version": "1.0.0",
+  "build": "1",
+  "developmentSigned": true,
+  "developmentBuild": false,
+  "googleTestAds": true,
+  "simulatedOwnership": false,
+  "distributionEligible": false,
+  "installed": false,
+  "launched": false,
+  "physicalAcceptance": "pending-human",
+  "boundaries": "No account/profile creation, key export, phone interaction, purchase, live ads or upload. Original unsigned archive retained unchanged."
+}

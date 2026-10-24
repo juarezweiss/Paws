@@ -5,6 +5,12 @@ Paws 1.0 ships **with Apple IAP, Offer Codes, AdMob and UMP**. Disabled mode is 
 rollback profile, not the release plan. The narrow [#82](https://github.com/juarezweiss/Paws/issues/82)
 restart-button limitation is accepted and non-blocking; purchase safety is mandatory.
 See [candidate gates and minimal physical checklist](RELEASE_RC_1_0.md).
+Current preparation evidence: [#67 validation](evidence/issue67/validation.json),
+[non-development validation archive](evidence/issue67/ios-release-receipt.json)
+and [disabled rollback export](evidence/issue67/disabled-export-receipt.json).
+Source `86487b2` is prepared for review in [PR #87](https://github.com/juarezweiss/Paws/pull/87).
+Distribution remains **NO-GO** pending genuine production resources, final enabled
+distribution-profile archive and the mandatory exact-candidate human tests.
 The dated #63–#66 evidence below retains its original scope; historical blanket
 #82-blocker and disabled-only statements are superseded by this decision.
 

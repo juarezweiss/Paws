@@ -2,6 +2,20 @@
 
 ## Current #67 monetized Paws 1.0 gate — 2026-10-24
 
+Prepared source `86487b2d363d0e32de8f2a392e0f21ae99bcfbfa`:
+pinned compilation and production-only iOS managed compilation pass;
+**699/699** full EditMode tests, **77/77** Python contracts, **322** SDK byte
+pins, 11 native Swift policy assertions and iOS typechecks pass. Unity inputs are
+unchanged from tested implementation `55f5967`; the later commit corrects the
+interface/concrete provider inspector and records owner decisions. Source CI
+[passes](https://github.com/juarezweiss/Paws/actions/runs/40132605165).
+Fresh non-development real-IAP/test-ad native archive and disabled rollback export
+pass actual bundled configuration, exclusion, SDK/privacy, ARM64 and matching
+dSYM checks. Independent code/native-equivalent QA found no blocking issue;
+the primary agent inspected the fresh final receipts. Nine desktop age-selector
+captures pass visual review. [Exact receipts, hashes and scope](evidence/issue67/validation.json).
+No current physical test or priced-product Sandbox purchase is claimed.
+
 The owner's current release plan enables Apple IAP/Offer Codes and AdMob/UMP.
 Only #82's unresolved Ask to Buy button becoming available after restart is an
 accepted, non-blocking known issue. #82 stays open for post-release work.

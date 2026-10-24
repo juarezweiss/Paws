@@ -5,6 +5,44 @@ Authority: owner's 2026-10-24 decision; [#67](https://github.com/juarezweiss/Paw
 Base: fetched develop `3a44192697b8f1c416cc49afabeb839c5a0c3dc7`.
 The release plan is **IAP and AdMob enabled**; disabled mode is rollback only.
 
+## Prepared candidate and recommendation
+
+**GO for owner code review of [PR #87](https://github.com/juarezweiss/Paws/pull/87).
+NO-GO for distribution today.** The outstanding gates are genuine production
+configuration/public URLs/UMP console readiness, a final production-profile archive
+and mandatory exact-candidate human purchase/ad/privacy acceptance. The accepted
+#82 restart-button limitation is not a reason for this NO-GO.
+
+Build source **`86487b2d363d0e32de8f2a392e0f21ae99bcfbfa`**, Paws **1.0.0 (1)**,
+Unity **6000.3.25f1**, Xcode **27.1 (27A9275)**. Build 1 is unreleased local
+validation only. [Results and exact hashes](evidence/issue67/validation.json):
+699/699 EditMode, 77/77 Python, pinned Editor/production-only managed compilation,
+Swift policy/typechecks, SDK pins, source CI and QA pass. The fresh unsigned
+[validation archive receipt](evidence/issue67/ios-release-receipt.json) verifies
+ARM64 binaries/dSYMs, real provider entry points, bundled configuration and
+privacy resources. The [rollback export](evidence/issue67/disabled-export-receipt.json)
+excludes Google SDK/binding/configuration and initializes no provider.
+
+Preserved locally:
+
+- `Builds/Issue67-1.0.0-validation-v2.xcarchive` with matching dSYMs.
+- `Builds/Issue67-1.0.0-validation-v2-export/Unity-iPhone.xcodeproj`.
+- Installable **development-signed** test copy:
+  `Builds/Issue67-LocalValidation/Paws.app`, using the existing matching profile
+  valid until **2026-10-27 17:36:44 UTC**. [Signing receipt](evidence/issue67/local-test-signing.json).
+  No installation, launch or human test was performed in this preparation.
+
+The test copy uses real Apple verification and Google test ads, with no mock
+ownership. It is not a distribution artifact. Install in place when the intended
+profile-covered iPhone is connected; do not uninstall/reset existing histories.
+Complete the human checklist below and record explicit results in #67.
+
+Nine desktop age-selector captures pass visual review; examples:
+[EN compact](evidence/issue67/audience-en-320x568.png),
+[pt-BR standard](evidence/issue67/audience-pt-BR-390x844.png),
+[ES tall](evidence/issue67/audience-es-430x932.png). This is desktop evidence,
+not physical iPhone comfort or native commerce/consent acceptance.
+
 ## Classification
 
 | Classification | Requirement / evidence |
