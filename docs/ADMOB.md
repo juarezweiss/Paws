@@ -1,5 +1,21 @@
 # AdMob / UMP development integration — #66
 
+2026-10-26 owner amendment: custom age selection is removed. Native Apple regional
+checks/optional Settings sharing replace it; unknown/minor/unconfirmed audiences
+receive no new ad requests and free eligible Hints. Already-required Privacy Options
+remain accessible for explicit modification without age sharing or ad startup. [Current age policy, sources,
+OS matrix and genuine capability/regional gates](AGE_ASSURANCE.md) supersede older
+local-age-choice text and October 24 UI/artifact evidence. Monetized release intent,
+verified IAP safety and the narrow #82 acceptance remain unchanged.
+
+Current 2026-10-24 authority: [#67 monetized Paws 1.0 preparation](RELEASE_RC_1_0.md)
+adds actual enabled production composition and an integrated real-IAP/test-ad
+validation profile using this unchanged SDK infrastructure. The development-only
+scope statements below describe #66's historical implementation/evidence. Live
+IDs are injected outside Git; production policy/console readiness and live traffic
+remain owner-controlled. #82 is non-blocking only for the specifically accepted
+pending-button-after-restart limitation; purchase safety remains mandatory.
+
 Authority: [#66](https://github.com/juarezweiss/Paws/issues/66),
 [#29](https://github.com/juarezweiss/Paws/issues/29)/[#30](https://github.com/juarezweiss/Paws/issues/30),
 [ADR 0002](decisions/0002-provider-agnostic-monetization.md), and

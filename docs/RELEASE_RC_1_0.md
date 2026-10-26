@@ -1,0 +1,300 @@
+# Paws 1.0 monetized candidate — #67
+
+Authority: owner's 2026-10-24 decision; [#67](https://github.com/juarezweiss/Paws/issues/67),
+[#82](https://github.com/juarezweiss/Paws/issues/82), [release control](RELEASE.md).
+Base: fetched develop `3a44192697b8f1c416cc49afabeb839c5a0c3dc7`.
+The release plan is **IAP and AdMob enabled**; disabled mode is rollback only.
+
+## Current native-age amendment — 2026-10-26
+
+The latest owner decision removes the custom selector and saved local adult choice.
+See [AGE_ASSURANCE.md](AGE_ASSURANCE.md) for primary-source research, actual native
+policy, OS/regulatory scenario matrix, data minimization and the human addendum.
+Normal entry is menu → Play. Required native age requests remain possible in
+regulated scenarios; optional sharing is an explicit supported Settings action.
+Unknown/minor/unconfirmed players start no advertising provider and retain free
+eligible Hints/IAP/Restore. Confirmed adults still require UMP before NPA test ads.
+
+The existing signed local profile **does not allow Declared Age Range**; a compatible
+profile/capability needs separate owner action. No account was changed. This is a
+genuine signed-candidate gate, alongside production resources and physical tests.
+The October 24 artifacts/results below are historical and are superseded for the
+changed runtime, UI and native link. Do not use that signed app to accept this flow.
+
+Current final runtime/build source: **`c0622a361bcc7c7ae2b04d0642f0ce189b094f68`**.
+**727/727 EditMode**, **86/86 scripts**, production-only managed compilation,
+19 native age / 11 IAP policy assertions, typechecks, 322 SDK pins, CI and bounded
+independent QA re-review pass. [Exact native-age evidence](evidence/issue67/native-age/validation.json).
+Nine new desktop menu renders preserve direct Play and the nonmodal disclosure:
+[EN compact](evidence/issue67/native-age/menu-en-320x568.png),
+[pt-BR standard](evidence/issue67/native-age/menu-pt-BR-390x844.png),
+[ES tall](evidence/issue67/native-age/menu-es-430x932.png). These use desktop review
+infrastructure; they are not native Apple, paid purchase or physical evidence.
+
+Both fresh source-bound native archives pass inspection:
+
+- Enabled real-IAP/Offer/Google-test-ad candidate:
+  `Builds/Issue67-native-age-final-validation.xcarchive`;
+  [receipt](evidence/issue67/native-age/enabled-ios-release-receipt.json),
+  tree SHA-256 `d322975dfb61a3247c869a86c229caaaa0f54d89aafa4c598cf08977396157d0`.
+  Native age entry points and actual `LC_LOAD_WEAK_DYLIB`, real provider symbols,
+  bundled config, 322 SDK pins, privacy resources and matching ARM64 dSYMs pass.
+- Disabled rollback:
+  `Builds/Issue67-native-age-final-disabled.xcarchive`;
+  [receipt](evidence/issue67/native-age/disabled-ios-release-receipt.json),
+  tree SHA-256 `b14991afa7e1bf2fc5eb69675b6cd30c0cf7a378fd2b29103bfe96c851973568`.
+  Actual native age provider/framework/entitlement and Google binding/SDK/config
+  are absent. The AOT-retention failure was corrected and revalidated.
+
+Both are **unsigned validation artifacts**, not installable/distribution acceptance.
+Their exact source is `c0622a3`; later evidence-only commits change docs, not player
+inputs. Reproduction/reinspection must use the receipt's source SHA. The older
+signed `Issue67-LocalValidation/Paws.app` is superseded and cannot accept this flow.
+
+**GO for code review; NO-GO for distribution.** Compatible age capability/signing,
+actual production resources/UMP publication/public privacy and parental-support
+information, final production-profile archive and exact-build human acceptance
+remain gates. Previously required UMP privacy modification must work after age
+invalidation without resharing age or starting ads. Cold unresolved-state UMP
+status is not fabricated; the public privacy/contact recovery path needs owner
+runtime acceptance before activation. #82's accepted limitation remains nonblocking.
+
+## Historical October 24 candidate and recommendation
+
+**GO for owner code review of [PR #87](https://github.com/juarezweiss/Paws/pull/87).
+NO-GO for distribution today.** The outstanding gates are genuine production
+configuration/public URLs/UMP console readiness, a final production-profile archive
+and mandatory exact-candidate human purchase/ad/privacy acceptance. The accepted
+#82 restart-button limitation is not a reason for this NO-GO.
+
+Build source **`86487b2d363d0e32de8f2a392e0f21ae99bcfbfa`**, Paws **1.0.0 (1)**,
+Unity **6000.3.25f1**, Xcode **27.1 (27A9275)**. Build 1 is unreleased local
+validation only. [Results and exact hashes](evidence/issue67/validation.json):
+699/699 EditMode, 77/77 Python, pinned Editor/production-only managed compilation,
+Swift policy/typechecks, SDK pins, source CI and QA pass. The fresh unsigned
+[validation archive receipt](evidence/issue67/ios-release-receipt.json) verifies
+ARM64 binaries/dSYMs, real provider entry points, bundled configuration and
+privacy resources. The [rollback export](evidence/issue67/disabled-export-receipt.json)
+excludes Google SDK/binding/configuration and initializes no provider.
+
+Preserved locally:
+
+- `Builds/Issue67-1.0.0-validation-v2.xcarchive` with matching dSYMs.
+- `Builds/Issue67-1.0.0-validation-v2-export/Unity-iPhone.xcodeproj`.
+- Installable **development-signed** test copy:
+  `Builds/Issue67-LocalValidation/Paws.app`, using the existing matching profile
+  valid until **2026-10-27 17:36:44 UTC**. [Signing receipt](evidence/issue67/local-test-signing.json).
+  No installation, launch or human test was performed in this preparation.
+
+The test copy uses real Apple verification and Google test ads, with no mock
+ownership. It is not a distribution artifact. Install in place when the intended
+profile-covered iPhone is connected; do not uninstall/reset existing histories.
+Complete the human checklist below and record explicit results in #67.
+
+Nine desktop age-selector captures pass visual review; examples:
+[EN compact](evidence/issue67/audience-en-320x568.png),
+[pt-BR standard](evidence/issue67/audience-pt-BR-390x844.png),
+[ES tall](evidence/issue67/audience-es-430x932.png). This is desktop evidence,
+not physical iPhone comfort or native commerce/consent acceptance.
+
+## Classification
+
+| Classification | Requirement / evidence |
+| --- | --- |
+| Accepted known issue | Unresolved Ask to Buy may re-enable Remove Ads after restart. #82 remains open for post-release work. Cause is unproven; repeat requests are not declared universally harmless. |
+| Release blocker | Paid purchase fails to grant/restore verified ownership; already-owned duplicate charging; entitlement lost through finalization; fabricated ownership; unreliable Restore; actual security/compliance problem. |
+| Required owner evidence | Normal priced-product Apple Sandbox purchase, restart/Restore, no duplicate owned purchase, and physical integrated ad/consent/lifecycle checks on exact candidate. Missing evidence is pending, not a demonstrated defect or a pass. |
+| Post-release work | #82 callback/persistence investigation and focused correction; improvements beyond purchase safety/compliance that do not prevent a functional initial release. |
+
+## Composition and integrity
+
+Preserve `com.jweiss.paws.removeads`, verified current-entitlement authority,
+private Keychain evidence, coordinator atomic persistence, finalization journal,
+Restore and revocation behavior. Keep Unity 6000.3.25f1, IAP 5.3.1, Core 1.14.0,
+Google Unity 11.6.0/native 13.11.0 and UMP 3.1.0 pins. No speculative SDK upgrade.
+
+The production profile must contain real Apple IAP/Offer Code and Google providers,
+external live AdMob identifiers and approved audience/privacy treatment. It must
+contain no mock ledger/ownership, review/benchmark bootstrap, test ad identifiers,
+debug geography or Ask to Buy simulation. The integrated validation profile uses
+the same adapters with official Google test ads and real Apple verification;
+Xcode simulation is permitted only there. Both profiles use non-development
+IL2CPP/ARM64 Release builds. A validation archive is **not** a distribution archive.
+The disabled rollback profile must initialize no providers and preserve entitlement
+and cadence storage. No remote kill switch exists.
+
+UI reference lock: retain the existing #76 menu/Settings layout, typography,
+colors, scroll and focus rules, with Apple's native UI owning age permission.
+The custom selector is removed, not redesigned. A small wrapped menu disclosure
+preserves access-time Brazil A12/advertising/IAP information without a blocking
+step; public links remain explicit Settings actions. Refero live research was
+unavailable (NO_SUBSCRIPTION); existing repository targets and bundled craft/focus/
+touch guidance were used. No new design system or bitmap assets were introduced.
+
+Before distribution, freeze committed inputs and inspect the actual final archive:
+source/config digest, bundle/version/build, release flags/defines, package/native
+pins, symbols/dSYMs, signatures/entitlements/capabilities, SDK resources/privacy
+manifests and absence of review/mock/test configuration. Build 1 is local validation
+only; the owner allocates a globally increasing distribution number before export.
+
+## Minimal physical iPhone checklist
+
+Human operation only under AGENTS.md; record SHA, config/environment, artifact
+checksum, version/build, device/iOS, reviewer and explicit PASS/FAIL/NOT TESTED per
+item in #67. No raw receipts/JWS, credentials or personal account identifiers.
+Keep app data, SDK journal and purchase histories intact; do not reset or reinstall
+the owner's app to manufacture a clean baseline.
+
+1. **Apple Sandbox, normal paid-product flow:** use the integrated test-ad candidate,
+   StoreKit Configuration **None**, Ask to Buy simulation off and a known-unowned
+   Sandbox tester supplied by the owner. Visibly verify the intended Sandbox account
+   under Settings > Developer and **Sandbox on the purchase sheet** before confirming.
+   Cancel once: no ownership. Complete one normal priced-product Sandbox transaction
+   (no real money): verified Owned, both ads suppressed immediately, direct Hints.
+   Restart, temporarily offline restart if signing permits, then online Restore:
+   ownership retained. Remove Ads cannot initiate another charge while Owned.
+   Check recovery on a separate clean tester installation only if separately prepared
+   and authorized; do not erase existing history. Report a failure for focused repair.
+2. **Xcode StoreKit Test, simulated Ask to Buy:** select a local `.storekit` file
+   for the same SKU and enable Ask to Buy in Xcode's local test controls. Pending
+   must remain unowned. Restart may show the accepted available-button behavior;
+   do not initiate a repeat request. Approve in Xcode: verified current entitlement
+   must grant, restart and Restore must retain it. In a separate local simulated
+   request, decline/cancel: never Owned. Record **simulation**, not Apple Sandbox
+   approval. Sandbox does not provide Xcode transaction-manager approval/decline.
+3. **Finalization and recovery:** on the integrated candidate, interrupt a completed
+   test purchase around return/relaunch and Restore; entitlement must recover with
+   no new charge. Local StoreKit Test can exercise interrupted/unfinished, refund
+   and offline cases; label its scope. A signed unfinished/update payload alone
+   must not grant without current entitlement. Existing SDK replay hazard remains
+   unproven physically; automated recovery contracts are separate evidence.
+4. **Offer Codes:** cancel native sheet safely; redeem an owner-supplied Sandbox
+   code for the same product if needed, then restart/Restore and check suppression.
+   Prior #65 Sandbox grant is historical evidence, not a current-candidate pass.
+   Record untested external/pre-first-launch/invalid/expired/duplicate/delayed cases;
+   do not distribute production codes or change console settings during this test.
+5. **Apple age / Google test ads / UMP:** use the [native-age addendum](AGE_ASSURANCE.md#human-validation-addendum).
+   No custom selector. Unknown, child, teen, unconfirmed adult, declined sharing,
+   unsupported OS or API/capability failure: no Google and free eligible Hints,
+   with IAP/Restore usable. Previously required Privacy Options must remain accessible
+   after age invalidation without resharing age or restarting ads; also verify the
+   cold unresolved-state public privacy/contact path. Apple-confirmed adult: required consent before Google;
+   Privacy Options works, no request before `CanRequestAds`. Actual backgrounding
+   invalidates age; late age responses cannot enable ads. Native focus alone must
+   not discard a completed result. Retain actual native guards until closure.
+   Previously started SDK/native work may finish; no global SDK data-deletion or
+   uninitialize claim. A suppressed cold launch never constructs Google.
+   Wins 1–3: no progression ad; fourth victory: no ad; deliberate next board: at
+   most one. Offline/no-fill/restricted: continue, no debt, eligible free Hint.
+   Reward completion: exactly one Hint. **Presented ad closed before reward: no
+   Hint, no late Hint and safe input return** remains unvalidated from #66. If the
+   creative has no early close, record NOT TESTED; never infer a pass or force-close
+   native UI to substitute for voluntary closure.
+6. **Lifecycle / owned / game:** background and return during purchase, form and
+   ad; no input under native overlay, safe recovery afterward. Verified ownership
+   bypasses both placements, including queued opportunities. Check tap cycle,
+   drag/protected cells/completed lock, Clear/new game and EN/pt-BR/es at available
+   compact/standard/tall portrait sizes. Desktop viewport tests remain distinct.
+
+Apple documents [Sandbox product/server testing](https://developer.apple.com/documentation/storekit/testing-in-app-purchases-with-sandbox)
+and [local Ask to Buy testing](https://developer.apple.com/documentation/storekit/testing-ask-to-buy-in-xcode)
+as distinct environments. Google's [UMP instructions](https://developers.google.com/admob/ios/privacy)
+require launch consent updates and request gating. Nonpersonalized ads still use
+identifiers for purposes such as frequency capping/reporting; see the inspected
+[SDK data inventory](ADMOB.md#data-collection-networking-and-opt-outs).
+
+## Privacy and submission prerequisites
+
+The owner approved the production policy on 2026-10-24: **NPA only, no ATT prompt
+or cross-app tracking, publisher first-party ID off, SDK crash reports off,
+G-rated ad content, no additional analytics/attribution/telemetry SDKs**. Audience
+is general, not child-directed, not Apple's Kids Category; adults and teenagers
+may play. Do not infer that all users are adults or classify all users as children.
+Under-age ad eligibility is resolved by the [native Apple policy](AGE_ASSURANCE.md),
+not a local choice or content rating. UMP does not establish age. Only Apple-confirmed
+adult evidence may construct Google; minor/unresolved users get no ad requests and
+free eligible Hints. All approved privacy switches remain. This conservative policy
+reduces reach on older OS versions and in optional regions; it is not a legal claim
+that everyone needs a Paws age popup or that all NPA SDK processing is anonymous.
+
+Local resource audit found only Google's sample app identifier in retained #66
+`Info.plist` files, including `Builds/Issue66/f3539da-registered-eea-export/Info.plist`
+and `Builds/Issue66/f3539da-registered-eea-device/Paws.app/Info.plist`. Those are
+historical test artifacts, not production inputs. No root `.env*`, configured
+production ad input environment variable, owner-local live-ID JSON or confirmed
+public Paws privacy/support URL was found in the repository and inspected ignored
+configuration. This is a local audit, not proof those resources do not exist in
+the owner's consoles or elsewhere. Existing #66 registered device hashes stay
+private in local/ignored configuration; no hash/credential is published here.
+
+The owner must supply external app/interstitial/rewarded IDs and manually confirm
+the AdMob iOS app, correct format ad units and account/app serving readiness;
+published EEA/UK/Swiss and applicable US-state UMP messages with approved copy,
+privacy URL and correct audience treatment; and actual public support/privacy URLs.
+No console state or published message can be certified from a local plist.
+The approved policy is not zero data collection.
+Do not publish a no-data-collected claim. Use exact GMA/UMP/Unity manifests and
+inspected SDK behavior for factual App Privacy and required-reason declarations.
+Runtime privacy/network acceptance and final legal/console declarations remain
+owner review; static URL strings are not observed network traffic.
+
+Owner also confirms public support/privacy URLs, age rating/export compliance,
+agreements and the existing SKU's price/territories/localizations, IAP review
+screenshot/notes and inclusion with the first submitted version. Offer Code
+production distribution remains separate. No enrollment, console change or spend
+is authorized by this preparation.
+
+### App Store age rating — owner decision, 2026-10-24
+
+Target **A12 in Brazil**, using [Arrows – Puzzle Escape](https://apps.apple.com/br/app/arrows-puzzle-escape/id6748397500)
+as the owner's reference. Its Brazilian listing displays A12, advertising and
+infrequent mature/suggestive themes. Paws must answer its own questionnaire
+truthfully: advertising is present; do not add a mature-themes declaration merely
+to match another game. Apple's [regional definitions](https://developer.apple.com/help/app-store-connect/reference/app-information/age-ratings-values-and-definitions)
+include advertising under A12. Apple calculates regional ratings from the
+[questionnaire](https://developer.apple.com/help/app-store-connect/manage-app-information/set-an-app-age-rating/);
+the final country/OS-specific results remain an owner App Store Connect check.
+No console setting was changed here.
+
+This content-suitability target does not replace the approved local ad privacy
+the native age signal, establish a player's age/consent or permit ads for under-18/unspecified
+players. Keep G-rated ad requests and the existing conservative policy. Paws
+remains general audience, outside Apple's Kids Category.
+
+## External build configuration
+
+Pass an absolute owner-local JSON path through `PAWS_MONETIZATION_CONFIG`.
+Keep live identifiers and device registration outside Git. Required production
+fields are `adMobAppId`, `interstitialAdUnitId`, `rewardedAdUnitId`,
+`privacyPolicyUrl`, `supportUrl` and `audiencePolicy: "apple-age-assurance-v1"`.
+The build sets `profile` explicitly. IDs must be real iOS AdMob values belonging
+to the same publisher; placements must be distinct. Both URLs must use HTTPS.
+Missing/invalid inputs fail export; syntactically valid values do not prove
+console publication, ownership, serving readiness or reachable privacy content.
+
+Validation accepts an optional local configuration with an actual owner AdMob
+app ID for its published UMP messages, `consentDebugGeography` (Disabled, EEA,
+RegulatedUSState or Other) and `umpTestDeviceIds` (registered local hashes).
+Its placements are always overwritten with official Google test units.
+Without this configuration, the sample app ID/actual geography applies; forced
+region/required-message acceptance cannot be inferred. Production rejects debug
+geography, device lists and Google sample identifiers. Receipts bind the actual
+serialized resource/configuration digest and redact device hashes.
+
+## Path to submission
+
+1. Finish automated/CI/QA and exact-source native archive evidence; fix any actual
+   entitlement, finalization, compliance or release-integrity failure.
+2. Supply external production configuration, compatible Declared Age Range capability/profile
+   and public privacy/parental-support disclosures; complete the minimal human tests
+   above. Record explicit results and any untested scope in #67. #82 remains open.
+3. Allocate the distribution build number, freeze final source/config and produce
+   a fresh enabled production archive; inspect again without launching live ads.
+   Owner reviews privacy/metadata/IAP attachments and signs off GO.
+4. Obtain separate explicit owner authorization for develop integration, main merge,
+   distribution signing/upload, submission and release as applicable. No automatic
+   merge, tag, TestFlight/App Store upload, live traffic or account activation.
+
+Current verdict and exact test receipts belong in `docs/evidence/issue67/` and
+the final #67 preparation report. Missing configuration/human evidence means
+NO-GO for distribution until completed; it does not change the monetized scope.

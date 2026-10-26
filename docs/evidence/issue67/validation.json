@@ -1,0 +1,199 @@
+{
+  "schema": "paws-monetized-rc-validation-v1",
+  "issue": 67,
+  "date": "2026-10-24",
+  "developBaseSha": "3a44192697b8f1c416cc49afabeb839c5a0c3dc7",
+  "buildSourceSha": "86487b2d363d0e32de8f2a392e0f21ae99bcfbfa",
+  "runtimeImplementationSha": "55f5967d4571c9ae21b49e09c82b1a62768a60e7",
+  "runtimeProvenance": "git diff 55f5967 HEAD -- UnityProject is empty; later commit changes inspector/tests/decision documentation only",
+  "editMode": {
+    "total": 699,
+    "passed": 699,
+    "failed": 0,
+    "skipped": 0,
+    "inconclusive": 0,
+    "editorExit": 0,
+    "report": {
+      "path": ".unity-results/editmode.MVJNhQ/test-results.xml",
+      "sha256": "d7cc1a85675dbb0b4c6f07c9ba7a5e91909a0bc9962b9839d229816d549a70f7"
+    },
+    "scope": "full suite, including purchase/restore/finalization, consent/ad lifecycle, disabled storage, audience and nine mounted locale/aspect checks"
+  },
+  "compilation": {
+    "status": "PASS",
+    "editorVersion": "6000.3.25f1",
+    "log": {
+      "path": ".unity-results/compile.WpwQAB/Editor.log",
+      "sha256": "c964bd00e55cb9d2d309d94cc0364ed8d4d723a14b790d896a2b6022a8719862"
+    }
+  },
+  "productionManagedCompilation": {
+    "status": "PASS",
+    "log": {
+      "path": ".unity-results/issue67-production-managed.log",
+      "sha256": "a337b9b674f4d961efc5af9455362886fb80ce6e6ec420a1f58a19365545bc21"
+    },
+    "output": ".unity-results/issue67-production-managed",
+    "defines": [
+      "PAWS_PRODUCTION",
+      "PAWS_MONETIZATION"
+    ],
+    "scope": "actual production-only iOS managed path; not native distribution archive"
+  },
+  "pythonContracts": {
+    "passed": 77,
+    "failed": 0,
+    "ciRun": "https://github.com/juarezweiss/Paws/actions/runs/40132605165",
+    "ciSourceSha": "86487b2d363d0e32de8f2a392e0f21ae99bcfbfa",
+    "ciConclusion": "success"
+  },
+  "nativeSwift": {
+    "purePolicyAssertions": 11,
+    "policyResult": "PASS",
+    "iosTypecheck": "PASS",
+    "target": "arm64-apple-ios16.3",
+    "scope": "actual policy/evidence/Offer Code Swift sources; no transaction or phone automation"
+  },
+  "sdkIntegrity": {
+    "filesVerified": 322,
+    "pins": "Google Unity 11.6.0 / native 13.11.0 / UMP 3.1.0; Unity IAP 5.3.1 / Core 1.14.0 unchanged"
+  },
+  "sourceQA": {
+    "result": "No blocking findings",
+    "scope": "independent review of runtime, age/Hint correction, purchase safety, config/receipts and exact-type inspector fix; initial equivalent native archive/export independently inspected",
+    "finalReceiptsReview": "primary agent verifies fresh receipts; compiled Unity inputs unchanged"
+  },
+  "visualReview": {
+    "status": "PASS",
+    "scope": "nine desktop rendered age selectors: no clipping, readable localized options, neutral selection and Back; existing Settings reference lock retained",
+    "images": [
+      {
+        "path": "docs/evidence/issue67/audience-en-320x568.png",
+        "sha256": "2c20d98005f96bc3c1782ad2145c95a776526ca01cab0f1b3315110bd1f7830a",
+        "width": 320,
+        "height": 568
+      },
+      {
+        "path": "docs/evidence/issue67/audience-en-390x844.png",
+        "sha256": "78ba353d68fab3556ef47c6a6681076bbe4273b11bb31ff126cb39f7d367ac32",
+        "width": 390,
+        "height": 844
+      },
+      {
+        "path": "docs/evidence/issue67/audience-en-430x932.png",
+        "sha256": "1390387dca1ffcf108f13833b0afc9f807a4dceb3e4295d696aa4fc0cd878b67",
+        "width": 430,
+        "height": 932
+      },
+      {
+        "path": "docs/evidence/issue67/audience-es-320x568.png",
+        "sha256": "67719269f1a312fc8d18492fb8ce5001fb625ec4af4b59cd7ed4e65f15dc1d85",
+        "width": 320,
+        "height": 568
+      },
+      {
+        "path": "docs/evidence/issue67/audience-es-390x844.png",
+        "sha256": "8c4f772bf9b6f117908af1ad842b6a1b0cf5f6f712691a0edf74651bfc95129b",
+        "width": 390,
+        "height": 844
+      },
+      {
+        "path": "docs/evidence/issue67/audience-es-430x932.png",
+        "sha256": "ebeaaea582022d62abf00aedf0dd1c972122eba7c29b5a08a364a825f1de1dfd",
+        "width": 430,
+        "height": 932
+      },
+      {
+        "path": "docs/evidence/issue67/audience-pt-BR-320x568.png",
+        "sha256": "12345900050cc368c92c993fd9cbd78129c618f427561f73d34f31549077b8a5",
+        "width": 320,
+        "height": 568
+      },
+      {
+        "path": "docs/evidence/issue67/audience-pt-BR-390x844.png",
+        "sha256": "170b6c587b006b170fae514807e2fe6257c1d8fe21f1868b4aeaa9deed4dbe5e",
+        "width": 390,
+        "height": 844
+      },
+      {
+        "path": "docs/evidence/issue67/audience-pt-BR-430x932.png",
+        "sha256": "7a9cf1c348f57ff97efb1be9229a7018a87df1c0ac03cb909c03316bdab0d647",
+        "width": 430,
+        "height": 932
+      }
+    ],
+    "physicalPhoneAcceptance": "PENDING HUMAN"
+  },
+  "productionPreflight": {
+    "sourceSha": "86487b2d363d0e32de8f2a392e0f21ae99bcfbfa",
+    "scenario": "missing external production configuration",
+    "expectedExit": 2,
+    "actualExit": 2,
+    "outputCreated": false,
+    "unityInvoked": false,
+    "result": "PASS"
+  },
+  "knownIssue82": {
+    "classification": "ACCEPTED NON-BLOCKING",
+    "scope": "unresolved Ask to Buy may re-enable Remove Ads after restart only",
+    "rootCauseProven": false,
+    "repeatRequestsUniversallyHarmless": "not established",
+    "issueRemainsOpen": true
+  },
+  "remainingOwnerTests": [
+    "Normal priced-product real Apple Sandbox purchase (Configuration None and both visible Sandbox environment checks), cancel, verified grant, restart/offline/Restore and owned purchase suppression",
+    "Local Xcode StoreKit Test simulated Ask to Buy pending/approval/decline, distinct from Apple approval evidence",
+    "Interrupted finalization/Restore recovery and refund/revocation with explicit environment scope",
+    "Exact-candidate Offer Code grant/restart/Restore; accurately record remaining external/invalid/delayed/unsupported cases",
+    "Integrated Google test-ad consent/privacy/age/lifecycle/cadence/reward tests, including presented voluntary close before reward with no Hint",
+    "Physical localized UI/input/safe areas and privacy/network behavior; owner pass/fail report on exact source/artifact/device/iOS"
+  ],
+  "productionResources": {
+    "liveIdentifiers": "NOT FOUND IN INSPECTED LOCAL CONFIG",
+    "publishedUmpMessages": "UNKNOWN; manual owner console check",
+    "publicPrivacySupportUrls": "NOT FOUND / NOT CONFIRMED",
+    "audiencePolicy": "OWNER APPROVED local-adult-only-v1",
+    "brazilContentRatingTarget": "OWNER REQUESTED A12; truthful questionnaire and calculated regional result pending owner console check"
+  },
+  "distributionRecommendation": "NO-GO until missing production resources, exact final production archive and mandatory human purchase/ad/privacy acceptance are completed",
+  "implementationRecommendation": "GO for owner review of PR #87; no autonomous merge",
+  "boundaries": "No main merge, release tag, App Store/TestFlight upload/submission, account/console changes, real-money purchase or live ad activation; no physical phone interaction/test automated",
+  "nativeArchive": {
+    "result": "PASS",
+    "receipt": "docs/evidence/issue67/ios-release-receipt.json",
+    "stage": "unsigned-archive-validated",
+    "artifact": "Builds/Issue67-1.0.0-validation-v2.xcarchive",
+    "treeSha256": "9760a1642e289e13b998792b46c7033ff74c117abe3bbe2f45b9d4f40d034e9d",
+    "profile": "validation",
+    "developmentBuild": false,
+    "googleTestAds": true,
+    "simulatedOwnership": false,
+    "nativeSymbolsAndArm64Dsyms": "PASS",
+    "privacyResources": "PASS",
+    "bundledConfiguration": "PASS",
+    "distributionEligible": false
+  },
+  "disabledRollback": {
+    "result": "PASS",
+    "receipt": "docs/evidence/issue67/disabled-export-receipt.json",
+    "artifact": "Builds/Issue67-1.0.0-disabled-v2-export",
+    "googleManagedBindingAndNativeSdk": "ABSENT",
+    "adIdentifiersAndConfig": "ABSENT",
+    "runtimeProviderInitialization": "NONE (deterministic contracts and excluded iOS code)",
+    "entitlementAndCadenceStorage": "PRESERVED (deterministic contracts)",
+    "il2cppSourceFilesInspected": 307
+  },
+  "localTestApp": {
+    "receipt": "docs/evidence/issue67/local-test-signing.json",
+    "path": "Builds/Issue67-LocalValidation/Paws.app",
+    "signatureVerified": true,
+    "installed": false,
+    "launched": false,
+    "physicalAcceptance": "PENDING HUMAN"
+  },
+  "focusedCorrections": [
+    "Production supports verified Apple Sandbox for App Review/TestFlight; Xcode stays validation-only",
+    "Restricted-age free eligible Hints remain usable while Apple ownership is Unknown",
+    "Concrete Google provider inspection no longer confuses SDK-independent IGoogleAdsBridge interface; actual provider remains required/rejected by appropriate profile"
+  ]
+}

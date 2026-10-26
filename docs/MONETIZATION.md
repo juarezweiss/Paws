@@ -1,5 +1,20 @@
 # Monetization architecture
 
+2026-10-26 owner amendment: custom age selection is removed. Native Apple regional
+checks/optional Settings sharing replace it; unknown/minor/unconfirmed audiences
+receive no new ad requests and free eligible Hints. Already-required Privacy Options
+remain accessible for explicit modification without age sharing or ad startup. [Current age policy, sources,
+OS matrix and genuine capability/regional gates](AGE_ASSURANCE.md) supersede older
+local-age-choice text and October 24 UI/artifact evidence. Monetized release intent,
+verified IAP safety and the narrow #82 acceptance remain unchanged.
+
+2026-10-24 owner decision: Paws 1.0 preparation in #67 enables real Apple IAP,
+Offer Codes, AdMob and UMP through the existing ports. Disabled configuration is
+retained for rollback; it is not the launch plan. [Current release gates](RELEASE_RC_1_0.md)
+supersede historical default-disabled scope below. Only #82's pending-button-after-
+restart limitation is accepted; verified paid ownership, Restore and safe
+finalization remain mandatory. No live activation or account changes are authorized.
+
 Design task: [#29](https://github.com/juarezweiss/Paws/issues/29), owner
 requirements dated 2026-10-14. Decision:
 [ADR 0002](decisions/0002-provider-agnostic-monetization.md).

@@ -1,5 +1,60 @@
 # Testing Strategy
 
+2026-10-26 owner amendment: custom age selection is removed. Native Apple regional
+checks/optional Settings sharing replace it; unknown/minor/unconfirmed audiences
+receive no new ad requests and free eligible Hints. Already-required Privacy Options
+remain accessible for explicit modification without age sharing or ad startup. [Current age policy, sources,
+OS matrix and genuine capability/regional gates](AGE_ASSURANCE.md) supersede older
+local-age-choice text and October 24 UI/artifact evidence. Monetized release intent,
+verified IAP safety and the narrow #82 acceptance remain unchanged.
+
+## Native age amendment — 2026-10-26 (#67)
+
+Final runtime/build source `c0622a361bcc7c7ae2b04d0642f0ce189b094f68`:
+**727/727 EditMode**, **86/86 scripts**, pinned compilation and actual production-only
+managed compilation pass. Native age policy: 19 assertions; IAP policy: 11 assertions;
+minimum-iOS16.3 ARM64 typecheck and all 322 SDK byte pins pass. Source CI
+[passes](https://github.com/juarezweiss/Paws/actions/runs/40341491513). Independent
+QA re-review reports no remaining blocking consent/lifecycle findings after the
+corrected background/withdrawal guards. Nine menu renders pass desktop visual review.
+[Exact current evidence and native receipts](evidence/issue67/native-age/validation.json)
+and [OS/regulatory human addendum](AGE_ASSURANCE.md#human-validation-addendum).
+The prior rollback export correctly rejected retained AOT age callbacks; the
+explicit compile guard fixes it, verified by fresh source-bound export inspection.
+Physical OS/native age/Sandbox purchase acceptance is pending; no simulation or
+native archive is promoted to a physical, real Apple approval or production pass.
+
+## Historical #67 monetized Paws 1.0 gate — 2026-10-24
+
+Prepared source `86487b2d363d0e32de8f2a392e0f21ae99bcfbfa`:
+pinned compilation and production-only iOS managed compilation pass;
+**699/699** full EditMode tests, **77/77** Python contracts, **322** SDK byte
+pins, 11 native Swift policy assertions and iOS typechecks pass. Unity inputs are
+unchanged from tested implementation `55f5967`; the later commit corrects the
+interface/concrete provider inspector and records owner decisions. Source CI
+[passes](https://github.com/juarezweiss/Paws/actions/runs/40132605165).
+Fresh non-development real-IAP/test-ad native archive and disabled rollback export
+pass actual bundled configuration, exclusion, SDK/privacy, ARM64 and matching
+dSYM checks. Independent code/native-equivalent QA found no blocking issue;
+the primary agent inspected the fresh final receipts. Nine desktop age-selector
+captures pass visual review. [Exact receipts, hashes and scope](evidence/issue67/validation.json).
+No current physical test or priced-product Sandbox purchase is claimed.
+
+The owner's current release plan enables Apple IAP/Offer Codes and AdMob/UMP.
+Only #82's unresolved Ask to Buy button becoming available after restart is an
+accepted, non-blocking known issue. #82 stays open for post-release work.
+Verified paid ownership, persistence/Restore, no already-owned duplicate charge,
+safe finalization, no deferred/failed/cancelled false grant and reliable recovery
+remain mandatory. Actual failures block release; missing physical evidence is
+pending and cannot be promoted to a pass.
+
+[Exact gates and minimal human checklist](RELEASE_RC_1_0.md) supersede historical
+blanket #82-blocker and disabled-only scope statements in the dated snapshots below.
+Normal priced-product Apple Sandbox testing and Xcode StoreKit Test simulated
+Ask to Buy approval/decline have separate evidence. Existing simulated ownership,
+native inconclusive results, unit tests and technical launch do not establish
+normal paid Sandbox acceptance. No production action follows from passing tests.
+
 ## Issue #66 AdMob / UMP gate
 
 [Exact SDK inspection, development-only privacy policy and owner checklist](ADMOB.md).
@@ -74,7 +129,7 @@ and unsigned native iOS build pass; ARM64 app/framework dSYM UUIDs match.
 No physical/device/purchase test followed. Prior artifacts remain historical;
 #82 still blocks Paws 1.0 release and production monetization remains disabled.
 
-## Current IAP scope and Paws 1.0 release gate
+## Historical 2026-10-22 IAP scope and release gate (superseded)
 
 Owner-directed split (2026-10-22): [#64](https://github.com/juarezweiss/Paws/issues/64)
 is completed IAP foundation scope; [PR #79](https://github.com/juarezweiss/Paws/pull/79)

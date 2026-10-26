@@ -1,0 +1,23 @@
+{
+  "schema": "paws-native-age-corrected-findings-v1",
+  "issue": 67,
+  "findings": [
+    {
+      "finding": "Native focus and actual background were initially conflated; late age result across background could survive refresh.",
+      "change": "Separate actual application-pause invalidation from native focus, preserve live sheet guard, discard old band and recheck after closure.",
+      "verification": "Independent QA re-review: no remaining blocking lifecycle findings; deterministic tests cover both callback orders."
+    },
+    {
+      "finding": "Disabled export retained the reverse P/Invoke NativeAppleAgeRangeClient callback despite no runtime initialization.",
+      "evidence": "IL2CPP reverse P/Invoke wrapper and metadata retained NativeAppleAgeRangeClient; actual rollback inspector rejected export.",
+      "change": "Compile the whole native client only for UNITY_EDITOR or PAWS_MONETIZATION.",
+      "verification": "Final c0622a3 disabled export and native archive pass, including absent native age provider/framework/entitlement and Google provider."
+    },
+    {
+      "finding": "An already-required UMP Privacy Options entry disappeared after actual background invalidated adult ad eligibility.",
+      "change": "Retain explicit withdrawal-only access through the existing bridge, separate from new ad eligibility, with native closure/duplicate guards and no ad initialization/loading.",
+      "verification": "727/727 full EditMode pass, independent QA re-review reports no blocking findings, final exact-source enabled and disabled native archive inspections pass. Cold unresolved public privacy/contact path remains an owner runtime gate."
+    }
+  ],
+  "purchaseSafetyScope": "No #82 causal claim or purchase-safety waiver introduced."
+}

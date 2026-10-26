@@ -1,0 +1,9 @@
+{
+  "sourceSha": "86487b2d363d0e32de8f2a392e0f21ae99bcfbfa",
+  "scenario": "missing external production configuration",
+  "expectedExit": 2,
+  "actualExit": 2,
+  "outputCreated": false,
+  "unityInvoked": false,
+  "result": "PASS"
+}

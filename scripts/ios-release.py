@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Issue #63: inspect immutable Unity iOS exports/archives; never modify them."""
+"""#63/#67: inspect immutable iOS rollback, validation and monetized releases."""
 
 import argparse
 import hashlib
@@ -7,12 +7,24 @@ import json
 import os
 import plistlib
 import re
+import struct
 import subprocess
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
+from urllib.parse import urlsplit
 
 BUNDLE_ID = "com.jweiss.paws"
-EXCLUDED_TYPES = re.compile(rb"BoardReviewBootstrap|(?:BoardInput|GameLoop|Completion|HintIdle|ArrowHold|Tutorial|Monetization)ReviewChecks|ReviewAdService|ReviewPurchaseService|GenerationBenchmark")
+EXCLUDED_TYPES = re.compile(rb"BoardReviewBootstrap|(?:BoardInput|GameLoop|Completion|HintIdle|ArrowHold|Tutorial|Monetization)ReviewChecks|ReviewAdService|ReviewPurchaseService|AppleIapReviewBootstrap|AdMobReviewBootstrap|GenerationBenchmark|LocalAudiencePreference")
+PRODUCT_ID = "com.jweiss.paws.removeads"
+TEST_PUBLISHER = "ca-app-pub-3940256099942544"
+TEST_IDS = {"adMobAppId": TEST_PUBLISHER + "~1458002511",
+            "interstitialAdUnitId": TEST_PUBLISHER + "/4411468910",
+            "rewardedAdUnitId": TEST_PUBLISHER + "/1712485313"}
+PROVIDERS = ("appleIapEnabled", "offerCodesEnabled", "admobEnabled", "umpEnabled")
+AGE_ENTITLEMENT = "com.apple.developer.declared-age-range"
+AGE_SWIFT_CONDITION = "PAWS_APPLE_AGE_RANGE"
+AGE_SYMBOLS = ("_PawsAgeRangeCheck", "_PawsAgeRangeRequest")
 
 
 class InspectionError(ValueError):
@@ -200,11 +212,19 @@ def inventory(path):
             "privacyManifests": manifests, "entitlementFiles": entitlements}
 
 
-def inspect_il2cpp(export):
+def inspect_il2cpp(export, profile="disabled"):
     directory = export / "Il2CppOutputProject/Source/il2cppOutput"
     sources = sorted(item for item in directory.rglob("*") if item.suffix in (".cpp", ".h") and item.is_file())
     if not sources:
         raise InspectionError("Missing generated IL2CPP sources; cannot verify diagnostic exclusion.")
+    found = set()
+    required = (b"ApplePurchaseService", b"GoogleAdsBridge", b"AdMobAdService",
+                b"NativeAppleAgeRangeClient", b"AppleAgeRangeService")
+    # IL2CPP appends `_t...`/method suffixes to concrete names. An identifier
+    # prefix (notably the provider-independent IGoogleAdsBridge interface) is
+    # not evidence that the Google binding itself was compiled into the player.
+    provider_types = {name: re.compile(rb"(?<![A-Za-z0-9_])" + name + rb"(?:_|(?=[^A-Za-z0-9_]|$))")
+                      for name in required}
     for source in sources:
         if EXCLUDED_TYPES.search(source.name.encode()):
             raise InspectionError("Review, benchmark or mock type found in production IL2CPP output.")
@@ -214,8 +234,311 @@ def inspect_il2cpp(export):
                 data = tail + block
                 if EXCLUDED_TYPES.search(data):
                     raise InspectionError("Review, benchmark or mock type found in production IL2CPP output.")
+                if profile == "production" and TEST_PUBLISHER.encode() in data:
+                    raise InspectionError("Google test identifier found in production IL2CPP output.")
+                # An overlap may begin inside a longer identifier. Its first
+                # character has already been scanned, so prevent a false token
+                # boundary there while still checking all split provider names.
+                type_data = b"_" + data if tail else data
+                for provider, pattern in provider_types.items():
+                    if pattern.search(type_data):
+                        found.add(provider)
                 tail = data[-256:]
+    if profile != "disabled" and found != set(required):
+        raise InspectionError("Enabled export is missing a real purchase/advertising/age-assurance provider.")
+    if profile == "disabled" and b"GoogleAdsBridge" in found:
+        raise InspectionError("Disabled rollback includes the Google provider binding.")
+    if profile == "disabled" and b"NativeAppleAgeRangeClient" in found:
+        raise InspectionError("Disabled rollback includes the native Apple age provider binding.")
     return {"sourceFilesInspected": len(sources), "excludedTypesAbsent": True}
+
+
+def inspect_monetization(metadata, export, info):
+    # Missing profile is accepted only for immutable historical #63 disabled exports.
+    profile = metadata.get("profile", "disabled")
+    if profile not in ("disabled", "validation", "production"):
+        raise InspectionError("Unknown monetization profile.")
+    enabled = profile != "disabled"
+    expect(metadata.get("monetizationEnabled"), enabled, "profile monetization state")
+    if not enabled:
+        if info.get("GADApplicationIdentifier") or (export / "paws-monetization.json").exists():
+            raise InspectionError("Disabled rollback contains advertising configuration.")
+        return {"profile": profile, "distributionEligible": False,
+                "purpose": "disabled-rollback", "providersEnabled": False}
+    for flag in PROVIDERS:
+        expect(metadata.get(flag), True, flag)
+    expect(metadata.get("appleProductId"), PRODUCT_ID, "non-consumable product identity")
+    expect(metadata.get("simulatedPurchases"), False, "simulated ownership exclusion")
+    expect(metadata.get("testAds"), profile == "validation", "Google test-ad isolation")
+    count = metadata.get("testDeviceCount")
+    geography = metadata.get("consentDebugGeography")
+    if type(count) is not int or count < 0 or geography not in ("Disabled", "EEA", "RegulatedUSState", "Other"):
+        raise InspectionError("Invalid UMP validation configuration.")
+    if profile == "production":
+        expect(count, 0, "production test-device configuration")
+        expect(geography, "Disabled", "production UMP debug geography")
+    runtime = read_json(export / "paws-monetization.json")
+    expect(runtime.get("profile"), profile, "runtime profile")
+    expect(metadata.get("audiencePolicy"), "apple-age-assurance-v1", "approved audience policy")
+    expect(runtime.get("audiencePolicy"), metadata["audiencePolicy"], "runtime audience policy")
+    for key in ("privacyPolicyUrl", "supportUrl"):
+        value = metadata.get(key, "")
+        if value or profile == "production":
+            if not isinstance(value, str):
+                raise InspectionError("Invalid public HTTPS support/privacy URL.")
+            url = urlsplit(value)
+            if url.scheme != "https" or not url.hostname or url.username is not None or url.password is not None:
+                raise InspectionError("Production requires public HTTPS support/privacy URLs without credentials.")
+        expect(runtime.get(key, ""), value, "runtime public support/privacy URL")
+    for key in TEST_IDS:
+        value = metadata.get(key, "")
+        pattern = r"ca-app-pub-\d{16}" + (r"~\d{10}" if key == "adMobAppId" else r"/\d{10}")
+        if not isinstance(value, str) or not re.fullmatch(pattern, value):
+            raise InspectionError("Missing or invalid advertising identifier.")
+        if profile == "production" and value.startswith(TEST_PUBLISHER):
+            raise InspectionError("Google test identifiers are prohibited in production.")
+        if profile == "validation" and key != "adMobAppId":
+            expect(value, TEST_IDS[key], "official Google validation identifier")
+        expect(runtime.get(key), value, "runtime advertising identifier")
+    if metadata["interstitialAdUnitId"] == metadata["rewardedAdUnitId"]:
+        raise InspectionError("Advertising placements must have distinct units.")
+    if profile == "production":
+        publisher = metadata["adMobAppId"].split("~")[0]
+        if any(not metadata[key].startswith(publisher + "/") for key in ("interstitialAdUnitId", "rewardedAdUnitId")):
+            raise InspectionError("Production ad units must match the configured app publisher.")
+    # This readable copy is deliberately sanitized; only the serialized TextAsset
+    # below can establish the actual device-debug configuration shipped in Data.
+    if runtime.get("umpTestDeviceIds", []) != []:
+        raise InspectionError("Export configuration copy must redact test-device identifiers.")
+    expect(runtime.get("consentDebugGeography", "Disabled"), geography, "sanitized UMP geography")
+    expect(info.get("GADApplicationIdentifier"), metadata["adMobAppId"], "native Google app identifier")
+    expect(info.get("GADDisableAdInspector"), True, "disabled Ad Inspector")
+    if "NSUserTrackingUsageDescription" in info:
+        raise InspectionError("Unexpected ATT prompt configuration for approved nontracking profile.")
+    resource = inspect_runtime_resource(export, metadata)
+    return {"profile": profile, "providersEnabled": True,
+            "runtimeConfigurationSha256": resource["sha256"], "exportRuntimeResource": resource,
+            "configurationEligibleForDistribution": profile == "production",
+            "distributionEligible": False,
+            "ageCapabilityReadiness": "pending-signature-profile-and-human-validation",
+            "purchaseEnvironmentEvidence": "pending-human-apple-sandbox",
+            "storeKitTestEvidence": "separate-simulation-only",
+            "liveTrafficAuthorization": "not-granted"}
+
+
+def inspect_age_export(export, metadata, project, enabled):
+    """Require app capability plus a genuinely weak framework-target link."""
+    objects = project.get("objects", {})
+    def target(name):
+        matches = [item for item in objects.values() if item.get("isa") == "PBXNativeTarget" and item.get("name") == name]
+        if len(matches) != 1:
+            raise InspectionError("Missing or ambiguous age-assurance target.")
+        return matches[0]
+    app = target("Unity-iPhone")
+    framework = target("UnityFramework")
+    def release_settings(item):
+        configs = objects.get(item.get("buildConfigurationList"), {}).get("buildConfigurations", [])
+        result = [objects.get(key, {}).get("buildSettings", {}) for key in configs if objects.get(key, {}).get("name") == "Release"]
+        if len(result) != 1:
+            raise InspectionError("Missing or ambiguous age-assurance Release settings.")
+        return result[0]
+    app_settings, framework_settings = release_settings(app), release_settings(framework)
+    references = {key for key, item in objects.items() if item.get("isa") == "PBXFileReference" and
+                  str(item.get("path", "")).endswith("DeclaredAgeRange.framework")}
+    swift = re.search(r"\b" + AGE_SWIFT_CONDITION + r"\b", json.dumps(framework_settings.get("SWIFT_ACTIVE_COMPILATION_CONDITIONS", ""))) is not None
+    files = list(export.rglob("*.entitlements"))
+    age_files = [file for file in files if AGE_ENTITLEMENT in read_plist(file)]
+    if not enabled:
+        if references or swift or age_files or metadata.get("ageAssuranceEnabled", False) or metadata.get("ageAssuranceEntitlement", ""):
+            raise InspectionError("Disabled rollback contains native age capability, framework or compile condition.")
+        return {"enabled": False, "nativeAgeCapabilityAbsent": True}
+    expect(metadata.get("ageAssuranceEnabled"), True, "native Apple age assurance enabled")
+    expect(metadata.get("ageAssuranceEntitlement"), AGE_ENTITLEMENT, "Apple age assurance entitlement identity")
+    if not swift:
+        raise InspectionError("Enabled export omits the native age Swift compilation condition.")
+    path = app_settings.get("CODE_SIGN_ENTITLEMENTS", "")
+    if path != "PawsAgeRange.entitlements":
+        raise InspectionError("Enabled app must bind the generated age entitlement file.")
+    entitlement_file = export / path
+    if len(age_files) != 1 or age_files[0] != entitlement_file or read_plist(entitlement_file).get(AGE_ENTITLEMENT) is not True:
+        raise InspectionError("Application Declared Age Range entitlement must be Boolean true.")
+    if framework_settings.get("CODE_SIGN_ENTITLEMENTS") not in (None, "", "$(inherited)"):
+        raise InspectionError("Declared Age Range capability must belong to the app, not UnityFramework.")
+    links = []
+    for phase_key in framework.get("buildPhases", []):
+        phase = objects.get(phase_key, {})
+        if phase.get("isa") != "PBXFrameworksBuildPhase":
+            continue
+        for key in phase.get("files", []):
+            link = objects.get(key, {})
+            if link.get("fileRef") in references:
+                links.append(link)
+    attributes = links[0].get("settings", {}).get("ATTRIBUTES", []) if len(links) == 1 else []
+    if len(links) != 1 or not isinstance(attributes, list) or "Weak" not in attributes:
+        raise InspectionError("DeclaredAgeRange.framework must be weak-linked into UnityFramework.")
+    return {"enabled": True, "entitlement": AGE_ENTITLEMENT, "appEntitlementFile": path,
+            "weakLinkedFramework": "DeclaredAgeRange.framework", "nativeCompileCondition": AGE_SWIFT_CONDITION,
+            "signingProfileCompatibility": "pending-signed-archive"}
+
+
+def inspect_age_profile(profile, signed_entitlements=None):
+    if not profile.is_file():
+        raise InspectionError("Age assurance requires the embedded provisioning profile for compatibility inspection.")
+    try:
+        values = plistlib.loads(command(["security", "cms", "-D", "-i", str(profile)]).encode())
+    except (ValueError, plistlib.InvalidFileException) as error:
+        raise InspectionError("Cannot decode the age-assurance provisioning profile.") from error
+    if not isinstance(values, dict) or not isinstance(values.get("Entitlements"), dict):
+        raise InspectionError("Invalid provisioning-profile entitlement structure.")
+    entitlements = values["Entitlements"]
+    if entitlements.get(AGE_ENTITLEMENT) is not True:
+        raise InspectionError("Provisioning profile does not allow Declared Age Range; owner capability/profile action is required before distribution.")
+    application = entitlements.get("application-identifier", "")
+    if not isinstance(application, str) or "*" in application or not application.endswith("." + BUNDLE_ID):
+        raise InspectionError("Age-assurance provisioning profile must match the explicit Paws App ID.")
+    expiry = values.get("ExpirationDate")
+    if not isinstance(expiry, datetime) or expiry.replace(tzinfo=timezone.utc) <= datetime.now(timezone.utc):
+        raise InspectionError("Age-assurance provisioning profile is expired or missing its expiry.")
+    if signed_entitlements is not None:
+        if signed_entitlements.get(AGE_ENTITLEMENT) is not True:
+            raise InspectionError("Signed app is missing the mandatory Declared Age Range entitlement.")
+        expect(signed_entitlements.get("application-identifier"), application, "signed age-assurance application/profile identity")
+    return {"allowsDeclaredAgeRange": True, "explicitPawsApplicationIdentifier": True,
+            "notExpired": True, "signedApplicationMatched": signed_entitlements is not None}
+
+
+def inspect_age_archive(archive, archive_receipt, enabled):
+    app = next((archive / "Products/Applications").glob("*.app"))
+    framework = app / "Frameworks/UnityFramework.framework/UnityFramework"
+    symbols = set(command(["nm", "-gjU", str(framework)]).splitlines()) if framework.is_file() else set()
+    load_commands = command(["otool", "-l", str(framework)]) if framework.is_file() else ""
+    age_loads = [item for item in re.split(r"Load command \d+\s*\n", load_commands)
+                 if re.search(r"name\s+\S*/DeclaredAgeRange\.framework/DeclaredAgeRange(?:\s|$)", item)]
+    if not enabled:
+        if any(symbol in symbols for symbol in AGE_SYMBOLS) or age_loads or AGE_ENTITLEMENT in archive_receipt["entitlements"]:
+            raise InspectionError("Disabled archive contains the native age provider, framework or entitlement.")
+        return {"enabled": False, "nativeAgeProviderAbsent": True}
+    if not all(symbol in symbols for symbol in AGE_SYMBOLS):
+        raise InspectionError("Enabled archive is missing native Apple age-assurance entry points.")
+    if len(age_loads) != 1 or not re.search(r"cmd\s+LC_LOAD_WEAK_DYLIB(?:\s|$)", age_loads[0]):
+        raise InspectionError("Archived DeclaredAgeRange framework must use LC_LOAD_WEAK_DYLIB.")
+    result = {"enabled": True, "nativeEntryPointsPresent": True, "weakFrameworkLoadVerified": True,
+              "signedCapability": "pending-signature-profile-and-human-validation"}
+    if archive_receipt["signatureVerified"]:
+        result["profileCompatibility"] = inspect_age_profile(app / "embedded.mobileprovision", archive_receipt["entitlements"])
+        result["signedCapability"] = "app-and-profile-compatible-human-validation-pending"
+    return result
+
+
+def inspect_runtime_resource(path, metadata):
+    """Inspect Unity's serialized TextAsset payload, not an unbundled JSON copy.
+
+    TextAsset serializes length-prefixed m_Name then aligned length-prefixed
+    m_Script. Require a unique, valid named payload and its build-recorded hash;
+    do not claim a complete Unity serialized-file/dependency graph validation.
+    Never include private UMP device identifiers in the receipt or diagnostics.
+    """
+    files = list(path.rglob("Data/resources.assets"))
+    name = b"PawsMonetization.generated"
+    candidates = []
+    for file in files:
+        data = file.read_bytes()
+        offset = data.find(name)
+        while offset != -1:
+            if offset >= 4 and data[offset - 4:offset] == struct.pack("<I", len(name)):
+                cursor = (offset + len(name) + 3) & ~3
+                if cursor + 4 <= len(data):
+                    length = struct.unpack_from("<I", data, cursor)[0]
+                    if 0 < length <= 1024 * 1024 and cursor + 4 + length <= len(data):
+                        payload = data[cursor + 4:cursor + 4 + length]
+                        try:
+                            config = json.loads(payload.decode("utf-8"))
+                            if isinstance(config, dict):
+                                candidates.append((file, payload, config))
+                        except (UnicodeDecodeError, ValueError):
+                            pass
+            offset = data.find(name, offset + len(name))
+    if len(candidates) != 1:
+        raise InspectionError("Bundled monetization TextAsset is missing, malformed or ambiguous.")
+    file, payload, config = candidates[0]
+    digest = hashlib.sha256(payload).hexdigest()
+    expect(digest, metadata.get("runtimeConfigurationSha256"), "bundled runtime configuration hash")
+    for key in ("profile", *TEST_IDS, "privacyPolicyUrl", "supportUrl", "audiencePolicy"):
+        expect(config.get(key), metadata.get(key), "bundled runtime configuration")
+    geography = config.get("consentDebugGeography", "Disabled")
+    devices = config.get("umpTestDeviceIds", [])
+    if not isinstance(devices, list) or any(not isinstance(item, str) or not re.fullmatch(r"[0-9A-Fa-f]{32,64}", item) for item in devices):
+        raise InspectionError("Invalid bundled UMP test-device configuration.")
+    expect(len(devices), metadata.get("testDeviceCount"), "bundled UMP test-device count")
+    expect(geography, metadata.get("consentDebugGeography"), "bundled UMP geography")
+    if metadata.get("profile") == "production" and (devices or geography != "Disabled"):
+        raise InspectionError("Production runtime contains UMP debug configuration.")
+    return {"path": file.relative_to(path).as_posix(), "sha256": digest,
+            "payloadBytes": len(payload), "namedTextAssetPayloadVerified": True,
+            "testDeviceCount": len(devices), "consentDebugGeography": geography}
+
+
+def inspect_sdk_pins(root, source_sha):
+    relative = "docs/evidence/issue66/sdk-inventory.json"
+    path = root / relative
+    pinned = command(["git", "-C", str(root), "show", source_sha + ":" + relative])
+    current = path.read_text(encoding="utf-8")
+    expect(current.rstrip("\n"), pinned.rstrip("\n"), "SDK inventory versus source commit")
+    files = read_json(path).get("files", [])
+    if not files:
+        raise InspectionError("SDK content pin inventory is empty.")
+    seen = set()
+    for item in files:
+        source = root / item["path"]
+        if not source.resolve().is_relative_to(root.resolve()) or item["path"] in seen:
+            raise InspectionError("SDK inventory contains an unsafe or duplicate path.")
+        seen.add(item["path"])
+        expect(file_sha256(source), item["sha256"], "inspected SDK content pin")
+    return {"sourceSha": source_sha, "inventoryPath": relative,
+            "inventorySha256": file_sha256(path), "filesVerified": len(files)}
+
+
+def inspect_provider_resources(path, config):
+    if not config["providersEnabled"]:
+        if any("PawsAdMob" in str(item) or "GoogleMobileAds" in item.name or
+               "UserMessagingPlatform" in item.name for item in path.rglob("*")):
+            raise InspectionError("Disabled rollback contains Google native SDK resources.")
+        return
+    for name in ("GoogleMobileAds", "UserMessagingPlatform"):
+        manifests = list(path.rglob(name + "Resources.bundle/PrivacyInfo.xcprivacy"))
+        if len(manifests) != 1:
+            raise InspectionError("Required Google SDK privacy resource is missing or ambiguous.")
+        read_plist(manifests[0])
+
+
+def inspect_native_integrity(archive):
+    apps = list((archive / "Products/Applications").glob("*.app"))
+    app = apps[0]
+    executable = app / read_plist(app / "Info.plist")["CFBundleExecutable"]
+    framework = app / "Frameworks/UnityFramework.framework/UnityFramework"
+    records = []
+    for binary, symbols in ((executable, archive / "dSYMs" / (app.name + ".dSYM")),
+                            (framework, archive / "dSYMs/UnityFramework.framework.dSYM")):
+        if not binary.is_file() or not symbols.is_dir():
+            raise InspectionError("Release binary or matching dSYM is missing.")
+        expect(command(["lipo", "-archs", str(binary)]).strip(), "arm64", "release binary architecture")
+        def uuids(target):
+            output = command(["dwarfdump", "--uuid", str(target)])
+            values = re.findall(r"UUID: ([0-9A-Fa-f-]{36}) \(([^)]+)\)", output)
+            if not values:
+                raise InspectionError("Missing Mach-O UUID evidence.")
+            return sorted((uuid.upper(), arch) for uuid, arch in values)
+        binary_ids = uuids(binary)
+        expect(uuids(symbols), binary_ids, "binary/dSYM UUID match")
+        records.append({"binary": binary.relative_to(archive).as_posix(),
+                        "dSYM": symbols.relative_to(archive).as_posix(), "uuids": binary_ids})
+    native_symbols = command(["nm", "-gjU", str(framework)])
+    required = ("_PawsIapRead", "_PawsIapVerifyCache", "_PawsIapPresentOfferCodeSheet",
+                "_GADUInitializeWithCallback", "_GADURequestConsentInfoUpdate", "_GADUUMPCanRequestAds")
+    lines = set(native_symbols.splitlines())
+    if not all(symbol in lines for symbol in required):
+        raise InspectionError("Real Apple IAP/Offer Code/AdMob/UMP native entry point is missing.")
+    return {"binaries": records, "requiredProviderSymbolsPresent": True}
 
 
 def inspect_archive(archive, config):
@@ -273,8 +596,8 @@ def build_receipt(root, export, archive=None):
         raise InspectionError("UnityProject/scripts build inputs differ from HEAD; commit or restore them before receipt inspection.")
     config = unity_config(root)
     expect(config["bundleIdentifier"], BUNDLE_ID, "approved production identity")
-    if not re.fullmatch(r"0\.\d+\.\d+", config["version"]):
-        raise InspectionError("Production preparation requires an approved 0.x.y app version.")
+    if not re.fullmatch(r"(?:0\.\d+\.\d+|1\.0\.0)", config["version"]):
+        raise InspectionError("Production preparation requires an approved 0.x.y or 1.0.0 app version.")
     if not re.fullmatch(r"[1-9]\d*", config["buildNumber"]):
         raise InspectionError("iOS build number must be a positive integer.")
     metadata = read_json(export / "paws-export.json")
@@ -284,7 +607,6 @@ def build_receipt(root, export, archive=None):
     expect(metadata.get("sourceSha"), sha, "export source SHA versus current checkout")
     for key in ("bundleIdentifier", "version", "buildNumber", "minimumIOS", "deviceFamily", "unityVersion"):
         expect(metadata.get(key), config[key], f"export {key}")
-    expect(metadata.get("monetizationEnabled"), False, "disabled monetization")
     expect(metadata.get("productionDefine"), "PAWS_PRODUCTION", "production compilation define")
     for flag in ("developmentBuild", "scriptDebugging", "profilerEnabled"):
         expect(metadata.get(flag, False), False, flag)
@@ -292,10 +614,13 @@ def build_receipt(root, export, archive=None):
     expect(settings.get("PRODUCT_BUNDLE_IDENTIFIER"), BUNDLE_ID, "Unity-generated Xcode bundle identifier")
     info = read_plist(export / "Info.plist")
     inspect_identity(info, config, settings)
-    exclusion = inspect_il2cpp(export)
+    monetization = inspect_monetization(metadata, export, info)
+    age_assurance = inspect_age_export(export, metadata, project, monetization["providersEnabled"])
+    inspect_provider_resources(export, monetization)
+    exclusion = inspect_il2cpp(export, monetization["profile"])
     packages = read_json(root / "UnityProject/Packages/packages-lock.json").get("dependencies", {})
     receipt = {"schema": "paws-ios-release-receipt-v1", "sourceSha": sha, "configuration": config,
-               "enabledConfiguration": metadata, "stage": "export-validated",
+               "enabledConfiguration": metadata, "monetization": monetization, "ageAssurance": age_assurance, "stage": "export-validated",
                "unityVersion": config["unityVersion"], "xcodeVersion": command(["xcodebuild", "-version"]).strip(),
                "exportInfoPlist": info, "exportInventory": inventory(export),
                "exportLinkedSDKReferences": sorted({str(item.get("path", ""))
@@ -306,8 +631,18 @@ def build_receipt(root, export, archive=None):
                                              for item in project.get("objects", {}).values() if item.get("isa") == "PBXProject"],
                "unityPackages": packages, "diagnosticExclusion": exclusion,
                "physicalIPhoneReview": "pending-human", "distributionApproval": "pending-owner"}
+    if monetization["providersEnabled"]:
+        receipt["sdkContentPins"] = inspect_sdk_pins(root, sha)
     if archive:
         receipt["archive"] = inspect_archive(archive, config)
+        inspect_provider_resources(archive, monetization)
+        receipt["archive"]["ageAssurance"] = inspect_age_archive(archive, receipt["archive"], monetization["providersEnabled"])
+        if monetization["providersEnabled"]:
+            archived_info = receipt["archive"]["infoPlist"]
+            for key in ("GADApplicationIdentifier", "GADDisableAdInspector", "NSUserTrackingUsageDescription"):
+                expect(archived_info.get(key), info.get(key), "archived native advertising/privacy configuration")
+            receipt["archive"]["nativeIntegrity"] = inspect_native_integrity(archive)
+            receipt["archive"]["runtimeResource"] = inspect_runtime_resource(archive, metadata)
         receipt["stage"] = receipt["archive"]["stage"]
     return receipt
 
@@ -317,6 +652,8 @@ def main():
     parser.add_argument("--export", required=True, type=Path)
     parser.add_argument("--archive", type=Path)
     parser.add_argument("--output", required=True, type=Path)
+    parser.add_argument("--provisioning-profile", type=Path,
+                        help="Optional owner-local read-only capability/profile preflight; never creates or updates profiles.")
     args = parser.parse_args()
     try:
         export = args.export.resolve(strict=True)
@@ -327,6 +664,10 @@ def main():
         if output.is_relative_to(export) or (archive and output.is_relative_to(archive)):
             raise InspectionError("Write the receipt outside the inspected export/archive.")
         receipt = build_receipt(Path(__file__).resolve().parents[1], export, archive)
+        if args.provisioning_profile:
+            if not receipt["ageAssurance"]["enabled"]:
+                raise InspectionError("Capability/profile preflight applies only to enabled age-assurance exports.")
+            receipt["ageAssurance"]["ownerLocalProfilePreflight"] = inspect_age_profile(args.provisioning_profile.resolve(strict=True))
         with output.open("x", encoding="utf-8") as stream:
             json.dump(receipt, stream, indent=2, sort_keys=True)
             stream.write("\n")

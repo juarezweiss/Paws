@@ -1,0 +1,21 @@
+{
+  "name": "CatsAndArrows.GoogleAgeTests",
+  "references": [
+    "CatsAndArrows.Advertising.Google",
+    "CatsAndArrows.Monetization"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "autoReferenced": false,
+  "overrideReferences": true,
+  "precompiledReferences": [
+    "GoogleMobileAds.Core.dll"
+  ],
+  "defineConstraints": [
+    "UNITY_INCLUDE_TESTS"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
+}

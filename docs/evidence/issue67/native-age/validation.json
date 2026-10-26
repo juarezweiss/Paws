@@ -1,0 +1,118 @@
+{
+  "schema": "paws-native-age-validation-v1",
+  "date": "2026-10-26",
+  "issue": 67,
+  "pr": 87,
+  "sourceSha": "c0622a361bcc7c7ae2b04d0642f0ce189b094f68",
+  "developBaseSha": "3a44192697b8f1c416cc49afabeb839c5a0c3dc7",
+  "scope": "Native age replacement and consent-access amendment; earlier October24 artifacts remain historical.",
+  "automated": {
+    "editMode": {
+      "total": 727,
+      "passed": 727,
+      "failed": 0,
+      "skipped": 0,
+      "inconclusive": 0,
+      "report": ".unity-results/editmode.sLPxFm/test-results.xml"
+    },
+    "python": {
+      "total": 86,
+      "passed": 86
+    },
+    "pinnedUnityCompile": {
+      "passed": true,
+      "log": ".unity-results/compile.UsL3Gk/Editor.log"
+    },
+    "productionOnlyManagedCompilation": {
+      "passed": true,
+      "log": ".unity-results/issue67-native-age/final-production-managed.log"
+    },
+    "nativeAgePolicyAssertions": 19,
+    "nativeIapPolicyAssertions": 11,
+    "nativeArm64Minimum16_3Typecheck": true,
+    "admobSdkPinnedFiles": 322,
+    "ci": {
+      "result": "success",
+      "url": "https://github.com/juarezweiss/Paws/actions/runs/40341491513"
+    }
+  },
+  "qa": {
+    "reviewer": "qa_reviewer",
+    "result": "No blocking findings in bounded consent/lifecycle re-review",
+    "corrected": [
+      "focus versus actual background invalidation",
+      "stale adult result during real background",
+      "known required Privacy Options disappearing after age invalidation",
+      "pause observer before native withdrawal invocation"
+    ],
+    "rollbackExclusion": "actual final export/archive inspection recorded separately"
+  },
+  "desktopUi": {
+    "captures": 9,
+    "locales": [
+      "en",
+      "pt-BR",
+      "es"
+    ],
+    "sizes": [
+      "320x568",
+      "390x844",
+      "430x932"
+    ],
+    "reviewed": true,
+    "type": "Development desktop BoardReview with mock purchase infrastructure; no native Apple age, Google or physical evidence. UI inputs unchanged from 002a474 through finalsource.",
+    "result": "Menu and Play visible, no custom age modal, nonmodal A12/ad/IAP disclosure fits without clipping."
+  },
+  "nativeArtifacts": {
+    "enabledExport": {
+      "path": "Builds/Issue67-native-age-final-validation-export",
+      "receipt": "enabled-export-receipt.json",
+      "result": "pass; real Apple providers and official Google test ads, no simulated ownership"
+    },
+    "disabledExport": {
+      "path": "Builds/Issue67-native-age-final-disabled-export",
+      "receipt": "disabled-export-receipt.json",
+      "result": "pass; Google and native age client/capability excluded"
+    },
+    "disabledArchive": {
+      "path": "Builds/Issue67-native-age-final-disabled.xcarchive",
+      "receipt": "disabled-ios-release-receipt.json",
+      "result": "pass",
+      "treeSha256": "b14991afa7e1bf2fc5eb69675b6cd30c0cf7a378fd2b29103bfe96c851973568",
+      "ageAssurance": {
+        "enabled": false,
+        "nativeAgeProviderAbsent": true
+      }
+    },
+    "enabledArchive": {
+      "path": "Builds/Issue67-native-age-final-validation.xcarchive",
+      "receipt": "enabled-ios-release-receipt.json",
+      "result": "pass; unsigned real-IAP and Google-test-ad native archive, not distribution or physical acceptance",
+      "treeSha256": "d322975dfb61a3247c869a86c229caaaa0f54d89aafa4c598cf08977396157d0",
+      "ageAssurance": {
+        "enabled": true,
+        "nativeEntryPointsPresent": true,
+        "signedCapability": "pending-signature-profile-and-human-validation",
+        "weakFrameworkLoadVerified": true
+      },
+      "runtimeResource": {
+        "consentDebugGeography": "Disabled",
+        "namedTextAssetPayloadVerified": true,
+        "path": "Products/Applications/Paws.app/Data/resources.assets",
+        "payloadBytes": 394,
+        "sha256": "16d901640362884b7faab3376f4f15f8dff30df65e1e958a72d94388d964bbaa",
+        "testDeviceCount": 0
+      }
+    },
+    "result": "Both exact-source non-development enabled-validation and disabled rollback native archives pass. Signed capability and final genuine production-profile archive remain pending."
+  },
+  "physicalIPhoneReview": "pending-owner; not automated",
+  "actualAppleAgeAssuranceSandbox": "pending-owner",
+  "normalPricedProductAppleSandbox": "pending-owner",
+  "xcodeAskToBuyApprovalDecline": "pending-owner; simulation only",
+  "productionResources": "not supplied; production preflight correctly blocks before editor",
+  "signedAgeCapability": "existing local profile lacks capability; no compatible profile found in standard local profile audit",
+  "coldUnresolvedPrivacy": "No fabricated UMP requirement or SDK startup; public privacy/contact and owner runtime acceptance remain required.",
+  "productionActivationOrSubmission": "not authorized; none performed",
+  "recommendation": "GO for code review; NO-GO for distribution until genuine configuration/capability/legal-public-disclosure and exact-candidate human gates pass."
+}
