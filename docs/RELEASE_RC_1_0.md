@@ -12,7 +12,7 @@ See [AGE_ASSURANCE.md](AGE_ASSURANCE.md) for primary-source research, actual nat
 policy, OS/regulatory scenario matrix, data minimization and the human addendum.
 Normal entry is menu → Play. Required native age requests remain possible in
 regulated scenarios; optional sharing is an explicit supported Settings action.
-Unknown/minor/unconfirmed players contact no Google provider and retain free
+Unknown/minor/unconfirmed players start no advertising provider and retain free
 eligible Hints/IAP/Restore. Confirmed adults still require UMP before NPA test ads.
 
 The existing signed local profile **does not allow Declared Age Range**; a compatible
@@ -138,7 +138,9 @@ the owner's app to manufacture a clean baseline.
 5. **Apple age / Google test ads / UMP:** use the [native-age addendum](AGE_ASSURANCE.md#human-validation-addendum).
    No custom selector. Unknown, child, teen, unconfirmed adult, declined sharing,
    unsupported OS or API/capability failure: no Google and free eligible Hints,
-   with IAP/Restore usable. Apple-confirmed adult: required consent before Google;
+   with IAP/Restore usable. Previously required Privacy Options must remain accessible
+   after age invalidation without resharing age or restarting ads; also verify the
+   cold unresolved-state public privacy/contact path. Apple-confirmed adult: required consent before Google;
    Privacy Options works, no request before `CanRequestAds`. Actual backgrounding
    invalidates age; late age responses cannot enable ads. Native focus alone must
    not discard a completed result. Retain actual native guards until closure.

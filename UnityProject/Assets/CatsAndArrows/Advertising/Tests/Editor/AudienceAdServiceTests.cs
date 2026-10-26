@@ -91,7 +91,7 @@ namespace CatsAndArrows.Tests
             using var service = new AudienceAdService(preference, () => bridge, () => false, action => action());
             service.Start(); bridge.Update(true); preference.Select(AudienceBand.Teen);
             Assert.That(service.IsPrivacyFormPresenting, Is.True);
-            Assert.That(service.PrivacyOptionsRequired, Is.False);
+            Assert.That(service.PrivacyOptionsRequired, Is.True);
             bridge.Form(true); service.Tick();
             Assert.That(service.IsPrivacyFormPresenting, Is.False);
             Assert.That(bridge.Initializations + bridge.Loads, Is.Zero);
@@ -122,6 +122,57 @@ namespace CatsAndArrows.Tests
             preference.Select(AudienceBand.Under13); preference.Select(AudienceBand.Adult);
             Assert.That(count, Is.EqualTo(1)); closeOld(true);
             Assert.That(count, Is.EqualTo(2)); Assert.That(bridge.Initializations, Is.Zero);
+        }
+        [Test]
+        public void RequiredWithdrawalSurvivesUnknownAgeWithoutAnyNewAdWork()
+        {
+            var preference = new Preference(); preference.Select(AudienceBand.Adult);
+            var bridge = new Bridge(); var constructions = 0;
+            using var service = new AudienceAdService(preference, () => { constructions++; return bridge; }, () => false, action => action());
+            service.Start(); bridge.Update(true); bridge.Form(true); bridge.Initialized(true);
+            preference.Select(AudienceBand.Unknown);
+            Assert.That(service.PrivacyOptionsRequired, Is.True);
+            Assert.That(service.GetAvailability(AdPlacement.Hint), Is.EqualTo(AdAvailability.Unavailable));
+            var completions = 0;
+            service.ShowPrivacyOptions(success => { Assert.That(success, Is.True); completions++; });
+            Assert.That(service.IsPrivacyFormPresenting, Is.True);
+            var close = bridge.Form;
+            service.Tick(); service.SetPaused(true); service.SetPaused(false);
+            Assert.That(service.IsPrivacyFormPresenting, Is.True);
+            Assert.That(bridge.Updates, Is.EqualTo(1));
+            Assert.That(bridge.Initializations, Is.EqualTo(1)); Assert.That(bridge.Loads, Is.EqualTo(2));
+            // Even a new adult result must wait for the withdrawal surface to close.
+            preference.Select(AudienceBand.Adult); service.Tick(); Assert.That(constructions, Is.EqualTo(1));
+            close(true); close(true);
+            Assert.That(completions, Is.EqualTo(1)); Assert.That(service.IsPrivacyFormPresenting, Is.False);
+            Assert.That(constructions, Is.EqualTo(2)); Assert.That(bridge.Updates, Is.EqualTo(2));
+            Assert.That(bridge.Initializations, Is.EqualTo(1)); Assert.That(bridge.Loads, Is.EqualTo(2));
+        }
+        [Test]
+        public void PauseFromWithdrawalGuardObserverPreventsNativeInvocation()
+        {
+            var preference = new Preference(); preference.Select(AudienceBand.Adult); var bridge = new Bridge();
+            using var service = new AudienceAdService(preference, () => bridge, () => false, action => action());
+            service.Start(); bridge.Update(true); bridge.Form(true); bridge.Initialized(true);
+            preference.Select(AudienceBand.Unknown);
+            service.Changed += () => { if (service.IsPrivacyFormPresenting) service.SetPaused(true); };
+            var completed = false;
+            service.ShowPrivacyOptions(success => { Assert.That(success, Is.False); completed = true; });
+            Assert.That(completed, Is.True); Assert.That(service.IsPrivacyFormPresenting, Is.False);
+            Assert.That(bridge.Forms, Is.EqualTo(1)); Assert.That(bridge.Loads, Is.EqualTo(2));
+        }
+        [Test]
+        public void MinorCanModifyPreviouslyRequiredPrivacyWithoutStartingAds()
+        {
+            var preference = new Preference(); preference.Select(AudienceBand.Adult); var bridge = new Bridge();
+            using var service = new AudienceAdService(preference, () => bridge, () => false, action => action());
+            service.Start(); bridge.Update(true); bridge.Form(true); bridge.Initialized(true);
+            preference.Select(AudienceBand.Teen);
+            service.ShowPrivacyOptions(success => Assert.That(success, Is.True)); bridge.Form(true); service.Tick();
+            Assert.That(service.PrivacyOptionsRequired, Is.True);
+            Assert.That(service.GetAvailability(AdPlacement.Progression), Is.EqualTo(AdAvailability.Unavailable));
+            Assert.That(bridge.Updates, Is.EqualTo(1)); Assert.That(bridge.Initializations, Is.EqualTo(1));
+            Assert.That(bridge.Loads, Is.EqualTo(2));
         }
         [Test]
         public void AudienceChangeDoesNotResetOwnershipCountersOrDisableRestore()

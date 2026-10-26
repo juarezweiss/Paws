@@ -11,7 +11,12 @@
       "finding": "Disabled export retained the reverse P/Invoke NativeAppleAgeRangeClient callback despite no runtime initialization.",
       "evidence": "IL2CPP reverse P/Invoke wrapper and metadata retained NativeAppleAgeRangeClient; actual rollback inspector rejected export.",
       "change": "Compile the whole native client only for UNITY_EDITOR or PAWS_MONETIZATION.",
-      "verification": "Final fresh disabled export/archive required; no claim of rollback success before it passes."
+      "verification": "Fresh disabled export from 533c6b6 passes managed/native build exclusion. Final exact-source export/archive receipts follow the consent-access correction."
+    },
+    {
+      "finding": "An already-required UMP Privacy Options entry disappeared after actual background invalidated adult ad eligibility.",
+      "change": "Retain explicit withdrawal-only access through the existing bridge, separate from new ad eligibility, with native closure/duplicate guards and no ad initialization/loading.",
+      "verification": "Focused Unknown/Teen withdrawal tests and independent QA review; exact final full-suite and archive evidence recorded separately. Cold unresolved UMP status is not fabricated; public privacy/contact and owner runtime validation remain required."
     }
   ],
   "purchaseSafetyScope": "No #82 causal claim or purchase-safety waiver introduced."

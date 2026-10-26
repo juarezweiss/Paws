@@ -19,8 +19,7 @@ request runs only when Apple reports it required, or after an explicit supported
 Settings > Age range from Apple action. Required requests wait for an unobstructed,
 foreground menu/settings surface; Play can proceed while ad eligibility is unresolved.
 There is no timer-based re-prompt after decline. Unsupported/unavailable/declined,
-malformed and unconfirmed adult results remain Unknown, with no Google bridge or
-UMP/ad requests and free eligible Hints. Minors receive the same no-ad protection.
+malformed and unconfirmed adult results remain Unknown, with no Google bridge construction, ad initialization or ad requests and free eligible Hints. Minors receive the same no-ad protection.
 IAP and Restore remain available; age never grants ownership.
 
 Only a coherent Apple range with lower bound at least 18 and an Apple-confirmed
@@ -101,8 +100,15 @@ UMP still updates before Google initialization, displays required consent, suppo
 Privacy Options and gates loads/shows through `CanRequestAds`. NPA does not remove
 consent duties. [Google documents](https://developers.google.com/admob/unity/privacy/gdpr)
 that UMP does not itself determine age or forward its under-age flag to ad requests.
-No UMP call is made for suppressed audiences, so no minor is asked for adult ad
-consent. Approved NPA, no ATT/cross-app tracking, FPID off, crash reports off,
+Suppressed cold launches make no UMP call and never ask a minor for initial adult
+ad consent. An already-required Privacy Options entry remains usable after age
+invalidation: explicit modification uses only the retained UMP form, with no consent
+update, ad initialization or load. Re-sharing adult age cannot restart ads under
+that native surface. [Google's privacy-options requirement](https://developers.google.com/admob/ios/privacy#privacy_options)
+is independent of ad eligibility. Cold unresolved launches have no current UMP
+Required status; Paws does not fabricate a consent cache or start Google to discover
+one. Public privacy/contact rights remain necessary; validate this cold-state
+withdrawal path and published contact with the owner before activating production. Approved NPA, no ATT/cross-app tracking, FPID off, crash reports off,
 G content and no added analytics/attribution/telemetry SDKs are retained. Consent
 failure/unavailability grants eligible free Hints; actual voluntary ad closure
 without reward still grants none. Existing SDK data disclosures remain necessary.
@@ -148,7 +154,7 @@ No automated physical-iPhone interaction. On representative supported systems:
    custom/native age popup; free eligible Hints, IAP/Restore accessible; no Google.
 2. Supported optional region: no launch age request. Explicit Settings native sharing;
    decline/unconfirmed adult => no ads; confirmed adult => required UMP before test
-   ads. Repeat background/account/sharing changes: no stale adult authorization.
+   ads. Repeat background/account/sharing changes: no stale adult authorization; an already-required Privacy Options entry still permits modification without resharing age or restarting ads. Verify the cold unresolved-state privacy/contact path separately.
 3. Apple age-assurance Sandbox regulated scenarios (including Brazil and applicable
    US account regions): required native flow at safe menu, child/teen/unconfirmed/
    confirmed adult, refused/unavailable outcomes, region-overridden bounds and late

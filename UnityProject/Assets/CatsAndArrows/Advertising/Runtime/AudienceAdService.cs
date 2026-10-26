@@ -13,6 +13,9 @@ namespace CatsAndArrows.Advertising
         private readonly Action<Action> dispatch;
         private readonly Func<double> clock;
         private AdMobAdService inner;
+        private IGoogleAdsBridge lastBridge;
+        private bool privacyOnlyPresenting;
+        private long privacyOperation;
         private bool started, disposed, paused, retiring, attempted;
         public AudienceAdService(IAudienceSource audience, Func<IGoogleAdsBridge> createBridge,
             Func<bool> isOwned, Action<Action> dispatch, Func<double> clock = null)
@@ -24,18 +27,21 @@ namespace CatsAndArrows.Advertising
             this.clock = clock;
             audience.Changed += AudienceChanged;
         }
-        private bool Eligible => !disposed && audience.Current == AudienceBand.Adult &&
+        private bool Eligible => !disposed && !privacyOnlyPresenting && audience.Current == AudienceBand.Adult &&
             (audience as IAgeAssuranceService)?.IsNativeFormPresenting != true;
         public event Action Changed;
         public bool IsPresenting => inner?.IsPresenting == true;
-        public bool IsPrivacyFormPresenting => inner?.IsPrivacyFormPresenting == true ||
+        public bool IsPrivacyFormPresenting => privacyOnlyPresenting || inner?.IsPrivacyFormPresenting == true ||
             (audience as IAgeAssuranceService)?.IsNativeFormPresenting == true;
-        public bool PrivacyOptionsRequired => Eligible && !retiring && inner?.PrivacyOptionsRequired == true;
+        public bool PrivacyOptionsRequired => !disposed &&
+            (inner?.PrivacyOptionsRequired == true || RetainedPrivacyRequired());
+        private bool RetainedPrivacyRequired()
+        { try { return lastBridge?.PrivacyOptionsRequired == true; } catch { return false; } }
         public void Start() { if (disposed) return; started = true; Reconcile(); }
         private void AudienceChanged() { Reconcile(); Changed?.Invoke(); }
         private void Reconcile()
         {
-            if (disposed || !started) return;
+            if (disposed || !started || privacyOnlyPresenting) return;
             if (!Eligible && inner == null) attempted = false;
             if (!Eligible && inner != null) retiring = true;
             if (retiring && inner != null)
@@ -47,7 +53,12 @@ namespace CatsAndArrows.Advertising
             if (Eligible && inner == null && !attempted)
             {
                 attempted = true;
-                try { inner = new AdMobAdService(true, createBridge(), isOwned, dispatch, clock); }
+                try
+                {
+                    var bridge = createBridge();
+                    inner = new AdMobAdService(true, bridge, isOwned, dispatch, clock);
+                    lastBridge = bridge;
+                }
                 catch { return; } // Infrastructure unavailable leaves direct eligible hints usable.
                 inner.Changed += InnerChanged;
                 inner.SetPaused(paused); inner.Start();
@@ -66,7 +77,30 @@ namespace CatsAndArrows.Advertising
         public void ShowPrivacyOptions(Action<bool> complete)
         {
             if (complete == null) throw new ArgumentNullException(nameof(complete));
-            if (!Eligible || retiring || inner == null) complete(false); else inner.ShowPrivacyOptions(complete);
+            if (disposed || IsPrivacyFormPresenting || IsPresenting || paused)
+            { complete(false); return; }
+            if (Eligible && !retiring && inner != null) { inner.ShowPrivacyOptions(complete); return; }
+            if (!RetainedPrivacyRequired()) { complete(false); return; }
+            // A previously required withdrawal entry survives age invalidation. This
+            // uses only the existing UMP form: no update, initial consent or ad SDK work.
+            privacyOnlyPresenting = true;
+            var operation = ++privacyOperation;
+            Changed?.Invoke();
+            if (disposed || paused)
+            {
+                ++privacyOperation; privacyOnlyPresenting = false;
+                complete(false); Changed?.Invoke(); return;
+            }
+            try
+            {
+                lastBridge.ShowPrivacyOptions(success => dispatch(() =>
+                {
+                    if (disposed || !privacyOnlyPresenting || operation != privacyOperation) return;
+                    ++privacyOperation; privacyOnlyPresenting = false;
+                    Reconcile(); complete(success); Changed?.Invoke();
+                }));
+            }
+            catch { /* Invocation may have presented a native surface; wait for closure evidence. */ }
         }
         public void SetPaused(bool value)
         { paused = value; inner?.SetPaused(value || retiring || !Eligible); }
