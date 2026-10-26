@@ -168,3 +168,20 @@ No automated physical-iPhone interaction. On representative supported systems:
 Production IDs/public URLs/UMP publication, compatible signing capability, actual
 OS/native/regional behavior and exact-candidate human tests remain release gates.
 No distribution, live ad activation, submission or account changes are authorized.
+
+## Current preparation evidence — 2026-10-26
+
+[Exact results](evidence/issue67/native-age/validation.json): source `c0622a3`,
+727/727 EditMode, 86/86 scripts, pinned/production-only managed compilation,
+19 age + 11 IAP Swift assertions, ARM64 typecheck, 322 SDK pins, CI and bounded
+independent QA re-review pass. Both exact-source unsigned native archives pass:
+[enabled real-IAP/test-ad](evidence/issue67/native-age/enabled-ios-release-receipt.json)
+and [disabled rollback](evidence/issue67/native-age/disabled-ios-release-receipt.json).
+Actual weak linkage/provider symbols, bundled runtime config and dSYMs are checked;
+rollback excludes age and Google providers. Nine desktop menu renders fit all
+supported locales/aspects. None establishes physical/native Apple age behavior.
+[Corrected findings](evidence/issue67/native-age/failures-corrected.json) preserve
+scope and verification. [Profile audit](evidence/issue67/native-age/profile-preflight.json)
+and [production preflight](evidence/issue67/native-age/production-preflight.json)
+record actual remaining configuration/signing gates without sensitive identities.
+No newer signed app was produced by stripping the required capability.

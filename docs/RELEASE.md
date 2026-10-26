@@ -22,6 +22,13 @@ distribution-profile archive and the mandatory exact-candidate human tests.
 The dated #63–#66 evidence below retains its original scope; historical blanket
 #82-blocker and disabled-only statements are superseded by this decision.
 
+Current native-age source/evidence: [results and remaining gates](evidence/issue67/native-age/validation.json),
+[enabled native receipt](evidence/issue67/native-age/enabled-ios-release-receipt.json),
+[rollback native receipt](evidence/issue67/native-age/disabled-ios-release-receipt.json).
+Both final archives are unsigned, source `c0622a3`. They supersede the historical
+artifacts for the changed runtime. Profile/capability, production resources and
+exact-candidate human acceptance remain mandatory before distribution.
+
 ## Branch/environment model
 - Feature branches: isolated development.
 - `develop`: integration branch; produces internal/dev artifacts.

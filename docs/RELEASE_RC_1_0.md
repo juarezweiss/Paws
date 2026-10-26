@@ -21,6 +21,44 @@ genuine signed-candidate gate, alongside production resources and physical tests
 The October 24 artifacts/results below are historical and are superseded for the
 changed runtime, UI and native link. Do not use that signed app to accept this flow.
 
+Current final runtime/build source: **`c0622a361bcc7c7ae2b04d0642f0ce189b094f68`**.
+**727/727 EditMode**, **86/86 scripts**, production-only managed compilation,
+19 native age / 11 IAP policy assertions, typechecks, 322 SDK pins, CI and bounded
+independent QA re-review pass. [Exact native-age evidence](evidence/issue67/native-age/validation.json).
+Nine new desktop menu renders preserve direct Play and the nonmodal disclosure:
+[EN compact](evidence/issue67/native-age/menu-en-320x568.png),
+[pt-BR standard](evidence/issue67/native-age/menu-pt-BR-390x844.png),
+[ES tall](evidence/issue67/native-age/menu-es-430x932.png). These use desktop review
+infrastructure; they are not native Apple, paid purchase or physical evidence.
+
+Both fresh source-bound native archives pass inspection:
+
+- Enabled real-IAP/Offer/Google-test-ad candidate:
+  `Builds/Issue67-native-age-final-validation.xcarchive`;
+  [receipt](evidence/issue67/native-age/enabled-ios-release-receipt.json),
+  tree SHA-256 `d322975dfb61a3247c869a86c229caaaa0f54d89aafa4c598cf08977396157d0`.
+  Native age entry points and actual `LC_LOAD_WEAK_DYLIB`, real provider symbols,
+  bundled config, 322 SDK pins, privacy resources and matching ARM64 dSYMs pass.
+- Disabled rollback:
+  `Builds/Issue67-native-age-final-disabled.xcarchive`;
+  [receipt](evidence/issue67/native-age/disabled-ios-release-receipt.json),
+  tree SHA-256 `b14991afa7e1bf2fc5eb69675b6cd30c0cf7a378fd2b29103bfe96c851973568`.
+  Actual native age provider/framework/entitlement and Google binding/SDK/config
+  are absent. The AOT-retention failure was corrected and revalidated.
+
+Both are **unsigned validation artifacts**, not installable/distribution acceptance.
+Their exact source is `c0622a3`; later evidence-only commits change docs, not player
+inputs. Reproduction/reinspection must use the receipt's source SHA. The older
+signed `Issue67-LocalValidation/Paws.app` is superseded and cannot accept this flow.
+
+**GO for code review; NO-GO for distribution.** Compatible age capability/signing,
+actual production resources/UMP publication/public privacy and parental-support
+information, final production-profile archive and exact-build human acceptance
+remain gates. Previously required UMP privacy modification must work after age
+invalidation without resharing age or starting ads. Cold unresolved-state UMP
+status is not fabricated; the public privacy/contact recovery path needs owner
+runtime acceptance before activation. #82's accepted limitation remains nonblocking.
+
 ## Historical October 24 candidate and recommendation
 
 **GO for owner code review of [PR #87](https://github.com/juarezweiss/Paws/pull/87).

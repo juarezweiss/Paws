@@ -8,6 +8,22 @@ OS matrix and genuine capability/regional gates](AGE_ASSURANCE.md) supersede old
 local-age-choice text and October 24 UI/artifact evidence. Monetized release intent,
 verified IAP safety and the narrow #82 acceptance remain unchanged.
 
+## Native age amendment — 2026-10-26 (#67)
+
+Final runtime/build source `c0622a361bcc7c7ae2b04d0642f0ce189b094f68`:
+**727/727 EditMode**, **86/86 scripts**, pinned compilation and actual production-only
+managed compilation pass. Native age policy: 19 assertions; IAP policy: 11 assertions;
+minimum-iOS16.3 ARM64 typecheck and all 322 SDK byte pins pass. Source CI
+[passes](https://github.com/juarezweiss/Paws/actions/runs/40341491513). Independent
+QA re-review reports no remaining blocking consent/lifecycle findings after the
+corrected background/withdrawal guards. Nine menu renders pass desktop visual review.
+[Exact current evidence and native receipts](evidence/issue67/native-age/validation.json)
+and [OS/regulatory human addendum](AGE_ASSURANCE.md#human-validation-addendum).
+The prior rollback export correctly rejected retained AOT age callbacks; the
+explicit compile guard fixes it, verified by fresh source-bound export inspection.
+Physical OS/native age/Sandbox purchase acceptance is pending; no simulation or
+native archive is promoted to a physical, real Apple approval or production pass.
+
 ## Historical #67 monetized Paws 1.0 gate — 2026-10-24
 
 Prepared source `86487b2d363d0e32de8f2a392e0f21ae99bcfbfa`:

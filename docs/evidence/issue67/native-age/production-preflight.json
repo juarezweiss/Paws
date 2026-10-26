@@ -1,0 +1,9 @@
+{
+  "sourceSha": "c0622a361bcc7c7ae2b04d0642f0ce189b094f68",
+  "profile": "production",
+  "result": "expected-blocked-before-editor",
+  "exitCode": 2,
+  "reason": "Missing genuine owner-local production configuration; no identifiers or URLs invented.",
+  "productionExportCreated": false,
+  "unityStarted": false
+}
