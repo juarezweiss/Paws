@@ -1,3 +1,4 @@
+#if UNITY_EDITOR || PAWS_MONETIZATION
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -74,3 +75,4 @@ namespace CatsAndArrows.Purchasing.Apple
         }
     }
 }
+#endif

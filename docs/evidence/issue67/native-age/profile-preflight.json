@@ -1,0 +1,17 @@
+{
+  "schema": "paws-age-profile-preflight-v1",
+  "date": "2026-10-26",
+  "profilePath": "Builds/Issue67-LocalValidation/Paws.app/embedded.mobileprovision",
+  "decodedReadOnly": true,
+  "declaredAgeRangeAllowed": false,
+  "expiresUtc": "2026-10-27T17:36:44Z",
+  "result": "blocked-for-signed-native-age-candidate",
+  "requiredOwnerAction": "Enable Declared Age Range for the explicit Paws App ID and supply a matching unexpired provisioning profile through owner-authorized account work. No account/profile change performed.",
+  "identitiesOrDeviceListsPublished": false,
+  "standardLocalProfileAudit": {
+    "inspected": 1,
+    "decoded": 1,
+    "explicitPawsProfiles": 1,
+    "compatibleUnexpiredAgeProfiles": 0
+  }
+}
