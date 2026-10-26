@@ -1,5 +1,20 @@
 # ADR 0002: Provider-agnostic monetization services
 
+## Owner amendment — free 1.0, future enablement (2026-10-26)
+
+Authority: [#88](https://github.com/juarezweiss/Paws/issues/88). Paws 1.0 is FREE,
+ad-free, IAP disabled with unlimited free eligible Hints. Exclude providers/SDKs
+from shipped binary; retain implemented code/pins/persistence for 1.1+.
+No purchase/Restore/Offer Code UI, ads, UMP or unnecessary age prompts in 1.0.
+The enabled policy below remains a future architecture/policy contract, subject
+to current owner approval before activation; it does not govern free-1.0 Hint access.
+
+[#67](https://github.com/juarezweiss/Paws/issues/67) owns future IAP/AdMob/UMP/
+age research and enablement; #82 remains open for future IAP. Neither is a
+purchase-free-1.0 blocker. Preserve PR #87 and exact-source evidence without merging
+its enabled configuration into 1.0. No SDK upgrade or architecture replacement is
+approved. Current gates: [free checklist](../RELEASE_RC_1_0.md).
+
 Status: Owner-approved architecture; rewarded-Hint policy amended 2026-10-19;
 SDK-free implementation in #30; activation deferred
 Date: 2026-10-14

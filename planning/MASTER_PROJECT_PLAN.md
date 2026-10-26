@@ -1,5 +1,37 @@
 # Paws — Master Project Plan
 
+## Current owner amendment — 2026-10-26 (#88)
+
+**Paws 1.0 = FREE, ad-free, IAP disabled, unlimited free eligible Hints.**
+No purchase/Restore/Offer Code UI, ads, UMP or unnecessary age prompts. Exclude
+monetization providers/SDKs from shipped binary; retain existing source/pins and
+storage for separately approved 1.1+ monetization (#67/#82). Preserve PR #87 and
+its evidence; never merge its enabled configuration into the free release.
+
+Current execution order: [#88](https://github.com/juarezweiss/Paws/issues/88)
+scope → [#89](https://github.com/juarezweiss/Paws/issues/89) UI →
+[#90](https://github.com/juarezweiss/Paws/issues/90) binary exclusion →
+[#91](https://github.com/juarezweiss/Paws/issues/91) metadata/URLs/compliance →
+[#92](https://github.com/juarezweiss/Paws/issues/92) signed RC/human iPhone QA →
+reused [#21](https://github.com/juarezweiss/Paws/issues/21) distribution readiness.
+#91 drafts may run alongside #89/#90; final declarations require actual binary
+inventory. [Release checklist](../docs/RELEASE_RC_1_0.md) defines current gates.
+
+Baseline inspected: fetched develop `3a44192697b8f1c416cc49afabeb839c5a0c3dc7`.
+#63 identity/build foundation and real provider foundations #64–#66 are already
+integrated; current production composition is disabled. Shipping exclusion and
+clean UI still require #89/#90 evidence. Older claims that no SDK/provider exists
+refer to their dated baseline, not current repository contents.
+
+#67 research/enablement and #82 IAP findings continue separately, without blocking
+purchase-free 1.0. Existing puzzle/accessibility guarantees, #22 trial findings,
+owner physical review and production control remain. The owner must explicitly
+record trial/coverage disposition; this scope decision does not claim a trial pass.
+No feature implementation/build/store action is authorized by this planning task.
+The $500 cash ceiling and separate approval for every charge are unchanged.
+Older priorities, baselines and release gates below are dated history where they
+conflict with this explicit owner amendment; historical results remain scoped.
+
 **Version:** 1.1 — current-state reconciliation
 
 **Prepared:** 2026-10-19

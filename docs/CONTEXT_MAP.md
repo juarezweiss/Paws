@@ -36,7 +36,7 @@ If the repo-local `paws-development` Skill is active, follow its workflow and lo
 | Project structure / Unity version / repository layout | `docs/decisions/0001-unity-and-project-structure.md`, `docs/ARCHITECTURE.md` | `docs/RELEASE.md` or `docs/TESTING.md` if build/test behavior changes |
 | Tests / regression coverage | `docs/TESTING.md` | Only the specification for the behavior under test |
 | CI / build / lower-environment release | `docs/RELEASE.md`, `docs/TESTING.md` | `docs/ARCHITECTURE.md` for project/build structure; relevant ADRs when architecture decisions apply |
-| iOS/Android signing or store preparation | `docs/RELEASE.md` | `docs/TESTING.md`; architecture/ADR only when build structure is relevant |
+| iOS/Android signing or store preparation | `docs/RELEASE.md`, `docs/RELEASE_RC_1_0.md` (free-1.0 gates, #88–#92/#21) | `docs/TESTING.md`; future monetization #67/PR #87 is separate |
 | Monetization / ads / IAP | `docs/MONETIZATION.md` | `docs/ANALYTICS.md` for instrumentation; `docs/UX.md` for player-facing impact; `docs/PRODUCT.md` for product fit |
 | AdMob / UMP provider, consent and privacy | `docs/ADMOB.md`, `docs/MONETIZATION.md`, ADR 0002 | `docs/TESTING.md`, `docs/RELEASE.md` for build/owner gates |
 | Apple purchase adapter / StoreKit validation | `docs/APPLE_IAP.md`, `docs/MONETIZATION.md`, ADR 0002 | `docs/TESTING.md`, `docs/RELEASE.md` for build/review gates |
@@ -46,6 +46,17 @@ If the repo-local `paws-development` Skill is active, follow its workflow and lo
 | Roadmap / sequencing / current priorities | `planning/ROADMAP.md`, `planning/CURRENT_SPRINT.md` | GitHub Issues; `planning/MASTER_PROJECT_PLAN.md` only for scope/budget/milestone constraints |
 | Scope, budget, purchases, subscriptions | `planning/MASTER_PROJECT_PLAN.md` | `docs/PRODUCT.md` if product scope is involved |
 | Documentation-only change | The document being changed | Its direct source-of-truth dependency only if needed to verify consistency |
+
+## Release decision routing
+
+Owner decision 2026-10-26: 1.0 is free/ad-free/IAP disabled with unlimited free
+eligible Hints; exclude monetization SDKs/providers from the binary. Read
+`docs/RELEASE_RC_1_0.md` for current gates. #67/#82 and preserved PR #87 are future
+1.1+ research/enablement; do not load their historical monetized-1.0 checklist as
+the free-release contract. For that future age-assurance research, the immutable
+PR #87 `docs/AGE_ASSURANCE.md` at evidence head
+`4acfb61d9625b271f3203ec8d63a608102fbabfa` retains the source/OS/territory matrix.
+Current free-app compliance assessment is #91; no legal exemption is assumed.
 
 ## Review documents
 

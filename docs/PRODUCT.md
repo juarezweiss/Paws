@@ -1,5 +1,15 @@
 # Product Definition
 
+## Approved 1.0 release scope — 2026-10-26 (#88)
+
+Paws 1.0 is FREE, ad-free, IAP disabled, with unlimited free eligible Hints.
+Ship no purchase/Restore/Offer Code UI, ads, UMP or unnecessary age prompts;
+exclude monetization providers/SDKs from the binary while retaining implemented
+source for separately approved 1.1+ work (#67/#82, preserved PR #87).
+The [release checklist](RELEASE_RC_1_0.md) governs the six focused delivery issues.
+This owner decision changes launch scope; it does not change puzzle/Hint eligibility,
+authorize implementation or waive trial, physical review or production approvals.
+
 ## Product promise
 Paws is a calm, compact mobile logic puzzle: infer where all hidden paws are,
 mark impossibilities, and finish a board without time pressure or punishment.
