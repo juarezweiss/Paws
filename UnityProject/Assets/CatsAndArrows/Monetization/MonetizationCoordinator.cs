@@ -26,7 +26,7 @@ namespace CatsAndArrows.Monetization
         private readonly IAdService ads;
         private readonly IPurchaseService purchases;
         private readonly Func<double> clock;
-        private readonly IAudiencePreference audience;
+        private readonly IAudienceSource audience;
         private MonetizationState state = new MonetizationState();
         private GameSession session;
         private long boardId;
@@ -61,7 +61,7 @@ namespace CatsAndArrows.Monetization
         public event Action<HintDelivery> HintDelivered;
 
         public MonetizationCoordinator(bool enabled, IMonetizationStateStore store, IAdService ads,
-            IPurchaseService purchases, Func<double> clock = null, IAudiencePreference audience = null)
+            IPurchaseService purchases, Func<double> clock = null, IAudienceSource audience = null)
         {
             Enabled = enabled;
             this.audience = audience;
@@ -134,11 +134,18 @@ namespace CatsAndArrows.Monetization
                 BoardId = boardId, MarkRevision = session.MarkRevision };
             var prepared = request.Session.PrepareHint();
             if (prepared.Status != HintStatus.Applied) return;
-            // A restricted/unknown local age band never needs advertising or an online
+            // A restricted/unknown platform age signal never needs advertising or an online
             // ownership decision for assistance. This grants a hint, never an entitlement.
             if (!Enabled || IsOwned || (audience != null && audience.Current != AudienceBand.Adult))
             { DeliverHint(session); return; }
             if (HasEarnedHint) { RedeemReward(); return; }
+            // Native age/consent/infrastructure unavailability must not make assistance
+            // depend on a successful online store query. Ownership remains untouched.
+            if (audience != null && Availability(AdPlacement.Hint) != AdAvailability.Ready)
+            {
+                if (!MatchesHint(request)) return;
+                Status = MonetizationStatus.None; DeliverHint(request.Session); return;
+            }
             if (state.Access == AccessState.Unknown) { SetStatus(MonetizationStatus.RestoreRequired); return; }
             if (dirty && !Persist()) return;
             if (!storageLoaded) { SetStatus(MonetizationStatus.StorageRecovery); return; }

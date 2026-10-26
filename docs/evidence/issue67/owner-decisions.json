@@ -34,14 +34,15 @@
     "childDirected": false,
     "appleKidsCategory": false,
     "underAgeRequirement": "Apply appropriate protections; do not classify everyone as children or assume everyone is 18+.",
-    "approvedAgeBandPolicy": "Under 13, 13-17, 18+, prefer not to answer; no Google requests for under-18/unspecified players, free eligible Hints, IAP/Restore available to all; no birth date; revisable in Settings"
+    "supersededAgeBandPolicy2026_10_24": "Under 13, 13-17, 18+, prefer not to answer; no Google requests for under-18/unspecified players, free eligible Hints, IAP/Restore available to all; no birth date; revisable in Settings",
+    "currentAgeDecision2026_10_26": "Remove custom age gate; native Apple mechanisms only when necessary; never treat unknown as adult; unresolved/minor ad requests suppressed, eligible Hints free, no birth dates. Exact implementation/research in docs/AGE_ASSURANCE.md."
   },
   "appStoreAgeRatingDecision": {
     "targetBrazil": "A12",
     "reference": "https://apps.apple.com/br/app/arrows-puzzle-escape/id6748397500",
     "referenceVerified": "Brazil listing displays A12, advertising and infrequent mature/suggestive themes",
     "pawsDeclaration": "Advertising present; answer Paws' own content questionnaire accurately, without copying another game's mature-themes descriptor",
-    "privacyPolicyUnaffected": "Content rating does not replace local ad privacy age bands or consent",
+    "privacyPolicyUnaffected": "Content rating does not establish player age, ad eligibility or consent.",
     "consoleStatus": "No change performed; owner must verify calculated regional ratings in App Store Connect"
   },
   "productionResourceOwnerReport": "Owner has not confirmed whether live AdMob identifiers, published UMP messages, or public privacy/support URLs exist; local inspection authorized.",
@@ -65,5 +66,6 @@
     "real-money purchases",
     "release"
   ],
-  "physicalValidation": "Pending human report on exact candidate; no automated phone interaction. Sandbox priced-product purchases and Xcode simulated approval/decline are separate evidence."
+  "physicalValidation": "Pending human report on exact candidate; no automated phone interaction. Sandbox priced-product purchases and Xcode simulated approval/decline are separate evidence.",
+  "latestAmendment": "2026-10-26"
 }

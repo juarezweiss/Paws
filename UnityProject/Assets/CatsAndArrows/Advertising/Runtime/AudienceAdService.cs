@@ -3,18 +3,18 @@ using CatsAndArrows.Monetization;
 
 namespace CatsAndArrows.Advertising
 {
-    // #67: only a locally declared adult may construct the Google binding.
+    // #67: only a confirmed platform adult may construct the Google binding.
     // Existing native surfaces retain their guard until actual closure on downgrade.
     public sealed class AudienceAdService : IAdService, IAdPrivacyService, IDisposable
     {
-        private readonly IAudiencePreference audience;
+        private readonly IAudienceSource audience;
         private readonly Func<IGoogleAdsBridge> createBridge;
         private readonly Func<bool> isOwned;
         private readonly Action<Action> dispatch;
         private readonly Func<double> clock;
         private AdMobAdService inner;
         private bool started, disposed, paused, retiring, attempted;
-        public AudienceAdService(IAudiencePreference audience, Func<IGoogleAdsBridge> createBridge,
+        public AudienceAdService(IAudienceSource audience, Func<IGoogleAdsBridge> createBridge,
             Func<bool> isOwned, Action<Action> dispatch, Func<double> clock = null)
         {
             this.audience = audience ?? throw new ArgumentNullException(nameof(audience));
@@ -24,10 +24,12 @@ namespace CatsAndArrows.Advertising
             this.clock = clock;
             audience.Changed += AudienceChanged;
         }
-        private bool Eligible => !disposed && audience.Current == AudienceBand.Adult;
+        private bool Eligible => !disposed && audience.Current == AudienceBand.Adult &&
+            (audience as IAgeAssuranceService)?.IsNativeFormPresenting != true;
         public event Action Changed;
         public bool IsPresenting => inner?.IsPresenting == true;
-        public bool IsPrivacyFormPresenting => inner?.IsPrivacyFormPresenting == true;
+        public bool IsPrivacyFormPresenting => inner?.IsPrivacyFormPresenting == true ||
+            (audience as IAgeAssuranceService)?.IsNativeFormPresenting == true;
         public bool PrivacyOptionsRequired => Eligible && !retiring && inner?.PrivacyOptionsRequired == true;
         public void Start() { if (disposed) return; started = true; Reconcile(); }
         private void AudienceChanged() { Reconcile(); Changed?.Invoke(); }

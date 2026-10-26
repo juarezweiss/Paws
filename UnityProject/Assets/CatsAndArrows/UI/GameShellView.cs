@@ -41,7 +41,8 @@ namespace CatsAndArrows.UI
         private readonly IAdPrivacyService adPrivacy;
         private bool privacyRequest;
         private bool disposed;
-        private bool CommercialBusy => monetization?.IsBusy == true || privacyRequest || adPrivacy?.IsPrivacyFormPresenting == true;
+        private bool CommercialBusy => monetization?.IsBusy == true || privacyRequest || adPrivacy?.IsPrivacyFormPresenting == true ||
+            (audience as IAgeAssuranceService)?.IsNativeFormPresenting == true;
         private readonly bool enableTutorial;
         private readonly Func<bool> tutorialSeen;
         private readonly Action markTutorialSeen;
@@ -59,7 +60,7 @@ namespace CatsAndArrows.UI
         public int NewGameRequestId { get; private set; }
 
         public GameShellView(int initialSeed = 14, string locale = null, EasyGameLoop loop = null, bool useInlineHints = true,
-            bool enableTutorial = true, Func<bool> tutorialSeen = null, Action markTutorialSeen = null, IDifficultyHistoryStore difficultyHistory = null, Func<double> idleClock = null, MonetizationCoordinator monetization = null, Func<double> completionClock = null, IAdPrivacyService adPrivacy = null, IAudiencePreference audience = null, string privacyPolicyUrl = null, string supportUrl = null, Action<string> openExternalUrl = null)
+            bool enableTutorial = true, Func<bool> tutorialSeen = null, Action markTutorialSeen = null, IDifficultyHistoryStore difficultyHistory = null, Func<double> idleClock = null, MonetizationCoordinator monetization = null, Func<double> completionClock = null, IAdPrivacyService adPrivacy = null, IAudienceSource audience = null, string privacyPolicyUrl = null, string supportUrl = null, Action<string> openExternalUrl = null)
         {
             name = "game-shell";
             this.monetization = monetization;
@@ -106,8 +107,6 @@ namespace CatsAndArrows.UI
                 if (evt.keyCode != KeyCode.Escape || loading || CommercialBusy) return;
                 if (Modal == "notification")
                 { DismissNotification(); evt.StopPropagation(); }
-                else if (Modal == "audience")
-                { CloseAudienceSelector(); evt.StopPropagation(); }
                 else if (Modal == "language")
                 { ShowSettings(); menu.Q<Button>("settings-language")?.Focus(); evt.StopPropagation(); }
                 else if (Screen == "settings")
@@ -304,6 +303,15 @@ namespace CatsAndArrows.UI
             play.style.borderTopLeftRadius = play.style.borderTopRightRadius = 14;
             play.style.borderBottomLeftRadius = play.style.borderBottomRightRadius = 14;
             footer.Add(play);
+            if (monetization?.Enabled == true)
+            {
+                // ECA Digital art.8 V: visible classification at access, no blocking gate.
+                var disclosure = new Label(text.GetText("release.content-disclosure")) { name = "menu-content-disclosure" };
+                disclosure.style.fontSize = 14; disclosure.style.whiteSpace = WhiteSpace.Normal;
+                disclosure.style.unityTextAlign = TextAnchor.MiddleCenter;
+                disclosure.style.marginTop = 16; disclosure.style.marginLeft = disclosure.style.marginRight = 12;
+                footer.Add(disclosure);
+            }
             scroll.Add(footer);
 
             var settings = MakeButton("menu-settings", "settings.title", ShowSettings);
@@ -339,7 +347,8 @@ namespace CatsAndArrows.UI
             AddSettingsRow(list, "settings-language", "game.language", ShowLanguageSelector);
             var tutorial = AddSettingsRow(list, "settings-tutorial", "tutorial.title", StartTutorial);
             tutorial.SetEnabled(enableTutorial);
-            if (audience != null) AddSettingsRow(list, "settings-age-range", "audience.title", () => ShowAudienceSelector());
+            if (audience is IAgeAssuranceService age && age.CanRequestAgeRange)
+                AddSettingsRow(list, "settings-apple-age-range", "audience.apple", RequestAppleAgeRange);
             AddMonetizationSettings(list);
             if (adPrivacy?.PrivacyOptionsRequired == true)
                 AddSettingsRow(list, "settings-privacy-options", "privacy.options", ShowPrivacyOptions);

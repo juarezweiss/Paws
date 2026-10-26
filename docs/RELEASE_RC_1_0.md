@@ -5,7 +5,23 @@ Authority: owner's 2026-10-24 decision; [#67](https://github.com/juarezweiss/Paw
 Base: fetched develop `3a44192697b8f1c416cc49afabeb839c5a0c3dc7`.
 The release plan is **IAP and AdMob enabled**; disabled mode is rollback only.
 
-## Prepared candidate and recommendation
+## Current native-age amendment — 2026-10-26
+
+The latest owner decision removes the custom selector and saved local adult choice.
+See [AGE_ASSURANCE.md](AGE_ASSURANCE.md) for primary-source research, actual native
+policy, OS/regulatory scenario matrix, data minimization and the human addendum.
+Normal entry is menu → Play. Required native age requests remain possible in
+regulated scenarios; optional sharing is an explicit supported Settings action.
+Unknown/minor/unconfirmed players contact no Google provider and retain free
+eligible Hints/IAP/Restore. Confirmed adults still require UMP before NPA test ads.
+
+The existing signed local profile **does not allow Declared Age Range**; a compatible
+profile/capability needs separate owner action. No account was changed. This is a
+genuine signed-candidate gate, alongside production resources and physical tests.
+The October 24 artifacts/results below are historical and are superseded for the
+changed runtime, UI and native link. Do not use that signed app to accept this flow.
+
+## Historical October 24 candidate and recommendation
 
 **GO for owner code review of [PR #87](https://github.com/juarezweiss/Paws/pull/87).
 NO-GO for distribution today.** The outstanding gates are genuine production
@@ -69,12 +85,13 @@ IL2CPP/ARM64 Release builds. A validation archive is **not** a distribution arch
 The disabled rollback profile must initialize no providers and preserve entitlement
 and cadence storage. No remote kill switch exists.
 
-UI reference lock: retain the existing #76 Settings list and #66 localized privacy
-captures (outlined rows, existing typography/colors, scrolling, visible selection
-and focus). The age choice follows the existing language selector with four equal
-options and an available Back action; no new visual system or bitmap assets.
-The initial choice is optional; its default makes no adult assumption. Privacy
-and support open only on explicit Settings intent, outside native presentation.
+UI reference lock: retain the existing #76 menu/Settings layout, typography,
+colors, scroll and focus rules, with Apple's native UI owning age permission.
+The custom selector is removed, not redesigned. A small wrapped menu disclosure
+preserves access-time Brazil A12/advertising/IAP information without a blocking
+step; public links remain explicit Settings actions. Refero live research was
+unavailable (NO_SUBSCRIPTION); existing repository targets and bundled craft/focus/
+touch guidance were used. No new design system or bitmap assets were introduced.
 
 Before distribution, freeze committed inputs and inspect the actual final archive:
 source/config digest, bundle/version/build, release flags/defines, package/native
@@ -118,14 +135,15 @@ the owner's app to manufacture a clean baseline.
    Prior #65 Sandbox grant is historical evidence, not a current-candidate pass.
    Record untested external/pre-first-launch/invalid/expired/duplicate/delayed cases;
    do not distribute production codes or change console settings during this test.
-5. **Google test ads / UMP:** verify test labels and registered debug device/geography.
-   First verify unanswered/under-18/prefer-not choices start no Google flow and
-   leave gameplay/free Hints/IAP/Restore usable. Choose 18+ to exercise ads.
-   Required consent and Privacy Options work; no request before `CanRequestAds`.
-   Downgrading age blocks new Paws ad requests and retains any native guard until
-   real closure. Previously started SDK/native work may finish; the SDK has no
-   claimed global uninitialize/data-deletion switch. A restricted cold launch
-   never constructs the Google bridge.
+5. **Apple age / Google test ads / UMP:** use the [native-age addendum](AGE_ASSURANCE.md#human-validation-addendum).
+   No custom selector. Unknown, child, teen, unconfirmed adult, declined sharing,
+   unsupported OS or API/capability failure: no Google and free eligible Hints,
+   with IAP/Restore usable. Apple-confirmed adult: required consent before Google;
+   Privacy Options works, no request before `CanRequestAds`. Actual backgrounding
+   invalidates age; late age responses cannot enable ads. Native focus alone must
+   not discard a completed result. Retain actual native guards until closure.
+   Previously started SDK/native work may finish; no global SDK data-deletion or
+   uninitialize claim. A suppressed cold launch never constructs Google.
    Wins 1–3: no progression ad; fourth victory: no ad; deliberate next board: at
    most one. Offline/no-fill/restricted: continue, no debt, eligible free Hint.
    Reward completion: exactly one Hint. **Presented ad closed before reward: no
@@ -152,18 +170,12 @@ or cross-app tracking, publisher first-party ID off, SDK crash reports off,
 G-rated ad content, no additional analytics/attribution/telemetry SDKs**. Audience
 is general, not child-directed, not Apple's Kids Category; adults and teenagers
 may play. Do not infer that all users are adults or classify all users as children.
-Under-age handling must be explicit before Google requests; UMP does not determine
-a player's age or automatically forward its TFUA flag to the ad SDK. The
-owner-approved conservative policy offers local bands under 13, 13–17, 18+
-and prefer not to answer. Only a declared adult starts Google/UMP; under-18,
-unanswered and prefer-not users get no Google requests and free eligible Hints.
-IAP/Restore stay available to all; local age choice is revisable in Settings.
-No birth date or age band is sent to a developer server. This is the conservative
-implementation of the owner's protection requirement, not a claim that law
-universally requires an 18-year threshold. NPA/G content alone does not satisfy
-age protections. [Google age treatment](https://developers.google.com/admob/unity/targeting)
-and [UMP under-age handling](https://developers.google.com/admob/unity/privacy/gdpr)
-inform this boundary; this is not a blanket legal-compliance certification.
+Under-age ad eligibility is resolved by the [native Apple policy](AGE_ASSURANCE.md),
+not a local choice or content rating. UMP does not establish age. Only Apple-confirmed
+adult evidence may construct Google; minor/unresolved users get no ad requests and
+free eligible Hints. All approved privacy switches remain. This conservative policy
+reduces reach on older OS versions and in optional regions; it is not a legal claim
+that everyone needs a Paws age popup or that all NPA SDK processing is anonymous.
 
 Local resource audit found only Google's sample app identifier in retained #66
 `Info.plist` files, including `Builds/Issue66/f3539da-registered-eea-export/Info.plist`
@@ -205,7 +217,7 @@ the final country/OS-specific results remain an owner App Store Connect check.
 No console setting was changed here.
 
 This content-suitability target does not replace the approved local ad privacy
-age bands, establish a player's age/consent or permit ads for under-18/unspecified
+the native age signal, establish a player's age/consent or permit ads for under-18/unspecified
 players. Keep G-rated ad requests and the existing conservative policy. Paws
 remains general audience, outside Apple's Kids Category.
 
@@ -214,7 +226,7 @@ remains general audience, outside Apple's Kids Category.
 Pass an absolute owner-local JSON path through `PAWS_MONETIZATION_CONFIG`.
 Keep live identifiers and device registration outside Git. Required production
 fields are `adMobAppId`, `interstitialAdUnitId`, `rewardedAdUnitId`,
-`privacyPolicyUrl`, `supportUrl` and `audiencePolicy: "local-adult-only-v1"`.
+`privacyPolicyUrl`, `supportUrl` and `audiencePolicy: "apple-age-assurance-v1"`.
 The build sets `profile` explicitly. IDs must be real iOS AdMob values belonging
 to the same publisher; placements must be distinct. Both URLs must use HTTPS.
 Missing/invalid inputs fail export; syntactically valid values do not prove
@@ -233,7 +245,8 @@ serialized resource/configuration digest and redact device hashes.
 
 1. Finish automated/CI/QA and exact-source native archive evidence; fix any actual
    entitlement, finalization, compliance or release-integrity failure.
-2. Supply external production configuration and complete the minimal human tests
+2. Supply external production configuration, compatible Declared Age Range capability/profile
+   and public privacy/parental-support disclosures; complete the minimal human tests
    above. Record explicit results and any untested scope in #67. #82 remains open.
 3. Allocate the distribution build number, freeze final source/config and produce
    a fresh enabled production archive; inspect again without launching live ads.

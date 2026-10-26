@@ -162,6 +162,23 @@ namespace CatsAndArrows.Tests
             Assert.Throws<ArgumentException>(config.Validate);
         }
 
+        [Test]
+        public void EnabledProfilesRequireAppleAssuranceAndRejectLegacySelfDeclaration()
+        {
+            var config = ProductionIOSBuild.ReadConfiguration("validation", null);
+            Assert.That(config.audiencePolicy, Is.EqualTo("apple-age-assurance-v1"));
+            config.audiencePolicy = "local-adult-only-v1";
+            Assert.Throws<ArgumentException>(config.Validate);
+        }
+
+        [Test]
+        public void NativeAgeCapabilityContainsOnlyTheBooleanAppEntitlement()
+        {
+            var entitlements = NativeAgeRangeBuild.CreateEntitlements();
+            Assert.That(entitlements.root.values.Count, Is.EqualTo(1));
+            Assert.That(entitlements.root.values[NativeAgeRangeBuild.Entitlement].AsBoolean(), Is.True);
+        }
+
         [TestCase(null)]
         [TestCase("live")]
         [TestCase("Production")]

@@ -92,6 +92,19 @@ Restore, finalization and no-false-grant requirements remain mandatory.
 privacy/configuration decisions. This changes preparation scope, not authority to
 activate live ads, change accounts, merge main or distribute/release.
 
+## Native age assurance amendment — 2026-10-26 (#67)
+
+Owner removes the custom age selector and local self-declared adult authorization.
+Read-only audience signals come from Apple's native API behind a pure application
+port. Regional preflight does not block play; native sharing occurs only when
+required or after explicit supported Settings intent, outside other native/modals.
+Unknown/minor/unconfirmed audiences contact no Google provider; eligible Hints
+remain free even when ownership lookup is unavailable. Confirmed adults retain
+UMP/NPA gates. Actual backgrounding invalidates ephemeral age evidence, with
+native closure guards preserved; focus-only native sheets do not invalidate it.
+[Research, OS handling, limits and remaining owner gates](../AGE_ASSURANCE.md).
+No account, live traffic or distribution authorization is added.
+
 ## Consequences and alternatives
 
 - Fake-driven deterministic tests need no native provider; mounted tests cover

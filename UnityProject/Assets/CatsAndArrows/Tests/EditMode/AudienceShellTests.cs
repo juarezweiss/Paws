@@ -19,13 +19,28 @@ namespace CatsAndArrows.Tests
             public event Action Changed;
             public void Select(AudienceBand band) { Current = band; Changed?.Invoke(); }
         }
+        private sealed class NativeAge : IAgeAssuranceService
+        {
+            public AudienceBand Current => AudienceBand.Unknown;
+            public event Action Changed;
+            public bool CanRequestAgeRange { get; set; }
+            public bool IsNativeFormPresenting { get; private set; }
+            public int Requests;
+            public void Start() { }
+            public void Refresh() { }
+            public void Tick() { }
+            public void SetPresentationAllowed(bool value) { }
+            public void SetApplicationPaused(bool value) { }
+            public void RequestAgeRange() { Requests++; IsNativeFormPresenting = true; Changed?.Invoke(); }
+            public void Close() { IsNativeFormPresenting = false; Changed?.Invoke(); }
+        }
         [UnityTest]
-        public IEnumerator LocalizedPortraitSelectorIsScrollableNeutralAndRevisable()
+        public IEnumerator FirstLaunchKeepsMenuAndPlayWithoutCustomAgeQuestionInEveryPortrait()
         {
             foreach (var locale in new[] { "en", "pt-BR", "es" })
             foreach (var size in new[] { new Vector2(320, 568), new Vector2(390, 844), new Vector2(430, 932) })
             {
-                var host = new GameObject("audience selector", typeof(UIDocument));
+                var host = new GameObject("native age menu", typeof(UIDocument));
                 var panel = ScriptableObject.CreateInstance<PanelSettings>();
                 var texture = new RenderTexture((int)size.x, (int)size.y, 0);
                 panel.scaleMode = PanelScaleMode.ConstantPixelSize; panel.targetTexture = texture;
@@ -34,32 +49,37 @@ namespace CatsAndArrows.Tests
                 {
                     var doc = host.GetComponent<UIDocument>(); doc.panelSettings = panel;
                     doc.rootVisualElement.style.width = size.x; doc.rootVisualElement.style.height = size.y;
-                    var preference = new Preference();
+                    var age = new NativeAge { CanRequestAgeRange = true };
                     shell = new GameShellView(14, locale, PlayTestFactory.Loop(), enableTutorial: false,
-                        tutorialSeen: () => true, difficultyHistory: new MemoryDifficultyHistoryStore(), audience: preference);
+                        tutorialSeen: () => true, difficultyHistory: new MemoryDifficultyHistoryStore(), audience: age,
+                        monetization: new MonetizationCoordinator(true, new MemoryMonetizationStateStore(), new UnavailableAdService(), new UnavailablePurchaseService(), audience: age));
                     doc.rootVisualElement.Add(shell);
                     yield return null; yield return null;
                     shell.ApplySafeArea(new Rect(0, 0, size.x, size.y), size);
-                    shell.ShowAudienceSelector(true);
-                    yield return null; yield return null;
-                    Assert.That(shell.Modal, Is.EqualTo("audience"));
-                    Assert.That(preference.Current, Is.EqualTo(AudienceBand.Unknown));
-                    Assert.That(shell.Q<ScrollView>("audience-scroll"), Is.Not.Null);
-                    foreach (var band in new[] { AudienceBand.Under13, AudienceBand.Teen, AudienceBand.Adult, AudienceBand.PreferNotToAnswer })
-                    {
-                        var option = shell.Q<Button>("audience-" + band);
-                        Assert.That(option, Is.Not.Null); Assert.That(option.resolvedStyle.minHeight.value, Is.GreaterThanOrEqualTo(48));
-                        Assert.That(option.text, Does.Not.Contain("✓"));
-                    }
-                    shell.SelectAudience(AudienceBand.PreferNotToAnswer);
-                    Assert.That(shell.Modal, Is.Null); Assert.That(shell.Screen, Is.EqualTo("menu"));
+                    Assert.That(shell.Screen, Is.EqualTo("menu")); Assert.That(shell.Modal, Is.Null);
+                    Assert.That(age.Requests, Is.Zero);
+                    Assert.That(shell.Q("audience-selector"), Is.Null);
+                    Assert.That(shell.Q<Label>("menu-content-disclosure").text, Does.Contain("A12"));
+                    var play = shell.Q<Button>("menu-start");
+                    Assert.That(play.enabledInHierarchy, Is.True);
+                    Assert.That(play.resolvedStyle.height, Is.GreaterThanOrEqualTo(48));
+                    Assert.That(shell.StartNewGame(), Is.True);
+                    Assert.That(shell.Screen, Is.EqualTo("play")); Assert.That(age.Requests, Is.Zero);
+                    shell.ShowSettings();
+                    Assert.That(shell.Q<Button>("settings-age-range"), Is.Null);
+                    var native = shell.Q<Button>("settings-apple-age-range");
+                    Assert.That(native, Is.Not.Null);
                     yield return null;
-                    Assert.That(doc.rootVisualElement.focusController.focusedElement, Is.SameAs(shell.Q<Button>("menu-start")));
-                    shell.ShowSettings(); shell.ShowAudienceSelector();
-                    Assert.That(shell.Q<Button>("audience-PreferNotToAnswer").text, Does.Contain("✓"));
-                    shell.SelectAudience(AudienceBand.Adult);
-                    Assert.That(preference.Current, Is.EqualTo(AudienceBand.Adult));
-                    Assert.That(shell.Screen, Is.EqualTo("settings"));
+                    Assert.That(native.resolvedStyle.minHeight.value, Is.GreaterThanOrEqualTo(48));
+                    shell.RequestAppleAgeRange();
+                    Assert.That(age.Requests, Is.EqualTo(1)); Assert.That(shell.Modal, Is.Null);
+                    Assert.That(shell.CanPresentAgeRange, Is.False);
+                    Assert.That(shell.StartNewGame(), Is.False);
+                    shell.OpenPrivacyPolicy(); shell.RequestAppleAgeRange();
+                    Assert.That(age.Requests, Is.EqualTo(1));
+                    age.Close(); shell.ShowMenu();
+                    Assert.That(shell.CanPresentAgeRange, Is.True);
+                    Assert.That(shell.Q<Button>("menu-start").enabledInHierarchy, Is.True);
                 }
                 finally
                 {
@@ -69,30 +89,22 @@ namespace CatsAndArrows.Tests
             }
         }
         [Test]
-        public void LocalBandSurvivesRestartAndMalformedChoiceNeverAssumesAdult()
+        public void UnsupportedAppleAgeSharingAddsNoDeadSettingsActionOrGameBlock()
         {
-            var had = PlayerPrefs.HasKey(LocalAudiencePreference.Key);
-            var previous = PlayerPrefs.GetInt(LocalAudiencePreference.Key, 0);
+            var age = new NativeAge();
+            var shell = new GameShellView(14, "en", PlayTestFactory.Loop(), enableTutorial: false,
+                tutorialSeen: () => true, difficultyHistory: new MemoryDifficultyHistoryStore(), audience: age);
             try
             {
-                PlayerPrefs.DeleteKey(LocalAudiencePreference.Key);
-                Assert.That(new LocalAudiencePreference().Current, Is.EqualTo(AudienceBand.Unknown));
-                foreach (var band in new[] { AudienceBand.Under13, AudienceBand.Teen, AudienceBand.Adult, AudienceBand.PreferNotToAnswer })
-                {
-                    new LocalAudiencePreference().Select(band);
-                    Assert.That(new LocalAudiencePreference().Current, Is.EqualTo(band));
-                }
-                PlayerPrefs.SetInt(LocalAudiencePreference.Key, 99);
-                Assert.That(new LocalAudiencePreference().Current, Is.EqualTo(AudienceBand.Unknown));
+                shell.ShowSettings();
+                Assert.That(shell.Q<Button>("settings-apple-age-range"), Is.Null);
+                shell.RequestAppleAgeRange(); Assert.That(age.Requests, Is.Zero);
+                Assert.That(shell.StartNewGame(), Is.True);
             }
-            finally
-            {
-                if (had) PlayerPrefs.SetInt(LocalAudiencePreference.Key, previous); else PlayerPrefs.DeleteKey(LocalAudiencePreference.Key);
-                PlayerPrefs.Save();
-            }
+            finally { shell.DisposeMonetization(); }
         }
         [Test]
-        public void AdultUnknownOwnershipRetainsExistingRestoreFirstAssistancePolicy()
+        public void AdultWithUnavailableAdsKeepsFreeHintsWithoutInventingOwnership()
         {
             var preference = new Preference(); preference.Select(AudienceBand.Adult);
             using var coordinator = new MonetizationCoordinator(true, new MemoryMonetizationStateStore(),
@@ -103,8 +115,8 @@ namespace CatsAndArrows.Tests
             {
                 Assert.That(shell.StartNewGame(), Is.True);
                 shell.RequestHint();
-                Assert.That(shell.ActiveSession.MarkRevision, Is.Zero);
-                Assert.That(coordinator.Status, Is.EqualTo(MonetizationStatus.RestoreRequired));
+                Assert.That(shell.ActiveSession.MarkRevision, Is.GreaterThan(0));
+                Assert.That(coordinator.IsOwned, Is.False);
                 Assert.That(coordinator.Snapshot.Access, Is.EqualTo(AccessState.Unknown));
             }
             finally { shell.DisposeMonetization(); }
@@ -140,9 +152,7 @@ namespace CatsAndArrows.Tests
                 Assert.That(shell.Q<Button>("settings-support"), Is.Not.Null);
                 Assert.That(opened, Is.Null);
                 shell.OpenPrivacyPolicy(); Assert.That(opened, Is.EqualTo("https://example.com/privacy"));
-                shell.ShowAudienceSelector(); shell.OpenSupport();
-                Assert.That(opened, Is.EqualTo("https://example.com/privacy"));
-                shell.SelectAudience(AudienceBand.PreferNotToAnswer); shell.OpenSupport();
+                shell.OpenSupport();
                 Assert.That(opened, Is.EqualTo("https://example.com/support"));
             }
             finally { shell.DisposeMonetization(); }

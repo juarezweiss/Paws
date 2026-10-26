@@ -9,10 +9,12 @@ namespace CatsAndArrows.UI
         MonetizationCoordinator Initialize();
         string PrivacyPolicyUrl { get; }
         string SupportUrl { get; }
-        IAudiencePreference Audience { get; }
+        IAudienceSource Audience { get; }
         IAdPrivacyService Privacy { get; }
+        void SetAgePresentationAllowed(bool allowed);
         void StartProviders();
         void Tick();
         void SetPaused(bool paused);
+        void SetApplicationPaused(bool paused);
     }
 }

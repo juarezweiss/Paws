@@ -8,6 +8,7 @@ import plistlib
 import struct
 import tempfile
 import unittest
+from datetime import datetime
 from pathlib import Path
 from unittest.mock import patch
 
@@ -74,6 +75,8 @@ class IOSReleaseTests(unittest.TestCase):
             "CFBundleIdentifier": ios.BUNDLE_ID, "CFBundleShortVersionString": "0.1.0", "CFBundleVersion": "1"}})
         (self.app / "Paws").write_bytes(b"fixture binary")
         self.entitlements = {}
+        self.profile = {"Entitlements": {ios.AGE_ENTITLEMENT: True, "application-identifier": "TEAM." + ios.BUNDLE_ID},
+                        "ExpirationDate": datetime(2099, 1, 1)}
         self.commands = []
         self.dirty_status = ""
         sdk = self.root / "UnityProject/ThirdParty~/FixtureSDK.bin"
@@ -109,6 +112,10 @@ class IOSReleaseTests(unittest.TestCase):
         if args[0] == "xcodebuild":
             return "Xcode 27.0\nBuild version fixture\n"
         if args[0] == "otool":
+            if "-l" in args:
+                return ("Load command 0\n          cmd LC_LOAD_WEAK_DYLIB\n"
+                        "         name /System/Library/Frameworks/DeclaredAgeRange.framework/DeclaredAgeRange (offset 24)\n"
+                        if self.metadata.get("ageAssuranceEnabled") else "")
             return "Paws:\n\t/System/Library/Frameworks/UIKit.framework/UIKit (compatibility version 1.0.0)\n"
         if args[0] == "codesign" and "-d" in args:
             return plistlib.dumps(self.entitlements).decode()
@@ -120,7 +127,10 @@ class IOSReleaseTests(unittest.TestCase):
             return "UUID: AAAAAAAA-BBBB-CCCC-DDDD-EEEEEEEEEEEE (arm64) fixture\n"
         if args[0] == "nm":
             return "\n".join(("_PawsIapRead", "_PawsIapVerifyCache", "_PawsIapPresentOfferCodeSheet",
-                              "_GADUInitializeWithCallback", "_GADURequestConsentInfoUpdate", "_GADUUMPCanRequestAds"))
+                              "_GADUInitializeWithCallback", "_GADURequestConsentInfoUpdate", "_GADUUMPCanRequestAds") +
+                             (ios.AGE_SYMBOLS if self.metadata.get("ageAssuranceEnabled") else ()))
+        if args[0] == "security":
+            return plistlib.dumps(self.profile).decode()
         self.fail(f"Unexpected command: {args}")
 
     def receipt(self, archive=False):
@@ -148,17 +158,26 @@ class IOSReleaseTests(unittest.TestCase):
                              testDeviceCount=0, consentDebugGeography="Disabled",
                              privacyPolicyUrl="https://example.org/privacy" if profile == "production" else "",
                              supportUrl="https://example.org/support" if profile == "production" else "",
-                             audiencePolicy="local-adult-only-v1",
+                             audiencePolicy="apple-age-assurance-v1", ageAssuranceEnabled=True,
+                             ageAssuranceEntitlement=ios.AGE_ENTITLEMENT,
                              **dict.fromkeys(ios.PROVIDERS, True))
         self.write_metadata()
         runtime = dict(ids, profile=profile, consentDebugGeography="Disabled", umpTestDeviceIds=[],
                        privacyPolicyUrl=self.metadata["privacyPolicyUrl"], supportUrl=self.metadata["supportUrl"],
-                       audiencePolicy="local-adult-only-v1")
+                       audiencePolicy="apple-age-assurance-v1")
+        self.project["objects"]["release"]["buildSettings"]["CODE_SIGN_ENTITLEMENTS"] = "PawsAgeRange.entitlements"
+        self.project["objects"]["framework-release"]["buildSettings"]["SWIFT_ACTIVE_COMPILATION_CONDITIONS"] = [ios.AGE_SWIFT_CONDITION]
+        self.project["objects"]["framework"]["buildPhases"] = ["frameworks-phase"]
+        self.project["objects"]["frameworks-phase"] = {"isa": "PBXFrameworksBuildPhase", "files": ["age-link"]}
+        self.project["objects"]["age-reference"] = {"isa": "PBXFileReference", "path": "System/Library/Frameworks/DeclaredAgeRange.framework"}
+        self.project["objects"]["age-link"] = {"isa": "PBXBuildFile", "fileRef": "age-reference", "settings": {"ATTRIBUTES": ["Weak"]}}
+        self.write_project()
+        self.write_plist(self.export / "PawsAgeRange.entitlements", {ios.AGE_ENTITLEMENT: True})
         (self.export / "paws-monetization.json").write_text(json.dumps(runtime))
         self.write_runtime_asset(runtime)
         self.info.update(GADApplicationIdentifier=ids["adMobAppId"], GADDisableAdInspector=True)
         self.write_plist(self.export / "Info.plist", self.info)
-        self.generated.write_text("void ApplePurchaseService(); void GoogleAdsBridge(); void AdMobAdService();")
+        self.generated.write_text("void ApplePurchaseService(); void GoogleAdsBridge(); void AdMobAdService(); void NativeAppleAgeRangeClient(); void AppleAgeRangeService();")
         for name in ("GoogleMobileAds", "UserMessagingPlatform"):
             self.write_plist(self.export / "Frameworks/PawsAdMob" / (name + "Resources.bundle/PrivacyInfo.xcprivacy"),
                              {"NSPrivacyTracking": False})
@@ -180,7 +199,8 @@ class IOSReleaseTests(unittest.TestCase):
                 self.enable(profile)
                 receipt = self.receipt()
                 self.assertEqual(receipt["monetization"]["profile"], profile)
-                self.assertEqual(receipt["monetization"]["distributionEligible"], profile == "production")
+                self.assertEqual(receipt["monetization"]["configurationEligibleForDistribution"], profile == "production")
+                self.assertFalse(receipt["monetization"]["distributionEligible"])
                 self.assertEqual(len(receipt["monetization"]["runtimeConfigurationSha256"]), 64)
                 self.assertEqual(receipt["physicalIPhoneReview"], "pending-human")
 
@@ -356,6 +376,119 @@ class IOSReleaseTests(unittest.TestCase):
         self.assertTrue(receipt["archive"]["nativeIntegrity"]["requiredProviderSymbolsPresent"])
         self.assertEqual(len(receipt["archive"]["nativeIntegrity"]["binaries"]), 2)
         self.assertTrue(any(args[0] == "nm" for args in self.commands))
+        self.assertTrue(receipt["ageAssurance"]["enabled"])
+        self.assertEqual(receipt["archive"]["ageAssurance"]["signedCapability"], "pending-signature-profile-and-human-validation")
+
+    def test_enabled_age_export_requires_real_entitlement_native_compile_and_weak_target_link(self):
+        self.enable()
+        mutations = (
+            lambda: self.metadata.update(ageAssuranceEnabled=False),
+            lambda: self.metadata.update(ageAssuranceEntitlement="wrong.entitlement"),
+            lambda: self.project["objects"]["release"]["buildSettings"].update(CODE_SIGN_ENTITLEMENTS="unbound.entitlements"),
+            lambda: self.project["objects"]["framework-release"]["buildSettings"].pop("SWIFT_ACTIVE_COMPILATION_CONDITIONS"),
+            lambda: self.project["objects"]["age-link"].update(settings={}),
+            lambda: self.project["objects"]["frameworks-phase"].update(files=[]),
+            lambda: self.project["objects"]["framework-release"]["buildSettings"].update(CODE_SIGN_ENTITLEMENTS="PawsAgeRange.entitlements"),
+        )
+        for index, mutate in enumerate(mutations):
+            with self.subTest(index=index):
+                original_metadata, original_project = copy.deepcopy(self.metadata), copy.deepcopy(self.project)
+                mutate()
+                self.write_metadata(); self.write_project()
+                with self.assertRaises(ios.InspectionError):
+                    self.receipt()
+                self.metadata, self.project = original_metadata, original_project
+                self.write_metadata(); self.write_project()
+
+    def test_age_entitlement_must_be_boolean_true_and_not_an_unused_plist(self):
+        self.enable()
+        file = self.export / "PawsAgeRange.entitlements"
+        for value in (False, "true", 1):
+            with self.subTest(value=value):
+                self.write_plist(file, {ios.AGE_ENTITLEMENT: value})
+                with self.assertRaisesRegex(ios.InspectionError, "Boolean true"):
+                    self.receipt()
+        self.write_plist(file, {ios.AGE_ENTITLEMENT: True})
+        self.write_plist(self.export / "Unused.entitlements", {ios.AGE_ENTITLEMENT: True})
+        with self.assertRaisesRegex(ios.InspectionError, "Boolean true"):
+            self.receipt()
+
+    def test_disabled_age_export_rejects_framework_entitlement_or_compile_condition(self):
+        for kind in ("framework", "entitlement", "condition"):
+            with self.subTest(kind=kind):
+                original = copy.deepcopy(self.project)
+                file = self.export / "Unexpected.entitlements"
+                if kind == "framework":
+                    self.project["objects"]["age-reference"] = {"isa": "PBXFileReference", "path": "DeclaredAgeRange.framework"}
+                elif kind == "entitlement":
+                    self.write_plist(file, {ios.AGE_ENTITLEMENT: True})
+                else:
+                    self.project["objects"]["framework-release"]["buildSettings"]["SWIFT_ACTIVE_COMPILATION_CONDITIONS"] = ios.AGE_SWIFT_CONDITION
+                self.write_project()
+                with self.assertRaisesRegex(ios.InspectionError, "Disabled rollback contains native age"):
+                    self.receipt()
+                self.project = original
+                self.write_project()
+                file.unlink(missing_ok=True)
+
+    def test_enabled_age_archive_requires_native_symbols_and_actual_weak_macho_load(self):
+        self.enable(archive=True)
+        for scenario in ("missing-symbol", "strong-link", "missing-link"):
+            def altered(args):
+                value = self.run_command(args)
+                if scenario == "missing-symbol" and args[0] == "nm":
+                    return value.replace(ios.AGE_SYMBOLS[0], "")
+                if args[:2] == ["otool", "-l"]:
+                    return "" if scenario == "missing-link" else value.replace("LC_LOAD_WEAK_DYLIB", "LC_LOAD_DYLIB") if scenario == "strong-link" else value
+                return value
+            with self.subTest(scenario=scenario), patch.object(ios, "command", side_effect=altered):
+                with self.assertRaisesRegex(ios.InspectionError, "age-assurance entry points|LC_LOAD_WEAK_DYLIB"):
+                    self.receipt(True)
+
+    def test_signed_age_archive_requires_entitlement_and_compatible_embedded_profile(self):
+        self.enable(archive=True)
+        signature = self.app / "_CodeSignature/CodeResources"
+        signature.parent.mkdir()
+        signature.write_bytes(b"signature fixture")
+        (self.app / "embedded.mobileprovision").write_bytes(b"profile fixture")
+        self.entitlements = {"application-identifier": "TEAM." + ios.BUNDLE_ID, ios.AGE_ENTITLEMENT: True}
+        receipt = self.receipt(True)
+        self.assertTrue(receipt["archive"]["ageAssurance"]["profileCompatibility"]["signedApplicationMatched"])
+        self.entitlements.pop(ios.AGE_ENTITLEMENT)
+        with self.assertRaisesRegex(ios.InspectionError, "Signed app is missing"):
+            self.receipt(True)
+        self.entitlements[ios.AGE_ENTITLEMENT] = True
+        self.profile["Entitlements"].pop(ios.AGE_ENTITLEMENT)
+        with self.assertRaisesRegex(ios.InspectionError, "profile does not allow"):
+            self.receipt(True)
+
+    def test_profile_preflight_rejects_wrong_app_expiry_and_nonboolean_capability(self):
+        file = self.root / "owner.mobileprovision"
+        file.write_bytes(b"fixture")
+        self.assertTrue(ios.inspect_age_profile(file)["allowsDeclaredAgeRange"])
+        mutations = (
+            lambda: self.profile["Entitlements"].update({ios.AGE_ENTITLEMENT: "true"}),
+            lambda: self.profile["Entitlements"].update({"application-identifier": "TEAM.*"}),
+            lambda: self.profile["Entitlements"].update({"application-identifier": "TEAM.com.other.app"}),
+            lambda: self.profile.update(ExpirationDate=datetime(2000, 1, 1)),
+        )
+        for index, mutate in enumerate(mutations):
+            with self.subTest(index=index):
+                previous = copy.deepcopy(self.profile)
+                mutate()
+                with self.assertRaises(ios.InspectionError):
+                    ios.inspect_age_profile(file)
+                self.profile = previous
+
+    def test_disabled_archive_rejects_native_age_symbols_even_without_the_framework_load(self):
+        framework = self.app / "Frameworks/UnityFramework.framework/UnityFramework"
+        framework.parent.mkdir(parents=True)
+        framework.write_bytes(b"fixture")
+        def native_age(args):
+            return "\n".join(ios.AGE_SYMBOLS) if args[0] == "nm" else self.run_command(args)
+        with patch.object(ios, "command", side_effect=native_age):
+            with self.assertRaisesRegex(ios.InspectionError, "Disabled archive contains the native age"):
+                self.receipt(True)
 
     def test_enabled_archive_rejects_missing_native_symbol_wrong_architecture_and_uuid(self):
         self.enable(archive=True)
@@ -480,11 +613,29 @@ class IOSReleaseTests(unittest.TestCase):
 
     def test_enabled_requires_concrete_google_binding_not_interface_substring(self):
         self.enable()
-        self.generated.write_text("struct ApplePurchaseService_tABC; struct IGoogleAdsBridge_tABC; struct AdMobAdService_tABC;")
+        self.generated.write_text("struct ApplePurchaseService_tABC; struct IGoogleAdsBridge_tABC; struct AdMobAdService_tABC; struct NativeAppleAgeRangeClient_tABC; struct AppleAgeRangeService_tABC;")
         with self.assertRaisesRegex(ios.InspectionError, "missing a real"):
             self.receipt()
         self.generated.write_text(self.generated.read_text() + "struct GoogleAdsBridge_tABC;")
         self.assertEqual(self.receipt()["stage"], "export-validated")
+
+    def test_legacy_local_age_selector_cannot_ship_in_fresh_candidate(self):
+        with tempfile.TemporaryDirectory() as directory:
+            export = Path(directory)
+            source = export / "Il2CppOutputProject/Source/il2cppOutput"
+            source.mkdir(parents=True)
+            (source / "stale.cpp").write_text("struct LocalAudiencePreference_tstale {};")
+            with self.assertRaisesRegex(ios.InspectionError, "mock type"):
+                ios.inspect_il2cpp(export, "validation")
+
+    def test_disabled_excludes_native_age_binding_and_enabled_requires_actual_client(self):
+        self.generated.write_text("struct NativeAppleAgeRangeClient_tABC;")
+        with self.assertRaisesRegex(ios.InspectionError, "native Apple age provider binding"):
+            self.receipt()
+        self.enable()
+        self.generated.write_text(self.generated.read_text().replace("NativeAppleAgeRangeClient", "INativeAppleAgeRangeClient"))
+        with self.assertRaisesRegex(ios.InspectionError, "missing a real"):
+            self.receipt()
 
     def test_interface_overlap_does_not_create_concrete_type_and_split_concrete_is_detected(self):
         # Place G at the overlap start to exercise the missing-left-context case.

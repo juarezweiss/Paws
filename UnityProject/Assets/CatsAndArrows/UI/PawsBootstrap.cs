@@ -30,14 +30,15 @@ namespace CatsAndArrows.UI
             root.Add(shell);
             shell.SetApplicationFocus(focused);
             shell.SetApplicationPaused(paused);
+            monetization?.SetApplicationPaused(paused);
             monetization?.SetPaused(paused || !focused);
+            monetization?.SetAgePresentationAllowed(shell.CanPresentAgeRange);
             monetization?.StartProviders();
-            if (monetization?.Audience?.Current == CatsAndArrows.Monetization.AudienceBand.Unknown)
-                shell.ShowAudienceSelector(true);
         }
 
         private void Update()
         {
+            monetization?.SetAgePresentationAllowed(shell?.CanPresentAgeRange == true);
             monetization?.Tick(); shell?.TickMonetization(); shell?.UpdateSafeArea();
         }
         private void OnApplicationFocus(bool value)
@@ -49,6 +50,7 @@ namespace CatsAndArrows.UI
         private void OnApplicationPause(bool value)
         {
             paused = value;
+            monetization?.SetApplicationPaused(value);
             shell?.SetApplicationPaused(value);
             UpdateLifecycle();
         }

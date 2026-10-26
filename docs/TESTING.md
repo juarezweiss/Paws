@@ -1,6 +1,13 @@
 # Testing Strategy
 
-## Current #67 monetized Paws 1.0 gate — 2026-10-24
+2026-10-26 owner amendment: custom age selection is removed. Native Apple regional
+checks/optional Settings sharing replace it; unknown/minor/unconfirmed audiences
+receive no Google requests and free eligible Hints. [Current age policy, sources,
+OS matrix and genuine capability/regional gates](AGE_ASSURANCE.md) supersede older
+local-age-choice text and October 24 UI/artifact evidence. Monetized release intent,
+verified IAP safety and the narrow #82 acceptance remain unchanged.
+
+## Historical #67 monetized Paws 1.0 gate — 2026-10-24
 
 Prepared source `86487b2d363d0e32de8f2a392e0f21ae99bcfbfa`:
 pinned compilation and production-only iOS managed compilation pass;

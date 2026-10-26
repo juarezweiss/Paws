@@ -1,5 +1,12 @@
 # AdMob / UMP development integration — #66
 
+2026-10-26 owner amendment: custom age selection is removed. Native Apple regional
+checks/optional Settings sharing replace it; unknown/minor/unconfirmed audiences
+receive no Google requests and free eligible Hints. [Current age policy, sources,
+OS matrix and genuine capability/regional gates](AGE_ASSURANCE.md) supersede older
+local-age-choice text and October 24 UI/artifact evidence. Monetized release intent,
+verified IAP safety and the narrow #82 acceptance remain unchanged.
+
 Current 2026-10-24 authority: [#67 monetized Paws 1.0 preparation](RELEASE_RC_1_0.md)
 adds actual enabled production composition and an integrated real-IAP/test-ad
 validation profile using this unchanged SDK infrastructure. The development-only

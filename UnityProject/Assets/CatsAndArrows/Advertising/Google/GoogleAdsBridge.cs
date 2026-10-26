@@ -19,17 +19,18 @@ namespace CatsAndArrows.Advertising.Google
         public const string TestRewarded = "ca-app-pub-3940256099942544/1712485313";
 #endif
         private readonly ConsentRequestParameters consent;
-        public GoogleAdsBridge(string interstitialId, string rewardedId)
+        public GoogleAdsBridge(string interstitialId, string rewardedId, AudienceBand audience)
         {
             if (Debug.isDebugBuild || Application.platform != RuntimePlatform.IPhonePlayer)
                 throw new InvalidOperationException("Production AdMob requires a non-development iOS player.");
+            if (audience != AudienceBand.Adult) throw new InvalidOperationException("Paws 1.0 requires confirmed adult eligibility before contacting Google.");
             this.interstitialId = interstitialId;
             this.rewardedId = rewardedId;
             consent = new ConsentRequestParameters();
         }
 #if UNITY_EDITOR || PAWS_MONETIZATION_VALIDATION
-        public GoogleAdsBridge(string interstitialId, string rewardedId, string geography, IEnumerable<string> testDevices)
-            : this(interstitialId, rewardedId)
+        public GoogleAdsBridge(string interstitialId, string rewardedId, string geography, IEnumerable<string> testDevices, AudienceBand audience)
+            : this(interstitialId, rewardedId, audience)
         {
             var devices = new List<string>(testDevices ?? Array.Empty<string>());
             if (geography != "Disabled" || devices.Count > 0)
@@ -67,17 +68,12 @@ namespace CatsAndArrows.Advertising.Google
         public void Initialize(Action<bool> complete)
         {
             if (!CanRequestAds) { complete(false); return; }
-            // Owner-approved development privacy policy, 2026-10-23. These switches do
+            // Owner-approved production privacy policy, 2026-10-24. These switches do
             // not disable all SDK measurement, identifiers or advertising data collection.
             MobileAds.DisableSDKCrashReporting();
             MobileAds.SetiOSAppPauseOnBackground(false); // Keep our native guard/dispatcher active; real app background still suspends delivery.
             MobileAds.DisableMediationInitialization();
-            MobileAds.SetRequestConfiguration(new RequestConfiguration
-            {
-                PublisherFirstPartyIdEnabled = false,
-                PublisherPrivacyPersonalizationState = PublisherPrivacyPersonalizationState.Disabled,
-                MaxAdContentRating = MaxAdContentRating.G
-            });
+            MobileAds.SetRequestConfiguration(CreateRequestConfiguration(AudienceBand.Adult));
             MobileAds.Initialize(status =>
             {
                 bool ready;
@@ -85,6 +81,22 @@ namespace CatsAndArrows.Advertising.Google
                 catch { ready = false; }
                 complete(ready);
             });
+        }
+        // Tags are not age evidence or permission to advertise. Paws 1.0's outer
+        // gate suppresses all unknown/minor requests; known adults use Unspecified.
+        public static RequestConfiguration CreateRequestConfiguration(AudienceBand reliableBand)
+        {
+            var treatment = reliableBand == AudienceBand.Under13 ? AgeRestrictedTreatment.Child :
+                reliableBand == AudienceBand.Teen ? AgeRestrictedTreatment.Teen :
+                reliableBand == AudienceBand.Adult ? AgeRestrictedTreatment.Unspecified :
+                throw new ArgumentException("Unknown age cannot configure ad requests.", nameof(reliableBand));
+            return new RequestConfiguration
+            {
+                AgeRestrictedTreatment = treatment,
+                PublisherFirstPartyIdEnabled = false,
+                PublisherPrivacyPersonalizationState = PublisherPrivacyPersonalizationState.Disabled,
+                MaxAdContentRating = MaxAdContentRating.G
+            };
         }
         public void Load(AdPlacement placement, Action<IGoogleAd> complete)
         {

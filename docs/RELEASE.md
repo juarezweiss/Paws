@@ -1,14 +1,21 @@
 # Environments, Releases, and Rollback
 
+2026-10-26 owner amendment: custom age selection is removed. Native Apple regional
+checks/optional Settings sharing replace it; unknown/minor/unconfirmed audiences
+receive no Google requests and free eligible Hints. [Current age policy, sources,
+OS matrix and genuine capability/regional gates](AGE_ASSURANCE.md) supersede older
+local-age-choice text and October 24 UI/artifact evidence. Monetized release intent,
+verified IAP safety and the narrow #82 acceptance remain unchanged.
+
 Current authority: the owner's **2026-10-24 decision** in [#67](https://github.com/juarezweiss/Paws/issues/67).
 Paws 1.0 ships **with Apple IAP, Offer Codes, AdMob and UMP**. Disabled mode is a
 rollback profile, not the release plan. The narrow [#82](https://github.com/juarezweiss/Paws/issues/82)
 restart-button limitation is accepted and non-blocking; purchase safety is mandatory.
 See [candidate gates and minimal physical checklist](RELEASE_RC_1_0.md).
-Current preparation evidence: [#67 validation](evidence/issue67/validation.json),
+Historical October 24 preparation evidence: [#67 validation](evidence/issue67/validation.json),
 [non-development validation archive](evidence/issue67/ios-release-receipt.json)
 and [disabled rollback export](evidence/issue67/disabled-export-receipt.json).
-Source `86487b2` is prepared for review in [PR #87](https://github.com/juarezweiss/Paws/pull/87).
+Previous source `86487b2` was prepared for review in [PR #87](https://github.com/juarezweiss/Paws/pull/87).
 Distribution remains **NO-GO** pending genuine production resources, final enabled
 distribution-profile archive and the mandatory exact-candidate human tests.
 The dated #63–#66 evidence below retains its original scope; historical blanket

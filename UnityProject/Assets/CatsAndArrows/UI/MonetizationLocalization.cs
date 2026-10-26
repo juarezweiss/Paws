@@ -8,12 +8,8 @@ namespace CatsAndArrows.UI
         {
             var entries = new Dictionary<string, string[]>
             {
-                { "audience.title", new[] { "Age range", "Faixa etária", "Rango de edad" } },
-                { "audience.explanation", new[] { "Ads are requested only for ages 18 and over. Your choice stays on this device. You can change it in Settings or keep playing without answering.", "Anúncios são solicitados apenas para maiores de 18 anos. Sua escolha fica neste dispositivo. Você pode alterá-la nos Ajustes ou continuar jogando sem responder.", "Solo se solicitan anuncios para mayores de 18 años. Tu elección queda en este dispositivo. Puedes cambiarla en Ajustes o seguir jugando sin responder." } },
-                { "audience.under13", new[] { "Under 13", "Menos de 13 anos", "Menos de 13 años" } },
-                { "audience.teen", new[] { "13–17", "13–17 anos", "13–17 años" } },
-                { "audience.adult", new[] { "18 and over", "18 anos ou mais", "18 años o más" } },
-                { "audience.private", new[] { "Prefer not to answer", "Prefiro não responder", "Prefiero no responder" } },
+                { "release.content-disclosure", new[] { "Brazil: A12 · Advertising · In-app purchases", "Brasil: A12 · Contém publicidade · Compras no app", "Brasil: A12 · Contiene publicidad · Compras dentro de la app" } },
+                { "audience.apple", new[] { "Age range from Apple", "Faixa etária da Apple", "Rango de edad de Apple" } },
                 { "privacy.policy", new[] { "Privacy Policy", "Política de privacidade", "Política de privacidad" } },
                 { "privacy.support", new[] { "Support", "Suporte", "Ayuda" } },
                 { "privacy.options", new[] { "Privacy Options", "Opções de privacidade", "Opciones de privacidad" } },

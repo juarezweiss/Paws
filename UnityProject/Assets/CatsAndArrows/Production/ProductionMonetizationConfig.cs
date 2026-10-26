@@ -6,7 +6,7 @@ namespace CatsAndArrows.Production
     [Serializable]
     public sealed class ProductionMonetizationConfig
     {
-        public const string AudiencePolicy = "local-adult-only-v1";
+        public const string AudiencePolicy = "apple-age-assurance-v1";
         public const string ProductId = "com.jweiss.paws.removeads";
         public string audiencePolicy;
         public string privacyPolicyUrl = "", supportUrl = "";
@@ -37,7 +37,7 @@ namespace CatsAndArrows.Production
                 return;
             }
             if (audiencePolicy != AudiencePolicy)
-                throw new ArgumentException("Explicit local-adult-only-v1 audience policy is required.");
+                throw new ArgumentException("Explicit apple-age-assurance-v1 audience policy is required.");
             ValidateLink(privacyPolicyUrl, !TestAds);
             ValidateLink(supportUrl, !TestAds);
             if (!Regex.IsMatch(adMobAppId ?? "", @"^ca-app-pub-[0-9]{16}~[0-9]{10}$") ||

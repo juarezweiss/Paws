@@ -97,6 +97,7 @@ namespace CatsAndArrows.UI.Editor
                 if (report.summary.result != BuildResult.Succeeded)
                     throw new InvalidOperationException("Production iOS export failed: " + report.summary.result);
                 if (config.Enabled) NativeAdMobBuild.Add(options.locationPathName, config.adMobAppId);
+                if (config.Enabled) NativeAgeRangeBuild.Add(options.locationPathName);
                 if (config.Enabled)
                 {
                     var redacted = JsonUtility.FromJson<ProductionMonetizationConfig>(runtimeJson);
@@ -117,7 +118,8 @@ namespace CatsAndArrows.UI.Editor
                     rewardedAdUnitId = config.rewardedAdUnitId,
                     consentDebugGeography = config.consentDebugGeography, testDeviceCount = config.umpTestDeviceIds.Length,
                     runtimeConfigurationSha256 = config.Enabled ? ConfigurationHash(runtimeJson) : "",
-                    privacyPolicyUrl = config.privacyPolicyUrl, supportUrl = config.supportUrl, audiencePolicy = config.audiencePolicy
+                    privacyPolicyUrl = config.privacyPolicyUrl, supportUrl = config.supportUrl, audiencePolicy = config.audiencePolicy,
+                    ageAssuranceEnabled = config.Enabled, ageAssuranceEntitlement = config.Enabled ? NativeAgeRangeBuild.Entitlement : ""
                 }, true));
             }
             finally
@@ -202,6 +204,8 @@ namespace CatsAndArrows.UI.Editor
             public string consentDebugGeography = "Disabled";
             public int testDeviceCount = 0;
             public bool appleIapEnabled, offerCodesEnabled, admobEnabled, umpEnabled, testAds;
+            public bool ageAssuranceEnabled;
+            public string ageAssuranceEntitlement;
             public bool simulatedPurchases = false;
             public bool monetizationEnabled = false, developmentBuild = false, scriptDebugging = false, profilerEnabled = false;
         }

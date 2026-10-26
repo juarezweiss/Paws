@@ -20,11 +20,11 @@ namespace CatsAndArrows.Production
 #if UNITY_EDITOR || PAWS_MONETIZATION
         private MonetizationCoordinator coordinator;
         private AudienceAdService ads;
-        private LocalAudiencePreference audience;
+        private AppleAgeRangeService audience;
         private ApplePurchaseService purchases;
         private QueuedAdDispatcher dispatcher;
 #endif
-        public IAudiencePreference Audience
+        public IAudienceSource Audience
         {
             get
             {
@@ -69,14 +69,14 @@ namespace CatsAndArrows.Production
             purchases = new ApplePurchaseService(ProductionMonetizationConfig.ProductId,
                 validation ? ApplePurchaseEnvironment.SandboxReview : ApplePurchaseEnvironment.Production, pending);
             dispatcher = new QueuedAdDispatcher();
-            audience = new LocalAudiencePreference();
+            audience = new AppleAgeRangeService(new NativeAppleAgeRangeClient(dispatcher.Post));
             ads = new AudienceAdService(audience, () =>
             {
 #if PAWS_MONETIZATION_VALIDATION
                 return new GoogleAdsBridge(config.interstitialAdUnitId, config.rewardedAdUnitId,
-                config.consentDebugGeography, config.umpTestDeviceIds);
+                config.consentDebugGeography, config.umpTestDeviceIds, audience.Current);
 #else
-                return new GoogleAdsBridge(config.interstitialAdUnitId, config.rewardedAdUnitId);
+                return new GoogleAdsBridge(config.interstitialAdUnitId, config.rewardedAdUnitId, audience.Current);
 #endif
             }, () => coordinator?.IsOwned == true, dispatcher.Post);
             coordinator = new MonetizationCoordinator(true, store, ads, purchases, audience: audience);
@@ -86,16 +86,22 @@ namespace CatsAndArrows.Production
             return null;
 #endif
         }
+        public void SetAgePresentationAllowed(bool allowed)
+        {
+#if UNITY_EDITOR || PAWS_MONETIZATION
+            audience?.SetPresentationAllowed(allowed);
+#endif
+        }
         public void StartProviders()
         {
 #if UNITY_EDITOR || PAWS_MONETIZATION
-            ads?.Start();
+            audience?.Start(); ads?.Start();
 #endif
         }
         public void Tick()
         {
 #if UNITY_EDITOR || PAWS_MONETIZATION
-            dispatcher?.Drain(); purchases?.Tick(); ads?.Tick();
+            dispatcher?.Drain(); audience?.Tick(); purchases?.Tick(); ads?.Tick();
 #endif
         }
         public void SetPaused(bool paused)
@@ -104,10 +110,16 @@ namespace CatsAndArrows.Production
             ads?.SetPaused(paused);
 #endif
         }
+        public void SetApplicationPaused(bool paused)
+        {
+#if UNITY_EDITOR || PAWS_MONETIZATION
+            audience?.SetApplicationPaused(paused);
+#endif
+        }
         public void Dispose()
         {
 #if UNITY_EDITOR || PAWS_MONETIZATION
-            coordinator?.Dispose(); ads?.Dispose(); purchases?.Dispose();
+            coordinator?.Dispose(); ads?.Dispose(); audience?.Dispose(); purchases?.Dispose();
 #endif
         }
     }
