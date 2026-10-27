@@ -28,6 +28,7 @@ namespace CatsAndArrows.UI
         private readonly Label intro = new Label();
         private readonly VisualElement completionRow = new VisualElement();
         private readonly Label completionStatus = new Label();
+        private readonly VisualElement tutorialInstructions = new VisualElement { name = "tutorial-instructions", pickingMode = PickingMode.Ignore };
         private readonly Label tutorialGoalTitle = new Label { name = "tutorial-goal-title", pickingMode = PickingMode.Ignore };
         private readonly Button completionHint;
         private int highlightVersion;
@@ -119,7 +120,13 @@ namespace CatsAndArrows.UI
             tutorialGoalTitle.style.paddingLeft = tutorialGoalTitle.style.paddingRight = 0;
             tutorialGoalTitle.style.paddingTop = tutorialGoalTitle.style.paddingBottom = 0;
             tutorialGoalTitle.style.marginTop = 4; tutorialGoalTitle.style.marginBottom = 0;
-            header.Add(tutorialGoalTitle);
+            tutorialInstructions.style.position = Position.Absolute;
+            tutorialInstructions.style.left = tutorialInstructions.style.right = 0;
+            tutorialInstructions.style.justifyContent = Justify.Center;
+            tutorialInstructions.style.alignItems = Align.Center;
+            tutorialInstructions.style.display = DisplayStyle.None;
+            tutorialInstructions.Add(tutorialGoalTitle);
+            safeFrame.Add(tutorialInstructions);
             completionRow.Add(completionStatus); completionRow.Add(completionHint); header.Add(completionRow);
             boardRegion.style.position = Position.Absolute;
             boardRegion.style.left = 0; boardRegion.style.right = 0; boardRegion.style.top = 104; boardRegion.style.bottom = 126;
@@ -140,7 +147,9 @@ namespace CatsAndArrows.UI
             board.RegisterCallback<PointerUpEvent>(OnPointerUp);
             board.RegisterCallback<PointerCancelEvent>(OnPointerCancel);
             board.RegisterCallback<PointerCaptureOutEvent>(OnPointerCaptureOut);
-            board.RegisterCallback<GeometryChangedEvent>(_ => CancelInteraction());
+            board.RegisterCallback<GeometryChangedEvent>(_ => { CancelInteraction(); LayoutTutorialInstructions(); });
+            difficulty.RegisterCallback<GeometryChangedEvent>(_ => LayoutTutorialInstructions());
+            safeFrame.RegisterCallback<GeometryChangedEvent>(_ => LayoutTutorialInstructions());
             RegisterCallback<DetachFromPanelEvent>(_ => CancelInteraction());
         }
 
@@ -158,6 +167,8 @@ namespace CatsAndArrows.UI
         }
         public void SetCompletionFeedback(string status, string hintLabel = null, Action reviewHint = null)
         {
+            tutorialInstructions.style.display = DisplayStyle.None;
+            if (completionRow.parent != header) header.Add(completionRow);
             tutorialGoalTitle.style.display = DisplayStyle.None;
             completionRow.style.height = completionStatus.style.height = 48;
             completionRow.style.minHeight = completionStatus.style.minHeight = 48;
@@ -186,6 +197,21 @@ namespace CatsAndArrows.UI
             tutorialGoalTitle.style.marginTop = 0;
             tutorialGoalTitle.text = goalTitle ?? "";
             tutorialGoalTitle.style.display = string.IsNullOrEmpty(goalTitle) ? DisplayStyle.None : DisplayStyle.Flex;
+            tutorialInstructions.Add(completionRow);
+            tutorialInstructions.style.display = DisplayStyle.Flex;
+            LayoutTutorialInstructions();
+        }
+
+        private void LayoutTutorialInstructions()
+        {
+            if (tutorialInstructions.style.display == DisplayStyle.None || panel == null || Presentation == null) return;
+            // #95: center the complete instruction block in the actual gap above
+            // the board (including its clue gutter), independent of grid layout.
+            var top = safeFrame.WorldToLocal(new Vector2(0, difficulty.worldBound.yMax)).y;
+            var bottom = safeFrame.WorldToLocal(new Vector2(0, board.worldBound.yMin)).y;
+            if (!float.IsFinite(top) || !float.IsFinite(bottom) || bottom <= top) return;
+            tutorialInstructions.style.top = top;
+            tutorialInstructions.style.height = bottom - top;
         }
         public void SetInteractionSuspended(bool suspended)
         {

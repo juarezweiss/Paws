@@ -17,6 +17,11 @@ namespace CatsAndArrows.UI
                 "Toque em Continuar.",
                 "Toca Continuar."
             } },
+            { "tutorial.start-guidance", new[] {
+                "Tap Let's start.",
+                "Toque em Vamos começar.",
+                "Toca Empecemos."
+            } },
             { "tutorial.goal-title", new[] {
                 "Find every paw!",
                 "Encontre todas as patas!",

@@ -104,5 +104,29 @@ namespace CatsAndArrows.Tests
 
         [Test]
         public void ClockIsRequired() => Assert.Throws<ArgumentNullException>(() => new HintIdleAttention(null));
+
+        [Test]
+        public void ConfiguredTutorialDelayUsesTheSameEligibilityAndResetBoundary()
+        {
+            attention = new HintIdleAttention(() => now, 2);
+            attention.Update(true, false);
+            now = 101.999; attention.Update(true, false);
+            Assert.That(attention.IsAttentionVisible, Is.False);
+            now = 102; attention.Update(true, false);
+            Assert.That(attention.IsAttentionVisible, Is.True);
+            attention.Update(false, false); now = 200;
+            attention.Update(true, false);
+            Assert.That(attention.IsAttentionVisible, Is.False);
+            now = 201.999; attention.Update(true, false);
+            Assert.That(attention.IsAttentionVisible, Is.False);
+            now = 202; attention.Update(true, false);
+            Assert.That(attention.IsAttentionVisible, Is.True);
+        }
+
+        [TestCase(-1)]
+        [TestCase(double.NaN)]
+        [TestCase(double.PositiveInfinity)]
+        public void InvalidDelayIsRejected(double delay) =>
+            Assert.Throws<ArgumentOutOfRangeException>(() => new HintIdleAttention(() => now, delay));
     }
 }

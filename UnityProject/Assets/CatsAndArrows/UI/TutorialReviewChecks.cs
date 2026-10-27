@@ -17,7 +17,7 @@ namespace CatsAndArrows.UI
     {
         private static Rect initialGrid;
         private static readonly List<string> layoutFailures = new List<string>();
-        public static IEnumerator Run(GameShellView shell, string captures)
+        public static IEnumerator Run(GameShellView shell, Action<double> advance, string captures)
         {
             for (var i = 0; i < 12; i++) yield return new WaitForEndOfFrame();
             initialGrid = default;
@@ -27,9 +27,9 @@ namespace CatsAndArrows.UI
             if (!Check(() =>
             {
                 Require(shell.Tutorial?.Step == TutorialStep.Welcome, "first Start enters tutorial");
-                Require(shell.Q<Button>("action-continue").style.borderLeftWidth.value == 3, "welcome Continue highlighted");
+                Require(shell.Q<Button>("action-continue").style.borderLeftWidth.value == 1, "welcome Continue initially normal");
             })) yield break;
-            yield return Capture(shell, captures, "welcome");
+            yield return ReviewAdvanceStep(shell, advance, captures);
             while (shell.Tutorial.CanContinue)
             {
                 if (!Check(() => Click(shell, "action-continue"))) yield break;
@@ -45,7 +45,8 @@ namespace CatsAndArrows.UI
                         Require(shell.BoardView.Q<Label>("completion-status").text.Contains("<b>"), "state keyword bold");
                     }
                 })) yield break;
-                yield return Capture(shell, captures, "intro-" + shell.Tutorial.Step);
+                if (shell.Tutorial.CanContinue) yield return ReviewAdvanceStep(shell, advance, captures);
+                else yield return Capture(shell, captures, "intro-" + shell.Tutorial.Step);
             }
             if (!Check(() =>
             {
@@ -101,7 +102,8 @@ namespace CatsAndArrows.UI
                 shell.SetApplicationFocus(false);
                 shell.SetApplicationFocus(true);
             })) yield break;
-            yield return new WaitForSecondsRealtime((float)ArrowHoldController.HoldSeconds + .05f);
+            advance(ArrowHoldController.HoldSeconds + .05);
+            yield return new WaitForSecondsRealtime(.05f);
             if (!Check(() =>
             {
                 var grid = Grid(shell); var arrow = Point(shell, 0, 3);
@@ -117,7 +119,8 @@ namespace CatsAndArrows.UI
             })) yield break;
             var holdGrid = Grid(shell); var holdArrow = Point(shell, 0, 3);
             Send(holdGrid, holdArrow, TouchPhase.Began);
-            yield return new WaitForSecondsRealtime((float)ArrowHoldController.HoldSeconds + .05f);
+            advance(ArrowHoldController.HoldSeconds + .05);
+            yield return new WaitForSecondsRealtime(.05f);
             // Let the mounted panel's scheduled hold tick run before inspecting
             // feedback; coroutine resumption can precede the panel update.
             yield return new WaitForEndOfFrame();
@@ -138,7 +141,8 @@ namespace CatsAndArrows.UI
             // Active cancellation uses the same cleanup; a completed successful
             // hold remains learned until replay, as before #95.
             Send(holdGrid, holdArrow, TouchPhase.Began);
-            yield return new WaitForSecondsRealtime((float)ArrowHoldController.HoldSeconds + .05f);
+            advance(ArrowHoldController.HoldSeconds + .05);
+            yield return new WaitForSecondsRealtime(.05f);
             yield return new WaitForEndOfFrame();
             if (!Check(() =>
             {
@@ -242,6 +246,53 @@ namespace CatsAndArrows.UI
             for (var i = 0; i < 120 && shell.Modal == "loading"; i++) yield return new WaitForEndOfFrame();
             yield return new WaitForEndOfFrame();
         }
+        private static IEnumerator ReviewAdvanceStep(GameShellView shell, Action<double> advance, string directory)
+        {
+            shell.TickTutorialAttention();
+            if (!Check(() =>
+            {
+                var button = shell.Q<Button>("action-continue");
+                Require(button != null && button.enabledInHierarchy, "advance clickable immediately");
+                Require(button.style.backgroundColor.value == PortraitBoardView.Tile, "normal button on entry");
+                Require(shell.Q<Label>("tutorial-continue-guidance").style.opacity.value == 0, "no initial guidance");
+            })) yield break;
+            yield return Capture(shell, directory, "initial");
+            advance(1.999); shell.TickTutorialAttention();
+            if (!Check(() => Require(shell.Q<Label>("tutorial-continue-guidance").style.opacity.value == 0, "no guidance before two seconds"))) yield break;
+            advance(.00101); shell.TickTutorialAttention();
+            if (!Check(() =>
+            {
+                Require(shell.Q<Button>("action-continue").style.backgroundColor.value == BoardSymbolElement.Ink, "same Hint attention target at two seconds");
+                Require(shell.Q<Label>("tutorial-continue-guidance").style.opacity.value == 1, "guidance fade starts with attention");
+            })) yield break;
+            if (shell.Tutorial.Step == TutorialStep.Welcome)
+            {
+                // Inspect actual rendered interpolation in a real player, not
+                // only the target style values used by deterministic clock tests.
+                var interpolated = false;
+                for (var frame = 0; frame < 30; frame++)
+                {
+                    yield return new WaitForEndOfFrame();
+                    var opacity = shell.Q<Label>("tutorial-continue-guidance").resolvedStyle.opacity;
+                    if (opacity <= .001f || opacity >= .999f) continue;
+                    interpolated = true;
+                    Debug.Log("TUTORIAL_NATIVE_FADE opacity=" + opacity);
+                    if (!string.IsNullOrEmpty(directory))
+                        ScreenCapture.CaptureScreenshot(Path.Combine(directory, "Welcome-fade-mid.png"));
+                    break;
+                }
+                if (!Check(() => Require(interpolated, "guidance has intermediate rendered opacity"))) yield break;
+                shell.SetApplicationFocus(false);
+                yield return new WaitForEndOfFrame(); yield return new WaitForEndOfFrame();
+                if (!Check(() => Require(shell.Q<Label>("tutorial-continue-guidance").resolvedStyle.opacity == 0, "mid-fade cleanup snaps invisible"))) yield break;
+                yield return new WaitForSecondsRealtime(.25f);
+                yield return new WaitForEndOfFrame();
+                if (!Check(() => Require(shell.Q<Label>("tutorial-continue-guidance").resolvedStyle.opacity == 0, "cancelled fade never reappears"))) yield break;
+                shell.SetApplicationFocus(true); advance(2); shell.TickTutorialAttention();
+            }
+            yield return new WaitForSecondsRealtime(.25f);
+            yield return Capture(shell, directory, "attention");
+        }
         private static IEnumerator Capture(GameShellView shell, string directory, string name)
         {
             for (var i = 0; i < 2; i++) yield return new WaitForEndOfFrame();
@@ -268,17 +319,29 @@ namespace CatsAndArrows.UI
                     Require(goal.worldBound.yMax <= label.worldBound.yMin + 1, "goal heading above explanation");
                     Fits(goal);
                 }
+                var blockTop = shell.Tutorial.Step == TutorialStep.Goal ? goal.worldBound.yMin : label.worldBound.yMin;
+                var upper = shell.BoardView.Q<Label>("board-difficulty").worldBound.yMax;
+                var topCenterError = Mathf.Abs((blockTop + label.worldBound.yMax - upper - board.worldBound.yMin) / 2);
+                Require(topCenterError <= 1, "instruction block centered in actual upper gap: " + name + " error=" + topCenterError);
+                Require(blockTop >= upper - 1 && label.worldBound.yMax <= board.worldBound.yMin + 1, "instruction block clears difficulty and grid");
                 var guidance = shell.Q<Label>("tutorial-continue-guidance");
-                var needsGuidance = shell.Tutorial.Step == TutorialStep.Welcome || shell.Tutorial.Step == TutorialStep.Goal || shell.Tutorial.Step == TutorialStep.StatesIntro;
-                Require((guidance != null) == needsGuidance, "Continue guidance on exactly three steps");
+                var needsGuidance = shell.Tutorial.CanContinue;
+                Require((guidance != null) == needsGuidance, "guidance on every advance step only");
+                var bottomCenterError = 0f;
                 if (guidance != null)
                 {
                     Fits(guidance);
                     var button = shell.Q<Button>("action-continue");
-                    Require(guidance.worldBound.yMax <= button.worldBound.yMin && button.worldBound.yMin - guidance.worldBound.yMax <= 16, "guidance adjacent above Continue");
+                    bottomCenterError = Mathf.Abs(guidance.worldBound.center.y - (board.worldBound.yMax + button.worldBound.yMin) / 2);
+                    Require(bottomCenterError <= 1, "guidance centered in actual lower gap: " + name + " error=" + bottomCenterError);
+                    Require(guidance.worldBound.yMax <= button.worldBound.yMin, "guidance clears advance button");
                     Require(guidance.worldBound.yMin >= board.worldBound.yMax, "guidance clears grid");
                     Require(!guidance.focusable && guidance.pickingMode == PickingMode.Ignore, "guidance cannot intercept touch/focus");
+                    Require(Mathf.Abs(guidance.resolvedStyle.opacity - (name == "attention" ? 1 : 0)) < .01f, "resolved guidance opacity matches capture phase");
                 }
+                Debug.Log("TUTORIAL_CENTER step=" + shell.Tutorial.Step + " phase=" + name + " topError=" + topCenterError +
+                    " bottomError=" + bottomCenterError + " blockTop=" + blockTop + " blockBottom=" + label.worldBound.yMax +
+                    " upper=" + upper + " gridTop=" + board.worldBound.yMin + " guidance=" + (guidance?.worldBound.ToString() ?? "none"));
                 foreach (var button in shell.Q<VisualElement>("game-controls").Query<Button>().ToList())
                 {
                     Require(button.worldBound.height >= 48 && button.worldBound.width >= 48, "48-unit action targets");

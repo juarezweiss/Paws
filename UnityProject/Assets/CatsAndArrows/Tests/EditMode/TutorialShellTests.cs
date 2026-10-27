@@ -122,11 +122,12 @@ namespace CatsAndArrows.Tests
             {
                 Assert.That(shell.Tutorial.Step, Is.EqualTo(step));
                 var helper = shell.Q<Label>("tutorial-continue-guidance");
-                var showHelper = step == TutorialStep.Welcome || step == TutorialStep.Goal || step == TutorialStep.StatesIntro;
+                var showHelper = shell.Tutorial.CanContinue;
                 Assert.That(Visible(helper), Is.EqualTo(showHelper), step + " helper visibility");
                 if (showHelper)
                 {
-                    Assert.That(helper.text, Is.EqualTo(messages["tutorial.continue-guidance"]));
+                    Assert.That(helper.text, Is.EqualTo(messages[step == TutorialStep.Begin ? "tutorial.start-guidance" : "tutorial.continue-guidance"]));
+                    Assert.That(helper.style.opacity.value, Is.Zero, "Guidance starts hidden until the two-second delay.");
                     Assert.That(helper.pickingMode, Is.EqualTo(PickingMode.Ignore));
                     Assert.That(helper.focusable, Is.False);
                 }
@@ -140,7 +141,11 @@ namespace CatsAndArrows.Tests
                 var advance = shell.Q<Button>("action-continue");
                 Assert.That(advance != null, Is.EqualTo(shell.Tutorial.CanContinue), step + " Continue availability");
                 if (advance != null)
+                {
                     Assert.That(advance.text, Is.EqualTo(messages[step == TutorialStep.Begin ? "tutorial.start" : "tutorial.continue"]));
+                    Assert.That(advance.style.borderLeftWidth.value, Is.EqualTo(1));
+                    Assert.That(advance.style.backgroundColor.value, Is.EqualTo(PortraitBoardView.Tile));
+                }
                 Assert.That(shell.Q<Button>("action-skip") != null, Is.EqualTo(step != TutorialStep.Complete));
                 Assert.That(shell.Q<Button>("action-play") != null, Is.EqualTo(step == TutorialStep.Complete));
                 Assert.That(shell.Q<Button>("action-menu"), Is.Not.Null);
@@ -208,7 +213,7 @@ namespace CatsAndArrows.Tests
         {
             var shell = PlayTestFactory.Shell(14, "en", tutorialSeen: () => true, markTutorialSeen: () => { });
             shell.StartTutorial();
-            Assert.That(shell.Q<Button>("action-continue").style.borderLeftWidth.value, Is.EqualTo(3));
+            Assert.That(shell.Q<Button>("action-continue").style.borderLeftWidth.value, Is.EqualTo(1));
             while (shell.Tutorial.Step != TutorialStep.EmptyState) shell.ContinueTutorial();
             foreach (var kind in new[] { BoardCellKind.Empty, BoardCellKind.X, BoardCellKind.Paw })
             {
