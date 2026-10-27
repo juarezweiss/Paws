@@ -38,6 +38,14 @@ separately approved future presentation. Regional Spanish variants can be added 
 ## Initial audience
 Mobile puzzle players who enjoy Picross/Nonograms, Minesweeper-like deduction, and low-pressure daily/short-session games.
 
+Owner-approved eligibility (2026-10-27): minimum 16 in the EU and 13 elsewhere;
+under-18s require parental/guardian permission. Reliably known below-minimum users
+cannot access gameplay, including free play. No custom age questionnaire or
+birthday collection; Unknown is never verified Adult. Ordinary startup remains
+Menu → Play, subject to legally required native handling. See
+[age/access/advertising policy and rating reconciliation](AGE_ELIGIBILITY.md).
+This approval does not enable monetization or establish implementation acceptance.
+
 ## Approved master plan
 [Master Project Plan](../planning/MASTER_PROJECT_PLAN.md) governs scope, acceptance
 and budget. Version 1.0 was approved 2026-10-08; the current Paws reconciliation

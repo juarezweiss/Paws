@@ -28,6 +28,15 @@ build/sign/install, publishing or App Store action.
 
 ## Free candidate gates — all artifact acceptance pending
 
+Owner-approved [eligibility policy](AGE_ELIGIBILITY.md) (2026-10-27) also applies:
+16 EU / 13 elsewhere, under-18 permission, no free-play exception for reliably
+known ineligible users, and no unnecessary questionnaire. It is not yet implemented
+or validated. #91 must reconcile any mandatory standalone native access handling
+with #90's exclusion of monetization-only age components before accepting a binary.
+A12 is not an approved target; prepare at least a global 16+ override from truthful
+content answers and verify regional/legacy mappings in App Store Connect. No
+console change, higher-than-necessary content claim or universal 18+ restriction.
+
 - [ ] #89: no commerce/ad/consent/unnecessary-age routes or disabled placeholders;
   repeated eligible Hints have no ad, charge, quota or commercial eligibility gate.
 - [ ] #90: no purchasing/Offer Code provider, Unity Purchasing runtime, AdMob/GMA,

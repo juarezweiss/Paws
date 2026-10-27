@@ -1,5 +1,15 @@
 # Monetization architecture
 
+## Approved eligibility amendment — 2026-10-27 (#67/#91)
+
+[AGE_ELIGIBILITY.md](AGE_ELIGIBILITY.md) governs access and future ad eligibility:
+minimum 16 EU / 13 elsewhere; under-18 parental permission; no gameplay/free-play
+exception for reliably known below-minimum players. Unknown is never Adult.
+The regional matrix replaces PR #87's universal confirmed-adult requirement as a
+future specification, retaining separate initialization/consent/ownership gates.
+No custom age questionnaire; required Apple native handling remains. Preserved
+PR #87 code/evidence is unchanged and has not passed this revised policy.
+
 ## Release scope amendment — 2026-10-26
 
 Paws 1.0 is free, ad-free and IAP disabled, with unlimited free eligible Hints.

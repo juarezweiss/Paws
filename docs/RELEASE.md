@@ -34,6 +34,16 @@ Environments should differ through build profiles/configuration, not divergent c
 
 ## Current release gates — free 1.0
 
+The owner-approved [age eligibility policy](AGE_ELIGIBILITY.md) (2026-10-27)
+adds contractual minimum 16 EU / 13 elsewhere and under-18 parental permission.
+Reliably known below-minimum users cannot play. No unnecessary age questionnaire;
+required Apple native access handling remains. #91 must establish and reconcile
+any concrete free-app native prerequisite with #90 before binary acceptance.
+Prepare at least a global 16+ rating override, subject to truthful higher content
+rating and verified local/legacy mappings. A12 is no longer an assumed target.
+These are pending implementation/store-evidence gates, not a completed age check
+or authorization to edit App Store Connect. Monetization remains separately gated.
+
 Execution order: [#88 scope](https://github.com/juarezweiss/Paws/issues/88) →
 [#89 UI cleanup](https://github.com/juarezweiss/Paws/issues/89) →
 [#90 binary exclusion](https://github.com/juarezweiss/Paws/issues/90) →

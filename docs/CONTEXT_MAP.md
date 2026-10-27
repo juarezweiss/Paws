@@ -49,6 +49,12 @@ If the repo-local `paws-development` Skill is active, follow its workflow and lo
 
 ## Release decision routing
 
+Approved age/access policy 2026-10-27: read [AGE_ELIGIBILITY.md](AGE_ELIGIBILITY.md)
+for minimum 16 EU / 13 elsewhere, under-18 parental permission, known-ineligible
+access restriction, frictionless Unknown handling, future regional ad matrix,
+Apple native obligations and rating override. #91 owns current free-app compliance;
+#67 owns future ad-policy implementation. No implementation pass is implied.
+
 Owner decision 2026-10-26: 1.0 is free/ad-free/IAP disabled with unlimited free
 eligible Hints; exclude monetization SDKs/providers from the binary. Read
 `docs/RELEASE_RC_1_0.md` for current gates. #67/#82 and preserved PR #87 are future
