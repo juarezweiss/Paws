@@ -65,6 +65,13 @@ locale(s), pass/fail for each item and any gaps:
 - Check Skip, Settings replay, Home resume, language changes and background/focus
   return. Verify replay resets practice/hold progress.
 
-No iPhone build/install or physical review was performed for this task. Desktop
-simulations, screenshots and automated checks do not satisfy this owner gate.
-No merge or release is authorized or performed.
+Owner-requested installation on 2026-10-27: source `8736e3f` was built with the
+pinned Unity editor and Xcode 27.1, signed using the existing account after the
+owner explicitly authorized development provisioning renewal, and installed and
+plainly launched on iPhone 17 / iOS 27.0.1. Signature, device/profile eligibility,
+symbol UUIDs and running-process checks passed. The separate review bundle
+preserves the existing production app. [Technical receipt](device-preparation.json).
+
+Physical review remains pending. No interaction, appearance, lifecycle or comfort
+tests were automated; build/install/launch, desktop simulations and screenshots
+do not satisfy this owner gate. No merge or release is authorized or performed.

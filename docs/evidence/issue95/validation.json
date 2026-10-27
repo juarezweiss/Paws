@@ -203,7 +203,7 @@
   },
   "limits": [
     "Desktop logical viewports are not physical-iPhone review.",
-    "No iPhone build/install, physical interaction, merge or release performed."
+    "This desktop-validation snapshot preceded the later owner-authorized iPhone installation; see device-preparation.json. No automated physical interaction, merge or release."
   ],
   "artifacts": {
     "review_player": ".unity-results/issue95/PawsTutorialReview.app",
@@ -220,5 +220,6 @@
       "pt-BR-430-all-steps.png"
     ],
     "review_player_ui_assembly_sha256": "5c451c43be33b723a61d6b88f68beca90c9652e50956f9d92c4240b0d898a07a"
-  }
+  },
+  "subsequent_device_preparation": "device-preparation.json"
 }
