@@ -47,6 +47,14 @@ namespace CatsAndArrows.UI
             var languageCapture = Argument("--language-capture=");
             var settingsReview = !string.IsNullOrEmpty(settingsCapture) || !string.IsNullOrEmpty(languageCapture);
             var tutorialCheck = Argument("--tutorial-check=") == "1";
+            if (tutorialCheck)
+            {
+                // #95: requested review sizes are logical viewport units. Do not
+                // silently scale a compact phone back to the 390-unit reference.
+                document.panelSettings = Instantiate(document.panelSettings);
+                document.panelSettings.scaleMode = PanelScaleMode.ConstantPixelSize;
+                document.panelSettings.scale = 1;
+            }
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
             var monetizationCheck = Argument("--monetization-check=") == "1";
             if (monetizationCheck) Application.runInBackground = true;

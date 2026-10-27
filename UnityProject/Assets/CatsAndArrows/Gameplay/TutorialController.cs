@@ -11,7 +11,7 @@ namespace CatsAndArrows.Gameplay
         HatchedCells = 7, Arrows = 8, Practice = 9, ZeroColumn = 10, ZeroRow = 11,
         FirstPaw = 12, FirstColumnX = 13, SecondPaw = 14, SecondRowX = 15, DiagonalPaw = 16, FourthPaw = 17,
         SingleX = 18, FinalPaw = 19, Independent = 20, Complete = 21,
-        ArrowHoldIntro = 22
+        ArrowHoldIntro = 22 // Reserved legacy identity; #95 folds its copy into DiagonalPaw.
     }
 
     // Issue #26: controls lesson progression, while GameSession owns every mark and win.
@@ -26,7 +26,7 @@ namespace CatsAndArrows.Gameplay
 
         public GameSession Session { get; private set; }
         public TutorialStep Step { get; private set; } = TutorialStep.Welcome;
-        public bool CanContinue => Step <= TutorialStep.Arrows || Step == TutorialStep.ArrowHoldIntro;
+        public bool CanContinue => Step <= TutorialStep.Arrows;
         public bool IsComplete => Step == TutorialStep.Complete;
         // These are read-only presentation samples, never player/session mutations.
         public BoardCoordinate? DemoCoordinate => DemoMark.HasValue
@@ -56,7 +56,6 @@ namespace CatsAndArrows.Gameplay
             TutorialStep.FirstColumnX => "tutorial.first-column-x",
             TutorialStep.SecondPaw => "tutorial.second-paw",
             TutorialStep.SecondRowX => "tutorial.second-row-x",
-            TutorialStep.ArrowHoldIntro => "tutorial.arrow-hold-intro",
             TutorialStep.DiagonalPaw => "tutorial.diagonal-paw",
             TutorialStep.FourthPaw => "tutorial.fourth-paw",
             TutorialStep.SingleX => "tutorial.single-x",
@@ -135,12 +134,8 @@ namespace CatsAndArrows.Gameplay
         {
             if (Step == TutorialStep.FinalPaw)
                 Session = TutorialFixture.CreateSession();
-            Step = Step switch
-            {
-                TutorialStep.SecondRowX => TutorialStep.ArrowHoldIntro,
-                TutorialStep.ArrowHoldIntro => TutorialStep.DiagonalPaw,
-                _ => (TutorialStep)((int)Step + 1)
-            };
+            // #95: the interactive diagonal lesson now includes the hold introduction.
+            Step = (TutorialStep)((int)Step + 1);
             if (Step == TutorialStep.DiagonalPaw) diagonalArrowHeld = false;
             SetTargets();
         }
@@ -198,9 +193,6 @@ namespace CatsAndArrows.Gameplay
                     editable = new[] { Cell(4, 1), Cell(4, 3) };
                     highlights = Row(4);
                     rows = new[] { 4 };
-                    break;
-                case TutorialStep.ArrowHoldIntro:
-                    highlights = new[] { Cell(0, 3) };
                     break;
                 case TutorialStep.DiagonalPaw:
                     editable = new[] { Cell(2, 1) };

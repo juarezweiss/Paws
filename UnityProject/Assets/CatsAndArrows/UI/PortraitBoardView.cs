@@ -28,6 +28,7 @@ namespace CatsAndArrows.UI
         private readonly Label intro = new Label();
         private readonly VisualElement completionRow = new VisualElement();
         private readonly Label completionStatus = new Label();
+        private readonly Label tutorialGoalTitle = new Label { name = "tutorial-goal-title", pickingMode = PickingMode.Ignore };
         private readonly Button completionHint;
         private int highlightVersion;
         private BoardCoordinate? hintHighlight;
@@ -107,6 +108,18 @@ namespace CatsAndArrows.UI
             completionHint.style.marginLeft = 8;
             completionHint.style.backgroundColor = Tile;
             completionHint.style.color = BoardSymbolElement.Ink;
+            tutorialGoalTitle.style.display = DisplayStyle.None;
+            tutorialGoalTitle.style.fontSize = 16;
+            tutorialGoalTitle.style.unityFontStyleAndWeight = FontStyle.Bold;
+            tutorialGoalTitle.style.unityTextAlign = TextAnchor.MiddleCenter;
+            tutorialGoalTitle.style.whiteSpace = WhiteSpace.Normal;
+            tutorialGoalTitle.style.alignSelf = Align.Stretch;
+            tutorialGoalTitle.style.flexShrink = 0;
+            tutorialGoalTitle.style.marginLeft = tutorialGoalTitle.style.marginRight = 0;
+            tutorialGoalTitle.style.paddingLeft = tutorialGoalTitle.style.paddingRight = 0;
+            tutorialGoalTitle.style.paddingTop = tutorialGoalTitle.style.paddingBottom = 0;
+            tutorialGoalTitle.style.marginTop = 4; tutorialGoalTitle.style.marginBottom = 0;
+            header.Add(tutorialGoalTitle);
             completionRow.Add(completionStatus); completionRow.Add(completionHint); header.Add(completionRow);
             boardRegion.style.position = Position.Absolute;
             boardRegion.style.left = 0; boardRegion.style.right = 0; boardRegion.style.top = 104; boardRegion.style.bottom = 126;
@@ -145,6 +158,10 @@ namespace CatsAndArrows.UI
         }
         public void SetCompletionFeedback(string status, string hintLabel = null, Action reviewHint = null)
         {
+            tutorialGoalTitle.style.display = DisplayStyle.None;
+            completionRow.style.height = completionStatus.style.height = 48;
+            completionRow.style.minHeight = completionStatus.style.minHeight = 48;
+            completionRow.style.marginTop = 4;
             completionStatus.text = status ?? "";
             completionRow.style.display = string.IsNullOrEmpty(status) ? DisplayStyle.None : DisplayStyle.Flex;
             completionHint.text = hintLabel ?? "";
@@ -156,15 +173,19 @@ namespace CatsAndArrows.UI
         {
             CancelInteraction(); tutorial = controller; gesture = null;
         }
-        public void SetTutorialFeedback(string instruction, bool expanded = false)
+        public void SetTutorialFeedback(string instruction, string goalTitle = null)
         {
             SetCompletionFeedback(instruction);
             completionStatus.style.fontSize = string.IsNullOrEmpty(instruction) ? 14 : 16;
-            // The full goal needs three lines on compact phones. Use the clear
-            // header-to-grid gap without moving the board or reducing its text.
-            var height = !string.IsNullOrEmpty(instruction) && expanded ? 60 : 48;
-            completionRow.style.height = completionRow.style.minHeight = height;
-            completionStatus.style.height = completionStatus.style.minHeight = height;
+            if (string.IsNullOrEmpty(instruction)) return;
+            // #95: wrap at the actual locale/viewport width without changing the
+            // independently positioned grid or shrinking instructional text.
+            completionRow.style.height = completionStatus.style.height = StyleKeyword.Auto;
+            completionRow.style.minHeight = completionStatus.style.minHeight = 0;
+            completionRow.style.marginTop = 0;
+            tutorialGoalTitle.style.marginTop = 0;
+            tutorialGoalTitle.text = goalTitle ?? "";
+            tutorialGoalTitle.style.display = string.IsNullOrEmpty(goalTitle) ? DisplayStyle.None : DisplayStyle.Flex;
         }
         public void SetInteractionSuspended(bool suspended)
         {

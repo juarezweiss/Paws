@@ -447,7 +447,8 @@ namespace CatsAndArrows.UI
         {
             if (Tutorial == null) return;
             BoardView.Refresh();
-            BoardView.SetTutorialFeedback(text.GetText(Tutorial.MessageKey), expanded: Tutorial.Step == TutorialStep.Goal);
+            BoardView.SetTutorialFeedback(text.GetText(Tutorial.MessageKey),
+                goalTitle: Tutorial.Step == TutorialStep.Goal ? text.GetText("tutorial.goal-title") : null);
             if (Screen == "play") BuildControls();
         }
         private void LeaveTutorial()
@@ -543,6 +544,20 @@ namespace CatsAndArrows.UI
         private void BuildTutorialControls()
         {
             hintButton = clearButton = null;
+            if (Tutorial.Step == TutorialStep.Welcome || Tutorial.Step == TutorialStep.Goal || Tutorial.Step == TutorialStep.StatesIntro)
+            {
+                // #95: use the free space above the existing rows; the actions
+                // keep their position, size and focus behavior.
+                var guidance = new Label(text.GetText("tutorial.continue-guidance"))
+                    { name = "tutorial-continue-guidance", pickingMode = PickingMode.Ignore, focusable = false };
+                guidance.style.position = Position.Absolute;
+                guidance.style.left = guidance.style.right = 0; guidance.style.bottom = 112;
+                guidance.style.fontSize = 16; guidance.style.whiteSpace = WhiteSpace.Normal;
+                guidance.style.unityTextAlign = TextAnchor.MiddleCenter;
+                guidance.style.marginLeft = guidance.style.marginRight = 0;
+                guidance.style.marginTop = guidance.style.marginBottom = 0;
+                controls.Add(guidance);
+            }
             var first = ActionRow(); var second = ActionRow();
             if (Tutorial.IsComplete) first.Add(MakeButton("action-play", "tutorial.play", SkipTutorial));
             else if (Tutorial.CanContinue)
