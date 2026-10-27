@@ -1,0 +1,224 @@
+{
+  "issue": 95,
+  "date": "2026-10-27",
+  "source_sha": "dbb6f1521e3497777ffef0deb77ad3f2f0dda233",
+  "base_develop_sha": "3a44192697b8f1c416cc49afabeb839c5a0c3dc7",
+  "copy_approval": {
+    "proposal": "https://github.com/juarezweiss/Paws/issues/95#issuecomment-6454961390",
+    "owner_reply": "Approve proposed shorter copy",
+    "applied_locale_message_pairs": 18
+  },
+  "unity": "6000.3.25f1",
+  "python": "3.12.3",
+  "source_file_sha256": {
+    "UnityProject/Assets/CatsAndArrows/Gameplay/TutorialController.cs": "5a9080ee8b379f53f699bfdb9516cb04de20c1a6a7f05712e43af251ca96fd8d",
+    "UnityProject/Assets/CatsAndArrows/Tests/EditMode/TutorialControllerTests.cs": "4784e7aef8a80eacafd74a0c8cc0b77d3a4c477dd8eb65aed8c7446ff216aaf0",
+    "UnityProject/Assets/CatsAndArrows/Tests/EditMode/TutorialShellTests.cs": "faa9bf0cd5447d784a426fd09822ad5aec97d2fe3186c3c097f87b352688207f",
+    "UnityProject/Assets/CatsAndArrows/UI/BoardReviewBootstrap.cs": "5f78b482fe7a4352df51929c03641e02f68295b17ebfc570b3a6632c00af4d5f",
+    "UnityProject/Assets/CatsAndArrows/UI/GameShellView.cs": "dec8a6293752d0d9e4d83881180b6da72e5d713a14c16062f7cae53a05030a5f",
+    "UnityProject/Assets/CatsAndArrows/UI/PortraitBoardView.cs": "7896718c26373b7dcc48a711a9f5588a291d1f63f727beeb8db66653c1d162de",
+    "UnityProject/Assets/CatsAndArrows/UI/TutorialLocalization.cs": "89b9ddbbecfedfc1ad9c672425d17e7812d11d4f7fd519723b3f962c55db1f7f",
+    "UnityProject/Assets/CatsAndArrows/UI/TutorialReviewChecks.cs": "392e2ce57c5bc6b2570733c559e5a7205017d07ebdf0ead4bee21f51555466da"
+  },
+  "compile": {
+    "passed": true,
+    "log": ".unity-results/compile.SzQUQZ/Editor.log"
+  },
+  "editmode": {
+    "total": 674,
+    "passed": 674,
+    "failed": 0,
+    "skipped": 0,
+    "inconclusive": 0,
+    "exit": 0,
+    "report": ".unity-results/editmode.u6Pr4j/test-results.xml"
+  },
+  "python_contracts": {
+    "passed": 51,
+    "failed": 0,
+    "log": ".unity-results/issue95/python-tests.log"
+  },
+  "repository_validation": {
+    "passed": true
+  },
+  "qa": "No blocking findings.",
+  "renders": [
+    {
+      "locale": "pt-BR",
+      "width": 320,
+      "height": 568,
+      "safe_top": 20,
+      "safe_bottom": 0,
+      "exit": 0,
+      "interaction_pass": true,
+      "layout_failures": [],
+      "screenshots": 25,
+      "log": ".unity-results/issue95/pt-BR-320.log"
+    },
+    {
+      "locale": "es",
+      "width": 320,
+      "height": 568,
+      "safe_top": 20,
+      "safe_bottom": 0,
+      "exit": 0,
+      "interaction_pass": true,
+      "layout_failures": [],
+      "screenshots": 25,
+      "log": ".unity-results/issue95/es-320.log"
+    },
+    {
+      "locale": "en",
+      "width": 320,
+      "height": 568,
+      "safe_top": 20,
+      "safe_bottom": 0,
+      "exit": 0,
+      "interaction_pass": true,
+      "layout_failures": [],
+      "screenshots": 25,
+      "log": ".unity-results/issue95/en-320.log"
+    },
+    {
+      "locale": "pt-BR",
+      "width": 390,
+      "height": 844,
+      "safe_top": 47,
+      "safe_bottom": 34,
+      "exit": 0,
+      "interaction_pass": true,
+      "layout_failures": [],
+      "screenshots": 25,
+      "log": ".unity-results/issue95/pt-BR-390.log"
+    },
+    {
+      "locale": "es",
+      "width": 390,
+      "height": 844,
+      "safe_top": 47,
+      "safe_bottom": 34,
+      "exit": 0,
+      "interaction_pass": true,
+      "layout_failures": [],
+      "screenshots": 25,
+      "log": ".unity-results/issue95/es-390.log"
+    },
+    {
+      "locale": "en",
+      "width": 390,
+      "height": 844,
+      "safe_top": 47,
+      "safe_bottom": 34,
+      "exit": 0,
+      "interaction_pass": true,
+      "layout_failures": [],
+      "screenshots": 25,
+      "log": ".unity-results/issue95/en-390.log"
+    },
+    {
+      "locale": "pt-BR",
+      "width": 430,
+      "height": 932,
+      "safe_top": 59,
+      "safe_bottom": 34,
+      "exit": 0,
+      "interaction_pass": true,
+      "layout_failures": [],
+      "screenshots": 25,
+      "log": ".unity-results/issue95/pt-BR-430.log"
+    },
+    {
+      "locale": "es",
+      "width": 430,
+      "height": 932,
+      "safe_top": 59,
+      "safe_bottom": 34,
+      "exit": 0,
+      "interaction_pass": true,
+      "layout_failures": [],
+      "screenshots": 25,
+      "log": ".unity-results/issue95/es-430.log"
+    },
+    {
+      "locale": "en",
+      "width": 430,
+      "height": 932,
+      "safe_top": 59,
+      "safe_bottom": 34,
+      "exit": 0,
+      "interaction_pass": true,
+      "layout_failures": [],
+      "screenshots": 25,
+      "log": ".unity-results/issue95/en-430.log"
+    }
+  ],
+  "render_summary": {
+    "runs": 9,
+    "all_exited_zero": true,
+    "step_locale_size_cases": 198,
+    "screenshots": 225,
+    "layout_failures": 0,
+    "body_font": 16,
+    "button_min_height": 48,
+    "stationary_grid": true,
+    "visual_review": "All198 instruction states inspected via nine text contact sheets, plus representative full compact Goal, Arrows and active-hold screens. Full-screen contact sheets retained for every step in every run."
+  },
+  "unchanged_source_sha256": {
+    "Gameplay/TutorialFixture.cs": "53a7dcdf3a15b4bc44931082ed8c0ad8112e69749a4ada8bb8b7905312ec4201",
+    "UI/ArrowHoldController.cs": "1248e0accd4bc6857b00bed6039dce30531d71224b054c87007878a107dad867",
+    "UI/BoardGestureController.cs": "00884242c35cb4f09dfe97f4bb2d5ca33a7268be7d1f057dc7fb4c128fead82b",
+    "Gameplay/GameSession.cs": "4f55e1037c7cf47b4a58de0e347716d33771bfa7cae9d215ec6af1e4e0a0897d",
+    "UI/BoardReviewPanel.asset": "b76126152ca528af475b8d635811603a79115543a7e9415e04193ddbbb887326"
+  },
+  "prior_failures": [
+    {
+      "scope": "Original approved copy",
+      "status": "Resolved by explicitly owner-approved shorter copy",
+      "details": "Compact overlaps; final nine runs pass after18 approved locale/message replacements. Earlier logs/captures retained under .unity-results/issue95/approved-before-shortening."
+    },
+    {
+      "scope": "Mounted hold feedback assertion",
+      "status": "Resolved in review harness",
+      "details": "One earlier pt-BR390 run inspected feedback before the scheduled panel tick. Harness now waits end-of-frame after real threshold and verifies active feedback before pause cancellation. Runtime hold/gesture code unchanged."
+    },
+    {
+      "scope": "MenuPresentationTests.PortraitHomeSettingsAndSelectorKeepLocalizedTargetsInsideSafeArea",
+      "status": "Did not reproduce on isolated or final complete run; no root cause claimed",
+      "details": "Earlier full run settings-back yMin19 vs expected>=35. Isolated tests passed3/3; final full suite passed674/674. No unrelated menu code/test fix.",
+      "failed_report": ".unity-results/editmode.wofRGy/test-results.xml",
+      "isolated_report": ".unity-results/issue95/focused/menu.xml"
+    }
+  ],
+  "physical_iphone": {
+    "status": "pending",
+    "automated": false,
+    "required_scope": [
+      "Continue placement and comprehension EN/pt-BR/ES",
+      "Empty-cell swipe starts",
+      "Mandatory diagonal hold/release/cancellation",
+      "Guided reset and independent completion",
+      "Skip, Settings replay, Home resume and focus/background return",
+      "Appearance and touch comfort on recorded device/build"
+    ]
+  },
+  "limits": [
+    "Desktop logical viewports are not physical-iPhone review.",
+    "No iPhone build/install, physical interaction, merge or release performed."
+  ],
+  "artifacts": {
+    "review_player": ".unity-results/issue95/PawsTutorialReview.app",
+    "screenshots_index": "docs/evidence/issue95/screenshots.json",
+    "contact_sheets": [
+      "en-320-all-steps.png",
+      "en-390-all-steps.png",
+      "en-430-all-steps.png",
+      "es-320-all-steps.png",
+      "es-390-all-steps.png",
+      "es-430-all-steps.png",
+      "pt-BR-320-all-steps.png",
+      "pt-BR-390-all-steps.png",
+      "pt-BR-430-all-steps.png"
+    ],
+    "review_player_ui_assembly_sha256": "5c451c43be33b723a61d6b88f68beca90c9652e50956f9d92c4240b0d898a07a"
+  }
+}

@@ -1218,6 +1218,19 @@ See INLINE_HINT_REVIEW.md for fresh results and owner review status.
 
 ## Issue #26 tutorial checks
 
+Issue #95 extends this gate to the complete 22-step sequence without the redundant
+ArrowHoldIntro page, every localized heading/body/helper visibility state, and
+the required focused hold before the diagonal paw. Mounted checks exercise short,
+cancelled and successful holds, release/pause cleanup, empty-start swipes,
+same-session navigation and independent rebind/completion. Render all steps in
+en/pt-BR/es at logical 320×568, 390×844 and 430×932 with recorded safe insets.
+The tutorial review player uses constant logical pixel scale for these checks;
+the production panel asset is unchanged. Check measured text/controls, no clue
+overlap, 16-unit body text, 48-unit targets and stationary grid geometry. Failures
+remain failures even if the gesture walkthrough completes. Physical acceptance
+requires a new explicit owner report. See
+[issue95 evidence](evidence/issue95/validation.json) for the current actual results.
+
 Deterministic tests cover exact fixture quotas, true arrows/protection, current
 human-solver completion and independent exhaustive uniqueness; complete lesson
 replay; tap-cycle sequence; off-target input; zero-line overlap; two-cat lessons;
