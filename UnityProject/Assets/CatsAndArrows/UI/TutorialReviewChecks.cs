@@ -118,6 +118,9 @@ namespace CatsAndArrows.UI
             var holdGrid = Grid(shell); var holdArrow = Point(shell, 0, 3);
             Send(holdGrid, holdArrow, TouchPhase.Began);
             yield return new WaitForSecondsRealtime((float)ArrowHoldController.HoldSeconds + .05f);
+            // Let the mounted panel's scheduled hold tick run before inspecting
+            // feedback; coroutine resumption can precede the panel update.
+            yield return new WaitForEndOfFrame();
             if (!Check(() =>
             {
                 foreach (var coordinate in new[] { new BoardCoordinate(0, 3), new BoardCoordinate(1, 2), new BoardCoordinate(2, 1), new BoardCoordinate(3, 0) })
@@ -136,8 +139,10 @@ namespace CatsAndArrows.UI
             // hold remains learned until replay, as before #95.
             Send(holdGrid, holdArrow, TouchPhase.Began);
             yield return new WaitForSecondsRealtime((float)ArrowHoldController.HoldSeconds + .05f);
+            yield return new WaitForEndOfFrame();
             if (!Check(() =>
             {
+                Require(shell.BoardView.Q<VisualElement>("cell-2-1").style.borderLeftWidth.value == 3, "path active before pause cancellation");
                 var marks = shell.ActiveSession.Marks.ToArray();
                 shell.SetApplicationPaused(true); shell.SetApplicationPaused(false);
                 Send(holdGrid, holdArrow, TouchPhase.Ended);
