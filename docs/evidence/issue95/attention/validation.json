@@ -243,8 +243,9 @@
   "unchanged": "Tutorial copy except new localized Start helper; controller, fixture, puzzle/gesture/difficulty/hint policies, monetization and ordinary completion behavior unchanged.",
   "physical_iphone": {
     "status": "pending owner review for source9697e3a",
-    "last_installed_source": "8736e3f7958599cff0a5ad5dc304cca501295b03",
-    "note": "Previously installed iPhone candidate predates this presentation follow-up. No install or physical interaction was performed for this follow-up."
+    "last_installed_source": "321e82a61c77165eb262a6f0435a1ce6e7688aa6",
+    "note": "Current validated runtime9697e3a is installed for owner review. Technical build/sign/install/launch passed; no physical interaction or acceptance pass is inferred.",
+    "technical_receipt": "device-preparation.json"
   },
   "artifacts": {
     "player": ".unity-results/issue95-attention/PawsTutorialReview.app",

@@ -68,11 +68,14 @@ are unchanged.
 
 ## Physical iPhone acceptance — owner task
 
-Physical review remains **pending for this revision**. The previously installed
-iPhone candidate is source `8736e3f`, which predates these presentation changes.
-This follow-up did not install a new phone build or automate physical review.
-The earlier [device preparation](../device-preparation.json) is historical
-technical readiness, not acceptance of this update.
+Physical review remains **pending for this revision**. At the owner's request,
+source `321e82a` (validated runtime `9697e3a`) was built, signed with the existing
+valid development profile, installed over the same review bundle without an
+uninstall, and plainly launched on iPhone 17 / iOS 27.0.1 on 2026-10-28. Signature,
+profile/device eligibility, matching symbols and running-process checks passed.
+[Current technical preparation receipt](device-preparation.json). The earlier
+[device preparation](../device-preparation.json) remains historical. Neither
+installation proves physical acceptance; no physical interaction was automated.
 
 On the new candidate, review EN/pt-BR/ES text spacing and comfort, immediate
 Continue/Start clicks, the two-second attention/fade on every informational step,
