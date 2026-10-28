@@ -68,7 +68,7 @@ are unchanged.
 
 ## Physical iPhone acceptance — owner task
 
-Physical review remains **pending for this revision**. At the owner's request,
+The owner reported **pass** on 2026-10-28 for the supplied EN/pt-BR/ES presentation and cleanup checklist on this candidate. [Scoped owner report](owner-review-2026-10-28.json). At the owner's request,
 source `321e82a` (validated runtime `9697e3a`) was built, signed with the existing
 valid development profile, installed over the same review bundle without an
 uninstall, and plainly launched on iPhone 17 / iOS 27.0.1 on 2026-10-28. Signature,
@@ -77,8 +77,9 @@ profile/device eligibility, matching symbols and running-process checks passed.
 [device preparation](../device-preparation.json) remains historical. Neither
 installation proves physical acceptance; no physical interaction was automated.
 
-On the new candidate, review EN/pt-BR/ES text spacing and comfort, immediate
-Continue/Start clicks, the two-second attention/fade on every informational step,
-cleanup on early advance/navigation/locale/background/replay/Skip, the mandatory
-arrow hold and independent completion. Record source/build, device/iOS, locale
-and pass/fail scope. No merge or release was performed.
+The accepted checklist covered EN/pt-BR/ES text placement/readability, immediate
+Continue/Start clicks, the two-second attention/fade, and cleanup on advance,
+navigation, language changes and backgrounding. Existing automated hold and
+independent-completion evidence remains separate; no broader physical coverage
+is inferred. The owner explicitly authorized merging PR #97 into develop.
+Production release remains unauthorized.

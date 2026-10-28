@@ -26,8 +26,9 @@ release cleanup and paw gate. The legacy enum value 22 remains reserved.
 The fixed tutorial-v1/seed26 fixture, all other lesson ordering, gestures,
 independent completion and ordinary gameplay remain unchanged. Current evidence
 is recorded in
-[latest issue95 evidence](evidence/issue95/attention/validation.json). Physical iPhone review is
-pending; historical owner acceptance below does not cover this change.
+[latest issue95 evidence](evidence/issue95/attention/validation.json). The owner reported a scoped physical pass on source321e82a (runtime9697e3a),
+iPhone17 / iOS27.0.1; see the latest receipt. Historical acceptance below remains
+a separate review of older code.
 
 The owner approved the design and refined it after iPhone review on 2026-10-13.
 Implementation is on feat/26-interactive-tutorial; the owner accepted all revised iPhone tutorial checks on 2026-10-13. Owner authorized commit, push and integration into develop. Unrelated #21/#22 planning files

@@ -15,7 +15,7 @@
     "signing": "passed",
     "install": "passed",
     "launch": "passed",
-    "physical_review": "pending owner report",
+    "physical_review": "passed: owner supplied-checklist scope",
     "signature_verification": "passed",
     "profile_device_and_expiry": "passed",
     "running_process": "passed",
@@ -29,6 +29,6 @@
   "preserved_artifacts": "Builds/Issue95Attention-iPhone-321e82a/Playable/",
   "launch_arguments": [],
   "signature_type": "Local development, existing valid profile reused; no renewal or account changes",
-  "physical_review": "Pending explicit owner pass/fail. No physical interaction, appearance, comfort or lifecycle testing automated.",
+  "physical_review": "Owner reported pass on2026-10-28; scope and limits in owner-review-2026-10-28.json. No physical interaction was automated.",
   "production_actions": "No merge, release, upload or submission; existing review bundle updated without uninstall. Production bundle unchanged."
 }

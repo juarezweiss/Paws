@@ -1,0 +1,24 @@
+{
+  "date_local": "2026-10-28",
+  "reviewer": "owner",
+  "report": "pass",
+  "installed_source_sha": "321e82a61c77165eb262a6f0435a1ce6e7688aa6",
+  "validated_runtime_source_sha": "9697e3a70f0578f2822eccf1f632e264e860f165",
+  "device": "iPhone 17",
+  "device_os": "27.0.1 (24A446)",
+  "locales": [
+    "en",
+    "pt-BR",
+    "es"
+  ],
+  "scope": "Latest handed-off manual review checklist",
+  "checklist": [
+    "Top and bottom tutorial text positioning and readability",
+    "Continue/Let's start immediately clickable",
+    "Button attention and guidance fade together after two seconds",
+    "Advance/navigation/language/background cleanup of old guidance"
+  ],
+  "physical_tests_automated": false,
+  "limits": "Owner reported one overall pass for the supplied checklist. No additional hardware, measured performance, or unreported scenarios inferred.",
+  "merge_authorization": "Owner: pass. Merge it, then go over the Builds folder and purge any folder and files from stale/unnecessary/old builds to save storage. Also delete any unnecessary branches."
+}

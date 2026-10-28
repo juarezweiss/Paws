@@ -2,7 +2,7 @@
 
 **Latest presentation follow-up:** [centered text and delayed guidance evidence](attention/README.md),
 source `9697e3a`. The initial validation and phone installation below predate that
-follow-up; physical acceptance of the new revision remains pending.
+follow-up; the scoped owner physical pass for the new revision is recorded there.
 
 Runtime/test source: `dbb6f1521e3497777ffef0deb77ad3f2f0dda233`, based on fetched
 develop `3a44192697b8f1c416cc49afabeb839c5a0c3dc7`. Subsequent documentation and
