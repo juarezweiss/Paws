@@ -1,5 +1,43 @@
 # Testing Strategy
 
+## Issue #96 first-player ordinary progression
+
+2026-10-28: pinned compilation passed (`compile.kcRKr2`); full EditMode
+`editmode.0DNXE1` passed **751/751**, successful editor exit and zero
+failed/skipped/inconclusive. The four progression suites pass **122/122** within
+that run. Repository/whitespace checks, **51/51** Python tests, **322** SDK pins and
+independent QA pass. Earlier failed runs and their resolution remain in the receipt.
+
+The deterministic matrix lives in `DifficultySelectionTests`, `IntroProgressionTests`
+and `PlayPreferenceTests`, alongside the existing `DifficultyShellTests` and tutorial,
+input, completion and portrait regressions. Runtime scope is only selection/history
+and its Unity preference adapter; generators, solver, tutorial and UI are unchanged.
+
+| #96 matrix area | Deterministic evidence |
+|---|---|
+| First starts and random handoff | Fresh E/E/M with no RNG draws, each fourth-board index, Medium/2 exclusion on fifth; 512-start seeded sequences with reconstruction and no third repeat; returning-player frozen random sequence |
+| Real procedural boards | E/E/M/Hard through current generators and seeds 14–17, abandoned and reconstructed between starts; no production fixtures added |
+| Tutorial completion / Skip | Guided reset and independent win, Skip from both stages, fixed fingerprint/seed unchanged, then ordinary E/E/M |
+| Completion / New Game / replay | Hint completes each introductory board without a second commit, completed lock, Next/abandonment, manual replay at all four progress positions |
+| Restart / migration | Adapter reconstruction after real starts; legacy v1 all profiles/run lengths, first-Play/tutorial-seen without ordinary history, history with fresh first-Play gate |
+| Generation retry | Eight failure kinds at all introductory positions and first random choice: null, exhaustion, cancellation, missing puzzle/assessment, rejected proof, wrong profile and invalid puzzle; retained Pending and next seed |
+| Persistence retry | Save rejection at each position and legacy upgrade; no published session or partial state, previous snapshot survives reconstruction, successful retry commits both fields |
+| Duplicate commands | Repeated Choose/Commit, reentrant starts at each position, mounted duplicate Play/Skip/Next events and invalidated stale scheduled callback |
+| Preference validity | Missing versus present-empty/corrupt/unknown version, extended round-trip, invalid/out-of-range/inconsistent counter preserves a valid streak; no writes on load |
+| Unchanged behavior | Menu/resume/locale/Clear/Hint/pause/focus, generator goldens/receipts, tutorial/input/protected-cell/completed locks and compact/standard/tall portrait checks |
+
+Preference tests restore owner values and key absence. Profile-specific old test
+fixtures explicitly bypass the introduction; fresh-memory fixtures exercise the
+new default. [Validation receipt](evidence/issue96/validation.json) records exact
+file hashes, run paths/results and earlier failed runs separately.
+
+Owner-only physical review remains pending on a later approved device build:
+verify fresh ordinary E/E/M then random, tutorial completion/Skip/replay, Next from
+an unfinished board, restart between steps, returning-user streak continuity and
+tap/drag/completed-board comfort. No signed build, device interaction or physical
+pass is claimed by this source change. Roll back selection only with the v2 reader
+retained; never delete preferences or assume an old reader understands the payload.
+
 ## Issue #66 AdMob / UMP gate
 
 [Exact SDK inspection, development-only privacy policy and owner checklist](ADMOB.md).

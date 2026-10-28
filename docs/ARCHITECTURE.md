@@ -103,6 +103,23 @@ entry neither advance nor reset this history. The generator and its replay
 receipts remain independent of the selection policy.
 
 The shell supplies a Unity preference adapter; tests inject memory storage.
+Issue #96 extends that same snapshot with capped `IntroStarts` (0–3). Missing
+history starts at zero; Choose returns Easy/Easy/Medium without drawing difficulty
+randomness, then uses the existing selector. CommitStart saves the counter and
+last/run together before session exposure; failed save retains Pending and the
+previous snapshot. No additional preference or completion-owned state is added.
+
+The existing `cats-arrows.difficulty-history.v1` key now stores payload
+`2|lastDifficulty|consecutiveStarts|introStarts`. Legacy three-field v1 records
+normalize to finished introduction (3) with their valid streak intact, without
+writing during load. Only an absent key returns null. Present invalid/unsupported
+records normalize to an empty streak with introduction bypassed; a valid recognized
+streak survives invalid or inconsistent introductory metadata. The pure policy
+and Unity adapter share snapshot normalization. Tutorial/first-Play flags cannot
+prove ordinary play and remain independent. Reverting selection must retain the
+extended reader; do not clear preferences or downgrade to the old v1-only reader.
+This retains PlayerPrefs durability limits rather than adding crash recovery.
+
 The tutorial owns its fixed Easy session separately and consumes no generation
 seed. A separate durable first-Play gate routes the first Play to this lesson.
 It migrates existing tutorial-seen state once, before manual Tutorial can affect
@@ -127,8 +144,10 @@ Use explicit seeds. Avoid `UnityEngine.Random` inside core generation. A seed mu
 
 ## Persistence
 The approved MVP persists local preferences. Issue #43 adds a versioned
-last-difficulty/run-length record and a separate first-Play gate. Neither stores
-board progress; invalid/missing history starts from an empty valid record.
+last-difficulty/run-length record and a separate first-Play gate. Issue #96 adds
+introductory ordinary-start progress to that same record. Neither stores board
+marks; absent history enrolls a new ordinary player, while present invalid history
+bypasses the introduction with an empty streak.
 Legacy tutorial-seen data is retained for compatibility. Board save/resume and statistics
 remain deferred until feedback justifies them. The puzzle seed is sufficient to resume/recreate an active board once save/resume is implemented.
 

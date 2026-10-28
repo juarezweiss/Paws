@@ -1,7 +1,7 @@
 # UX and Accessibility
 
 ## Reference behavior
-The supplied demo establishes a useful portrait interaction model: compact centered board, numeric clues outside the grid, arrows inside cells, bottom action controls, and visible completed-board review. Current navigation follows Issue #76 below, retaining Issue #43’s first-Play and difficulty policies. Treat the demo as behavioral context, not final visual art.
+The supplied demo establishes a useful portrait interaction model: compact centered board, numeric clues outside the grid, arrows inside cells, bottom action controls, and visible completed-board review. Current navigation follows Issue #76 below, retaining Issue #43’s first-Play policy and Issue #96’s gradual ordinary progression. Treat the demo as behavioral context, not final visual art.
 
 ## Mobile-first requirements
 - Mobile play is locked to upright portrait.
@@ -71,11 +71,20 @@ pending mode. Clear, Menu/back and language changes keep the live board and its
 actual difficulty label; they do not consume history.
 
 First-ever Play opens the fixed Easy tutorial; later Plays without a live session
-request ordinary random boards. This gate persists across restarts independently of the difficulty
+request ordinary boards through the #96 progression below. This gate persists across restarts independently of the difficulty
 streak. Manual Tutorial stays available and does not consume first Play on fresh
-installations. Legacy tutorial-seen installations migrate as returning users;
+installations. Legacy tutorial-seen installations migrate as returning users for tutorial routing;
 lesson steps and unfinished boards still are not saved. Tutorial Skip/Play enters
 the ordinary selector without counting the tutorial fixture or resetting the streak.
+
+Issue #96 gives new ordinary players two generated Easy boards, then one generated
+Medium board, then the existing random selection with a two-start streak limit.
+Every successful ordinary start counts, including a board later abandoned through
+Next board or app termination. Completion alone never advances progress. Tutorial
+Play and Skip use the same progression; manual Tutorial replay does not reset it.
+Progress and streak persist together. Valid legacy ordinary history retains random
+play; tutorial-seen state alone does not imply ordinary play. No new controls,
+authored ordinary boards or changes to tutorial interactions are added.
 
 Historical #32 evidence (the difficulty-choice menu is superseded): [localized menu](evidence/issue32/difficulty-menu-pt390.png),
 [Medium compact portrait](evidence/issue32/medium-en320.png),
@@ -203,7 +212,7 @@ the lesson after the gesture ends, never midway through it. A tap-based marking
 path can satisfy the same state predicates. The practice stage requires the
 actual Empty→X→Paw→Empty sequence. After the guided solve, the same board resets for independent play with a
 “Now try it yourself” message. Only independent completion stays visible and
-readonly with Play opening a random board. Menu/locale changes retain the active
+readonly with Play opening an ordinary board through the #96 progression. Menu/locale changes retain the active
 lesson; selecting Tutorial explicitly restarts it. Starting Tutorial replaces
 the prior in-memory game; Skip/Play do not restore it.
 
