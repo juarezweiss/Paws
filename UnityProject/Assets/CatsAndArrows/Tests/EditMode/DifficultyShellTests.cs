@@ -79,6 +79,7 @@ namespace CatsAndArrows.Tests
         {
             var seen = false;
             var selection = PlayTestFactory.Selection("hard");
+            var history = selection.History;
             var shell = PlayTestFactory.Shell(loop: PlayTestFactory.Loop(difficultySelection: selection),
                 tutorialSeen: () => seen, markTutorialSeen: () => seen = true);
             shell.StartTutorial(); Assert.That(seen, Is.False);
@@ -87,7 +88,7 @@ namespace CatsAndArrows.Tests
             Assert.That(GenerationFingerprints.ForBoard(shell.ActiveSession.Puzzle),
                 Is.EqualTo(GenerationFingerprints.ForBoard(TutorialFixture.CreatePuzzle())));
             Assert.That(shell.Loop.RequestedSeed, Is.Null);
-            Assert.That(selection.History, Is.Null);
+            Assert.That(selection.History, Is.SameAs(history));
             shell.StartTutorial(); Assert.That(shell.Tutorial.Step, Is.EqualTo(TutorialStep.Welcome));
             shell.SkipTutorial(); Assert.That(shell.StartNewGame(), Is.True);
             Assert.That(shell.ActiveSession.Puzzle.Size, Is.EqualTo(7));
@@ -100,11 +101,12 @@ namespace CatsAndArrows.Tests
         {
             var generator = new RetryGenerator();
             var selection = PlayTestFactory.Selection(id);
+            var history = selection.History;
             var loop = PlayTestFactory.Loop(14, generator: generator, difficultySelection: selection);
             var shell = PlayTestFactory.Shell(14, "en", loop);
             Assert.That(shell.StartNewGame(), Is.False);
             Assert.That(shell.Screen, Is.EqualTo("failure"));
-            Assert.That(selection.History, Is.Null);
+            Assert.That(selection.History, Is.SameAs(history));
             Assert.That(loop.RequestedDifficulty.Id, Is.EqualTo(id));
             Assert.That(shell.Q<Label>("board-difficulty").text, Does.StartWith(id == "medium" ? "Medium" : "Hard"));
             Assert.That(shell.StartNewGame(), Is.True);
@@ -118,8 +120,9 @@ namespace CatsAndArrows.Tests
         {
             var loop = PlayTestFactory.Loop(14, seed => new SeededEasyPuzzleGenerator().Generate(DifficultyProfile.Easy, seed),
                 difficultySelection: PlayTestFactory.Selection("hard"));
+            var history = loop.DifficultySelection.History;
             Assert.That(loop.NewGame(), Is.False); Assert.That(loop.Session, Is.Null);
-            Assert.That(loop.DifficultySelection.History, Is.Null);
+            Assert.That(loop.DifficultySelection.History, Is.SameAs(history));
         }
 
         [Test] public void DuplicatePlayCommandsCannotSkipTutorialOrQueueTwoStarts()

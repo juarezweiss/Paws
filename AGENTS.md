@@ -72,6 +72,12 @@ Avoid concurrent write-heavy subagents on overlapping files. Parallelize researc
 
 The repo-local Skill defines repeatable workflow routing; specialist agent files define role-specific behavior. Do not duplicate those instructions in this file unless they are global governance rules.
 
+## Code Review
+
+- **Independent review:** Require an independent, read-only review before merging non-trivial PRs. Prioritize correctness and regressions over style.
+- **Change impact:** Review affected dependencies, state transitions, edge cases, and relevant tests—not just modified lines. Flag unverified behavior explicitly.
+- **Review gate:** Resolve blocking/high-severity findings and verify fixes before merge. Never claim validation passed when required checks were not executed.
+
 ## Source of truth
 Use `docs/CONTEXT_MAP.md` as the first routing index for task-specific context.
 

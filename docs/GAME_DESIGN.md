@@ -16,24 +16,34 @@ cells, Hard 7–13/~27%) describe that earlier pilot, not per-board acceptance l
 or calibrated difficulty scores. No additional deductions are introduced. Easy
 generation and the fixed Easy tutorial are unchanged.
 
-## Play and difficulty selection — Issue #43
+## Play and difficulty selection — Issues #43 / #96
 
 Home offers Play and a Settings gear (#76), with Tutorial and language selection
 in Settings and no difficulty choice. Play resumes any live in-memory board.
-Ordinary Play without a live board and Next board choose uniformly from
+New ordinary players receive generated Easy, generated Easy, then generated
+Medium on their first three successfully started ordinary boards (#96).
+From board four, ordinary Play without a live board and Next board choose uniformly from
 Easy/Medium/Hard, except
 that a difficulty is excluded after two consecutive successful starts in it.
-The last difficulty and run length persist across app restarts. Abandoning a
+Introductory progress, last difficulty and run length persist together across app restarts. Abandoning a
 successfully started board still counts; generation failure does not. Retry keeps
 its pending difficulty and advances only the puzzle seed. Menu, language changes,
 Clear and tutorial entry do not consume or reset this history.
 
 First-ever Play presents the fixed Easy tutorial. That first-use gate persists,
-so later Plays without a live board request random ordinary boards, including
+so later Plays without a live board request ordinary boards through the progression above, including
 after a restart. Manual Tutorial remains available and does not consume a fresh installation's first
-Play. Existing tutorial-seen installations migrate once as returning users.
+Play. Existing tutorial-seen installations migrate once as returning users for tutorial routing.
 Tutorial Skip/Play uses the same ordinary-board selector, without counting the
 tutorial fixture. This adds no board save/resume or generation rule.
+
+Introductory boards contribute the normal streak: Easy/1, Easy/2, Medium/1;
+the random handoff does not reset it. Existing valid v1 ordinary history bypasses
+the introduction and preserves its streak. An absent ordinary-history record
+starts the introduction even if the tutorial/first-Play flag is already set;
+present corrupt history uses the existing random fallback. Neither tutorial
+completion nor manual replay advances or resets ordinary progress. Generation,
+admission or persistence failure consumes no step; duplicate commands commit once.
 
 ## Solution paws
 - A normal cell contains at most one solution paw.
@@ -188,5 +198,5 @@ no generic framework or change to ordinary puzzle generation is included.
 Owner device-review refinement (2026-10-13): guided completion immediately resets
 the same fixture to Empty for an independent attempt, without step targets or
 assistance. Only that independent win shows tutorial completion and Play for
-random boards. Skip remains available as the explicit bypass. Demonstration X/Paw
+ordinary boards through #96. Skip remains available as the explicit bypass. Demonstration X/Paw
 are temporary presentation samples, not player placements or hidden answers.

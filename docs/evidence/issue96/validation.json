@@ -1,0 +1,191 @@
+{
+  "issue": 96,
+  "date": "2026-10-28",
+  "base_develop_sha": "74ccf46078f39601dc0b35e45c9e992290fc324f",
+  "branch": "feat/96-first-player-progression",
+  "unity_version": "6000.3.25f1",
+  "changed_source_sha256": {
+    "UnityProject/Assets/CatsAndArrows/Gameplay/DifficultySelection.cs": "b608a3352cb5c0c985ff083da826f12c60b3bb0d6b2adc9ee6d06c5410af7a5d",
+    "UnityProject/Assets/CatsAndArrows/Tests/EditMode/DifficultySelectionTests.cs": "6042c93811570b0e26ad37c3601f76db86d344183eefbdc282de9843398a2893",
+    "UnityProject/Assets/CatsAndArrows/Tests/EditMode/DifficultyShellTests.cs": "a92742cb0cf04b1f5a099f182e5f126f28376c543b6f94e3da6b66e16dc9606e",
+    "UnityProject/Assets/CatsAndArrows/Tests/EditMode/IntroProgressionTests.cs": "25c869419c16f73fe5e225d41156417a2258e17e56c1181028a46396fe63e1c1",
+    "UnityProject/Assets/CatsAndArrows/Tests/EditMode/IntroProgressionTests.cs.meta": "7297a4edf670f612d4ae8890de99f7d3afc9b7b7e746558c66875cd1d9b23fe5",
+    "UnityProject/Assets/CatsAndArrows/Tests/EditMode/PlayPreferenceTests.cs": "bbe99c2b0e9329ed1a4501cc976343de47bfcfc658befb9443c5cfe315654149",
+    "UnityProject/Assets/CatsAndArrows/Tests/EditMode/PlayTestFactory.cs": "07401842d7147a5bc70c32b43e88b31b6b7814d9d201c766c46f067cfeea8850",
+    "UnityProject/Assets/CatsAndArrows/UI/DifficultyHistoryPreference.cs": "736249d856aa3ba8ec138f05838b1f462931478e7e466b74209fdd8202f7175d"
+  },
+  "compile": {
+    "path": ".unity-results/compile.kcRKr2/Editor.log",
+    "editor_exit_code": 0,
+    "sha256": "59795db69c9c0672c031544ebabc8489a31dc9481ffa795429bd4bac09fad7ea"
+  },
+  "final_full_editmode": {
+    "path": ".unity-results/editmode.0DNXE1/test-results.xml",
+    "editor_exit_code": 0,
+    "sha256": "194733b1770af48850b3376ebe436f77ec7f72253ec13b0f94e114c21bab8414",
+    "total": 751,
+    "passed": 751,
+    "failed": 0,
+    "skipped": 0,
+    "inconclusive": 0,
+    "failures": []
+  },
+  "focused_groups_in_final_suite": {
+    "DifficultySelectionTests": {
+      "passed": 42,
+      "failed": 0
+    },
+    "DifficultyShellTests": {
+      "passed": 16,
+      "failed": 0
+    },
+    "PlayPreferenceTests": {
+      "passed": 40,
+      "failed": 0
+    },
+    "IntroProgressionTests": {
+      "passed": 24,
+      "failed": 0
+    }
+  },
+  "script_tests": {
+    "command": "python3 -m unittest discover -s scripts/tests -v",
+    "passed": 51,
+    "failed": 0,
+    "exit_code": 0
+  },
+  "repository_validation": {
+    "command": "bash scripts/validate.sh",
+    "exit_code": 0
+  },
+  "sdk_integrity": {
+    "command": "python3 scripts/check-admob-sdk.py",
+    "files_verified": 322,
+    "exit_code": 0
+  },
+  "earlier_failed_runs": [
+    {
+      "path": ".unity-results/editmode.hcfNFI/test-results.xml",
+      "editor_exit_code": 2,
+      "sha256": "2ff3ccedac99af85420fbad9cfcf0a362e9e3910376ef2c6e8980cf20cf9ed2b",
+      "total": 748,
+      "passed": 747,
+      "failed": 1,
+      "skipped": 0,
+      "inconclusive": 0,
+      "failures": [
+        {
+          "name": "CatsAndArrows.Tests.MenuPresentationTests.PortraitHomeSettingsAndSelectorKeepLocalizedTargetsInsideSafeArea",
+          "message": "  settings-back\n  Expected: greater than or equal to 35.0f\n  But was:  19.0f\n"
+        }
+      ]
+    },
+    {
+      "path": ".unity-results/editmode.5cVdx0/test-results.xml",
+      "editor_exit_code": 2,
+      "sha256": "ac4e59daee760070eb8be23deb54de54bdffcfde117346eada682075e5a15b47",
+      "total": 748,
+      "passed": 747,
+      "failed": 1,
+      "skipped": 0,
+      "inconclusive": 0,
+      "failures": [
+        {
+          "name": "CatsAndArrows.Tests.IntroProgressionTests.DuplicateQueuedPlaySkipAndNextEventsAndStaleCallbackCommitOnlyOnce",
+          "message": "  Expected: 3\n  But was:  2\n"
+        }
+      ]
+    },
+    {
+      "path": ".unity-results/issue96-focused.120msr/test-results.xml",
+      "editor_exit_code": 2,
+      "sha256": "e343203a3bc5f11340dd50804da120878d40939e44929ffe981396cdbf88968b",
+      "total": 122,
+      "passed": 121,
+      "failed": 1,
+      "skipped": 0,
+      "inconclusive": 0,
+      "failures": [
+        {
+          "name": "CatsAndArrows.Tests.IntroProgressionTests.DuplicateQueuedPlaySkipAndNextEventsAndStaleCallbackCommitOnlyOnce",
+          "message": "  Timed out waiting for queued callback drain marker\n  Expected: True\n  But was:  False\n"
+        }
+      ]
+    }
+  ],
+  "isolated_followups": [
+    {
+      "path": ".unity-results/issue96-settings-check.M6uSav/test-results.xml",
+      "editor_exit_code": 0,
+      "sha256": "9c105473855d95aa721468efbcc36af108078032f86e84254be95504d5798a7a",
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "inconclusive": 0,
+      "failures": []
+    },
+    {
+      "path": ".unity-results/issue96-mounted-queue.S3K2BU/test-results.xml",
+      "editor_exit_code": 0,
+      "sha256": "255c5279287dc5743df2d75eec005454bba2029f6ae04d47c880ddbc1584edca",
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "inconclusive": 0,
+      "failures": []
+    }
+  ],
+  "resolution_notes": [
+    "Initial existing Settings safe-area failure passed isolated and subsequent full runs without modifying its source; cause not established.",
+    "New mounted test first relied on fixed frames, then panel scheduler alone; EditMode does not reliably advance runtime panels. Bounded waits now request EditorApplication.QueuePlayerLoopUpdate; exact seed/request/write assertions remain.",
+    "Independent QA found supported v2 missing counter must preserve valid last/run. Fixed and covered missing, malformed, out-of-range and overflow counter recovery."
+  ],
+  "independent_qa": {
+    "reviewer": "qa_reviewer",
+    "status": "no blocking findings after fixes and final re-review"
+  },
+  "real_generator_assertions": [
+    {
+      "ordinary_start": 1,
+      "profile": "easy",
+      "seed": 14
+    },
+    {
+      "ordinary_start": 2,
+      "profile": "easy",
+      "seed": 15
+    },
+    {
+      "ordinary_start": 3,
+      "profile": "medium",
+      "seed": 16
+    },
+    {
+      "ordinary_start": 4,
+      "profile": "hard",
+      "seed": 17
+    }
+  ],
+  "matrix_reference": "docs/TESTING.md — Issue #96 first-player ordinary progression",
+  "boundaries": {
+    "runtime_changed": [
+      "Gameplay/DifficultySelection.cs",
+      "UI/DifficultyHistoryPreference.cs"
+    ],
+    "generators_solver_rules_profiles_tutorial_ui_unchanged": true,
+    "monetization_activation_changed": false,
+    "preexisting_gitignore_and_issue94_evidence_excluded": true
+  },
+  "owner_only": {
+    "physical_iPhone_review": "pending; no signed build or device interaction performed",
+    "checklist": [
+      "Fresh ordinary Easy/Easy/Medium then random",
+      "Tutorial completion and Skip enter same progression; replay does not reset",
+      "Next from unfinished board and restart between steps count successful starts",
+      "Returning install preserves random streak; ordinary tap/drag/completed lock comfort"
+    ]
+  },
+  "rollback": "Retain v2 reader and existing preferences while reverting selection. Do not downgrade to the v1-only reader or clear progress. PlayerPrefs retains existing durability limits."
+}

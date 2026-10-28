@@ -8,6 +8,78 @@ namespace CatsAndArrows.Tests
 {
     public sealed class DifficultySelectionTests
     {
+        [TestCase(0, "easy")] [TestCase(1, "medium")] [TestCase(2, "hard")]
+        public void FreshStartsUseNoRandomDrawUntilFourthAndKeepTheStreak(int index, string fourth)
+        {
+            var store = new Store(); var draws = 0;
+            var policy = new DifficultySelection(bound => { draws++; Assert.That(bound, Is.EqualTo(3)); return index; }, store);
+            Assert.That(policy.History, Is.Null); Assert.That(policy.IntroStarts, Is.Zero);
+            Assert.That(policy.CommitStart(), Is.False);
+            foreach (var intro in new[] { 1, 2, 3 })
+            {
+                var expected = intro < 3 ? "easy" : "medium";
+                Assert.That(policy.Choose().Id, Is.EqualTo(expected));
+                Assert.That(policy.Choose(), Is.SameAs(policy.Pending));
+                Assert.That(draws, Is.Zero); Assert.That(store.Writes, Is.EqualTo(intro - 1));
+                Assert.That(policy.CommitStart(), Is.True); Assert.That(policy.CommitStart(), Is.False);
+                Assert.That(policy.History.IntroStarts, Is.EqualTo(intro));
+                Assert.That(policy.History.ConsecutiveStarts, Is.EqualTo(intro == 2 ? 2 : 1));
+                Assert.That(store.Load(), Is.SameAs(policy.History));
+                policy = new DifficultySelection(bound => { draws++; Assert.That(bound, Is.EqualTo(3)); return index; }, store);
+            }
+            Assert.That(policy.Choose().Id, Is.EqualTo(fourth)); Assert.That(draws, Is.EqualTo(1));
+            Assert.That(policy.CommitStart(), Is.True); Assert.That(policy.IntroStarts, Is.EqualTo(3));
+            Assert.That(policy.History.ConsecutiveStarts, Is.EqualTo(fourth == "medium" ? 2 : 1));
+        }
+
+        [TestCase(0, "easy")] [TestCase(1, "hard")]
+        public void MediumAtRandomHandoffExcludesMediumOnTheFifthStart(int index, string fifth)
+        {
+            var store = new Store(new DifficultyHistory("medium", 1));
+            var policy = new DifficultySelection(_ => 1, store);
+            Assert.That(policy.Choose().Id, Is.EqualTo("medium")); policy.CommitStart();
+            policy = new DifficultySelection(bound => { Assert.That(bound, Is.EqualTo(2)); return index; }, store);
+            Assert.That(policy.Choose().Id, Is.EqualTo(fifth));
+        }
+
+        [TestCase("easy", 1)] [TestCase("easy", 2)] [TestCase("medium", 1)]
+        [TestCase("medium", 2)] [TestCase("hard", 1)] [TestCase("hard", 2)]
+        public void LegacyHistoryBypassesIntroductionAndUpgradesOnlyWhenCommitted(string id, int count)
+        {
+            var legacy = new DifficultyHistory(id, count, version: 1);
+            var store = new Store(legacy) { CanSave = false }; var draws = 0;
+            var policy = new DifficultySelection(bound => { draws++; Assert.That(bound, Is.EqualTo(count == 2 ? 2 : 3)); return 0; }, store);
+            Assert.That(policy.IntroStarts, Is.EqualTo(3)); Assert.That(store.Writes, Is.Zero);
+            Assert.That(policy.History.LastDifficulty, Is.EqualTo(id));
+            Assert.That(policy.History.ConsecutiveStarts, Is.EqualTo(count));
+            var pending = policy.Choose();
+            Assert.That(policy.CommitStart(), Is.False); Assert.That(store.Load(), Is.SameAs(legacy));
+            Assert.That(new DifficultySelection(_ => 0, store).IntroStarts, Is.EqualTo(3));
+            store.CanSave = true;
+            Assert.That(policy.Choose(), Is.SameAs(pending)); Assert.That(draws, Is.EqualTo(1));
+            Assert.That(policy.CommitStart(), Is.True); Assert.That(store.Load().Version, Is.EqualTo(2));
+            Assert.That(store.Load().IntroStarts, Is.EqualTo(3));
+        }
+
+        [TestCase(-1)] [TestCase(4)] [TestCase(int.MaxValue)]
+        public void InvalidIntroPreservesValidStreakAndSkipsIntroduction(int intro)
+        {
+            var policy = new DifficultySelection(bound => { Assert.That(bound, Is.EqualTo(2)); return 1; },
+                new Store(new DifficultyHistory("easy", 2, introStarts: intro)));
+            Assert.That(policy.IntroStarts, Is.EqualTo(3)); Assert.That(policy.History.ConsecutiveStarts, Is.EqualTo(2));
+            Assert.That(policy.Choose().Id, Is.EqualTo("hard"));
+        }
+
+        [TestCase("easy", 2, 1)] [TestCase("medium", 1, 1)] [TestCase("hard", 2, 2)]
+        [TestCase("easy", 1, 0)]
+        public void ContradictoryPartialIntroCannotBreakTheExistingStreak(string id, int count, int intro)
+        {
+            var policy = new DifficultySelection(_ => 0, new Store(new DifficultyHistory(id, count, introStarts: intro)));
+            Assert.That(policy.IntroStarts, Is.EqualTo(3));
+            Assert.That(policy.History.LastDifficulty, Is.EqualTo(id));
+            Assert.That(policy.History.ConsecutiveStarts, Is.EqualTo(count));
+        }
+
         [TestCase("easy", 0, "medium")]
         [TestCase("easy", 1, "hard")]
         [TestCase("medium", 0, "easy")]
@@ -40,7 +112,7 @@ namespace CatsAndArrows.Tests
         [Test]
         public void PendingSelectionAndDuplicateCommitDoNotConsumeRandomnessOrHistory()
         {
-            var draws = 0; var store = new Store();
+            var draws = 0; var store = new Store(new DifficultyHistory(null, 0));
             var policy = new DifficultySelection(bound => { draws++; return 0; }, store);
             Assert.That(policy.CommitStart(), Is.False);
             Assert.That(policy.Choose(), Is.SameAs(policy.Choose()));
@@ -52,12 +124,13 @@ namespace CatsAndArrows.Tests
 
         [TestCase("easy", 0, 1)] [TestCase("easy", 3, 1)]
         [TestCase("other", 1, 1)] [TestCase(null, 1, 1)]
-        [TestCase("hard", 2, 2)] [TestCase("medium", -1, 1)]
+        [TestCase("hard", 2, 99)] [TestCase("medium", -1, 1)]
         public void InvalidOrUnsupportedHistoryStartsWithAllModes(string last, int count, int version)
         {
             var store = new Store(new DifficultyHistory(last, count, version));
             var policy = new DifficultySelection(bound => { Assert.That(bound, Is.EqualTo(3)); return 0; }, store);
-            Assert.That(policy.History, Is.Null);
+            Assert.That(policy.History.LastDifficulty, Is.Null);
+            Assert.That(policy.IntroStarts, Is.EqualTo(3));
             Assert.That(policy.Choose().Id, Is.EqualTo("easy"));
             Assert.That(store.Writes, Is.Zero, "loading/selection must not persist an unstarted board");
             policy.CommitStart(); Assert.That(policy.History.ConsecutiveStarts, Is.EqualTo(1));
@@ -66,9 +139,10 @@ namespace CatsAndArrows.Tests
         [TestCase(-1)] [TestCase(3)]
         public void InvalidInjectedRandomIndexCannotCreatePendingOrHistory(int index)
         {
-            var policy = new DifficultySelection(_ => index);
+            var policy = new DifficultySelection(_ => index, new Store(new DifficultyHistory(null, 0)));
+            var history = policy.History;
             Assert.Throws<InvalidOperationException>(() => policy.Choose());
-            Assert.That(policy.Pending, Is.Null); Assert.That(policy.History, Is.Null);
+            Assert.That(policy.Pending, Is.Null); Assert.That(policy.History, Is.SameAs(history));
         }
 
         [Test]
@@ -136,7 +210,7 @@ namespace CatsAndArrows.Tests
         [Test]
         public void DefaultSeededPolicyFreezesCrossRuntimeSequence()
         {
-            var policy = DifficultySelection.CreateSeeded(431);
+            var policy = DifficultySelection.CreateSeeded(431, new Store(new DifficultyHistory(null, 0)));
             var actual = new List<string>();
             for (var i = 0; i < 12; i++)
             { actual.Add(policy.Choose().Id); policy.CommitStart(); }

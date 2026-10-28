@@ -5,12 +5,32 @@ namespace CatsAndArrows.Gameplay
 {
     public sealed class DifficultyHistory
     {
-        public const int CurrentVersion = 1;
+        public const int CurrentVersion = 2;
         public int Version { get; }
         public string LastDifficulty { get; }
         public int ConsecutiveStarts { get; }
-        public DifficultyHistory(string lastDifficulty, int consecutiveStarts, int version = CurrentVersion)
-        { LastDifficulty = lastDifficulty; ConsecutiveStarts = consecutiveStarts; Version = version; }
+        public int IntroStarts { get; }
+        public DifficultyHistory(string lastDifficulty, int consecutiveStarts, int version = CurrentVersion, int introStarts = 3)
+        { LastDifficulty = lastDifficulty; ConsecutiveStarts = consecutiveStarts; Version = version; IntroStarts = introStarts; }
+
+        // Null alone means no ordinary history. Present invalid/legacy data must
+        // never enroll a returning installation in the introduction (#96).
+        public static DifficultyHistory Normalize(DifficultyHistory saved)
+        {
+            if (saved == null) return null;
+            var supported = saved.Version == 1 || saved.Version == CurrentVersion;
+            var validStreak = supported && saved.ConsecutiveStarts >= 1 && saved.ConsecutiveStarts <= 2 &&
+                (saved.LastDifficulty == "easy" || saved.LastDifficulty == "medium" || saved.LastDifficulty == "hard");
+            if (!validStreak) return new DifficultyHistory(null, 0);
+            var intro = saved.Version == CurrentVersion && saved.IntroStarts >= 0 && saved.IntroStarts <= 3
+                ? saved.IntroStarts : 3;
+            // A partial introduction has one precise committed streak. Preserve
+            // a valid streak but bypass inconsistent introductory metadata.
+            if (intro == 0 || intro == 1 && (saved.LastDifficulty != "easy" || saved.ConsecutiveStarts != 1) ||
+                intro == 2 && (saved.LastDifficulty != "easy" || saved.ConsecutiveStarts != 2)) intro = 3;
+            return saved.Version == CurrentVersion && intro == saved.IntroStarts ? saved :
+                new DifficultyHistory(saved.LastDifficulty, saved.ConsecutiveStarts, introStarts: intro);
+        }
     }
 
     public interface IDifficultyHistoryStore
@@ -35,16 +55,14 @@ namespace CatsAndArrows.Gameplay
         private readonly Func<int, int> nextIndex;
         private readonly IDifficultyHistoryStore store;
         public DifficultyHistory History { get; private set; }
+        public int IntroStarts => History?.IntroStarts ?? 0;
         public DifficultyProfile Pending { get; private set; }
 
         public DifficultySelection(Func<int, int> nextIndex, IDifficultyHistoryStore store = null)
         {
             this.nextIndex = nextIndex ?? throw new ArgumentNullException(nameof(nextIndex));
             this.store = store ?? new MemoryDifficultyHistoryStore();
-            var saved = this.store.Load();
-            if (saved != null && saved.Version == DifficultyHistory.CurrentVersion &&
-                saved.ConsecutiveStarts >= 1 && saved.ConsecutiveStarts <= 2 &&
-                Array.Exists(Modes, mode => mode.Id == saved.LastDifficulty)) History = saved;
+            History = DifficultyHistory.Normalize(this.store.Load());
         }
 
         public static DifficultySelection CreateSeeded(int seed, IDifficultyHistoryStore store = null)
@@ -61,6 +79,11 @@ namespace CatsAndArrows.Gameplay
         public DifficultyProfile Choose()
         {
             if (Pending != null) return Pending;
+            if (IntroStarts < 3)
+            {
+                Pending = IntroStarts < 2 ? DifficultyProfile.Easy : DifficultyProfile.Medium;
+                return Pending;
+            }
             var excluded = History?.ConsecutiveStarts == 2 ? History.LastDifficulty : null;
             var eligible = Array.FindAll(Modes, mode => mode.Id != excluded);
             var index = nextIndex(eligible.Length);
@@ -74,7 +97,7 @@ namespace CatsAndArrows.Gameplay
         {
             if (Pending == null) return false;
             var count = History?.LastDifficulty == Pending.Id ? History.ConsecutiveStarts + 1 : 1;
-            var committed = new DifficultyHistory(Pending.Id, count);
+            var committed = new DifficultyHistory(Pending.Id, count, introStarts: Math.Min(3, IntroStarts + 1));
             if (!store.TrySave(committed)) return false;
             History = committed;
             Pending = null;
