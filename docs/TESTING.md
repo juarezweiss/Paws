@@ -1293,3 +1293,32 @@ protected-only and arrow-only highlights, a clean
 same-fixture session swap, and independent play with wrong-cat recovery before
 completion. Native checks must prove the first independent pointer tap works,
 not merely test the replacement session directly.
+
+## Issue #94 approved pale-sage rendering
+
+Owner selected the attached historical pale-sage Option B on 2026-10-28. Source
+`7c346d101adfd3d38fb83a4b75527e2b70c7ef78` changes only arrow fill/legend,
+paw-only ink and uniform 1.10× paw artwork scale; geometry, protected cells,
+other glyphs and input/domain logic retain their prior code.
+
+Pinned compilation passes. Graphical focused rendering/presentation/layout/tap,
+drag and arrow-hold tests pass **97/97** (`issue94-focused.sw4xfN`); required full
+EditMode passes **754/754** (`editmode.3ocpya`), zero failed/skipped/inconclusive
+and successful editor exits. Repository validation, 322 SDK pins, whitespace and
+**51/51** Python contracts pass. Independent read-only QA reports no blockers.
+
+`ApprovedBoardRenderingTests` optionally captures with `PAWS_94_CAPTURE` in a
+**graphical** EditMode run (omit `-nographics`); no player rebuild is needed.
+It checks native Paw pixels against `#24332A` and the approved 1.10× geometric
+footprint. The 128px probe measures 60×58 dark pixels against a continuous
+60.23×58.78px extent; it cannot pass with the old 55px-wide artwork. Mounted tests
+also check palette, fixed styling, pixel-snapped bounds and non-interactive
+symbols on real Easy seed 3 and Hard seed 14 across 320×568, 390×844 and 430×932.
+
+Twelve native normal/~95%-marked captures have correct sage/protected colors and
+no clipped paws. [Color and grayscale comparisons](evidence/issue94/implementation/README.md)
+show actual boards against the approved B mockup, with source/capture hashes and
+exact validation scope. Headless tests do not claim native pixel evidence: the
+separate graphical run supplies it. Existing puzzle receipts remain valid; no
+player build or physical-device interaction was required for this evidence.
+Physical-iPhone appearance/comfort remains pending human review.
