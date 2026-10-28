@@ -1,0 +1,283 @@
+{
+  "issue": 99,
+  "date": "2026-10-28",
+  "base_sha": "01148933006f28334ed3b28da1c1f85e713bd866",
+  "runtime_source_sha": "e9d9e3f164479b24f41a340d9018b3ac1b456ef1",
+  "runtime_file": "UnityProject/Assets/CatsAndArrows/UI/TutorialLocalization.cs",
+  "runtime_file_sha256": "e8f5b5c5cdaccf4606fe1762f30ba09071ed9ac3ece8217694587d0eb9914983",
+  "unity_version": "6000.3.25f1",
+  "copy_audit": {
+    "result": "passed",
+    "changed_keys": 15,
+    "localized_replacements": 45,
+    "blank_lessons_unchanged": 7,
+    "all_other_messages_unchanged": true,
+    "normalized_english_equals_csv_updated": true,
+    "original_csv_preserved": true,
+    "formatting": "Balanced bold tags; practice/hold line breaks retained; long quota prompts wrap naturally."
+  },
+  "scope_audit": {
+    "result": "passed",
+    "changed_unity_assets": [
+      "UnityProject/Assets/CatsAndArrows/Tests/EditMode/BoardLocalizationTests.cs",
+      "UnityProject/Assets/CatsAndArrows/UI/TutorialLocalization.cs"
+    ],
+    "all_other_runtime_assets_byte_identical_to_base": true
+  },
+  "gates": [
+    {
+      "command": "bash scripts/validate.sh",
+      "result": "passed"
+    },
+    {
+      "command": "bash scripts/compile.sh",
+      "result": "passed",
+      "exit": 0,
+      "log": ".unity-results/compile.Kfa1Kh/Editor.log"
+    },
+    {
+      "command": "python3 -m unittest discover -s scripts/tests -v",
+      "result": "passed",
+      "tests": 51,
+      "log": "/private/tmp/paws99-python-tests.log"
+    },
+    {
+      "command": "bash scripts/test.sh",
+      "result": "passed",
+      "exit": 0,
+      "total": 751,
+      "passed": 751,
+      "failed": 0,
+      "skipped": 0,
+      "inconclusive": 0,
+      "report": ".unity-results/editmode.rq2keE/test-results.xml",
+      "report_sha256": "502cc81e34b0d2bfe07c33ee8885ca53adeb344a6bc494c3d015f1b9135666c7"
+    },
+    {
+      "command": "Isolated MenuPresentationTests.PortraitHomeSettingsAndSelectorKeepLocalizedTargetsInsideSafeArea",
+      "result": "passed",
+      "exit": 0,
+      "total": 1,
+      "report": ".unity-results/issue99-menu.L78Pk3/test-results.xml"
+    }
+  ],
+  "earlier_runs": [
+    {
+      "report": ".unity-results/editmode.MDUrMd/test-results.xml",
+      "result": "failed",
+      "passed": 748,
+      "total": 751,
+      "reason": "Three localization cases expected the practice state-list explicitly replaced by CSV; obsolete assertion removed. Runtime three-tap cycle coverage preserved."
+    },
+    {
+      "report": ".unity-results/editmode.iUwYWt/test-results.xml",
+      "result": "failed",
+      "passed": 750,
+      "total": 751,
+      "reason": "Previously observed intermittent Settings safe-area test: settings-back yMin19, expected>=35. Same test passed in first full run, isolated follow-up and final full run. No Settings/menu code changed."
+    }
+  ],
+  "renders": {
+    "result": "passed",
+    "steps": 22,
+    "locales": [
+      "en",
+      "pt-BR",
+      "es"
+    ],
+    "step_locale_size_cases": 198,
+    "captures": 315,
+    "font_units": 16,
+    "max_top_center_error": 0.5,
+    "max_bottom_center_error": 0.5,
+    "layout_failures": 0,
+    "grid_matches_issue95_baseline": true,
+    "native_intermediate_fades_and_midfade_cleanup": "passed all9 runs",
+    "runs": [
+      {
+        "locale": "pt-BR",
+        "width": 320,
+        "height": 568,
+        "safe_top": 20,
+        "safe_bottom": 0,
+        "exit": 0,
+        "step_cases": 22,
+        "captures": 35,
+        "upper_center_max_error": 0.5,
+        "lower_center_max_error": 0.5,
+        "native_intermediate_opacities": [
+          0.4318013
+        ],
+        "mid_fade_cleanup": "passed",
+        "grid_matches_previous_revision": true,
+        "bounds": "pt-BR-320-bounds.txt",
+        "log": ".unity-results/issue99/pt-BR-320.log"
+      },
+      {
+        "locale": "es",
+        "width": 320,
+        "height": 568,
+        "safe_top": 20,
+        "safe_bottom": 0,
+        "exit": 0,
+        "step_cases": 22,
+        "captures": 35,
+        "upper_center_max_error": 0.5,
+        "lower_center_max_error": 0.5,
+        "native_intermediate_opacities": [
+          0.395785
+        ],
+        "mid_fade_cleanup": "passed",
+        "grid_matches_previous_revision": true,
+        "bounds": "es-320-bounds.txt",
+        "log": ".unity-results/issue99/es-320.log"
+      },
+      {
+        "locale": "en",
+        "width": 320,
+        "height": 568,
+        "safe_top": 20,
+        "safe_bottom": 0,
+        "exit": 0,
+        "step_cases": 22,
+        "captures": 35,
+        "upper_center_max_error": 0.5,
+        "lower_center_max_error": 0.5,
+        "native_intermediate_opacities": [
+          0.3982929
+        ],
+        "mid_fade_cleanup": "passed",
+        "grid_matches_previous_revision": true,
+        "bounds": "en-320-bounds.txt",
+        "log": ".unity-results/issue99/en-320.log"
+      },
+      {
+        "locale": "pt-BR",
+        "width": 390,
+        "height": 844,
+        "safe_top": 47,
+        "safe_bottom": 34,
+        "exit": 0,
+        "step_cases": 22,
+        "captures": 35,
+        "upper_center_max_error": 0.5,
+        "lower_center_max_error": 0.5,
+        "native_intermediate_opacities": [
+          0.4355356
+        ],
+        "mid_fade_cleanup": "passed",
+        "grid_matches_previous_revision": true,
+        "bounds": "pt-BR-390-bounds.txt",
+        "log": ".unity-results/issue99/pt-BR-390.log"
+      },
+      {
+        "locale": "es",
+        "width": 390,
+        "height": 844,
+        "safe_top": 47,
+        "safe_bottom": 34,
+        "exit": 0,
+        "step_cases": 22,
+        "captures": 35,
+        "upper_center_max_error": 0.5,
+        "lower_center_max_error": 0.5,
+        "native_intermediate_opacities": [
+          0.4392284
+        ],
+        "mid_fade_cleanup": "passed",
+        "grid_matches_previous_revision": true,
+        "bounds": "es-390-bounds.txt",
+        "log": ".unity-results/issue99/es-390.log"
+      },
+      {
+        "locale": "en",
+        "width": 390,
+        "height": 844,
+        "safe_top": 47,
+        "safe_bottom": 34,
+        "exit": 0,
+        "step_cases": 22,
+        "captures": 35,
+        "upper_center_max_error": 0.5,
+        "lower_center_max_error": 0.5,
+        "native_intermediate_opacities": [
+          0.4338943
+        ],
+        "mid_fade_cleanup": "passed",
+        "grid_matches_previous_revision": true,
+        "bounds": "en-390-bounds.txt",
+        "log": ".unity-results/issue99/en-390.log"
+      },
+      {
+        "locale": "pt-BR",
+        "width": 430,
+        "height": 932,
+        "safe_top": 59,
+        "safe_bottom": 34,
+        "exit": 0,
+        "step_cases": 22,
+        "captures": 35,
+        "upper_center_max_error": 0.5,
+        "lower_center_max_error": 0.5,
+        "native_intermediate_opacities": [
+          0.4258157
+        ],
+        "mid_fade_cleanup": "passed",
+        "grid_matches_previous_revision": true,
+        "bounds": "pt-BR-430-bounds.txt",
+        "log": ".unity-results/issue99/pt-BR-430.log"
+      },
+      {
+        "locale": "es",
+        "width": 430,
+        "height": 932,
+        "safe_top": 59,
+        "safe_bottom": 34,
+        "exit": 0,
+        "step_cases": 22,
+        "captures": 35,
+        "upper_center_max_error": 0.5,
+        "lower_center_max_error": 0.5,
+        "native_intermediate_opacities": [
+          0.4351262
+        ],
+        "mid_fade_cleanup": "passed",
+        "grid_matches_previous_revision": true,
+        "bounds": "es-430-bounds.txt",
+        "log": ".unity-results/issue99/es-430.log"
+      },
+      {
+        "locale": "en",
+        "width": 430,
+        "height": 932,
+        "safe_top": 59,
+        "safe_bottom": 34,
+        "exit": 0,
+        "step_cases": 22,
+        "captures": 35,
+        "upper_center_max_error": 0.5,
+        "lower_center_max_error": 0.5,
+        "native_intermediate_opacities": [
+          0.3715559
+        ],
+        "mid_fade_cleanup": "passed",
+        "grid_matches_previous_revision": true,
+        "bounds": "en-430-bounds.txt",
+        "log": ".unity-results/issue99/en-430.log"
+      }
+    ]
+  },
+  "visual_review": {
+    "primary": "Inspected all198 top-message crops in nine native-scale sheets; representative full-screen initial/fade/attention/Start panels; no clipping, overlap or unintended spacing change found.",
+    "independent_qa": "Read-only review of runtime e9d9e3f: CSV mapping, all translations, formatting/scope and23 compact screenshots including all prior overflow cases; no blocking findings. Standard/tall visual inspection and Unity execution performed by primary agent."
+  },
+  "physical_iphone": {
+    "status": "pending",
+    "note": "Owner-only acceptance for this new copy; no new iPhone build installed in this task. Prior #95 pass does not apply."
+  },
+  "boundaries": {
+    "merged": false,
+    "released": false,
+    "issue95_history_changed": false
+  }
+}

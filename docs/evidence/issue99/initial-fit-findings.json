@@ -1,0 +1,45 @@
+{
+  "source_sha": "21b2a5e",
+  "note": "Historical first pass only; final screenshots and validation use the adjusted line breaks at source e9d9e3f. No wording, font or layout change was needed.",
+  "failures": [
+    {
+      "locale": "pt-BR",
+      "width": 320,
+      "height": 568,
+      "failures": [
+        "TUTORIAL_LAYOUT_FAIL FirstColumnX: Tutorial review failed: instruction fits header: column-x needs=78 has=60",
+        "TUTORIAL_LAYOUT_FAIL DiagonalPaw: Tutorial review failed: instruction fits header: arrow-hold needs=78 has=60",
+        "TUTORIAL_LAYOUT_FAIL DiagonalPaw: Tutorial review failed: instruction fits header: hold-active needs=78 has=60",
+        "TUTORIAL_LAYOUT_FAIL DiagonalPaw: Tutorial review failed: instruction fits header: hold-released needs=78 has=60",
+        "TUTORIAL_LAYOUT_FAIL FourthPaw: Tutorial review failed: instruction fits header: diagonal needs=78 has=60",
+        "TUTORIAL_LAYOUT_FAIL FourthPaw: Tutorial review failed: instruction fits header: two-paw-row needs=78 has=60",
+        "TUTORIAL_LAYOUT_FAIL SingleX: Tutorial review failed: instruction fits header: single-x needs=78 has=60"
+      ]
+    },
+    {
+      "locale": "es",
+      "width": 320,
+      "height": 568,
+      "failures": [
+        "TUTORIAL_LAYOUT_FAIL FirstColumnX: Tutorial review failed: instruction fits header: column-x needs=78 has=60",
+        "TUTORIAL_LAYOUT_FAIL SecondRowX: Tutorial review failed: instruction fits header: row-x needs=78 has=60",
+        "TUTORIAL_LAYOUT_FAIL DiagonalPaw: Tutorial review failed: instruction fits header: arrow-hold needs=78 has=60",
+        "TUTORIAL_LAYOUT_FAIL DiagonalPaw: Tutorial review failed: instruction fits header: hold-active needs=78 has=60",
+        "TUTORIAL_LAYOUT_FAIL DiagonalPaw: Tutorial review failed: instruction fits header: hold-released needs=78 has=60",
+        "TUTORIAL_LAYOUT_FAIL SingleX: Tutorial review failed: instruction fits header: single-x needs=78 has=60"
+      ]
+    },
+    {
+      "locale": "en",
+      "width": 320,
+      "height": 568,
+      "failures": [
+        "TUTORIAL_LAYOUT_FAIL FirstColumnX: Tutorial review failed: instruction fits header: column-x needs=78 has=60",
+        "TUTORIAL_LAYOUT_FAIL DiagonalPaw: Tutorial review failed: instruction fits header: arrow-hold needs=78 has=60",
+        "TUTORIAL_LAYOUT_FAIL DiagonalPaw: Tutorial review failed: instruction fits header: hold-active needs=78 has=60",
+        "TUTORIAL_LAYOUT_FAIL DiagonalPaw: Tutorial review failed: instruction fits header: hold-released needs=78 has=60",
+        "TUTORIAL_LAYOUT_FAIL SingleX: Tutorial review failed: instruction fits header: single-x needs=78 has=60"
+      ]
+    }
+  ]
+}

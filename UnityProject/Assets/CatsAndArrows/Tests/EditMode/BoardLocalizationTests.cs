@@ -26,7 +26,7 @@ namespace CatsAndArrows.Tests
             Assert.That(messages["board.x"], Is.EqualTo(noPaw));
             Assert.That(messages["tutorial.welcome"], Does.Contain("Paws"));
             Assert.That(messages["tutorial.paw-state"], Does.Contain("<b>" + paw + "</b>"));
-            Assert.That(messages["tutorial.practice"], Does.Contain("→ X → " + paw + " →"));
+            // #99 practice no longer lists state names; the Paw example above still guards localization.
             foreach (var key in new[] { "board.row-total", "board.column-total",
                 "tutorial.goal", "tutorial.independent", "tutorial.complete", "game.victory", "completion.message" })
                 Assert.That(messages[key], Does.Contain(paws), locale + ":" + key);

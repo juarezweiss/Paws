@@ -1,5 +1,14 @@
 # Issue #26 — Interactive first-play tutorial
 
+## Issue #99 wording follow-up — 2026-10-28
+
+[#99](https://github.com/juarezweiss/Paws/issues/99) applies the owner's CSV updates
+to 15 top messages in EN, pt-BR and ES. Blank updates, the separate goal heading,
+buttons and bottom guidance are unchanged. Text wraps within the existing header;
+all #95 positioning, delayed attention/fades and tutorial behavior are preserved.
+See [copy mapping and current validation](evidence/issue99/README.md). Physical
+iPhone acceptance of these new strings remains pending owner review.
+
 ## Issue #95 clarity follow-up — 2026-10-27
 
 The following #26 snapshot is historical. Current navigation/first-Play behavior
