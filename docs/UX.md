@@ -22,6 +22,17 @@ paw symbol readability and localized visual fit were reviewed and approved. This
 closes PR #54's appearance gate. It is not broader-device, performance, lifecycle,
 touch-comfort or clean-distribution-build evidence.
 
+## Issue #94 approved board palette and paw treatment
+
+Owner selection (2026-10-28): pale-sage Option B uses `#DFE7DC` arrow-cell
+backgrounds with the existing dark shafted arrows. Paw artwork is uniformly
+10% larger than the previous rendering, with `#24332A` paw-only ink; its paths,
+proportions and light cell fill remain unchanged. Protected cells retain their
+existing gray. X marks, other symbols, borders, cell geometry and interaction
+behavior retain their existing rendering/contracts. This supersedes the later
+triangle and filled-paw mockup explorations in #94. Mockup approval does not
+establish physical-iPhone appearance or comfort acceptance of the new build.
+
 ## Feedback
 - No punishment animation for a wrong intermediate mark.
 - Use subtle haptic/audio feedback for deliberate state changes if enabled.
@@ -164,7 +175,8 @@ localized controls starts a fresh interval.
 
 Center the tile grid itself within the safe board region; the numeric clue gutters
 follow the centered grid and remain within bounds. Arrow and protected/hatched
-cells share a subtly darker background while retaining distinct shapes/hatching.
+cells use subtly darker backgrounds while retaining distinct shapes/hatching;
+#94 gives only arrows pale sage while protection keeps its original gray.
 Completed boards remain visible with the localized “All paws found!” phrase below
 the difficulty. Issue #44 adds the ordinary-board sequence above. Issue #23
 supersedes the former optional Last hint/explanation presentation: current Hint

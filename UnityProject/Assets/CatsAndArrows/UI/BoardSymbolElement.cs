@@ -9,6 +9,7 @@ namespace CatsAndArrows.UI
     public sealed class BoardSymbolElement : VisualElement
     {
         public static readonly Color Ink = new Color(.18f, .22f, .20f);
+        public static readonly Color PawInk = new Color(36 / 255f, 51 / 255f, 42 / 255f);
         private BoardCellKind kind;
         private Direction direction;
         private readonly float artworkScale;
@@ -64,8 +65,9 @@ namespace CatsAndArrows.UI
                     Line(tip, tip - vector * size * .16f - side * size * .15f);
                     break;
                 case BoardCellKind.Paw:
-                    // Issue #53: a lighter paw, about one third smaller and centered in the cell.
-                    size *= .69f;
+                    // #94 Option B: exactly 10% larger than #53, retaining its paths and centering.
+                    size *= .69f * 1.10f;
+                    painter.fillColor = PawInk;
                     center.y += size * .0225f;
                     painter.BeginPath(); painter.MoveTo(Point(0, -.025f));
                     painter.BezierCurveTo(Point(.09f, -.025f), Point(.105f, .065f), Point(.17f, .13f));
