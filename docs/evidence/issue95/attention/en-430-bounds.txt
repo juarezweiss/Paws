@@ -1,0 +1,69 @@
+TUTORIAL_LAYOUT step=Welcome locale=en viewport=(430.00, 932.00) measured=(140.00, 20.00) label=(x:145.00, y:189.00, width:140.00, height:20.00) clueTop=278 grid=(x:16.00, y:274.00, width:362.00, height:362.00)
+TUTORIAL_CENTER step=Welcome phase=initial topError=0.5 bottomError=0.5 blockTop=189 blockBottom=209 upper=123 gridTop=274 guidance=(x:16.00, y:697.00, width:398.00, height:20.00)
+TUTORIAL_NATIVE_FADE opacity=0.2955963
+TUTORIAL_LAYOUT step=Welcome locale=en viewport=(430.00, 932.00) measured=(140.00, 20.00) label=(x:145.00, y:189.00, width:140.00, height:20.00) clueTop=278 grid=(x:16.00, y:274.00, width:362.00, height:362.00)
+TUTORIAL_CENTER step=Welcome phase=attention topError=0.5 bottomError=0.5 blockTop=189 blockBottom=209 upper=123 gridTop=274 guidance=(x:16.00, y:697.00, width:398.00, height:20.00)
+TUTORIAL_LAYOUT step=Goal locale=en viewport=(430.00, 932.00) measured=(394.00, 39.00) label=(x:18.00, y:189.00, width:394.00, height:39.00) clueTop=278 grid=(x:16.00, y:274.00, width:362.00, height:362.00)
+TUTORIAL_CENTER step=Goal phase=initial topError=0 bottomError=0.5 blockTop=169 blockBottom=228 upper=123 gridTop=274 guidance=(x:16.00, y:697.00, width:398.00, height:20.00)
+TUTORIAL_LAYOUT step=Goal locale=en viewport=(430.00, 932.00) measured=(394.00, 39.00) label=(x:18.00, y:189.00, width:394.00, height:39.00) clueTop=278 grid=(x:16.00, y:274.00, width:362.00, height:362.00)
+TUTORIAL_CENTER step=Goal phase=attention topError=0 bottomError=0.5 blockTop=169 blockBottom=228 upper=123 gridTop=274 guidance=(x:16.00, y:697.00, width:398.00, height:20.00)
+TUTORIAL_LAYOUT step=Begin locale=en viewport=(430.00, 932.00) measured=(362.00, 20.00) label=(x:34.00, y:189.00, width:362.00, height:20.00) clueTop=278 grid=(x:16.00, y:274.00, width:362.00, height:362.00)
+TUTORIAL_CENTER step=Begin phase=initial topError=0.5 bottomError=0.5 blockTop=189 blockBottom=209 upper=123 gridTop=274 guidance=(x:16.00, y:697.00, width:398.00, height:20.00)
+TUTORIAL_LAYOUT step=Begin locale=en viewport=(430.00, 932.00) measured=(362.00, 20.00) label=(x:34.00, y:189.00, width:362.00, height:20.00) clueTop=278 grid=(x:16.00, y:274.00, width:362.00, height:362.00)
+TUTORIAL_CENTER step=Begin phase=attention topError=0.5 bottomError=0.5 blockTop=189 blockBottom=209 upper=123 gridTop=274 guidance=(x:16.00, y:697.00, width:398.00, height:20.00)
+TUTORIAL_LAYOUT step=StatesIntro locale=en viewport=(430.00, 932.00) measured=(394.00, 39.00) label=(x:18.00, y:179.00, width:394.00, height:39.00) clueTop=278 grid=(x:16.00, y:274.00, width:362.00, height:362.00)
+TUTORIAL_CENTER step=StatesIntro phase=initial topError=0 bottomError=0.5 blockTop=179 blockBottom=218 upper=123 gridTop=274 guidance=(x:16.00, y:697.00, width:398.00, height:20.00)
+TUTORIAL_LAYOUT step=StatesIntro locale=en viewport=(430.00, 932.00) measured=(394.00, 39.00) label=(x:18.00, y:179.00, width:394.00, height:39.00) clueTop=278 grid=(x:16.00, y:274.00, width:362.00, height:362.00)
+TUTORIAL_CENTER step=StatesIntro phase=attention topError=0 bottomError=0.5 blockTop=179 blockBottom=218 upper=123 gridTop=274 guidance=(x:16.00, y:697.00, width:398.00, height:20.00)
+TUTORIAL_LAYOUT step=EmptyState locale=en viewport=(430.00, 932.00) measured=(147.00, 20.00) label=(x:142.00, y:189.00, width:147.00, height:20.00) clueTop=278 grid=(x:16.00, y:274.00, width:362.00, height:362.00)
+TUTORIAL_CENTER step=EmptyState phase=initial topError=0.5 bottomError=0.5 blockTop=189 blockBottom=209 upper=123 gridTop=274 guidance=(x:16.00, y:697.00, width:398.00, height:20.00)
+TUTORIAL_LAYOUT step=EmptyState locale=en viewport=(430.00, 932.00) measured=(147.00, 20.00) label=(x:142.00, y:189.00, width:147.00, height:20.00) clueTop=278 grid=(x:16.00, y:274.00, width:362.00, height:362.00)
+TUTORIAL_CENTER step=EmptyState phase=attention topError=0.5 bottomError=0.5 blockTop=189 blockBottom=209 upper=123 gridTop=274 guidance=(x:16.00, y:697.00, width:398.00, height:20.00)
+TUTORIAL_LAYOUT step=XState locale=en viewport=(430.00, 932.00) measured=(263.00, 20.00) label=(x:84.00, y:189.00, width:263.00, height:20.00) clueTop=278 grid=(x:16.00, y:274.00, width:362.00, height:362.00)
+TUTORIAL_CENTER step=XState phase=initial topError=0.5 bottomError=0.5 blockTop=189 blockBottom=209 upper=123 gridTop=274 guidance=(x:16.00, y:697.00, width:398.00, height:20.00)
+TUTORIAL_LAYOUT step=XState locale=en viewport=(430.00, 932.00) measured=(263.00, 20.00) label=(x:84.00, y:189.00, width:263.00, height:20.00) clueTop=278 grid=(x:16.00, y:274.00, width:362.00, height:362.00)
+TUTORIAL_CENTER step=XState phase=attention topError=0.5 bottomError=0.5 blockTop=189 blockBottom=209 upper=123 gridTop=274 guidance=(x:16.00, y:697.00, width:398.00, height:20.00)
+TUTORIAL_LAYOUT step=PawState locale=en viewport=(430.00, 932.00) measured=(225.00, 20.00) label=(x:103.00, y:189.00, width:225.00, height:20.00) clueTop=278 grid=(x:16.00, y:274.00, width:362.00, height:362.00)
+TUTORIAL_CENTER step=PawState phase=initial topError=0.5 bottomError=0.5 blockTop=189 blockBottom=209 upper=123 gridTop=274 guidance=(x:16.00, y:697.00, width:398.00, height:20.00)
+TUTORIAL_LAYOUT step=PawState locale=en viewport=(430.00, 932.00) measured=(225.00, 20.00) label=(x:103.00, y:189.00, width:225.00, height:20.00) clueTop=278 grid=(x:16.00, y:274.00, width:362.00, height:362.00)
+TUTORIAL_CENTER step=PawState phase=attention topError=0.5 bottomError=0.5 blockTop=189 blockBottom=209 upper=123 gridTop=274 guidance=(x:16.00, y:697.00, width:398.00, height:20.00)
+TUTORIAL_LAYOUT step=HatchedCells locale=en viewport=(430.00, 932.00) measured=(395.00, 39.00) label=(x:18.00, y:179.00, width:395.00, height:39.00) clueTop=278 grid=(x:16.00, y:274.00, width:362.00, height:362.00)
+TUTORIAL_CENTER step=HatchedCells phase=initial topError=0 bottomError=0.5 blockTop=179 blockBottom=218 upper=123 gridTop=274 guidance=(x:16.00, y:697.00, width:398.00, height:20.00)
+TUTORIAL_LAYOUT step=HatchedCells locale=en viewport=(430.00, 932.00) measured=(395.00, 39.00) label=(x:18.00, y:179.00, width:395.00, height:39.00) clueTop=278 grid=(x:16.00, y:274.00, width:362.00, height:362.00)
+TUTORIAL_CENTER step=HatchedCells phase=attention topError=0 bottomError=0.5 blockTop=179 blockBottom=218 upper=123 gridTop=274 guidance=(x:16.00, y:697.00, width:398.00, height:20.00)
+TUTORIAL_LAYOUT step=Arrows locale=en viewport=(430.00, 932.00) measured=(392.00, 39.00) label=(x:19.00, y:179.00, width:392.00, height:39.00) clueTop=278 grid=(x:16.00, y:274.00, width:362.00, height:362.00)
+TUTORIAL_CENTER step=Arrows phase=initial topError=0 bottomError=0.5 blockTop=179 blockBottom=218 upper=123 gridTop=274 guidance=(x:16.00, y:697.00, width:398.00, height:20.00)
+TUTORIAL_LAYOUT step=Arrows locale=en viewport=(430.00, 932.00) measured=(392.00, 39.00) label=(x:19.00, y:179.00, width:392.00, height:39.00) clueTop=278 grid=(x:16.00, y:274.00, width:362.00, height:362.00)
+TUTORIAL_CENTER step=Arrows phase=attention topError=0 bottomError=0.5 blockTop=179 blockBottom=218 upper=123 gridTop=274 guidance=(x:16.00, y:697.00, width:398.00, height:20.00)
+TUTORIAL_LAYOUT step=Practice locale=en viewport=(430.00, 932.00) measured=(222.00, 39.00) label=(x:104.00, y:179.00, width:222.00, height:39.00) clueTop=278 grid=(x:16.00, y:274.00, width:362.00, height:362.00)
+TUTORIAL_CENTER step=Practice phase=intro-Practice topError=0 bottomError=0 blockTop=179 blockBottom=218 upper=123 gridTop=274 guidance=none
+TUTORIAL_LAYOUT step=ZeroColumn locale=en viewport=(430.00, 932.00) measured=(387.00, 39.00) label=(x:22.00, y:179.00, width:387.00, height:39.00) clueTop=278 grid=(x:16.00, y:274.00, width:362.00, height:362.00)
+TUTORIAL_CENTER step=ZeroColumn phase=zero-column topError=0 bottomError=0 blockTop=179 blockBottom=218 upper=123 gridTop=274 guidance=none
+TUTORIAL_LAYOUT step=ZeroRow locale=en viewport=(430.00, 932.00) measured=(380.00, 39.00) label=(x:25.00, y:179.00, width:380.00, height:39.00) clueTop=278 grid=(x:16.00, y:274.00, width:362.00, height:362.00)
+TUTORIAL_CENTER step=ZeroRow phase=zero-row topError=0 bottomError=0 blockTop=179 blockBottom=218 upper=123 gridTop=274 guidance=none
+TUTORIAL_LAYOUT step=FirstPaw locale=en viewport=(430.00, 932.00) measured=(396.00, 20.00) label=(x:17.00, y:189.00, width:396.00, height:20.00) clueTop=278 grid=(x:16.00, y:274.00, width:362.00, height:362.00)
+TUTORIAL_CENTER step=FirstPaw phase=first-paw topError=0.5 bottomError=0 blockTop=189 blockBottom=209 upper=123 gridTop=274 guidance=none
+TUTORIAL_LAYOUT step=FirstColumnX locale=en viewport=(430.00, 932.00) measured=(387.00, 39.00) label=(x:22.00, y:179.00, width:387.00, height:39.00) clueTop=278 grid=(x:16.00, y:274.00, width:362.00, height:362.00)
+TUTORIAL_CENTER step=FirstColumnX phase=column-x topError=0 bottomError=0 blockTop=179 blockBottom=218 upper=123 gridTop=274 guidance=none
+TUTORIAL_LAYOUT step=SecondPaw locale=en viewport=(430.00, 932.00) measured=(393.00, 39.00) label=(x:19.00, y:179.00, width:393.00, height:39.00) clueTop=278 grid=(x:16.00, y:274.00, width:362.00, height:362.00)
+TUTORIAL_CENTER step=SecondPaw phase=second-paw topError=0 bottomError=0 blockTop=179 blockBottom=218 upper=123 gridTop=274 guidance=none
+TUTORIAL_LAYOUT step=SecondRowX locale=en viewport=(430.00, 932.00) measured=(380.00, 39.00) label=(x:25.00, y:179.00, width:380.00, height:39.00) clueTop=278 grid=(x:16.00, y:274.00, width:362.00, height:362.00)
+TUTORIAL_CENTER step=SecondRowX phase=row-x topError=0 bottomError=0 blockTop=179 blockBottom=218 upper=123 gridTop=274 guidance=none
+TUTORIAL_LAYOUT step=DiagonalPaw locale=en viewport=(430.00, 932.00) measured=(322.00, 39.00) label=(x:54.00, y:179.00, width:322.00, height:39.00) clueTop=278 grid=(x:16.00, y:274.00, width:362.00, height:362.00)
+TUTORIAL_CENTER step=DiagonalPaw phase=arrow-hold topError=0 bottomError=0 blockTop=179 blockBottom=218 upper=123 gridTop=274 guidance=none
+TUTORIAL_LAYOUT step=DiagonalPaw locale=en viewport=(430.00, 932.00) measured=(322.00, 39.00) label=(x:54.00, y:179.00, width:322.00, height:39.00) clueTop=278 grid=(x:16.00, y:274.00, width:362.00, height:362.00)
+TUTORIAL_CENTER step=DiagonalPaw phase=hold-active topError=0 bottomError=0 blockTop=179 blockBottom=218 upper=123 gridTop=274 guidance=none
+TUTORIAL_LAYOUT step=DiagonalPaw locale=en viewport=(430.00, 932.00) measured=(322.00, 39.00) label=(x:54.00, y:179.00, width:322.00, height:39.00) clueTop=278 grid=(x:16.00, y:274.00, width:362.00, height:362.00)
+TUTORIAL_CENTER step=DiagonalPaw phase=hold-released topError=0 bottomError=0 blockTop=179 blockBottom=218 upper=123 gridTop=274 guidance=none
+TUTORIAL_LAYOUT step=FourthPaw locale=en viewport=(430.00, 932.00) measured=(393.00, 59.00) label=(x:19.00, y:169.00, width:393.00, height:59.00) clueTop=278 grid=(x:16.00, y:274.00, width:362.00, height:362.00)
+TUTORIAL_CENTER step=FourthPaw phase=diagonal topError=0 bottomError=0 blockTop=169 blockBottom=228 upper=123 gridTop=274 guidance=none
+TUTORIAL_LAYOUT step=FourthPaw locale=en viewport=(430.00, 932.00) measured=(393.00, 59.00) label=(x:19.00, y:169.00, width:393.00, height:59.00) clueTop=278 grid=(x:16.00, y:274.00, width:362.00, height:362.00)
+TUTORIAL_CENTER step=FourthPaw phase=two-paw-row topError=0 bottomError=0 blockTop=169 blockBottom=228 upper=123 gridTop=274 guidance=none
+TUTORIAL_LAYOUT step=SingleX locale=en viewport=(430.00, 932.00) measured=(309.00, 39.00) label=(x:61.00, y:179.00, width:309.00, height:39.00) clueTop=278 grid=(x:16.00, y:274.00, width:362.00, height:362.00)
+TUTORIAL_CENTER step=SingleX phase=single-x topError=0 bottomError=0 blockTop=179 blockBottom=218 upper=123 gridTop=274 guidance=none
+TUTORIAL_LAYOUT step=FinalPaw locale=en viewport=(430.00, 932.00) measured=(396.00, 59.00) label=(x:17.00, y:169.00, width:396.00, height:59.00) clueTop=278 grid=(x:16.00, y:274.00, width:362.00, height:362.00)
+TUTORIAL_CENTER step=FinalPaw phase=last-paw topError=0 bottomError=0 blockTop=169 blockBottom=228 upper=123 gridTop=274 guidance=none
+TUTORIAL_LAYOUT step=Independent locale=en viewport=(430.00, 932.00) measured=(391.00, 39.00) label=(x:20.00, y:179.00, width:391.00, height:39.00) clueTop=278 grid=(x:16.00, y:274.00, width:362.00, height:362.00)
+TUTORIAL_CENTER step=Independent phase=independent topError=0 bottomError=0 blockTop=179 blockBottom=218 upper=123 gridTop=274 guidance=none
+TUTORIAL_LAYOUT step=Complete locale=en viewport=(430.00, 932.00) measured=(331.00, 20.00) label=(x:50.00, y:189.00, width:331.00, height:20.00) clueTop=278 grid=(x:16.00, y:274.00, width:362.00, height:362.00)
+TUTORIAL_CENTER step=Complete phase=complete topError=0.5 bottomError=0 blockTop=189 blockBottom=209 upper=123 gridTop=274 guidance=none

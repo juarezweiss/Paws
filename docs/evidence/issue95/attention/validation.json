@@ -1,0 +1,271 @@
+{
+  "issue": 95,
+  "pull_request": 97,
+  "recorded_date_local": "2026-10-28",
+  "timezone": "America/Sao_Paulo",
+  "source_sha": "9697e3a70f0578f2822eccf1f632e264e860f165",
+  "previous_revision": "fb020c80c2fce79cdb8c65c63b2a503544954af9",
+  "source_file_sha256": {
+    "UnityProject/Assets/CatsAndArrows/Tests/EditMode/HintIdleAttentionTests.cs": "d69b7a6782fc4b20fbd3f061bfb11f267169003705eafc35f873abed7b492838",
+    "UnityProject/Assets/CatsAndArrows/Tests/EditMode/TutorialAttentionShellTests.cs": "5a2030007afafae193233eb62ea0f727ade02e43e85253ffad89b1c013c867fd",
+    "UnityProject/Assets/CatsAndArrows/Tests/EditMode/TutorialAttentionShellTests.cs.meta": "c95ce5db7ec8dd670383cbe13940ddbe2918c82b9c9695746787acbdf0bc24a9",
+    "UnityProject/Assets/CatsAndArrows/Tests/EditMode/TutorialShellTests.cs": "174ffbc0d5bd2dc8e7a168734668094094baa5eac3a7e723a5eee14c91d5c0b1",
+    "UnityProject/Assets/CatsAndArrows/UI/BoardReviewBootstrap.cs": "680181ae272b3c2726b8bf98b5b7da9f46e54be344fbe3b30fe69944a451c1fb",
+    "UnityProject/Assets/CatsAndArrows/UI/GameShellView.cs": "0ce1aa26856210bc936ae8a71d7bf3677166d775a661e150b02baddabe1a4801",
+    "UnityProject/Assets/CatsAndArrows/UI/HintIdleAttention.cs": "ee6b125e96edfe73bd8e3ea95ae3af48724fce793b816b59f40b58d1f01a37af",
+    "UnityProject/Assets/CatsAndArrows/UI/PortraitBoardView.cs": "e24babd54814e418570d38cc8592a1c556c81c5fe6a56da84a338fcd6858e807",
+    "UnityProject/Assets/CatsAndArrows/UI/TutorialLocalization.cs": "01b41c8916a7da806d1f715df7c83b096b0f4404e80be2dbaf9853a815e3864d",
+    "UnityProject/Assets/CatsAndArrows/UI/TutorialReviewChecks.cs": "26737c4b3313feeff5a033e8d39eb598d1ab1352ee29574106476df515c7a1a0"
+  },
+  "unity": "6000.3.25f1",
+  "compile": {
+    "passed": true,
+    "log": ".unity-results/compile.HSYzmJ/Editor.log"
+  },
+  "editmode": {
+    "total": 683,
+    "passed": 683,
+    "failed": 0,
+    "skipped": 0,
+    "inconclusive": 0,
+    "editor_exit": 0,
+    "report": ".unity-results/editmode.SA1q5Z/test-results.xml",
+    "start_time_utc": "2026-10-27 23:50:25Z",
+    "end_time_utc": "2026-10-27 23:50:58Z"
+  },
+  "python_contracts": {
+    "passed": 51,
+    "failed": 0,
+    "log": ".unity-results/issue95-attention/python-tests.log"
+  },
+  "qa": "No blocking findings.",
+  "presentation_contract": {
+    "advance_steps": 9,
+    "delay_seconds": 2,
+    "fade_seconds": 0.2,
+    "hint_default_delay_seconds": 6,
+    "mechanism": "Existing HintIdleAttention with configurable interval and shared native button-attention presenter; native opacity transition uses the same duration. No tween or second animation system.",
+    "top_region": "difficulty-label bottom to board upper boundary including column clue gutter",
+    "bottom_region": "board/grid lower boundary to actual Continue/Start button top",
+    "body_font_size": 16,
+    "minimum_button_height": 48,
+    "immediately_clickable": true
+  },
+  "renders": [
+    {
+      "locale": "pt-BR",
+      "width": 320,
+      "height": 568,
+      "safe_top": 20,
+      "safe_bottom": 0,
+      "exit": 0,
+      "step_cases": 22,
+      "captures": 35,
+      "upper_center_max_error": 0.5,
+      "lower_center_max_error": 0.5,
+      "native_intermediate_opacities": [
+        0.3088037
+      ],
+      "mid_fade_cleanup": "passed",
+      "grid_matches_previous_revision": true,
+      "bounds": "pt-BR-320-bounds.txt",
+      "log": ".unity-results/issue95-attention/pt-BR-320.log"
+    },
+    {
+      "locale": "es",
+      "width": 320,
+      "height": 568,
+      "safe_top": 20,
+      "safe_bottom": 0,
+      "exit": 0,
+      "step_cases": 22,
+      "captures": 35,
+      "upper_center_max_error": 0.5,
+      "lower_center_max_error": 0.5,
+      "native_intermediate_opacities": [
+        0.2853898
+      ],
+      "mid_fade_cleanup": "passed",
+      "grid_matches_previous_revision": true,
+      "bounds": "es-320-bounds.txt",
+      "log": ".unity-results/issue95-attention/es-320.log"
+    },
+    {
+      "locale": "en",
+      "width": 320,
+      "height": 568,
+      "safe_top": 20,
+      "safe_bottom": 0,
+      "exit": 0,
+      "step_cases": 22,
+      "captures": 35,
+      "upper_center_max_error": 0.5,
+      "lower_center_max_error": 0.5,
+      "native_intermediate_opacities": [
+        0.3171152
+      ],
+      "mid_fade_cleanup": "passed",
+      "grid_matches_previous_revision": true,
+      "bounds": "en-320-bounds.txt",
+      "log": ".unity-results/issue95-attention/en-320.log"
+    },
+    {
+      "locale": "pt-BR",
+      "width": 390,
+      "height": 844,
+      "safe_top": 47,
+      "safe_bottom": 34,
+      "exit": 0,
+      "step_cases": 22,
+      "captures": 35,
+      "upper_center_max_error": 0.5,
+      "lower_center_max_error": 0.5,
+      "native_intermediate_opacities": [
+        0.2113783
+      ],
+      "mid_fade_cleanup": "passed",
+      "grid_matches_previous_revision": true,
+      "bounds": "pt-BR-390-bounds.txt",
+      "log": ".unity-results/issue95-attention/pt-BR-390.log"
+    },
+    {
+      "locale": "es",
+      "width": 390,
+      "height": 844,
+      "safe_top": 47,
+      "safe_bottom": 34,
+      "exit": 0,
+      "step_cases": 22,
+      "captures": 35,
+      "upper_center_max_error": 0.5,
+      "lower_center_max_error": 0.5,
+      "native_intermediate_opacities": [
+        0.2995689
+      ],
+      "mid_fade_cleanup": "passed",
+      "grid_matches_previous_revision": true,
+      "bounds": "es-390-bounds.txt",
+      "log": ".unity-results/issue95-attention/es-390.log"
+    },
+    {
+      "locale": "en",
+      "width": 390,
+      "height": 844,
+      "safe_top": 47,
+      "safe_bottom": 34,
+      "exit": 0,
+      "step_cases": 22,
+      "captures": 35,
+      "upper_center_max_error": 0.5,
+      "lower_center_max_error": 0.5,
+      "native_intermediate_opacities": [
+        0.2382338
+      ],
+      "mid_fade_cleanup": "passed",
+      "grid_matches_previous_revision": true,
+      "bounds": "en-390-bounds.txt",
+      "log": ".unity-results/issue95-attention/en-390.log"
+    },
+    {
+      "locale": "pt-BR",
+      "width": 430,
+      "height": 932,
+      "safe_top": 59,
+      "safe_bottom": 34,
+      "exit": 0,
+      "step_cases": 22,
+      "captures": 35,
+      "upper_center_max_error": 0.5,
+      "lower_center_max_error": 0.5,
+      "native_intermediate_opacities": [
+        0.2820115
+      ],
+      "mid_fade_cleanup": "passed",
+      "grid_matches_previous_revision": true,
+      "bounds": "pt-BR-430-bounds.txt",
+      "log": ".unity-results/issue95-attention/pt-BR-430.log"
+    },
+    {
+      "locale": "es",
+      "width": 430,
+      "height": 932,
+      "safe_top": 59,
+      "safe_bottom": 34,
+      "exit": 0,
+      "step_cases": 22,
+      "captures": 35,
+      "upper_center_max_error": 0.5,
+      "lower_center_max_error": 0.5,
+      "native_intermediate_opacities": [
+        0.2841255
+      ],
+      "mid_fade_cleanup": "passed",
+      "grid_matches_previous_revision": true,
+      "bounds": "es-430-bounds.txt",
+      "log": ".unity-results/issue95-attention/es-430.log"
+    },
+    {
+      "locale": "en",
+      "width": 430,
+      "height": 932,
+      "safe_top": 59,
+      "safe_bottom": 34,
+      "exit": 0,
+      "step_cases": 22,
+      "captures": 35,
+      "upper_center_max_error": 0.5,
+      "lower_center_max_error": 0.5,
+      "native_intermediate_opacities": [
+        0.2955963
+      ],
+      "mid_fade_cleanup": "passed",
+      "grid_matches_previous_revision": true,
+      "bounds": "en-430-bounds.txt",
+      "log": ".unity-results/issue95-attention/en-430.log"
+    }
+  ],
+  "render_totals": {
+    "step_locale_size_cases": 198,
+    "captures": 315,
+    "informational_step_phase_pairs": 81,
+    "native_fade_interruption_runs": 9,
+    "upper_center_max_error": 0.5,
+    "lower_center_max_error": 0.5,
+    "unit": "logical panel units",
+    "grid_matches_prior_revision": true
+  },
+  "visual_review": "Inspected all198 instruction states via nine native text contact sheets plus full initial/intermediate/attentive Welcome and Goal/Start phase comparisons. No clipping, overlap, font shrinking or board movement found.",
+  "prior_nonpassing_run": {
+    "report": ".unity-results/editmode.1lSSYE/test-results.xml",
+    "result": "682/683; new EditMode opacity-settle assertion failed",
+    "assessment": "Style opacity target reached1 but the EditMode panel still reported resolved0 after a real-time wait. Unit tests now verify exact timing, transition configuration and cancellation/cleanup. Actual intermediate opacity, mid-fade interruption and settled opacity are mandatory assertions in all nine real desktop-player runs. No skipped/inconclusive test is claimed as passing."
+  },
+  "unchanged": "Tutorial copy except new localized Start helper; controller, fixture, puzzle/gesture/difficulty/hint policies, monetization and ordinary completion behavior unchanged.",
+  "physical_iphone": {
+    "status": "pending owner review for source9697e3a",
+    "last_installed_source": "8736e3f7958599cff0a5ad5dc304cca501295b03",
+    "note": "Previously installed iPhone candidate predates this presentation follow-up. No install or physical interaction was performed for this follow-up."
+  },
+  "artifacts": {
+    "player": ".unity-results/issue95-attention/PawsTutorialReview.app",
+    "screenshots": "screenshots.json",
+    "full_capture_directory": ".unity-results/issue95-attention/captures/",
+    "phase_examples": [
+      "pt-BR-320-phases.png",
+      "es-390-phases.png"
+    ],
+    "contact_sheets": [
+      "en-320-all-steps.png",
+      "en-390-all-steps.png",
+      "en-430-all-steps.png",
+      "es-320-all-steps.png",
+      "es-390-all-steps.png",
+      "es-430-all-steps.png",
+      "pt-BR-320-all-steps.png",
+      "pt-BR-390-all-steps.png",
+      "pt-BR-430-all-steps.png"
+    ],
+    "ui_assembly_sha256": "fbc7b2ca816fa0428900e688433ee1094f1ea736b6926eb540315aaa4d25bfb6"
+  },
+  "production_actions": "No new PR, merge, release or store action."
+}

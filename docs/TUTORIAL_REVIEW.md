@@ -8,18 +8,25 @@ tutorial, manual replay does not consume a fresh installation's first Play,
 and Skip/Play use the ordinary difficulty selector rather than Easy-only routing.
 
 [#95](https://github.com/juarezweiss/Paws/issues/95) separates Goal heading/body,
-moves shared Continue guidance above its button on Welcome/Goal/StatesIntro,
+moves shared Continue/Start guidance into the gap between board and advance button,
 clarifies Empty-cell swipe starts and forward arrow paths, and replaces passive
 quota wording. Tutorial text uses its natural wrapped height at 16 units rather
 than the historical fixed 48/60-unit slots. The independently positioned grid and
-48-unit action targets are preserved. Only the redundant ArrowHoldIntro page is
+48-unit action targets are preserved. The latest owner refinement centers the
+top instruction block in the free space above the board's clue gutter and centers
+bottom guidance below the grid. Every Continue/Start step begins with normal
+styling and invisible guidance, becoming attentive after two seconds through the
+shared Hint timer/presenter and native 200 ms fades. Controls remain clickable
+throughout; navigation, locale and lifecycle cleanup discard old attention.
+This supersedes #26's immediate Welcome emphasis and the earlier three-step helper
+policy. Only the redundant ArrowHoldIntro page is
 removed: SecondRowX goes directly to DiagonalPaw, retaining its mandatory hold,
 release cleanup and paw gate. The legacy enum value 22 remains reserved.
 
 The fixed tutorial-v1/seed26 fixture, all other lesson ordering, gestures,
 independent completion and ordinary gameplay remain unchanged. Current evidence
-and any unresolved compact copy-fit gate are recorded in
-[issue95 evidence](evidence/issue95/validation.json). Physical iPhone review is
+is recorded in
+[latest issue95 evidence](evidence/issue95/attention/validation.json). Physical iPhone review is
 pending; historical owner acceptance below does not cover this change.
 
 The owner approved the design and refined it after iPhone review on 2026-10-13.
