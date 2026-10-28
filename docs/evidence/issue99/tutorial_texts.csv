@@ -1,0 +1,38 @@
+﻿Original,Updated
+Welcome to Paws!,
+Find every paw! Row and column numbers show how many paws belong there.,Find every paw! Numbers in each row and column show how many paws are there.
+"Let's find the paws together, one step at a time.",
+Empty cells are editable and have three possible states.,You can tap empty cells to change their state.
+Empty: undecided.,
+X: this cell does not contain a paw.,X: I'm sure this cell doesn't have a paw.
+Paw: this cell contains a paw.,Paw: I'm sure this cell has a paw.
+Hatched cells have no paws and cannot be changed.,
+"Fixed arrows point toward at least one paw ahead on their straight path, even diagonally.","Fixed arrows point toward at least one paw in their path, even diagonally."
+"Tap the outlined cell 3 times.
+Empty → X → Paw → Empty.",Tap the outlined cell 3 times to loop through its state.
+"This column has 0 paws.
+Start on an Empty cell and swipe down to mark X.",
+"This row has 0 paws.
+Start on an Empty cell and swipe right to mark X.",
+This arrow’s only space must be a paw. Tap it twice.,There's only one space here. Tap it twice to put a paw.
+"We've found this column's only paw.
+Start on an Empty cell and swipe down to mark X.","We've found the only paw in this column.
+Start on an Empty cell and swipe down to mark X."
+This arrow also has just one space ahead. Tap it twice for a paw.,There's also only one space here. Tap it twice to put a paw.
+"We've found this row's only paw.
+Start on an Empty cell and swipe right to mark X.","We've found the only paw in this row.
+Start on an Empty cell and swipe right to mark X."
+"Press and hold the arrow to see its path.
+Release; tap the only paw cell twice.","Press and hold the arrow to see its path.
+Release; tap twice on the only paw cell."
+"This row needs 2 paws. We've already found one paw.
+Tap the only remaining cell twice.","This row needs 2 paws. We've already found one.
+Tap the only remaining cell twice."
+"We've found this column's only paw.
+Tap the remaining Empty cell once for X.","We've found the only paw in this column.
+Tap the remaining Empty cell once for X."
+"This column needs 2 paws. We've already found one paw.
+Tap twice for the last paw.","This column needs 2 paws. We've already found one.
+Tap twice for the last paw."
+Now try it yourself! Find all the paws on this same board.,
+All paws found! Ready for a random puzzle?,We found all paws! Ready for a random puzzle?

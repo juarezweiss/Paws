@@ -1,0 +1,48 @@
+{
+  "task": "#99 / PR #100 tutorial wording iPhone installation",
+  "source_sha": "9f7a4dad87dc0ece7a5384227b79bba2494ac9b9",
+  "runtime_source_sha": "e9d9e3f164479b24f41a340d9018b3ac1b456ef1",
+  "date_local": "2026-10-28",
+  "unity": "6000.3.25f1",
+  "xcode": "27.1 (27A9275)",
+  "bundle_identifier": "com.juarezweiss.catsarrows.inputreview",
+  "version": "0.1.0",
+  "build": "1",
+  "device": "iPhone 17",
+  "device_os": "27.0.1",
+  "configuration": "Release IL2CPP arm64; manual review; no autorun arguments",
+  "profile_expiry_utc": "2027-10-27T22:46:10+00:00",
+  "signature_type": "Local development; existing valid provisioning reused; no account/profile changes",
+  "checks": {
+    "unity_export": "passed",
+    "native_build": "passed",
+    "signature_verification": "passed",
+    "profile_device_and_expiry": "passed",
+    "binary_dsym_uuid_match": "passed",
+    "install": "passed",
+    "launch": "passed",
+    "running_process": "passed"
+  },
+  "signed_executable_sha256": "0bb15188ab756807036f4d90c1603a1ad1c3b362457d5c00c54fec1bea4be20a",
+  "signed_app_tree_sha256": "afd5b901e95e5d181ec591fdca80ef0bde83f40a6dc4692c5d9211400f3c7408",
+  "binary_uuids": {
+    "Paws": [
+      [
+        "FC739E3E-EABB-3450-B38E-32FDF9718D47",
+        "arm64"
+      ]
+    ],
+    "UnityFramework": [
+      [
+        "C3EFF0EE-6C06-30BE-9E79-3F1E58E951E6",
+        "arm64"
+      ]
+    ]
+  },
+  "preserved_artifacts": "Builds/Issue99-iPhone-9f7a4da/Playable",
+  "launch_arguments": [],
+  "physical_review": "passed: owner supplied-checklist scope on2026-10-28; see owner-review-2026-10-28.json",
+  "installation": "Updated existing review app without uninstall or data reset",
+  "production_actions": "No merge, release, upload or submission. Production bundle unchanged.",
+  "temporary_export_and_derived_data_removed": true
+}
