@@ -43,3 +43,6 @@ Thumbs.db
 .env.*
 !.env.example
 original_material.md
+
+# Investigation material
+investigation/
