@@ -104,10 +104,14 @@ runs must complete with a passing NUnit report and successful editor exit.
 ## Remaining owner checks
 
 Physical iPhone acceptance of **this new wording is pending**; #95's prior pass
-does not cover it. On a future prepared build, replay Tutorial in Settings in
+does not cover it. The owner-requested development build from source `9f7a4da`
+was installed over the existing review app and launched on iPhone 17 / iOS
+27.0.1; signature, provisioning, matching symbols and running-process checks
+passed. See [device preparation](device-preparation.json).
+Replay Tutorial in Settings in
 each language: read every message comfortably, confirm the separate goal and
 bold actions, check compact spacing and delayed Continue/Start guidance, then
 finish the mandatory hold and independent solve. Check Skip/replay, language
 changes, navigation and background/foreground cleanup. Record device/OS, build,
-languages, scope and explicit pass/fail. This task did not install a new build,
-merge, release or change #95's merged history.
+languages, scope and explicit pass/fail. No physical-device interaction, appearance or lifecycle checks were automated.
+No merge, release or change to #95's merged history was made.

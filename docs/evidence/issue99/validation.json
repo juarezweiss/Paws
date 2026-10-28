@@ -273,7 +273,7 @@
   },
   "physical_iphone": {
     "status": "pending",
-    "note": "Owner-only acceptance for this new copy; no new iPhone build installed in this task. Prior #95 pass does not apply."
+    "note": "Owner-only acceptance remains pending for new wording installed from source9f7a4da; see device-preparation.json. Prior #95 pass does not apply."
   },
   "boundaries": {
     "merged": false,
