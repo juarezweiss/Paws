@@ -272,8 +272,8 @@
     "independent_qa": "Read-only review of runtime e9d9e3f: CSV mapping, all translations, formatting/scope and23 compact screenshots including all prior overflow cases; no blocking findings. Standard/tall visual inspection and Unity execution performed by primary agent."
   },
   "physical_iphone": {
-    "status": "pending",
-    "note": "Owner-only acceptance remains pending for new wording installed from source9f7a4da; see device-preparation.json. Prior #95 pass does not apply."
+    "status": "passed_owner_report",
+    "note": "Owner reported pass for supplied checklist on installed source9f7a4da, iPhone17/iOS27.0.1. Scope/limits in owner-review-2026-10-28.json; desktop/simulated evidence remains separate."
   },
   "boundaries": {
     "merged": false,

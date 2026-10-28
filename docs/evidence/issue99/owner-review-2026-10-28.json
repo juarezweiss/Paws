@@ -1,0 +1,22 @@
+{
+  "issue": 99,
+  "pr": 100,
+  "date_local": "2026-10-28",
+  "reviewer": "repository owner",
+  "report": "pass. merge it and purge unnecessary folder/files/branches to recover storage",
+  "result": "passed",
+  "installed_source_sha": "9f7a4dad87dc0ece7a5384227b79bba2494ac9b9",
+  "runtime_source_sha": "e9d9e3f164479b24f41a340d9018b3ac1b456ef1",
+  "device": "iPhone 17",
+  "device_os": "27.0.1",
+  "version": "0.1.0",
+  "build": "1",
+  "reported_scope": [
+    "Supplied checklist: wording and spacing in EN, pt-BR and ES",
+    "Continue/Start immediately clickable with guidance after2seconds",
+    "Required arrow hold/release and independent completion",
+    "Skip/replay, language changes and background/resume cleanup"
+  ],
+  "limits": "One explicit pass for the supplied checklist on the installed device; no separately reported per-language results or additional physical devices/sizes. Desktop viewport evidence remains separate.",
+  "authorization": "Owner explicitly authorized merging PR100 into develop and stale artifact/branch cleanup; no release authorized."
+}

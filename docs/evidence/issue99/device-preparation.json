@@ -41,7 +41,7 @@
   },
   "preserved_artifacts": "Builds/Issue99-iPhone-9f7a4da/Playable",
   "launch_arguments": [],
-  "physical_review": "pending owner review; no physical interaction, appearance or lifecycle checks automated",
+  "physical_review": "passed: owner supplied-checklist scope on2026-10-28; see owner-review-2026-10-28.json",
   "installation": "Updated existing review app without uninstall or data reset",
   "production_actions": "No merge, release, upload or submission. Production bundle unchanged.",
   "temporary_export_and_derived_data_removed": true

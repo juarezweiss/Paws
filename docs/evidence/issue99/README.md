@@ -101,17 +101,17 @@ Repeat the player command for all locale/viewport/safe-area combinations in the
 table. Use the pinned editor; close the GUI Editor before batch commands. Test
 runs must complete with a passing NUnit report and successful editor exit.
 
-## Remaining owner checks
+## Owner physical acceptance — 2026-10-28
 
-Physical iPhone acceptance of **this new wording is pending**; #95's prior pass
-does not cover it. The owner-requested development build from source `9f7a4da`
-was installed over the existing review app and launched on iPhone 17 / iOS
-27.0.1; signature, provisioning, matching symbols and running-process checks
-passed. See [device preparation](device-preparation.json).
-Replay Tutorial in Settings in
-each language: read every message comfortably, confirm the separate goal and
-bold actions, check compact spacing and delayed Continue/Start guidance, then
-finish the mandatory hold and independent solve. Check Skip/replay, language
-changes, navigation and background/foreground cleanup. Record device/OS, build,
-languages, scope and explicit pass/fail. No physical-device interaction, appearance or lifecycle checks were automated.
-No merge, release or change to #95's merged history was made.
+The owner reported **pass** for the supplied checklist on the installed source
+`9f7a4da`, iPhone 17 / iOS 27.0.1, Paws 0.1.0 (1). This covers the wording/spacing,
+immediate and delayed Continue/Start behavior, required hold/independent solve,
+and Skip/replay/language/background cleanup checklist. See the
+[owner report and scope limits](owner-review-2026-10-28.json) and
+[device preparation](device-preparation.json).
+
+This is a single-device owner report, without separate per-language results or
+additional physical devices/sizes. Native desktop viewport captures remain
+separate evidence. The agent only built/signed/installed/launched and checked
+technical readiness; no physical interaction or appearance test was automated.
+The owner authorized integration into develop; PR #100 records merge status.
