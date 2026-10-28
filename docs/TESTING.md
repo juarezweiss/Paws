@@ -31,12 +31,16 @@ fixtures explicitly bypass the introduction; fresh-memory fixtures exercise the
 new default. [Validation receipt](evidence/issue96/validation.json) records exact
 file hashes, run paths/results and earlier failed runs separately.
 
-Owner-only physical review remains pending on a later approved device build:
-verify fresh ordinary E/E/M then random, tutorial completion/Skip/replay, Next from
-an unfinished board, restart between steps, returning-user streak continuity and
-tap/drag/completed-board comfort. No signed build, device interaction or physical
-pass is claimed by this source change. Roll back selection only with the v2 reader
-retained; never delete preferences or assume an old reader understands the payload.
+Owner reported “passed” on 2026-10-28 after manually deleting and freshly
+reinstalling source `10db178` on iPhone 17 / iOS 27.0.1, then explicitly authorized
+merging PR #98 into develop. The supplied checklist covered E/E/M then random,
+Next-start counting and restart continuity after tutorial completion or Skip;
+individual actions/raw sequence and which tutorial route were not separately
+reported. Do not infer both routes, broad gesture/appearance/lifecycle coverage or
+other-device acceptance. No physical interaction was automated. The
+[scoped owner report](evidence/issue96/device-preparation.json) preserves these limits.
+Roll back selection only with the v2 reader retained; never delete preferences or
+assume an old reader understands the payload.
 
 ## Issue #66 AdMob / UMP gate
 
