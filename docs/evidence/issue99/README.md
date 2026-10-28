@@ -7,8 +7,9 @@ Rendered runtime: `e9d9e3f164479b24f41a340d9018b3ac1b456ef1`.
 
 ## Copy and scope
 
-[Original owner CSV](tutorial_texts.csv) is an exact copy of the root input;
-SHA-256 `aa83b4663321a9228d76f246631fb8678faf24da3caa852ed58d105d44ce4594`.
+[Owner CSV](tutorial_texts.csv) preserves the input content with line endings
+normalized to LF for repository whitespace checks. The root input is unmodified;
+its original SHA-256 is `aa83b4663321a9228d76f246631fb8678faf24da3caa852ed58d105d44ce4594`.
 [Copy mapping](copy.json) matches each original lesson by content, including the
 combined goal row mapped to the existing separate title/body. All 15 nonempty
 updates change the corresponding top message in EN, pt-BR and ES. Seven blank

@@ -243,5 +243,7 @@
     "tutorial.independent"
   ],
   "source_sha": "e9d9e3f164479b24f41a340d9018b3ac1b456ef1",
-  "formatting_note": "CSV English words and punctuation are unchanged after stripping bold tags and normalizing whitespace. Practice keeps a readable action line break; several long messages use natural wrapping or an earlier hold-line break to fit the existing 60-unit compact header."
+  "formatting_note": "CSV English words and punctuation are unchanged after stripping bold tags and normalizing whitespace. Practice keeps a readable action line break; several long messages use natural wrapping or an earlier hold-line break to fit the existing 60-unit compact header.",
+  "archived_csv_sha256": "a6f3b9757cf2382da1094eae4f3daf84b3b7332cc2ca132e471bedda46f7a0a9",
+  "archive_note": "Evidence CSV preserves content and UTF-8 BOM; CRLF line endings normalized to LF. csv_sha256 identifies the original unmodified root input."
 }
