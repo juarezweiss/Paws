@@ -34,7 +34,9 @@ namespace CatsAndArrows.Tests
             view.Bind(session, "en");
             var normalFill = Cell(view, normal).style.backgroundColor.value;
             var fixedFill = Cell(view, protectedCell).style.backgroundColor.value;
-            Assert.That(Cell(view, arrow).style.backgroundColor.value, Is.EqualTo(fixedFill));
+            Assert.That(Cell(view, arrow).style.backgroundColor.value, Is.EqualTo(PortraitBoardView.ArrowTile));
+            Assert.That(fixedFill, Is.EqualTo(PortraitBoardView.ImmovableTile));
+            Assert.That(Cell(view, arrow).style.backgroundColor.value, Is.Not.EqualTo(fixedFill));
             Assert.That(Luminance(fixedFill), Is.LessThan(Luminance(normalFill)));
             foreach (var paw in session.Puzzle.SolutionPaws)
             {
@@ -44,6 +46,8 @@ namespace CatsAndArrows.Tests
             view.Refresh();
             var completedNormal = Cell(view, normal).style.backgroundColor.value;
             var completedFixed = Cell(view, protectedCell).style.backgroundColor.value;
+            var completedArrow = Cell(view, arrow).style.backgroundColor.value;
+            Assert.That(completedArrow, Is.EqualTo(Color.Lerp(PortraitBoardView.ArrowTile, new Color(218 / 255f, 222 / 255f, 218 / 255f), .35f)));
             Assert.That(completedNormal, Is.Not.EqualTo(normalFill));
             Assert.That(Luminance(completedFixed), Is.LessThan(Luminance(completedNormal)));
             foreach (var coordinate in new[] { arrow, protectedCell, new BoardCoordinate(1, 1) })
@@ -55,6 +59,7 @@ namespace CatsAndArrows.Tests
             view.Bind(new GameSession(MakePuzzle(), new[] { protectedCell }), "en");
             Assert.That(Cell(view, normal).style.backgroundColor.value, Is.EqualTo(normalFill));
             Assert.That(Cell(view, protectedCell).style.backgroundColor.value, Is.EqualTo(fixedFill));
+            Assert.That(Cell(view, arrow).style.backgroundColor.value, Is.EqualTo(PortraitBoardView.ArrowTile));
             Assert.That(view.Presentation.IsCompleted, Is.False);
         }
 

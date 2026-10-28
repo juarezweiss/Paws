@@ -1,0 +1,380 @@
+{
+  "approvedMockupSha256": "d9a07e0a4c711275737355d7f3fdc7978fdff70792dc5977ee62b54a134d7678",
+  "sourceBase": "a6cfa5576cbddc0f520b297df428af84aca55ac9",
+  "nativeCaptureSha256": {
+    "easy-320-normal": "6710d8e447ced86b00cf20cc4b06324cd24554df99bd1c42a9d458f37250f247",
+    "easy-320-dense": "40faaf610fccb7cb72ef635f7441a92812f4e7f6aad9103396df8cce338575d5",
+    "hard-320-normal": "6d72314f2d1ea59225c7c1d69450d6634506fd3f8b7c86e4a04ac7ebd3a638c2",
+    "hard-320-dense": "ecf884340c8ca9e0ab02965f3544c9a60146c182cd29e4aef5e929fbf9c3dc32",
+    "easy-390-normal": "46d6972a809a3d94c73884c071ee9bc069dac8ef1f3edf337c694a2ee3a0ddc6",
+    "easy-390-dense": "f911befdcdc0b2994decca0f90fcc93d9d1270541d79f5ee27fd298a981e5727",
+    "hard-390-normal": "7cb5ed2cd7d7019035701d2b2f73a3120db601b52bb4197fb68bd6d11237fb17",
+    "hard-390-dense": "3dd98a151df8b131b95185b5ba92569eea1bc2228cd951cdedbdd9c14fa3dee5",
+    "easy-430-normal": "e3ad9594cd5c22302822d409d881ba200739de0b8cbf1645b8cdbdbb017bd0d2",
+    "easy-430-dense": "0596d526147720008ae524f03a6af0205d00e0efcab4a834627b0238a7e81cba",
+    "hard-430-normal": "50db8e9c79ecc4fc6d78aa9b597059cc5a924ccc473da8998896d4ca5cbd0d80",
+    "hard-430-dense": "0f2ef584b83f5c23e2e0661808c0e245d5832288c1c63accc631a311a8b79376"
+  },
+  "checks": [
+    {
+      "capture": "easy-320-normal",
+      "pawClipping": false,
+      "pawInkPixels": 236,
+      "arrowColors": [
+        [
+          223,
+          231,
+          220
+        ]
+      ],
+      "protectedColors": [
+        [
+          231,
+          229,
+          220
+        ]
+      ]
+    },
+    {
+      "capture": "easy-320-dense",
+      "pawClipping": false,
+      "pawInkPixels": 708,
+      "arrowColors": [
+        [
+          223,
+          231,
+          220
+        ]
+      ],
+      "protectedColors": [
+        [
+          231,
+          229,
+          220
+        ]
+      ]
+    },
+    {
+      "capture": "hard-320-normal",
+      "pawClipping": false,
+      "pawInkPixels": 107,
+      "arrowColors": [
+        [
+          223,
+          231,
+          220
+        ]
+      ],
+      "protectedColors": []
+    },
+    {
+      "capture": "hard-320-dense",
+      "pawClipping": false,
+      "pawInkPixels": 719,
+      "arrowColors": [
+        [
+          223,
+          231,
+          220
+        ]
+      ],
+      "protectedColors": []
+    },
+    {
+      "capture": "easy-390-normal",
+      "pawClipping": false,
+      "pawInkPixels": 452,
+      "arrowColors": [
+        [
+          223,
+          231,
+          220
+        ]
+      ],
+      "protectedColors": [
+        [
+          231,
+          229,
+          220
+        ]
+      ]
+    },
+    {
+      "capture": "easy-390-dense",
+      "pawClipping": false,
+      "pawInkPixels": 1356,
+      "arrowColors": [
+        [
+          223,
+          231,
+          220
+        ]
+      ],
+      "protectedColors": [
+        [
+          231,
+          229,
+          220
+        ]
+      ]
+    },
+    {
+      "capture": "hard-390-normal",
+      "pawClipping": false,
+      "pawInkPixels": 193,
+      "arrowColors": [
+        [
+          223,
+          231,
+          220
+        ]
+      ],
+      "protectedColors": []
+    },
+    {
+      "capture": "hard-390-dense",
+      "pawClipping": false,
+      "pawInkPixels": 1288,
+      "arrowColors": [
+        [
+          223,
+          231,
+          220
+        ]
+      ],
+      "protectedColors": []
+    },
+    {
+      "capture": "easy-430-normal",
+      "pawClipping": false,
+      "pawInkPixels": 576,
+      "arrowColors": [
+        [
+          223,
+          231,
+          220
+        ]
+      ],
+      "protectedColors": [
+        [
+          231,
+          229,
+          220
+        ]
+      ]
+    },
+    {
+      "capture": "easy-430-dense",
+      "pawClipping": false,
+      "pawInkPixels": 1728,
+      "arrowColors": [
+        [
+          223,
+          231,
+          220
+        ]
+      ],
+      "protectedColors": [
+        [
+          231,
+          229,
+          220
+        ]
+      ]
+    },
+    {
+      "capture": "hard-430-normal",
+      "pawClipping": false,
+      "pawInkPixels": 270,
+      "arrowColors": [
+        [
+          223,
+          231,
+          220
+        ]
+      ],
+      "protectedColors": []
+    },
+    {
+      "capture": "hard-430-dense",
+      "pawClipping": false,
+      "pawInkPixels": 1772,
+      "arrowColors": [
+        [
+          223,
+          231,
+          220
+        ]
+      ],
+      "protectedColors": []
+    }
+  ],
+  "paw128": {
+    "width": 60,
+    "height": 58,
+    "expectedWidth": 60.23424,
+    "expectedHeight": 58.776959999999995,
+    "approvedInkPixels": 1414
+  },
+  "grayscale": "linear sRGB relative luminance, sRGB encoded; no geometry or resampling changes",
+  "scope": "native Unity graphical EditMode panels; simulated portrait viewports; no physical iPhone review",
+  "implementationSourceSha": "7c346d101adfd3d38fb83a4b75527e2b70c7ef78",
+  "layoutSummary": {
+    "easy-320-normal": {
+      "gridBounds": [
+        52.0,
+        180.0,
+        268.0,
+        396.0
+      ],
+      "pixelSnappedCellWidthRange": [
+        40.0,
+        40.0
+      ],
+      "cellBoundsSha256": "0ab75c6c5f6235eb9841c14f573c357c4be9cc98226e4779d579c150f7f236b8"
+    },
+    "easy-320-dense": {
+      "gridBounds": [
+        52.0,
+        180.0,
+        268.0,
+        396.0
+      ],
+      "pixelSnappedCellWidthRange": [
+        40.0,
+        40.0
+      ],
+      "cellBoundsSha256": "57904ea43670f708ec310083ddd7e085b70a56640224d19e5c9ce1ad9f16923e"
+    },
+    "hard-320-normal": {
+      "gridBounds": [
+        51.0,
+        179.0,
+        269.0,
+        397.0
+      ],
+      "pixelSnappedCellWidthRange": [
+        28.0,
+        29.0
+      ],
+      "cellBoundsSha256": "6824f38815a38623b0416d7f27f8c743d8256d639a97846987f4e8eb1f77d154"
+    },
+    "hard-320-dense": {
+      "gridBounds": [
+        51.0,
+        179.0,
+        269.0,
+        397.0
+      ],
+      "pixelSnappedCellWidthRange": [
+        28.0,
+        29.0
+      ],
+      "cellBoundsSha256": "f9b3aa4ea20608c31b7676b85b4b2e967c86388d3ffe8229ee2a7c1c8ca1d421"
+    },
+    "easy-390-normal": {
+      "gridBounds": [
+        52.0,
+        280.0,
+        338.0,
+        566.0
+      ],
+      "pixelSnappedCellWidthRange": [
+        54.0,
+        54.0
+      ],
+      "cellBoundsSha256": "bc6fee881a4f2ebbb4d9e4a308ae23dccd5ca971b07a6a79f6db8ff5a2e26b02"
+    },
+    "easy-390-dense": {
+      "gridBounds": [
+        52.0,
+        273.0,
+        338.0,
+        559.0
+      ],
+      "pixelSnappedCellWidthRange": [
+        54.0,
+        54.0
+      ],
+      "cellBoundsSha256": "10083236cefb37bd54f95b2d034d1262bbc0563696fe130275ddcc45f1c69337"
+    },
+    "hard-390-normal": {
+      "gridBounds": [
+        52.0,
+        280.0,
+        338.0,
+        566.0
+      ],
+      "pixelSnappedCellWidthRange": [
+        37.0,
+        38.0
+      ],
+      "cellBoundsSha256": "f16463c5d1e3b8c164c3b0b1bb4944292b1b837f6233cacea0b430bd68a4fb94"
+    },
+    "hard-390-dense": {
+      "gridBounds": [
+        52.0,
+        280.0,
+        338.0,
+        566.0
+      ],
+      "pixelSnappedCellWidthRange": [
+        37.0,
+        38.0
+      ],
+      "cellBoundsSha256": "bed42d29d7b7b42c133244e683cc4c9ea1d0c0d926ff0c976a4b5a806f740ee2"
+    },
+    "easy-430-normal": {
+      "gridBounds": [
+        52.0,
+        304.0,
+        378.0,
+        630.0
+      ],
+      "pixelSnappedCellWidthRange": [
+        62.0,
+        62.0
+      ],
+      "cellBoundsSha256": "83647ae90de699f0d6da6f878cc39d0f10bbe492f9413fa178f6f1ac6c2ebb13"
+    },
+    "easy-430-dense": {
+      "gridBounds": [
+        52.0,
+        304.0,
+        378.0,
+        630.0
+      ],
+      "pixelSnappedCellWidthRange": [
+        62.0,
+        62.0
+      ],
+      "cellBoundsSha256": "93e8bc0d100d5974b450dd5a87996168c8840c92473e55cd5adf4d87678d04f8"
+    },
+    "hard-430-normal": {
+      "gridBounds": [
+        52.0,
+        304.0,
+        378.0,
+        630.0
+      ],
+      "pixelSnappedCellWidthRange": [
+        43.0,
+        44.0
+      ],
+      "cellBoundsSha256": "b459a6ffcd58ad31ffeaee7121bff2c46434ce9bd94af17f13af094797ada308"
+    },
+    "hard-430-dense": {
+      "gridBounds": [
+        52.0,
+        304.0,
+        378.0,
+        630.0
+      ],
+      "pixelSnappedCellWidthRange": [
+        43.0,
+        44.0
+      ],
+      "cellBoundsSha256": "6c8be7f3e4d24e0e461254c563074b96fbe3277b2f6cf45235d206b56990d95e"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "issue": 94,
+  "pr": 101,
+  "date": "2026-10-28",
+  "reviewer": "owner",
+  "report": "all pass",
+  "result": "passed",
+  "source_sha": "39f806901834e7eba0af674941eeaee244c03cb2",
+  "runtime_source_sha": "7c346d101adfd3d38fb83a4b75527e2b70c7ef78",
+  "app_version": "0.1.0",
+  "app_build": "1",
+  "device": "iPhone 17",
+  "device_os": "27.0.1",
+  "signed_executable_sha256": "88ed70fdf8c7b7fc30bb7f42a20b57b95c0b3a7277a8b17d07cc82579082a17c",
+  "scope": [
+    "Approved sage-arrow and larger/darker-paw readability on Easy/Hard boards",
+    "Normal tap and drag behavior",
+    "Arrow-hold behavior and release",
+    "Task-specific physical review of the installed #94 handoff"
+  ],
+  "limitations": "Exact installed review build and this device only; no unreported lifecycle, other-device, store/distribution or production acceptance inferred. Physical tests were performed by the owner, not automated."
+}

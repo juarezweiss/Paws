@@ -15,6 +15,7 @@ namespace CatsAndArrows.UI
         public static readonly Color Background = new Color(245 / 255f, 242 / 255f, 233 / 255f);
         public static readonly Color Tile = new Color(1, 253 / 255f, 247 / 255f);
         public static readonly Color ImmovableTile = new Color(231 / 255f, 229 / 255f, 220 / 255f);
+        public static readonly Color ArrowTile = new Color(223 / 255f, 231 / 255f, 220 / 255f);
         private static readonly Color CompletionTint = new Color(218 / 255f, 222 / 255f, 218 / 255f);
         private static readonly Color Border = new Color(126 / 255f, 140 / 255f, 131 / 255f);
         private static readonly Color Secondary = new Color(93 / 255f, 105 / 255f, 98 / 255f);
@@ -280,7 +281,7 @@ namespace CatsAndArrows.UI
                         actualCell.Direction, false);
                 var tile = new VisualElement { name = "cell-" + cell.Coordinate.Row + "-" + cell.Coordinate.Column };
                 tile.style.position = Position.Absolute;
-                var fill = cell.Kind == BoardCellKind.Arrow || cell.Kind == BoardCellKind.Protected ? ImmovableTile : Tile;
+                var fill = cell.Kind == BoardCellKind.Arrow ? ArrowTile : cell.Kind == BoardCellKind.Protected ? ImmovableTile : Tile;
                 // Tint the fills only. Dark vector symbols, hatching and clue text
                 // keep their contrast while the entire tile grid becomes quieter.
                 tile.style.backgroundColor = Presentation.IsCompleted ? Color.Lerp(fill, CompletionTint, .35f) : fill;
@@ -346,7 +347,7 @@ namespace CatsAndArrows.UI
             {
                 var item = new VisualElement(); item.style.width = Length.Percent(20); item.style.alignItems = Align.Center;
                 var swatch = new VisualElement(); swatch.style.width = 38; swatch.style.height = 38;
-                swatch.style.backgroundColor = kind == BoardCellKind.Arrow || kind == BoardCellKind.Protected ? ImmovableTile : Tile;
+                swatch.style.backgroundColor = kind == BoardCellKind.Arrow ? ArrowTile : kind == BoardCellKind.Protected ? ImmovableTile : Tile;
                 swatch.style.borderLeftWidth = swatch.style.borderRightWidth = swatch.style.borderTopWidth = swatch.style.borderBottomWidth = 1;
                 swatch.style.borderLeftColor = swatch.style.borderRightColor = swatch.style.borderTopColor = swatch.style.borderBottomColor = Border;
                 var symbol = new BoardSymbolElement(kind, Direction.UpRight); symbol.style.flexGrow = 1; swatch.Add(symbol); item.Add(swatch);
