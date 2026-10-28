@@ -7,14 +7,17 @@ namespace CatsAndArrows.UI
     {
         public const double IdleSeconds = 6;
         private readonly Func<double> clock;
+        private readonly double delaySeconds;
         private bool eligible;
         private bool interacting;
         private double attentionAt;
         public bool IsAttentionVisible { get; private set; }
 
-        public HintIdleAttention(Func<double> clock)
+        public HintIdleAttention(Func<double> clock, double delaySeconds = IdleSeconds)
         {
             this.clock = clock ?? throw new ArgumentNullException(nameof(clock));
+            if (!double.IsFinite(delaySeconds) || delaySeconds < 0) throw new ArgumentOutOfRangeException(nameof(delaySeconds));
+            this.delaySeconds = delaySeconds;
         }
 
         public void Update(bool isEligible, bool hasActiveInteraction)
@@ -31,7 +34,7 @@ namespace CatsAndArrows.UI
 
         public void Reset()
         {
-            attentionAt = clock() + IdleSeconds;
+            attentionAt = clock() + delaySeconds;
             IsAttentionVisible = false;
         }
     }

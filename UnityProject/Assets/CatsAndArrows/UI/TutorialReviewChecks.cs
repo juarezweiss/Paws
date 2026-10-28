@@ -2,6 +2,8 @@
 using System;
 using System.Collections;
 using System.IO;
+using System.Globalization;
+using System.Collections.Generic;
 using System.Linq;
 using CatsAndArrows.Core;
 using CatsAndArrows.Gameplay;
@@ -13,17 +15,21 @@ namespace CatsAndArrows.UI
     // Issue #26: opt-in native mounted-panel evidence, not a physical touch test.
     internal static class TutorialReviewChecks
     {
-        public static IEnumerator Run(GameShellView shell, string captures)
+        private static Rect initialGrid;
+        private static readonly List<string> layoutFailures = new List<string>();
+        public static IEnumerator Run(GameShellView shell, Action<double> advance, string captures)
         {
             for (var i = 0; i < 12; i++) yield return new WaitForEndOfFrame();
+            initialGrid = default;
+            layoutFailures.Clear();
             if (!Check(() => Click(shell, "menu-start"))) yield break;
             yield return new WaitForEndOfFrame();
             if (!Check(() =>
             {
                 Require(shell.Tutorial?.Step == TutorialStep.Welcome, "first Start enters tutorial");
-                Require(shell.Q<Button>("action-continue").style.borderLeftWidth.value == 3, "welcome Continue highlighted");
+                Require(shell.Q<Button>("action-continue").style.borderLeftWidth.value == 1, "welcome Continue initially normal");
             })) yield break;
-            yield return Capture(shell, captures, "welcome");
+            yield return ReviewAdvanceStep(shell, advance, captures);
             while (shell.Tutorial.CanContinue)
             {
                 if (!Check(() => Click(shell, "action-continue"))) yield break;
@@ -39,7 +45,8 @@ namespace CatsAndArrows.UI
                         Require(shell.BoardView.Q<Label>("completion-status").text.Contains("<b>"), "state keyword bold");
                     }
                 })) yield break;
-                yield return Capture(shell, captures, "intro-" + shell.Tutorial.Step);
+                if (shell.Tutorial.CanContinue) yield return ReviewAdvanceStep(shell, advance, captures);
+                else yield return Capture(shell, captures, "intro-" + shell.Tutorial.Step);
             }
             if (!Check(() =>
             {
@@ -76,40 +83,88 @@ namespace CatsAndArrows.UI
             if (!Check(() =>
             {
                 Drag(shell, 4, 1, 4, 3);
-                Require(shell.Tutorial.Step == TutorialStep.ArrowHoldIntro, "swipe enters arrow-hold intro");
-                Require(shell.Tutorial.HighlightedCells.SequenceEqual(new[] { new BoardCoordinate(0, 3) }), "intro highlights only the diagonal arrow");
+                Require(shell.Tutorial.Step == TutorialStep.DiagonalPaw, "swipe enters combined arrow-hold lesson");
+                Require(shell.Q<Button>("action-continue") == null, "mandatory hold has no Continue bypass");
+                Require(shell.Tutorial.HighlightedCells.SequenceEqual(new[] { new BoardCoordinate(0, 3) }), "lesson highlights only the diagonal arrow");
                 Require(shell.ActiveSession.GetMark(new BoardCoordinate(4, 2)) == PlayerMark.Paw, "existing paw preserved");
             })) yield break;
-            yield return Capture(shell, captures, "arrow-hold-intro");
+            yield return Capture(shell, captures, "arrow-hold");
             if (!Check(() =>
             {
-                Click(shell, "action-continue");
-                Require(shell.Tutorial.Step == TutorialStep.DiagonalPaw, "continue enters interactive arrow hold");
+                Require(shell.Tutorial.Step == TutorialStep.DiagonalPaw, "interactive arrow hold");
                 var grid = Grid(shell); var arrow = Point(shell, 0, 3);
                 Send(grid, arrow, TouchPhase.Began); Send(grid, arrow, TouchPhase.Ended);
                 Tap(shell, 2, 1); Tap(shell, 2, 1);
                 Require(shell.ActiveSession.GetMark(new BoardCoordinate(2, 1)) == PlayerMark.Empty, "short arrow press cannot unlock paw input");
+                // A pending hold lost to focus must not unlock later, even if its
+                // old scheduled tick runs after the threshold.
+                Send(grid, arrow, TouchPhase.Began);
+                shell.SetApplicationFocus(false);
+                shell.SetApplicationFocus(true);
+            })) yield break;
+            advance(ArrowHoldController.HoldSeconds + .05);
+            yield return new WaitForSecondsRealtime(.05f);
+            if (!Check(() =>
+            {
+                var grid = Grid(shell); var arrow = Point(shell, 0, 3);
+                Send(grid, arrow, TouchPhase.Ended);
+                Require(!shell.Tutorial.CanTap(new BoardCoordinate(2, 1)), "cancelled pending hold cannot unlock paw");
+                Send(grid, Point(shell, 1, 3), TouchPhase.Began); // Wrong cardinal arrow.
+                Send(grid, Point(shell, 1, 3), TouchPhase.Ended);
+                Require(!shell.Tutorial.CanTap(new BoardCoordinate(2, 1)), "wrong arrow cannot unlock paw");
+                Send(grid, arrow, TouchPhase.Began);
+                Send(grid, Point(shell, 0, 4), TouchPhase.Moved);
+                Send(grid, Point(shell, 0, 4), TouchPhase.Ended);
+                Require(!shell.Tutorial.CanTap(new BoardCoordinate(2, 1)), "off-origin hold cannot unlock paw");
             })) yield break;
             var holdGrid = Grid(shell); var holdArrow = Point(shell, 0, 3);
             Send(holdGrid, holdArrow, TouchPhase.Began);
-            yield return new WaitForSecondsRealtime((float)ArrowHoldController.HoldSeconds + .05f);
+            advance(ArrowHoldController.HoldSeconds + .05);
+            yield return new WaitForSecondsRealtime(.05f);
+            // Let the mounted panel's scheduled hold tick run before inspecting
+            // feedback; coroutine resumption can precede the panel update.
+            yield return new WaitForEndOfFrame();
             if (!Check(() =>
             {
                 foreach (var coordinate in new[] { new BoardCoordinate(0, 3), new BoardCoordinate(1, 2), new BoardCoordinate(2, 1), new BoardCoordinate(3, 0) })
                     Require(shell.BoardView.Q<VisualElement>("cell-" + coordinate.Row + "-" + coordinate.Column).style.borderLeftWidth.value == 3, "held diagonal path outlined");
             })) yield break;
+            yield return Capture(shell, captures, "hold-active");
             Send(holdGrid, holdArrow, TouchPhase.Ended);
             if (!Check(() =>
             {
                 Require(shell.BoardView.Q<VisualElement>("cell-0-3").style.borderLeftWidth.value == 3, "tutorial arrow outline restored");
                 foreach (var coordinate in new[] { new BoardCoordinate(1, 2), new BoardCoordinate(2, 1), new BoardCoordinate(3, 0) })
                     Require(shell.BoardView.Q<VisualElement>("cell-" + coordinate.Row + "-" + coordinate.Column).style.borderLeftWidth.value == 1, "released path cleared");
+            })) yield break;
+            yield return Capture(shell, captures, "hold-released");
+            // Active cancellation uses the same cleanup; a completed successful
+            // hold remains learned until replay, as before #95.
+            Send(holdGrid, holdArrow, TouchPhase.Began);
+            advance(ArrowHoldController.HoldSeconds + .05);
+            yield return new WaitForSecondsRealtime(.05f);
+            yield return new WaitForEndOfFrame();
+            if (!Check(() =>
+            {
+                Require(shell.BoardView.Q<VisualElement>("cell-2-1").style.borderLeftWidth.value == 3, "path active before pause cancellation");
+                var marks = shell.ActiveSession.Marks.ToArray();
+                shell.SetApplicationPaused(true); shell.SetApplicationPaused(false);
+                Send(holdGrid, holdArrow, TouchPhase.Ended);
+                foreach (var coordinate in new[] { new BoardCoordinate(1, 2), new BoardCoordinate(2, 1), new BoardCoordinate(3, 0) })
+                    Require(shell.BoardView.Q<VisualElement>("cell-" + coordinate.Row + "-" + coordinate.Column).style.borderLeftWidth.value == 1, "paused active path cleared");
+                Require(shell.ActiveSession.Marks.SequenceEqual(marks) && shell.Tutorial.Step == TutorialStep.DiagonalPaw, "hold cancellation cannot mark or advance");
+                Require(shell.Tutorial.CanTap(new BoardCoordinate(2, 1)), "successful hold gate survives pause");
+            })) yield break;
+            if (!Check(() =>
+            {
                 Tap(shell, 2, 1); Tap(shell, 2, 1);
                 Require(shell.Tutorial.Step == TutorialStep.FourthPaw, "held arrow unlocks diagonal paw");
             })) yield break;
             yield return Capture(shell, captures, "diagonal");
             yield return Capture(shell, captures, "two-paw-row");
-            if (!Check(() => { Tap(shell, 2, 3); Tap(shell, 2, 3); Require(shell.Tutorial.Step == TutorialStep.SingleX, "two paw row"); Tap(shell, 3, 3); Require(shell.Tutorial.Step == TutorialStep.FinalPaw, "single X cleanup"); })) yield break;
+            if (!Check(() => { Tap(shell, 2, 3); Tap(shell, 2, 3); Require(shell.Tutorial.Step == TutorialStep.SingleX, "two paw row"); })) yield break;
+            yield return Capture(shell, captures, "single-x");
+            if (!Check(() => { Tap(shell, 3, 3); Require(shell.Tutorial.Step == TutorialStep.FinalPaw, "single X cleanup"); })) yield break;
             yield return Capture(shell, captures, "last-paw");
             if (!Check(() =>
             {
@@ -183,30 +238,145 @@ namespace CatsAndArrows.UI
             if (!Check(() => Click(shell, "menu-start"))) yield break;
             yield return Ready(shell);
             if (!Check(() => { Require(shell.Tutorial == null && shell.ActiveSession != null, "first play not repeated"); Debug.Log("TUTORIAL_REVIEW_PASS locale=" + shell.Locale + " source=synthetic-touch"); })) yield break;
-            Application.Quit(0);
+            Debug.Log("TUTORIAL_LAYOUT_FAILURES " + layoutFailures.Count);
+            Application.Quit(layoutFailures.Count == 0 ? 0 : 1);
         }
         private static IEnumerator Ready(GameShellView shell)
         {
             for (var i = 0; i < 120 && shell.Modal == "loading"; i++) yield return new WaitForEndOfFrame();
             yield return new WaitForEndOfFrame();
         }
+        private static IEnumerator ReviewAdvanceStep(GameShellView shell, Action<double> advance, string directory)
+        {
+            shell.TickTutorialAttention();
+            if (!Check(() =>
+            {
+                var button = shell.Q<Button>("action-continue");
+                Require(button != null && button.enabledInHierarchy, "advance clickable immediately");
+                Require(button.style.backgroundColor.value == PortraitBoardView.Tile, "normal button on entry");
+                Require(shell.Q<Label>("tutorial-continue-guidance").style.opacity.value == 0, "no initial guidance");
+            })) yield break;
+            yield return Capture(shell, directory, "initial");
+            advance(1.999); shell.TickTutorialAttention();
+            if (!Check(() => Require(shell.Q<Label>("tutorial-continue-guidance").style.opacity.value == 0, "no guidance before two seconds"))) yield break;
+            advance(.00101); shell.TickTutorialAttention();
+            if (!Check(() =>
+            {
+                Require(shell.Q<Button>("action-continue").style.backgroundColor.value == BoardSymbolElement.Ink, "same Hint attention target at two seconds");
+                Require(shell.Q<Label>("tutorial-continue-guidance").style.opacity.value == 1, "guidance fade starts with attention");
+            })) yield break;
+            if (shell.Tutorial.Step == TutorialStep.Welcome)
+            {
+                // Inspect actual rendered interpolation in a real player, not
+                // only the target style values used by deterministic clock tests.
+                var interpolated = false;
+                for (var frame = 0; frame < 30; frame++)
+                {
+                    yield return new WaitForEndOfFrame();
+                    var opacity = shell.Q<Label>("tutorial-continue-guidance").resolvedStyle.opacity;
+                    if (opacity <= .001f || opacity >= .999f) continue;
+                    interpolated = true;
+                    Debug.Log("TUTORIAL_NATIVE_FADE opacity=" + opacity);
+                    if (!string.IsNullOrEmpty(directory))
+                        ScreenCapture.CaptureScreenshot(Path.Combine(directory, "Welcome-fade-mid.png"));
+                    break;
+                }
+                if (!Check(() => Require(interpolated, "guidance has intermediate rendered opacity"))) yield break;
+                shell.SetApplicationFocus(false);
+                yield return new WaitForEndOfFrame(); yield return new WaitForEndOfFrame();
+                if (!Check(() => Require(shell.Q<Label>("tutorial-continue-guidance").resolvedStyle.opacity == 0, "mid-fade cleanup snaps invisible"))) yield break;
+                yield return new WaitForSecondsRealtime(.25f);
+                yield return new WaitForEndOfFrame();
+                if (!Check(() => Require(shell.Q<Label>("tutorial-continue-guidance").resolvedStyle.opacity == 0, "cancelled fade never reappears"))) yield break;
+                shell.SetApplicationFocus(true); advance(2); shell.TickTutorialAttention();
+            }
+            yield return new WaitForSecondsRealtime(.25f);
+            yield return Capture(shell, directory, "attention");
+        }
         private static IEnumerator Capture(GameShellView shell, string directory, string name)
         {
             for (var i = 0; i < 2; i++) yield return new WaitForEndOfFrame();
-            if (!Check(() =>
+            try
             {
                 var board = Grid(shell); var layout = shell.BoardView.Layout;
+                if (initialGrid == default) initialGrid = board.worldBound;
+                Require(Vector2.Distance(initialGrid.position, board.worldBound.position) < .6f &&
+                    Vector2.Distance(initialGrid.size, board.worldBound.size) < .6f, "grid geometry stays fixed: " + name);
                 var center = board.LocalToWorld(new Vector2(layout.ClueGutter + layout.GridSize / 2, layout.ClueGutter + layout.GridSize / 2));
                 Require(Vector2.Distance(center, board.parent.worldBound.center) < .6f, "tile grid centered");
                 var label = shell.BoardView.Q<Label>("completion-status");
                 var measured = label.MeasureTextSize(label.text, label.contentRect.width, VisualElement.MeasureMode.Exactly, 0, VisualElement.MeasureMode.Undefined);
+                Debug.Log("TUTORIAL_LAYOUT step=" + shell.Tutorial.Step + " locale=" + shell.Locale +
+                    " viewport=" + shell.contentRect.size + " measured=" + measured + " label=" + label.worldBound +
+                    " clueTop=" + board.Q<Label>("column-clue-0").worldBound.yMin + " grid=" + board.worldBound);
                 Require(measured.y <= label.contentRect.height + 1, "instruction fits header: " + name + " needs=" + measured.y + " has=" + label.contentRect.height);
                 Require(label.worldBound.yMax <= board.Q<Label>("column-clue-0").worldBound.yMin + 1, "instruction stays above column clues: " + name);
-                if (string.IsNullOrEmpty(directory)) return;
+                Require(Mathf.Abs(label.resolvedStyle.fontSize - 16) < .1f, "body remains 16 units");
+                var goal = shell.BoardView.Q<Label>("tutorial-goal-title");
+                Require((goal.resolvedStyle.display != DisplayStyle.None) == (shell.Tutorial.Step == TutorialStep.Goal), "goal heading only on Goal");
+                if (shell.Tutorial.Step == TutorialStep.Goal)
+                {
+                    Require(goal.worldBound.yMax <= label.worldBound.yMin + 1, "goal heading above explanation");
+                    Fits(goal);
+                }
+                var blockTop = shell.Tutorial.Step == TutorialStep.Goal ? goal.worldBound.yMin : label.worldBound.yMin;
+                var upper = shell.BoardView.Q<Label>("board-difficulty").worldBound.yMax;
+                var topCenterError = Mathf.Abs((blockTop + label.worldBound.yMax - upper - board.worldBound.yMin) / 2);
+                Require(topCenterError <= 1, "instruction block centered in actual upper gap: " + name + " error=" + topCenterError);
+                Require(blockTop >= upper - 1 && label.worldBound.yMax <= board.worldBound.yMin + 1, "instruction block clears difficulty and grid");
+                var guidance = shell.Q<Label>("tutorial-continue-guidance");
+                var needsGuidance = shell.Tutorial.CanContinue;
+                Require((guidance != null) == needsGuidance, "guidance on every advance step only");
+                var bottomCenterError = 0f;
+                if (guidance != null)
+                {
+                    Fits(guidance);
+                    var button = shell.Q<Button>("action-continue");
+                    bottomCenterError = Mathf.Abs(guidance.worldBound.center.y - (board.worldBound.yMax + button.worldBound.yMin) / 2);
+                    Require(bottomCenterError <= 1, "guidance centered in actual lower gap: " + name + " error=" + bottomCenterError);
+                    Require(guidance.worldBound.yMax <= button.worldBound.yMin, "guidance clears advance button");
+                    Require(guidance.worldBound.yMin >= board.worldBound.yMax, "guidance clears grid");
+                    Require(!guidance.focusable && guidance.pickingMode == PickingMode.Ignore, "guidance cannot intercept touch/focus");
+                    Require(Mathf.Abs(guidance.resolvedStyle.opacity - (name == "attention" ? 1 : 0)) < .01f, "resolved guidance opacity matches capture phase");
+                }
+                Debug.Log("TUTORIAL_CENTER step=" + shell.Tutorial.Step + " phase=" + name + " topError=" + topCenterError +
+                    " bottomError=" + bottomCenterError + " blockTop=" + blockTop + " blockBottom=" + label.worldBound.yMax +
+                    " upper=" + upper + " gridTop=" + board.worldBound.yMin + " guidance=" + (guidance?.worldBound.ToString() ?? "none"));
+                foreach (var button in shell.Q<VisualElement>("game-controls").Query<Button>().ToList())
+                {
+                    Require(button.worldBound.height >= 48 && button.worldBound.width >= 48, "48-unit action targets");
+                    Fits(button);
+                    var safe = shell.Q<VisualElement>("game-safe-frame").worldBound;
+                    Require(safe.Contains(button.worldBound.min) && safe.Contains(button.worldBound.max - Vector2.one * .1f), "actions respect safe area");
+                }
+                if (string.IsNullOrEmpty(directory)) yield break;
                 Require(Path.IsPathRooted(directory), "absolute capture directory"); Directory.CreateDirectory(directory);
-                ScreenCapture.CaptureScreenshot(Path.Combine(directory, name + ".png"));
-            })) yield break;
+                var filename = shell.Tutorial.Step + "-" + name + ".png";
+                File.AppendAllText(Path.Combine(directory, "layout.tsv"), string.Join("\t", new[] {
+                    shell.Locale, shell.Tutorial.Step.ToString(), filename,
+                    shell.contentRect.width.ToString(CultureInfo.InvariantCulture), shell.contentRect.height.ToString(CultureInfo.InvariantCulture),
+                    measured.y.ToString(CultureInfo.InvariantCulture), label.contentRect.height.ToString(CultureInfo.InvariantCulture),
+                    label.worldBound.yMax.ToString(CultureInfo.InvariantCulture), board.Q<Label>("column-clue-0").worldBound.yMin.ToString(CultureInfo.InvariantCulture),
+                    board.worldBound.ToString(), shell.Q<VisualElement>("game-safe-frame").worldBound.ToString()
+                }) + "\n");
+            }
+            catch (Exception error)
+            {
+                var failure = shell.Tutorial.Step + ": " + error.Message;
+                layoutFailures.Add(failure);
+                Debug.LogError("TUTORIAL_LAYOUT_FAIL " + failure);
+            }
+            if (!string.IsNullOrEmpty(directory))
+            {
+                Directory.CreateDirectory(directory);
+                ScreenCapture.CaptureScreenshot(Path.Combine(directory, shell.Tutorial.Step + "-" + name + ".png"));
+            }
             yield return new WaitForSecondsRealtime(.15f);
+        }
+        private static void Fits(TextElement label)
+        {
+            var size = label.MeasureTextSize(label.text, label.contentRect.width, VisualElement.MeasureMode.Exactly, 0, VisualElement.MeasureMode.Undefined);
+            Require(size.y <= label.contentRect.height + 1, "text fits " + label.name);
         }
         private static VisualElement Grid(GameShellView shell) => shell.BoardView.Q<VisualElement>("board-grid");
         private static Vector2 Point(GameShellView shell, int row, int column) => Grid(shell).LocalToWorld(shell.BoardView.Layout.GetCellRect(new BoardCoordinate(row, column)).center);

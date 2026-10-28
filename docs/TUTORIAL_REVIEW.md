@@ -1,5 +1,35 @@
 # Issue #26 — Interactive first-play tutorial
 
+## Issue #95 clarity follow-up — 2026-10-27
+
+The following #26 snapshot is historical. Current navigation/first-Play behavior
+comes from #43/#76: replay is in Settings, Home Play resumes an in-memory
+tutorial, manual replay does not consume a fresh installation's first Play,
+and Skip/Play use the ordinary difficulty selector rather than Easy-only routing.
+
+[#95](https://github.com/juarezweiss/Paws/issues/95) separates Goal heading/body,
+moves shared Continue/Start guidance into the gap between board and advance button,
+clarifies Empty-cell swipe starts and forward arrow paths, and replaces passive
+quota wording. Tutorial text uses its natural wrapped height at 16 units rather
+than the historical fixed 48/60-unit slots. The independently positioned grid and
+48-unit action targets are preserved. The latest owner refinement centers the
+top instruction block in the free space above the board's clue gutter and centers
+bottom guidance below the grid. Every Continue/Start step begins with normal
+styling and invisible guidance, becoming attentive after two seconds through the
+shared Hint timer/presenter and native 200 ms fades. Controls remain clickable
+throughout; navigation, locale and lifecycle cleanup discard old attention.
+This supersedes #26's immediate Welcome emphasis and the earlier three-step helper
+policy. Only the redundant ArrowHoldIntro page is
+removed: SecondRowX goes directly to DiagonalPaw, retaining its mandatory hold,
+release cleanup and paw gate. The legacy enum value 22 remains reserved.
+
+The fixed tutorial-v1/seed26 fixture, all other lesson ordering, gestures,
+independent completion and ordinary gameplay remain unchanged. Current evidence
+is recorded in
+[latest issue95 evidence](evidence/issue95/attention/validation.json). The owner reported a scoped physical pass on source321e82a (runtime9697e3a),
+iPhone17 / iOS27.0.1; see the latest receipt. Historical acceptance below remains
+a separate review of older code.
+
 The owner approved the design and refined it after iPhone review on 2026-10-13.
 Implementation is on feat/26-interactive-tutorial; the owner accepted all revised iPhone tutorial checks on 2026-10-13. Owner authorized commit, push and integration into develop. Unrelated #21/#22 planning files
 and original_material.md are preserved.

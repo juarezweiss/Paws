@@ -26,6 +26,10 @@ namespace CatsAndArrows.UI
         private readonly LocalizationService text;
         private Button hintButton;
         private readonly HintIdleAttention hintAttention;
+        private readonly HintIdleAttention tutorialAttention;
+        private Button tutorialAdvanceButton;
+        private Label tutorialGuidance;
+        private const float AttentionFadeSeconds = .2f;
         private bool applicationFocused = true;
         private bool applicationPaused;
         private Button clearButton;
@@ -67,6 +71,7 @@ namespace CatsAndArrows.UI
             if (adPrivacy != null) adPrivacy.Changed += OnAdPrivacyChanged;
             var clock = idleClock ?? (() => Time.realtimeSinceStartupAsDouble);
             hintAttention = new HintIdleAttention(clock);
+            tutorialAttention = new HintIdleAttention(clock, 2);
             celebration = new CompletionCelebration(completionClock ?? (() => Time.realtimeSinceStartupAsDouble));
             UseInlineHints = useInlineHints;
             this.enableTutorial = enableTutorial;
@@ -86,6 +91,8 @@ namespace CatsAndArrows.UI
             BoardView.InteractionEnded += OnTutorialGestureEnded;
             BoardView.Rebound += CancelCompletion;
             BoardView.Rebound += ResetNotifications;
+            BoardView.Rebound += ResetTutorialAttention;
+            BoardView.Q<VisualElement>("board-grid").RegisterCallback<GeometryChangedEvent>(_ => LayoutTutorialGuidance());
             safeFrame.name = "game-safe-frame"; safeFrame.style.position = Position.Absolute;
             safeFrame.pickingMode = PickingMode.Ignore; Add(safeFrame);
             menu.name = "game-menu"; Fill(menu); safeFrame.Add(menu);
@@ -93,6 +100,7 @@ namespace CatsAndArrows.UI
             safeFrame.Add(completionLayer);
             controls.name = "game-controls"; controls.style.position = Position.Absolute;
             controls.style.left = controls.style.right = controls.style.bottom = 0; controls.style.height = 108;
+            controls.RegisterCallback<GeometryChangedEvent>(_ => LayoutTutorialGuidance());
             safeFrame.Add(controls);
             overlay.name = "game-overlay"; Fill(overlay); overlay.style.backgroundColor = PortraitBoardView.Background;
             safeFrame.Add(overlay);
@@ -113,7 +121,7 @@ namespace CatsAndArrows.UI
                 monetization.HintDelivered += OnHintDelivered;
             }
             RegisterCallback<AttachToPanelEvent>(_ => { ResetHintAttention(); TickHintAttention(); });
-            RegisterCallback<DetachFromPanelEvent>(_ => { hintAttention.Update(false, false); ApplyHintAttention(); CancelCompletion(); ResetNotifications(); });
+            RegisterCallback<DetachFromPanelEvent>(_ => { hintAttention.Update(false, false); ApplyHintAttention(); ResetTutorialAttention(); CancelCompletion(); ResetNotifications(); });
             schedule.Execute(TickHintAttention).Every(50);
             // One view-owned tick; no per-win callbacks survive navigation or rebind.
             schedule.Execute(TickCompletion).Every(16);
@@ -142,6 +150,7 @@ namespace CatsAndArrows.UI
                 hintButton != null && hintButton.enabledInHierarchy;
             hintAttention.Update(eligible, BoardView.HasActiveInteraction);
             ApplyHintAttention();
+            TickTutorialAttention();
         }
         private void OnBoardActivity()
         {
@@ -155,13 +164,55 @@ namespace CatsAndArrows.UI
         }
         private void ApplyHintAttention()
         {
-            if (hintButton == null) return;
-            var attention = hintAttention.IsAttentionVisible;
-            if (attention == (hintButton.style.backgroundColor.value == BoardSymbolElement.Ink)) return;
+            ApplyButtonAttention(hintButton, hintAttention.IsAttentionVisible);
+        }
+        private static void ConfigureButtonAttention(Button button) =>
+            button.style.transitionProperty = new List<StylePropertyName> { "background-color", "color" };
+
+        // #95 uses exactly the same native fade and inversion as ordinary Hint.
+        private static void ApplyButtonAttention(Button button, bool attention)
+        {
+            if (button == null || attention == (button.style.backgroundColor.value == BoardSymbolElement.Ink)) return;
             // Native color transitions fade in only; every reset cancels the fade immediately.
-            hintButton.style.transitionDuration = new List<TimeValue> { new TimeValue(attention ? .2f : 0) };
-            hintButton.style.backgroundColor = attention ? BoardSymbolElement.Ink : PortraitBoardView.Tile;
-            hintButton.style.color = attention ? PortraitBoardView.Tile : BoardSymbolElement.Ink;
+            button.style.transitionDuration = new List<TimeValue> { new TimeValue(attention ? AttentionFadeSeconds : 0) };
+            button.style.backgroundColor = attention ? BoardSymbolElement.Ink : PortraitBoardView.Tile;
+            button.style.color = attention ? PortraitBoardView.Tile : BoardSymbolElement.Ink;
+        }
+        public void TickTutorialAttention()
+        {
+            var eligible = panel != null && !disposed && applicationFocused && !applicationPaused && !loading && !CommercialBusy &&
+                Screen == "play" && Modal == null && Tutorial?.CanContinue == true && ActiveSession != null &&
+                BoardView.IsBoundTo(ActiveSession) && BoardView.InteractionEnabled &&
+                BoardView.style.display.value != DisplayStyle.None && controls.style.display.value != DisplayStyle.None &&
+                tutorialAdvanceButton != null && tutorialAdvanceButton.enabledInHierarchy;
+            tutorialAttention.Update(eligible, false);
+            ApplyTutorialAttention();
+            LayoutTutorialGuidance();
+        }
+        private void ResetTutorialAttention()
+        {
+            tutorialAttention.Update(false, false);
+            tutorialAttention.Reset();
+            ApplyTutorialAttention();
+        }
+        private void ApplyTutorialAttention()
+        {
+            var attention = tutorialAttention.IsAttentionVisible;
+            ApplyButtonAttention(tutorialAdvanceButton, attention);
+            if (tutorialGuidance == null) return;
+            if (tutorialGuidance.style.opacity.value == (attention ? 1 : 0)) return;
+            tutorialGuidance.style.transitionDuration = new List<TimeValue> { new TimeValue(attention ? AttentionFadeSeconds : 0) };
+            tutorialGuidance.style.opacity = attention ? 1 : 0;
+        }
+        private void LayoutTutorialGuidance()
+        {
+            if (tutorialGuidance == null || tutorialAdvanceButton == null || panel == null) return;
+            var grid = BoardView.Q<VisualElement>("board-grid");
+            var height = tutorialGuidance.layout.height;
+            if (grid == null || !float.IsFinite(height) || height <= 0) return;
+            var center = (grid.worldBound.yMax + tutorialAdvanceButton.worldBound.yMin) / 2;
+            var y = controls.WorldToLocal(new Vector2(controls.worldBound.xMin, center)).y - height / 2;
+            if (float.IsFinite(y)) tutorialGuidance.style.top = y;
         }
 
         private void BuildCompletionLayer()
@@ -447,7 +498,8 @@ namespace CatsAndArrows.UI
         {
             if (Tutorial == null) return;
             BoardView.Refresh();
-            BoardView.SetTutorialFeedback(text.GetText(Tutorial.MessageKey), expanded: Tutorial.Step == TutorialStep.Goal);
+            BoardView.SetTutorialFeedback(text.GetText(Tutorial.MessageKey),
+                goalTitle: Tutorial.Step == TutorialStep.Goal ? text.GetText("tutorial.goal-title") : null);
             if (Screen == "play") BuildControls();
         }
         private void LeaveTutorial()
@@ -524,11 +576,13 @@ namespace CatsAndArrows.UI
         private void BuildControls()
         {
             ResetHintAttention();
+            ResetTutorialAttention();
             controls.Clear();
+            tutorialAdvanceButton = null; tutorialGuidance = null;
             if (Tutorial != null) { BuildTutorialControls(); return; }
             var first = ActionRow(); var second = ActionRow();
             hintButton = MakeButton("action-hint", monetization?.Enabled == true && !monetization.IsOwned ? "monetization.hint-ads" : "game.hint", RequestHint);
-            hintButton.style.transitionProperty = new List<StylePropertyName> { "background-color", "color" };
+            ConfigureButtonAttention(hintButton);
             clearButton = MakeButton("action-clear", "game.clear", ClearBoard);
             hintButton.SetEnabled(!ActiveSession.IsCompleted && !CommercialBusy); clearButton.SetEnabled(!ActiveSession.IsCompleted && !CommercialBusy);
             first.Add(hintButton); first.Add(clearButton);
@@ -543,16 +597,32 @@ namespace CatsAndArrows.UI
         private void BuildTutorialControls()
         {
             hintButton = clearButton = null;
+            if (Tutorial.CanContinue)
+            {
+                var guidance = new Label(text.GetText(Tutorial.Step == TutorialStep.Begin ? "tutorial.start-guidance" : "tutorial.continue-guidance"))
+                    { name = "tutorial-continue-guidance", pickingMode = PickingMode.Ignore, focusable = false };
+                guidance.style.position = Position.Absolute;
+                guidance.style.left = guidance.style.right = 0;
+                guidance.style.fontSize = 16; guidance.style.whiteSpace = WhiteSpace.Normal;
+                guidance.style.unityTextAlign = TextAnchor.MiddleCenter;
+                guidance.style.marginLeft = guidance.style.marginRight = 0;
+                guidance.style.marginTop = guidance.style.marginBottom = 0;
+                guidance.style.paddingLeft = guidance.style.paddingRight = guidance.style.paddingTop = guidance.style.paddingBottom = 0;
+                guidance.style.transitionProperty = new List<StylePropertyName> { "opacity" };
+                guidance.style.transitionDuration = new List<TimeValue> { new TimeValue(0) };
+                guidance.style.opacity = 0;
+                tutorialGuidance = guidance;
+                guidance.RegisterCallback<GeometryChangedEvent>(_ => LayoutTutorialGuidance());
+                controls.Add(guidance);
+            }
             var first = ActionRow(); var second = ActionRow();
             if (Tutorial.IsComplete) first.Add(MakeButton("action-play", "tutorial.play", SkipTutorial));
             else if (Tutorial.CanContinue)
             {
                 var advance = MakeButton("action-continue", Tutorial.Step == TutorialStep.Begin ? "tutorial.start" : "tutorial.continue", ContinueTutorial);
-                if (Tutorial.Step == TutorialStep.Welcome)
-                {
-                    advance.style.borderLeftWidth = advance.style.borderRightWidth = advance.style.borderTopWidth = advance.style.borderBottomWidth = 3;
-                    advance.style.unityFontStyleAndWeight = FontStyle.Bold;
-                }
+                ConfigureButtonAttention(advance);
+                tutorialAdvanceButton = advance;
+                advance.RegisterCallback<GeometryChangedEvent>(_ => LayoutTutorialGuidance());
                 first.Add(advance);
             }
             second.Add(MakeButton("action-menu", "game.menu", ShowMenu));
@@ -560,6 +630,7 @@ namespace CatsAndArrows.UI
             foreach (var row in new[] { first, second })
                 foreach (var child in row.Children()) { child.style.flexGrow = 1; child.style.flexBasis = 0; }
             controls.Add(first); controls.Add(second);
+            TickTutorialAttention();
         }
         public void ClearBoard()
         {
@@ -799,6 +870,7 @@ namespace CatsAndArrows.UI
         {
             if (disposed) return;
             disposed = true;
+            ResetTutorialAttention();
             if (adPrivacy != null) adPrivacy.Changed -= OnAdPrivacyChanged;
             ResetNotifications();
             if (monetization == null) return;

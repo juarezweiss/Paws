@@ -180,19 +180,14 @@ namespace CatsAndArrows.Tests
         }
 
         [Test]
-        public void DiagonalPawRequiresTheFocusedArrowHoldAfterItsIntro()
+        public void DiagonalPawDirectlyRequiresTheFocusedArrowHold()
         {
             var controller = new TutorialController();
-            ReachArrowHoldIntro(controller);
+            ReachDiagonalPaw(controller);
             var arrow = C(0, 3);
             var paw = C(2, 1);
-            Assert.That(controller.CanContinue, Is.True);
-            Assert.That(controller.HighlightedCells, Is.EqualTo(new[] { arrow }));
-            Assert.That(controller.CanHoldArrow(arrow), Is.False);
-            Assert.That(controller.RecordArrowHold(arrow), Is.False);
-
-            Assert.That(controller.Continue(), Is.True);
             Assert.That(controller.Step, Is.EqualTo(TutorialStep.DiagonalPaw));
+            Assert.That(controller.Continue(), Is.False, "The redundant intro cannot bypass the interaction.");
             Assert.That(controller.CanContinue, Is.False);
             Assert.That(controller.HighlightedCells, Is.EqualTo(new[] { arrow }));
             Assert.That(controller.CanHoldArrow(arrow), Is.True);
@@ -201,9 +196,28 @@ namespace CatsAndArrows.Tests
             Assert.That(controller.CanInteract(paw), Is.False);
             Assert.That(controller.Tap(paw), Is.False);
             Assert.That(controller.RecordArrowHold(C(1, 3)), Is.False);
+            var marks = controller.Session.Marks.ToArray();
             Assert.That(controller.RecordArrowHold(arrow), Is.True);
+            Assert.That(controller.RecordArrowHold(arrow), Is.True);
+            Assert.That(controller.EndGesture(), Is.False, "Holding alone never advances the lesson.");
+            Assert.That(controller.Session.Marks, Is.EquivalentTo(marks));
             Assert.That(controller.CanInteract(paw), Is.True);
             PlacePaw(controller, paw, TutorialStep.DiagonalPaw, TutorialStep.FourthPaw);
+        }
+
+        [Test]
+        public void DiagonalLessonUsesTheExactNonAdjacentForwardRay()
+        {
+            var controller = new TutorialController();
+            ReachDiagonalPaw(controller);
+            var ray = controller.Session.Puzzle.GetDirectionalSegment(C(0, 3), Direction.DownLeft).ToArray();
+            Assert.That(ray, Is.EqualTo(new[] { C(1, 2), C(2, 1), C(3, 0) }));
+            Assert.That(controller.Session.ProtectedCells, Does.Contain(ray[0]));
+            Assert.That(controller.Session.GetMark(ray[2]), Is.EqualTo(PlayerMark.X));
+            Assert.That(ray.Where(controller.Session.CanInteract).Where(cell => controller.Session.GetMark(cell) == PlayerMark.Empty),
+                Is.EqualTo(new[] { C(2, 1) }));
+            Assert.That(controller.Targets, Is.EqualTo(new[] { C(2, 1) }));
+            Assert.That(controller.CanTap(C(2, 1)), Is.False, "The deduction still requires the hold.");
         }
 
         [Test]
@@ -328,11 +342,11 @@ namespace CatsAndArrows.Tests
 
         private static GameSession ReachIndependent(TutorialController controller)
         {
-            ReachArrowHoldIntro(controller);
+            ReachDiagonalPaw(controller);
             Assert.That(controller.Session.GetMark(C(4, 2)), Is.EqualTo(PlayerMark.Paw), "Swipe must preserve the paw it crosses.");
             Assert.That(controller.HighlightedCells, Is.EqualTo(new[] { C(0, 3) }));
-            Assert.That(controller.Continue(), Is.True);
             Assert.That(controller.Step, Is.EqualTo(TutorialStep.DiagonalPaw));
+            Assert.That(controller.Continue(), Is.False);
             Assert.That(controller.RecordArrowHold(C(0, 3)), Is.True);
             PlacePaw(controller, C(2, 1), TutorialStep.DiagonalPaw, TutorialStep.FourthPaw);
             PlacePaw(controller, C(2, 3), TutorialStep.FourthPaw, TutorialStep.SingleX);
@@ -351,13 +365,13 @@ namespace CatsAndArrows.Tests
             return guided;
         }
 
-        private static void ReachArrowHoldIntro(TutorialController controller)
+        private static void ReachDiagonalPaw(TutorialController controller)
         {
             ReachFirstPaw(controller);
             PlacePaw(controller, C(1, 4), TutorialStep.FirstPaw, TutorialStep.FirstColumnX);
             Drag(controller, new[] { C(0, 4), C(1, 4), C(2, 4), C(3, 4), C(4, 4) }, 3, TutorialStep.SecondPaw);
             PlacePaw(controller, C(4, 2), TutorialStep.SecondPaw, TutorialStep.SecondRowX);
-            Drag(controller, new[] { C(4, 0), C(4, 1), C(4, 2), C(4, 3), C(4, 4) }, 2, TutorialStep.ArrowHoldIntro);
+            Drag(controller, new[] { C(4, 0), C(4, 1), C(4, 2), C(4, 3), C(4, 4) }, 2, TutorialStep.DiagonalPaw);
         }
 
         private static void AssertCompletedReadOnly(TutorialController controller)

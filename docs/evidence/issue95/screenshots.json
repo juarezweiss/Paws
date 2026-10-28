@@ -1,0 +1,1352 @@
+[
+  {
+    "viewport": "pt-BR-320",
+    "step": "StatesIntro",
+    "file": ".unity-results/issue95/captures/pt-BR-320/StatesIntro-intro-StatesIntro.png",
+    "sha256": "dbe7bf92b71867c2e4f11384d5794910f399e6a4a608cd3fc55b17f2a9cbf35d"
+  },
+  {
+    "viewport": "pt-BR-320",
+    "step": "FirstPaw",
+    "file": ".unity-results/issue95/captures/pt-BR-320/FirstPaw-first-paw.png",
+    "sha256": "3457e12fdb9044b20bd902fbad0ac1cecadae0ed40320ca93e2e0e0c72ab8c0d"
+  },
+  {
+    "viewport": "pt-BR-320",
+    "step": "Welcome",
+    "file": ".unity-results/issue95/captures/pt-BR-320/Welcome-welcome.png",
+    "sha256": "fd91c46ba27cc5e58ed91c40f3edd1ffd07396db6d8aad9302e667facf64e031"
+  },
+  {
+    "viewport": "pt-BR-320",
+    "step": "FourthPaw",
+    "file": ".unity-results/issue95/captures/pt-BR-320/FourthPaw-two-paw-row.png",
+    "sha256": "78832ac39b487c7b13c982e106d7091ef9dfc88152704d9a8bdddf9b5bf1b3bc"
+  },
+  {
+    "viewport": "pt-BR-320",
+    "step": "FourthPaw",
+    "file": ".unity-results/issue95/captures/pt-BR-320/FourthPaw-diagonal.png",
+    "sha256": "78832ac39b487c7b13c982e106d7091ef9dfc88152704d9a8bdddf9b5bf1b3bc"
+  },
+  {
+    "viewport": "pt-BR-320",
+    "step": "Begin",
+    "file": ".unity-results/issue95/captures/pt-BR-320/Begin-intro-Begin.png",
+    "sha256": "942f9721cb05c0248d7e018e75d72effa78910ef64c910609ff0d2deac6fb9d4"
+  },
+  {
+    "viewport": "pt-BR-320",
+    "step": "Complete",
+    "file": ".unity-results/issue95/captures/pt-BR-320/Complete-complete.png",
+    "sha256": "38dd290f2cf367492eba9937a892183158320fd7a630c97895e7200dd0bd0ee2"
+  },
+  {
+    "viewport": "pt-BR-320",
+    "step": "Independent",
+    "file": ".unity-results/issue95/captures/pt-BR-320/Independent-independent.png",
+    "sha256": "cf7a798d4fcf2d6dd2c0edecc9b653864db245f43fbd10bd509d7803f4b04096"
+  },
+  {
+    "viewport": "pt-BR-320",
+    "step": "Practice",
+    "file": ".unity-results/issue95/captures/pt-BR-320/Practice-intro-Practice.png",
+    "sha256": "cf4a1e84636d028790669ec45ac2cfa9f1a0789c530ae1335e0deb87e5455c9a"
+  },
+  {
+    "viewport": "pt-BR-320",
+    "step": "DiagonalPaw",
+    "file": ".unity-results/issue95/captures/pt-BR-320/DiagonalPaw-hold-active.png",
+    "sha256": "82a65b1b2456d5578780ddcdf86aa4dc96b453bb95ec7b97065d64c47faea438"
+  },
+  {
+    "viewport": "pt-BR-320",
+    "step": "EmptyState",
+    "file": ".unity-results/issue95/captures/pt-BR-320/EmptyState-intro-EmptyState.png",
+    "sha256": "1ee42d15a48c0224fda348ff6a9f703ad7d36c4432f3a8dfe0416480f0e189d1"
+  },
+  {
+    "viewport": "pt-BR-320",
+    "step": "XState",
+    "file": ".unity-results/issue95/captures/pt-BR-320/XState-intro-XState.png",
+    "sha256": "70e51709c72a9bb8f4782cb312201f92d84bc1278b890d13245263bc38d6612a"
+  },
+  {
+    "viewport": "pt-BR-320",
+    "step": "Goal",
+    "file": ".unity-results/issue95/captures/pt-BR-320/Goal-intro-Goal.png",
+    "sha256": "95999c95f77beaf0cfd56d8b0be149be75d3705483c471ce8103ae7a76d0ff45"
+  },
+  {
+    "viewport": "pt-BR-320",
+    "step": "ZeroRow",
+    "file": ".unity-results/issue95/captures/pt-BR-320/ZeroRow-zero-row.png",
+    "sha256": "35ce4e28ea8ed33d078d52ec17d286bd6500ce64fcf076800132974fbc3ad0a8"
+  },
+  {
+    "viewport": "pt-BR-320",
+    "step": "SecondPaw",
+    "file": ".unity-results/issue95/captures/pt-BR-320/SecondPaw-second-paw.png",
+    "sha256": "2111c4149ff48b674e796f6a0138d1530865431733846c1a7e04ea26a3c04ae2"
+  },
+  {
+    "viewport": "pt-BR-320",
+    "step": "HatchedCells",
+    "file": ".unity-results/issue95/captures/pt-BR-320/HatchedCells-intro-HatchedCells.png",
+    "sha256": "01e387d560f12b76589c730a1fa17f857a1edc7737fe3a4a23d1f84d48ba6f54"
+  },
+  {
+    "viewport": "pt-BR-320",
+    "step": "FirstColumnX",
+    "file": ".unity-results/issue95/captures/pt-BR-320/FirstColumnX-column-x.png",
+    "sha256": "ef70536273f25a937d58be124eab81e9811d5611d209171a9010b271ba74d51a"
+  },
+  {
+    "viewport": "pt-BR-320",
+    "step": "FinalPaw",
+    "file": ".unity-results/issue95/captures/pt-BR-320/FinalPaw-last-paw.png",
+    "sha256": "10119b11ab0c7dea61597300c26f1b9c571c13369abc590ff0adb62e7acf8ca8"
+  },
+  {
+    "viewport": "pt-BR-320",
+    "step": "SecondRowX",
+    "file": ".unity-results/issue95/captures/pt-BR-320/SecondRowX-row-x.png",
+    "sha256": "8a7ea3a17b1f2235861ee2ee4927fde58e692a480d35e0cd8acc8a979b0ab46f"
+  },
+  {
+    "viewport": "pt-BR-320",
+    "step": "PawState",
+    "file": ".unity-results/issue95/captures/pt-BR-320/PawState-intro-PawState.png",
+    "sha256": "6158d213d39e268e2d774d561e59907819485ab836f87c6257992bc42e56aa1c"
+  },
+  {
+    "viewport": "pt-BR-320",
+    "step": "ZeroColumn",
+    "file": ".unity-results/issue95/captures/pt-BR-320/ZeroColumn-zero-column.png",
+    "sha256": "8ff7617ad59405ffd4d41183506c27bf94960cdbcb0eaaef741ca7d0d764bd04"
+  },
+  {
+    "viewport": "pt-BR-320",
+    "step": "DiagonalPaw",
+    "file": ".unity-results/issue95/captures/pt-BR-320/DiagonalPaw-hold-released.png",
+    "sha256": "18bc85a98bbc02b8a697eed41a961eeff844d6b0c69f25f8ff42e5c9b70b100a"
+  },
+  {
+    "viewport": "pt-BR-320",
+    "step": "Arrows",
+    "file": ".unity-results/issue95/captures/pt-BR-320/Arrows-intro-Arrows.png",
+    "sha256": "a8817851c2a111e57358ace7ef3e5fbbb23f6c0064e96d1ba2625834bc87f757"
+  },
+  {
+    "viewport": "pt-BR-320",
+    "step": "SingleX",
+    "file": ".unity-results/issue95/captures/pt-BR-320/SingleX-single-x.png",
+    "sha256": "fb6b4c637efcde438d8cccf124dcbe613cb814da594959a0e429d089c5465edf"
+  },
+  {
+    "viewport": "pt-BR-320",
+    "step": "DiagonalPaw",
+    "file": ".unity-results/issue95/captures/pt-BR-320/DiagonalPaw-arrow-hold.png",
+    "sha256": "18bc85a98bbc02b8a697eed41a961eeff844d6b0c69f25f8ff42e5c9b70b100a"
+  },
+  {
+    "viewport": "es-320",
+    "step": "StatesIntro",
+    "file": ".unity-results/issue95/captures/es-320/StatesIntro-intro-StatesIntro.png",
+    "sha256": "b0521398f2aca7d0d6b45300e43d5079cbd09de7b45b0040135a22c3d6a470b8"
+  },
+  {
+    "viewport": "es-320",
+    "step": "FirstPaw",
+    "file": ".unity-results/issue95/captures/es-320/FirstPaw-first-paw.png",
+    "sha256": "313ed497aa7fbe99a49c5a94f70f029566ea8a9d235a6571363975938190f041"
+  },
+  {
+    "viewport": "es-320",
+    "step": "Welcome",
+    "file": ".unity-results/issue95/captures/es-320/Welcome-welcome.png",
+    "sha256": "acb1846e9b9cb7619a9cb75f7ab9e40ac2a96dfebd8306321ffb761048fac2f6"
+  },
+  {
+    "viewport": "es-320",
+    "step": "FourthPaw",
+    "file": ".unity-results/issue95/captures/es-320/FourthPaw-two-paw-row.png",
+    "sha256": "9aa193a9909461b62330639e688c65904abd7789f4d82811b98f244c086812f8"
+  },
+  {
+    "viewport": "es-320",
+    "step": "FourthPaw",
+    "file": ".unity-results/issue95/captures/es-320/FourthPaw-diagonal.png",
+    "sha256": "9aa193a9909461b62330639e688c65904abd7789f4d82811b98f244c086812f8"
+  },
+  {
+    "viewport": "es-320",
+    "step": "Begin",
+    "file": ".unity-results/issue95/captures/es-320/Begin-intro-Begin.png",
+    "sha256": "adbc2929c91ed1f731330c0ac72ad270c8e854c60275f6c309f818d0785960fa"
+  },
+  {
+    "viewport": "es-320",
+    "step": "Complete",
+    "file": ".unity-results/issue95/captures/es-320/Complete-complete.png",
+    "sha256": "9df200e8f2ba5918d02c965b1abb6f0d514e93b78ad531ce5310ba7a386414f8"
+  },
+  {
+    "viewport": "es-320",
+    "step": "Independent",
+    "file": ".unity-results/issue95/captures/es-320/Independent-independent.png",
+    "sha256": "6e095c66611015d26719fd8f64abda0b06d8099a69eb2f701c4858bc86919556"
+  },
+  {
+    "viewport": "es-320",
+    "step": "Practice",
+    "file": ".unity-results/issue95/captures/es-320/Practice-intro-Practice.png",
+    "sha256": "c75c28ff322806fa1a4c1cf21469f96f7ca3dd81d01fa7e957870cc8b53fa12c"
+  },
+  {
+    "viewport": "es-320",
+    "step": "DiagonalPaw",
+    "file": ".unity-results/issue95/captures/es-320/DiagonalPaw-hold-active.png",
+    "sha256": "d8f21db22515d70e45509c49b92156192375981d4bb7732866a2311f5b0ab36c"
+  },
+  {
+    "viewport": "es-320",
+    "step": "EmptyState",
+    "file": ".unity-results/issue95/captures/es-320/EmptyState-intro-EmptyState.png",
+    "sha256": "c47090881c143d6313f3155ac55ec101a2004820e4d20217c026c13d906d33cc"
+  },
+  {
+    "viewport": "es-320",
+    "step": "XState",
+    "file": ".unity-results/issue95/captures/es-320/XState-intro-XState.png",
+    "sha256": "9dcbcf280c630bf2297f048df761f98b70cfe1fd480f6ccca4fbaaeac1296ca8"
+  },
+  {
+    "viewport": "es-320",
+    "step": "Goal",
+    "file": ".unity-results/issue95/captures/es-320/Goal-intro-Goal.png",
+    "sha256": "10e887339a816784ac0e1122d31824fa4829830e55ac777bbdab8844cb7926e8"
+  },
+  {
+    "viewport": "es-320",
+    "step": "ZeroRow",
+    "file": ".unity-results/issue95/captures/es-320/ZeroRow-zero-row.png",
+    "sha256": "3cbd7274342e8cbeeea3dd4dcc39bcb33d4388b98e9344cc9fa0bc77b5f8c6ec"
+  },
+  {
+    "viewport": "es-320",
+    "step": "SecondPaw",
+    "file": ".unity-results/issue95/captures/es-320/SecondPaw-second-paw.png",
+    "sha256": "53bb9282b4d8f54a5ae853429d594bd1d3a4d92c2342aff7f8af62276a4759dd"
+  },
+  {
+    "viewport": "es-320",
+    "step": "HatchedCells",
+    "file": ".unity-results/issue95/captures/es-320/HatchedCells-intro-HatchedCells.png",
+    "sha256": "1cc2b73eab38ff143c7fcf6fa88066937b27edac9dc7ed308fb9dd9feeed1f32"
+  },
+  {
+    "viewport": "es-320",
+    "step": "FirstColumnX",
+    "file": ".unity-results/issue95/captures/es-320/FirstColumnX-column-x.png",
+    "sha256": "a93ac3db8d3f10770d50a15bc1facbe32337054eaa056db9bf56441f886e814e"
+  },
+  {
+    "viewport": "es-320",
+    "step": "FinalPaw",
+    "file": ".unity-results/issue95/captures/es-320/FinalPaw-last-paw.png",
+    "sha256": "4b80a87e7fa820e89fc3e3f4567e87e1417aaf83baafa201f7d37f445ef9f39a"
+  },
+  {
+    "viewport": "es-320",
+    "step": "SecondRowX",
+    "file": ".unity-results/issue95/captures/es-320/SecondRowX-row-x.png",
+    "sha256": "9cf9dc765d23d2f74f9de16b4d28023a7a35fa6981e6c64154a4ac69b0c4d0a5"
+  },
+  {
+    "viewport": "es-320",
+    "step": "PawState",
+    "file": ".unity-results/issue95/captures/es-320/PawState-intro-PawState.png",
+    "sha256": "d0f9ccdd77474c3a051d8afcb6bc37f5038094ea16dfc4f22fc02d41bbac7827"
+  },
+  {
+    "viewport": "es-320",
+    "step": "ZeroColumn",
+    "file": ".unity-results/issue95/captures/es-320/ZeroColumn-zero-column.png",
+    "sha256": "bf26d079f514213ae0f377d6047547572b30f672f3378b9e2fc323c306a8fba4"
+  },
+  {
+    "viewport": "es-320",
+    "step": "DiagonalPaw",
+    "file": ".unity-results/issue95/captures/es-320/DiagonalPaw-hold-released.png",
+    "sha256": "ecf76fcd16955ff2219b5adcbd7383f6c8cc01fe16efeade0dd10a630c81dac6"
+  },
+  {
+    "viewport": "es-320",
+    "step": "Arrows",
+    "file": ".unity-results/issue95/captures/es-320/Arrows-intro-Arrows.png",
+    "sha256": "0261013eb3a6fa6d08c856db0b483471150c575f4d1788a53247819b0463ac73"
+  },
+  {
+    "viewport": "es-320",
+    "step": "SingleX",
+    "file": ".unity-results/issue95/captures/es-320/SingleX-single-x.png",
+    "sha256": "71102a855257f20a3496178bc558ffd789a41ce4179ba59f993326934f462223"
+  },
+  {
+    "viewport": "es-320",
+    "step": "DiagonalPaw",
+    "file": ".unity-results/issue95/captures/es-320/DiagonalPaw-arrow-hold.png",
+    "sha256": "ecf76fcd16955ff2219b5adcbd7383f6c8cc01fe16efeade0dd10a630c81dac6"
+  },
+  {
+    "viewport": "en-320",
+    "step": "StatesIntro",
+    "file": ".unity-results/issue95/captures/en-320/StatesIntro-intro-StatesIntro.png",
+    "sha256": "b75dd50a3827579288dd28cca593e52e63dbe8338c67daa8cb8901b8fa4b8c34"
+  },
+  {
+    "viewport": "en-320",
+    "step": "FirstPaw",
+    "file": ".unity-results/issue95/captures/en-320/FirstPaw-first-paw.png",
+    "sha256": "a44a476576e05eeaa4e6346be938640961004b830893665ef4a26924a2bad1ad"
+  },
+  {
+    "viewport": "en-320",
+    "step": "Welcome",
+    "file": ".unity-results/issue95/captures/en-320/Welcome-welcome.png",
+    "sha256": "962dc4ba1df97b30a63833f15d4855466a294aaae9a0bbe6c0f441bb949e48ad"
+  },
+  {
+    "viewport": "en-320",
+    "step": "FourthPaw",
+    "file": ".unity-results/issue95/captures/en-320/FourthPaw-two-paw-row.png",
+    "sha256": "cb9bd013b348a9cf7cc17ca7392af199525388f00d1d3f78068bb767126b6d08"
+  },
+  {
+    "viewport": "en-320",
+    "step": "FourthPaw",
+    "file": ".unity-results/issue95/captures/en-320/FourthPaw-diagonal.png",
+    "sha256": "cb9bd013b348a9cf7cc17ca7392af199525388f00d1d3f78068bb767126b6d08"
+  },
+  {
+    "viewport": "en-320",
+    "step": "Begin",
+    "file": ".unity-results/issue95/captures/en-320/Begin-intro-Begin.png",
+    "sha256": "dddac952212c019d94eb2c047b2b566b2d13959560ca7a8543b86edeb3fb2c67"
+  },
+  {
+    "viewport": "en-320",
+    "step": "Complete",
+    "file": ".unity-results/issue95/captures/en-320/Complete-complete.png",
+    "sha256": "3d8b6e3751146da9b7511c8260c54dcc98922b8d56f16a81ad62dbb4e3761a1b"
+  },
+  {
+    "viewport": "en-320",
+    "step": "Independent",
+    "file": ".unity-results/issue95/captures/en-320/Independent-independent.png",
+    "sha256": "2dea522aabdf7ef354611e8dc05474c0f20a845e2673c1390440b61e4e261b7c"
+  },
+  {
+    "viewport": "en-320",
+    "step": "Practice",
+    "file": ".unity-results/issue95/captures/en-320/Practice-intro-Practice.png",
+    "sha256": "4e432ce8073111b803a79971999fbdd1f7c0de2658384a8d7201845e9fdc3713"
+  },
+  {
+    "viewport": "en-320",
+    "step": "DiagonalPaw",
+    "file": ".unity-results/issue95/captures/en-320/DiagonalPaw-hold-active.png",
+    "sha256": "4ed6e0e8c8795a936156fd656aec02564d49805675b5a74511e37bbf6b712053"
+  },
+  {
+    "viewport": "en-320",
+    "step": "EmptyState",
+    "file": ".unity-results/issue95/captures/en-320/EmptyState-intro-EmptyState.png",
+    "sha256": "9ed572fb92769d272fd1692296b9ca2a60e552c1f5c5a7b4d056c23b75294d87"
+  },
+  {
+    "viewport": "en-320",
+    "step": "XState",
+    "file": ".unity-results/issue95/captures/en-320/XState-intro-XState.png",
+    "sha256": "e20e11f6542cf1e19d4e98836e5ff56403d6267fee17639aeb998b908a05ea84"
+  },
+  {
+    "viewport": "en-320",
+    "step": "Goal",
+    "file": ".unity-results/issue95/captures/en-320/Goal-intro-Goal.png",
+    "sha256": "b1ea25304e5f85ebbd15aac88b087bc4f1bfe354ea75401a84edf699e098ad21"
+  },
+  {
+    "viewport": "en-320",
+    "step": "ZeroRow",
+    "file": ".unity-results/issue95/captures/en-320/ZeroRow-zero-row.png",
+    "sha256": "0ac8d5d74e7c2ee7de3a9f35a0cbf7f6fa7bbef5870bcaff166d24fd6f1d0588"
+  },
+  {
+    "viewport": "en-320",
+    "step": "SecondPaw",
+    "file": ".unity-results/issue95/captures/en-320/SecondPaw-second-paw.png",
+    "sha256": "f049368ddab3b1872976c1fdb4a500de7ec6b787575fbdc3a325fa32cac961c9"
+  },
+  {
+    "viewport": "en-320",
+    "step": "HatchedCells",
+    "file": ".unity-results/issue95/captures/en-320/HatchedCells-intro-HatchedCells.png",
+    "sha256": "4e89f43ad65a12eb95b6948e188f6ad6cb8eb7e283105f94cc870b143fefba67"
+  },
+  {
+    "viewport": "en-320",
+    "step": "FirstColumnX",
+    "file": ".unity-results/issue95/captures/en-320/FirstColumnX-column-x.png",
+    "sha256": "2158e8bb5f0ab0b9b88ac7dfbcba3fdf3421b71fc7ac288af5b4e836893c842b"
+  },
+  {
+    "viewport": "en-320",
+    "step": "FinalPaw",
+    "file": ".unity-results/issue95/captures/en-320/FinalPaw-last-paw.png",
+    "sha256": "1c0b6a676a1ec0812326fdd595a554e9c8acc3cbfb4429a89d93e96ceb7b3999"
+  },
+  {
+    "viewport": "en-320",
+    "step": "SecondRowX",
+    "file": ".unity-results/issue95/captures/en-320/SecondRowX-row-x.png",
+    "sha256": "1495e0205acd8d0f5c54dfc80b3574e25f0d4d28dc4689de13f1536f1c1893ae"
+  },
+  {
+    "viewport": "en-320",
+    "step": "PawState",
+    "file": ".unity-results/issue95/captures/en-320/PawState-intro-PawState.png",
+    "sha256": "6a95b59cb08c834a61a8d01733718cdc8a7319678adcdcafb5f646bd92d3592d"
+  },
+  {
+    "viewport": "en-320",
+    "step": "ZeroColumn",
+    "file": ".unity-results/issue95/captures/en-320/ZeroColumn-zero-column.png",
+    "sha256": "bdcf1d76fe188938aa1d9d802d53fec29911e0b893fd83be492f6f52a7396487"
+  },
+  {
+    "viewport": "en-320",
+    "step": "DiagonalPaw",
+    "file": ".unity-results/issue95/captures/en-320/DiagonalPaw-hold-released.png",
+    "sha256": "8bf8b7836377de44ef234ee80cd96a2211a82499b7952d2b528b814f1856d675"
+  },
+  {
+    "viewport": "en-320",
+    "step": "Arrows",
+    "file": ".unity-results/issue95/captures/en-320/Arrows-intro-Arrows.png",
+    "sha256": "bd4d3629f2b46920d1a13f64aaa8e2cc53338c7f8473e122fd15910e045accff"
+  },
+  {
+    "viewport": "en-320",
+    "step": "SingleX",
+    "file": ".unity-results/issue95/captures/en-320/SingleX-single-x.png",
+    "sha256": "0331debda1eafc102783c5f4d7d9b3f0a028a9994d913c13ab5d3155cc1c5047"
+  },
+  {
+    "viewport": "en-320",
+    "step": "DiagonalPaw",
+    "file": ".unity-results/issue95/captures/en-320/DiagonalPaw-arrow-hold.png",
+    "sha256": "8bf8b7836377de44ef234ee80cd96a2211a82499b7952d2b528b814f1856d675"
+  },
+  {
+    "viewport": "pt-BR-390",
+    "step": "StatesIntro",
+    "file": ".unity-results/issue95/captures/pt-BR-390/StatesIntro-intro-StatesIntro.png",
+    "sha256": "5aaa09d59a2f5de300b7a195f889743521533af65e6d0d1e031d20ccdea1f23c"
+  },
+  {
+    "viewport": "pt-BR-390",
+    "step": "FirstPaw",
+    "file": ".unity-results/issue95/captures/pt-BR-390/FirstPaw-first-paw.png",
+    "sha256": "e2c2da7f6273e8ff4bc9029b2b01ae0eaf7a20953ffa2fd79628adfda576160e"
+  },
+  {
+    "viewport": "pt-BR-390",
+    "step": "Welcome",
+    "file": ".unity-results/issue95/captures/pt-BR-390/Welcome-welcome.png",
+    "sha256": "694dbc6c8dd59711f9277eb6a47210b547aa83a2ea1b2547ce9f37c144c5f646"
+  },
+  {
+    "viewport": "pt-BR-390",
+    "step": "FourthPaw",
+    "file": ".unity-results/issue95/captures/pt-BR-390/FourthPaw-two-paw-row.png",
+    "sha256": "33471ce764740efcaf972034469b2d92b9de96a6c192f9c9b8a4e49da8d0176f"
+  },
+  {
+    "viewport": "pt-BR-390",
+    "step": "FourthPaw",
+    "file": ".unity-results/issue95/captures/pt-BR-390/FourthPaw-diagonal.png",
+    "sha256": "33471ce764740efcaf972034469b2d92b9de96a6c192f9c9b8a4e49da8d0176f"
+  },
+  {
+    "viewport": "pt-BR-390",
+    "step": "Begin",
+    "file": ".unity-results/issue95/captures/pt-BR-390/Begin-intro-Begin.png",
+    "sha256": "51b939a2cd6888636f7680286bb3db1001c3444c2999042aa0866678f830ce1b"
+  },
+  {
+    "viewport": "pt-BR-390",
+    "step": "Complete",
+    "file": ".unity-results/issue95/captures/pt-BR-390/Complete-complete.png",
+    "sha256": "948fa13107d18f35f9444e02dc22d416ee8e2f4b7ba4b9a579983d3d7984aa3d"
+  },
+  {
+    "viewport": "pt-BR-390",
+    "step": "Independent",
+    "file": ".unity-results/issue95/captures/pt-BR-390/Independent-independent.png",
+    "sha256": "7686122ab1abab73d027abfae1be40b8db887e45be17039dd8df0b272a7836fa"
+  },
+  {
+    "viewport": "pt-BR-390",
+    "step": "Practice",
+    "file": ".unity-results/issue95/captures/pt-BR-390/Practice-intro-Practice.png",
+    "sha256": "7cd4b531fab66d73e142ca161be2c934406ee2fe3b15600e8e61c99f856fa500"
+  },
+  {
+    "viewport": "pt-BR-390",
+    "step": "DiagonalPaw",
+    "file": ".unity-results/issue95/captures/pt-BR-390/DiagonalPaw-hold-active.png",
+    "sha256": "0523e6ff95c3b2b86ee10b7d5cdc01232a99736abc5ac11c97e70b720ab9ebae"
+  },
+  {
+    "viewport": "pt-BR-390",
+    "step": "EmptyState",
+    "file": ".unity-results/issue95/captures/pt-BR-390/EmptyState-intro-EmptyState.png",
+    "sha256": "1867d5de15e853a6a17af8b5d20b9443e787ee487259e78e6a7def07c80d96d9"
+  },
+  {
+    "viewport": "pt-BR-390",
+    "step": "XState",
+    "file": ".unity-results/issue95/captures/pt-BR-390/XState-intro-XState.png",
+    "sha256": "ac20f336f338ed0afcf9cbf302920d4aba44942d3177ffbed9357a68f7d37208"
+  },
+  {
+    "viewport": "pt-BR-390",
+    "step": "Goal",
+    "file": ".unity-results/issue95/captures/pt-BR-390/Goal-intro-Goal.png",
+    "sha256": "53e364ab190a6d2a4de8f75a3557d26c0eeeeb39347222874e2d59c31b6ed1ca"
+  },
+  {
+    "viewport": "pt-BR-390",
+    "step": "ZeroRow",
+    "file": ".unity-results/issue95/captures/pt-BR-390/ZeroRow-zero-row.png",
+    "sha256": "3ef0b5e901b8ce3cb3018c1a8c9eceec7223919c34cdbb248839a0e386096a4b"
+  },
+  {
+    "viewport": "pt-BR-390",
+    "step": "SecondPaw",
+    "file": ".unity-results/issue95/captures/pt-BR-390/SecondPaw-second-paw.png",
+    "sha256": "038c07a02d199f0d042f94be34f4b3094eef36c96223efbbeaff01d7e2a16ab5"
+  },
+  {
+    "viewport": "pt-BR-390",
+    "step": "HatchedCells",
+    "file": ".unity-results/issue95/captures/pt-BR-390/HatchedCells-intro-HatchedCells.png",
+    "sha256": "3af974291f84a7647a7f234701b25f594221e46a9dd97c9629270a4a98d43064"
+  },
+  {
+    "viewport": "pt-BR-390",
+    "step": "FirstColumnX",
+    "file": ".unity-results/issue95/captures/pt-BR-390/FirstColumnX-column-x.png",
+    "sha256": "c9d8d956b01f4568213b8ef88eb97c71e6114af0845272119991208940c6ca6a"
+  },
+  {
+    "viewport": "pt-BR-390",
+    "step": "FinalPaw",
+    "file": ".unity-results/issue95/captures/pt-BR-390/FinalPaw-last-paw.png",
+    "sha256": "d5c3726e1cee4900bbd1584473e244e906be5c6a1918ec882a0d3a36539d5887"
+  },
+  {
+    "viewport": "pt-BR-390",
+    "step": "SecondRowX",
+    "file": ".unity-results/issue95/captures/pt-BR-390/SecondRowX-row-x.png",
+    "sha256": "2932dbd68116a20af32854a252bc228e041c1445f4eb4891216422e254055a63"
+  },
+  {
+    "viewport": "pt-BR-390",
+    "step": "PawState",
+    "file": ".unity-results/issue95/captures/pt-BR-390/PawState-intro-PawState.png",
+    "sha256": "820363baba1daa42e3bce44a7da39d67ae5b0b1c42c928f14fd11bcda345fe66"
+  },
+  {
+    "viewport": "pt-BR-390",
+    "step": "ZeroColumn",
+    "file": ".unity-results/issue95/captures/pt-BR-390/ZeroColumn-zero-column.png",
+    "sha256": "08d348e86781990c1f2d1376010ba4a78dc78eb5046691c00a508d7a9e2224a5"
+  },
+  {
+    "viewport": "pt-BR-390",
+    "step": "DiagonalPaw",
+    "file": ".unity-results/issue95/captures/pt-BR-390/DiagonalPaw-hold-released.png",
+    "sha256": "f287a1985dd238f3fdaf9c34b7de32371415fd802c6b2dabdde197cb4f4cdf52"
+  },
+  {
+    "viewport": "pt-BR-390",
+    "step": "Arrows",
+    "file": ".unity-results/issue95/captures/pt-BR-390/Arrows-intro-Arrows.png",
+    "sha256": "b1dc2c373f06520e33b872857322fa03b6fd878571efb46a48221ecd25a74846"
+  },
+  {
+    "viewport": "pt-BR-390",
+    "step": "SingleX",
+    "file": ".unity-results/issue95/captures/pt-BR-390/SingleX-single-x.png",
+    "sha256": "d22035767e74ce473de995a460d8214ff9608c2be2cf1922457f401818bd0fb7"
+  },
+  {
+    "viewport": "pt-BR-390",
+    "step": "DiagonalPaw",
+    "file": ".unity-results/issue95/captures/pt-BR-390/DiagonalPaw-arrow-hold.png",
+    "sha256": "f287a1985dd238f3fdaf9c34b7de32371415fd802c6b2dabdde197cb4f4cdf52"
+  },
+  {
+    "viewport": "es-390",
+    "step": "StatesIntro",
+    "file": ".unity-results/issue95/captures/es-390/StatesIntro-intro-StatesIntro.png",
+    "sha256": "6a8a8f52ed03c6df0d4dda0567405de3ba22934b3457e74a51624ff03481f647"
+  },
+  {
+    "viewport": "es-390",
+    "step": "FirstPaw",
+    "file": ".unity-results/issue95/captures/es-390/FirstPaw-first-paw.png",
+    "sha256": "191da7a81f90c45aa7eded7a12919b8977f8379ca11c071fd4d33610339034b8"
+  },
+  {
+    "viewport": "es-390",
+    "step": "Welcome",
+    "file": ".unity-results/issue95/captures/es-390/Welcome-welcome.png",
+    "sha256": "9f249ac5650f19d7399bcb111a1678906e59cee8cefdf6ccd254949403cdef06"
+  },
+  {
+    "viewport": "es-390",
+    "step": "FourthPaw",
+    "file": ".unity-results/issue95/captures/es-390/FourthPaw-two-paw-row.png",
+    "sha256": "b04237655ff7697fd2f61e3c49e8fe429b071a21e0f02a9c9b077ea5332dc8e6"
+  },
+  {
+    "viewport": "es-390",
+    "step": "FourthPaw",
+    "file": ".unity-results/issue95/captures/es-390/FourthPaw-diagonal.png",
+    "sha256": "b04237655ff7697fd2f61e3c49e8fe429b071a21e0f02a9c9b077ea5332dc8e6"
+  },
+  {
+    "viewport": "es-390",
+    "step": "Begin",
+    "file": ".unity-results/issue95/captures/es-390/Begin-intro-Begin.png",
+    "sha256": "6653f0a4482baeb54497e5154915596f0bcd760753c0cb7a166f4ce0611e9e27"
+  },
+  {
+    "viewport": "es-390",
+    "step": "Complete",
+    "file": ".unity-results/issue95/captures/es-390/Complete-complete.png",
+    "sha256": "c50e824562187b0e2c25a9cff93de240335f7fb51e14d7e0e1783203877e1802"
+  },
+  {
+    "viewport": "es-390",
+    "step": "Independent",
+    "file": ".unity-results/issue95/captures/es-390/Independent-independent.png",
+    "sha256": "09ff4c5ab122ba1747c9bd12a0b361d42741d546606c9611ac4a97bb2702dbb8"
+  },
+  {
+    "viewport": "es-390",
+    "step": "Practice",
+    "file": ".unity-results/issue95/captures/es-390/Practice-intro-Practice.png",
+    "sha256": "ba03a84053615e7627660ac56a1878d66ae337b42dcd74a0ee6450b6d5419452"
+  },
+  {
+    "viewport": "es-390",
+    "step": "DiagonalPaw",
+    "file": ".unity-results/issue95/captures/es-390/DiagonalPaw-hold-active.png",
+    "sha256": "4a42ffba4f9b0cd654bed1e22a273ef36fdb893a67efbf9ef5c13521e96a7a81"
+  },
+  {
+    "viewport": "es-390",
+    "step": "EmptyState",
+    "file": ".unity-results/issue95/captures/es-390/EmptyState-intro-EmptyState.png",
+    "sha256": "2631e5feb808eb50394300c7fff62024afb2a13ba94317b1181bebe067668e72"
+  },
+  {
+    "viewport": "es-390",
+    "step": "XState",
+    "file": ".unity-results/issue95/captures/es-390/XState-intro-XState.png",
+    "sha256": "e3e718a746fddf819fa5615a63e434984dec0a248fbe30a0e27389c491c39f7e"
+  },
+  {
+    "viewport": "es-390",
+    "step": "Goal",
+    "file": ".unity-results/issue95/captures/es-390/Goal-intro-Goal.png",
+    "sha256": "07736e9c3041989aa531cc7074293d49815af96148bb5df3fa9c5a580128c2b2"
+  },
+  {
+    "viewport": "es-390",
+    "step": "ZeroRow",
+    "file": ".unity-results/issue95/captures/es-390/ZeroRow-zero-row.png",
+    "sha256": "0816362a06dd4a51a2979b9cf13db1cab8d4bf2f0bd4ae9550595732120484de"
+  },
+  {
+    "viewport": "es-390",
+    "step": "SecondPaw",
+    "file": ".unity-results/issue95/captures/es-390/SecondPaw-second-paw.png",
+    "sha256": "0719833caa09294ef1e697d15ce75b3f12146a02f361f19e6e54c10b1897033d"
+  },
+  {
+    "viewport": "es-390",
+    "step": "HatchedCells",
+    "file": ".unity-results/issue95/captures/es-390/HatchedCells-intro-HatchedCells.png",
+    "sha256": "a6948cc6b8f398a1647ce79dc19c65a126ce59bdbe85c0ab40d8e59ba1462699"
+  },
+  {
+    "viewport": "es-390",
+    "step": "FirstColumnX",
+    "file": ".unity-results/issue95/captures/es-390/FirstColumnX-column-x.png",
+    "sha256": "c53433c3ab6fe7eda623628ba9d9d8be051f44fcdd9efb7743990fc69a0b3eb9"
+  },
+  {
+    "viewport": "es-390",
+    "step": "FinalPaw",
+    "file": ".unity-results/issue95/captures/es-390/FinalPaw-last-paw.png",
+    "sha256": "154b172b8c456f2d2f22f8b8145a7e4e2ec99814a7519f4ce7ec99115ac63686"
+  },
+  {
+    "viewport": "es-390",
+    "step": "SecondRowX",
+    "file": ".unity-results/issue95/captures/es-390/SecondRowX-row-x.png",
+    "sha256": "6fc71a27b7001ccf8925d9e89ab29762b353e6e66c571272a898278b40b8bed9"
+  },
+  {
+    "viewport": "es-390",
+    "step": "PawState",
+    "file": ".unity-results/issue95/captures/es-390/PawState-intro-PawState.png",
+    "sha256": "bd2b12f1ba98b5f37881cc0af62f1d26b57e9e5e76f9f74110222d8c703bf50b"
+  },
+  {
+    "viewport": "es-390",
+    "step": "ZeroColumn",
+    "file": ".unity-results/issue95/captures/es-390/ZeroColumn-zero-column.png",
+    "sha256": "0ab4f48321da8040dd69aa0bc9a8bd3e5cd864eb0baa3a3a3efd15358532c3e1"
+  },
+  {
+    "viewport": "es-390",
+    "step": "DiagonalPaw",
+    "file": ".unity-results/issue95/captures/es-390/DiagonalPaw-hold-released.png",
+    "sha256": "437be456d9c84ddf18bc56bb2d3aad7c54a7641bebc6c2f231e74a021d844a9f"
+  },
+  {
+    "viewport": "es-390",
+    "step": "Arrows",
+    "file": ".unity-results/issue95/captures/es-390/Arrows-intro-Arrows.png",
+    "sha256": "edf8328c306eb2aa769fa43054d01054fb3188b7f743dce979ca287f396cdc92"
+  },
+  {
+    "viewport": "es-390",
+    "step": "SingleX",
+    "file": ".unity-results/issue95/captures/es-390/SingleX-single-x.png",
+    "sha256": "cd786c438e0983d837d0424e8713818b70824b136b3e52858f3692a9e6b9262e"
+  },
+  {
+    "viewport": "es-390",
+    "step": "DiagonalPaw",
+    "file": ".unity-results/issue95/captures/es-390/DiagonalPaw-arrow-hold.png",
+    "sha256": "437be456d9c84ddf18bc56bb2d3aad7c54a7641bebc6c2f231e74a021d844a9f"
+  },
+  {
+    "viewport": "en-390",
+    "step": "StatesIntro",
+    "file": ".unity-results/issue95/captures/en-390/StatesIntro-intro-StatesIntro.png",
+    "sha256": "86d5bae7b21e3d0630dacefa9964d93ef53fe5f152d07e6df90340ccaf80255b"
+  },
+  {
+    "viewport": "en-390",
+    "step": "FirstPaw",
+    "file": ".unity-results/issue95/captures/en-390/FirstPaw-first-paw.png",
+    "sha256": "9bec4f2d747966e936c7172466577939ba64a545a17406bfdb1ac45f5a72e2a3"
+  },
+  {
+    "viewport": "en-390",
+    "step": "Welcome",
+    "file": ".unity-results/issue95/captures/en-390/Welcome-welcome.png",
+    "sha256": "70355b580fe81aa40540ca3e8b88ff3bd98466c7384cba7081f2d9be25a6d19b"
+  },
+  {
+    "viewport": "en-390",
+    "step": "FourthPaw",
+    "file": ".unity-results/issue95/captures/en-390/FourthPaw-two-paw-row.png",
+    "sha256": "3901dac2b2973f36828f506a0cb5c1ee8e78a85ce8bb740a258997b9990d8825"
+  },
+  {
+    "viewport": "en-390",
+    "step": "FourthPaw",
+    "file": ".unity-results/issue95/captures/en-390/FourthPaw-diagonal.png",
+    "sha256": "3901dac2b2973f36828f506a0cb5c1ee8e78a85ce8bb740a258997b9990d8825"
+  },
+  {
+    "viewport": "en-390",
+    "step": "Begin",
+    "file": ".unity-results/issue95/captures/en-390/Begin-intro-Begin.png",
+    "sha256": "e70d941f75bf29adec149e961e84cb9b4af4a3be0a70fc46afe9710cea69b9c1"
+  },
+  {
+    "viewport": "en-390",
+    "step": "Complete",
+    "file": ".unity-results/issue95/captures/en-390/Complete-complete.png",
+    "sha256": "615c6c49dcb7113fc3554d5e032768507c20aeb721a1085f9993e103bf23c8c2"
+  },
+  {
+    "viewport": "en-390",
+    "step": "Independent",
+    "file": ".unity-results/issue95/captures/en-390/Independent-independent.png",
+    "sha256": "fcd51b19eddebcaea7f9c011da518b8fc3b479c865301c0fd39a7a38d78f6f4d"
+  },
+  {
+    "viewport": "en-390",
+    "step": "Practice",
+    "file": ".unity-results/issue95/captures/en-390/Practice-intro-Practice.png",
+    "sha256": "912b15df348736d41219a1e2a925145f7b563f65ec802bf8d2d96abf1d2a03f4"
+  },
+  {
+    "viewport": "en-390",
+    "step": "DiagonalPaw",
+    "file": ".unity-results/issue95/captures/en-390/DiagonalPaw-hold-active.png",
+    "sha256": "8cdef1ef6743c6bb52ec8cc17ddb015ae946ee153cb43afe4b69353a0ece9f34"
+  },
+  {
+    "viewport": "en-390",
+    "step": "EmptyState",
+    "file": ".unity-results/issue95/captures/en-390/EmptyState-intro-EmptyState.png",
+    "sha256": "886d3f15c25645de7c4a1b197c2f55cb01109b93b57fba0da07d22e2ef563b6f"
+  },
+  {
+    "viewport": "en-390",
+    "step": "XState",
+    "file": ".unity-results/issue95/captures/en-390/XState-intro-XState.png",
+    "sha256": "df749a0e69ce8006198d6408ac0e0aebf645cad62b8036f9bba9548549dee4d2"
+  },
+  {
+    "viewport": "en-390",
+    "step": "Goal",
+    "file": ".unity-results/issue95/captures/en-390/Goal-intro-Goal.png",
+    "sha256": "1fe9bc3e26e2857abed871666de08c6b8cb6ef196e8245930a94621d5809c058"
+  },
+  {
+    "viewport": "en-390",
+    "step": "ZeroRow",
+    "file": ".unity-results/issue95/captures/en-390/ZeroRow-zero-row.png",
+    "sha256": "2949418385b9b8e42f2052b70ad70788aad9b62cb1c0631b75b3a5af34591478"
+  },
+  {
+    "viewport": "en-390",
+    "step": "SecondPaw",
+    "file": ".unity-results/issue95/captures/en-390/SecondPaw-second-paw.png",
+    "sha256": "d7be408c0628dfb5dff1dd240ec94dd8302b1fd7db078eb2e23b4b97499c6305"
+  },
+  {
+    "viewport": "en-390",
+    "step": "HatchedCells",
+    "file": ".unity-results/issue95/captures/en-390/HatchedCells-intro-HatchedCells.png",
+    "sha256": "22cfbd2238146e98a408efbcf34c014646d17b2493004277fbe4b45b5784012d"
+  },
+  {
+    "viewport": "en-390",
+    "step": "FirstColumnX",
+    "file": ".unity-results/issue95/captures/en-390/FirstColumnX-column-x.png",
+    "sha256": "383761c66ca323d63ce78a35be9f295b268f6348837b36666b696ce06a19bb7b"
+  },
+  {
+    "viewport": "en-390",
+    "step": "FinalPaw",
+    "file": ".unity-results/issue95/captures/en-390/FinalPaw-last-paw.png",
+    "sha256": "357ccecc90aa826636a15263f4cfa84fc1f43d048d82c2aa99e82c680774b5ad"
+  },
+  {
+    "viewport": "en-390",
+    "step": "SecondRowX",
+    "file": ".unity-results/issue95/captures/en-390/SecondRowX-row-x.png",
+    "sha256": "b53234772704f50daeed20be1b4adb212d494c446d00fe6ed776d3f6530a5082"
+  },
+  {
+    "viewport": "en-390",
+    "step": "PawState",
+    "file": ".unity-results/issue95/captures/en-390/PawState-intro-PawState.png",
+    "sha256": "3b34f6db88fada6240c602865bfd943049325c55994651324f02b9cbc39e79b4"
+  },
+  {
+    "viewport": "en-390",
+    "step": "ZeroColumn",
+    "file": ".unity-results/issue95/captures/en-390/ZeroColumn-zero-column.png",
+    "sha256": "9d0bbb1b913f5515149d4b846491bce9aaf4ea9c7138913622163ec5cab36c68"
+  },
+  {
+    "viewport": "en-390",
+    "step": "DiagonalPaw",
+    "file": ".unity-results/issue95/captures/en-390/DiagonalPaw-hold-released.png",
+    "sha256": "d38502143d2d782255f973b8a4f4acb86e7f1e099d9643f8ade3fc45c0ba06a8"
+  },
+  {
+    "viewport": "en-390",
+    "step": "Arrows",
+    "file": ".unity-results/issue95/captures/en-390/Arrows-intro-Arrows.png",
+    "sha256": "ac9e5cc9f954186b09ad1b03283bc060e1ddd7c89986c0b6e2491f46dd809213"
+  },
+  {
+    "viewport": "en-390",
+    "step": "SingleX",
+    "file": ".unity-results/issue95/captures/en-390/SingleX-single-x.png",
+    "sha256": "f91414f2449388aa0d4703c6e37b0c1c5320ddeb40e64bf93b71cb27a753e320"
+  },
+  {
+    "viewport": "en-390",
+    "step": "DiagonalPaw",
+    "file": ".unity-results/issue95/captures/en-390/DiagonalPaw-arrow-hold.png",
+    "sha256": "d38502143d2d782255f973b8a4f4acb86e7f1e099d9643f8ade3fc45c0ba06a8"
+  },
+  {
+    "viewport": "pt-BR-430",
+    "step": "StatesIntro",
+    "file": ".unity-results/issue95/captures/pt-BR-430/StatesIntro-intro-StatesIntro.png",
+    "sha256": "b6bb7073c43440fb99108c6ab0dad2dc1ac4ec9a111bcb19ae30320a63af3382"
+  },
+  {
+    "viewport": "pt-BR-430",
+    "step": "FirstPaw",
+    "file": ".unity-results/issue95/captures/pt-BR-430/FirstPaw-first-paw.png",
+    "sha256": "e513404d7d7c20b817102d4fc97157addfb29d6f57c3f43fd5bfdc69c59039c8"
+  },
+  {
+    "viewport": "pt-BR-430",
+    "step": "Welcome",
+    "file": ".unity-results/issue95/captures/pt-BR-430/Welcome-welcome.png",
+    "sha256": "78b5cd4597b042a3ad79a19290497a3a46ced1b1f6e3b45e6aea349d892b7ee1"
+  },
+  {
+    "viewport": "pt-BR-430",
+    "step": "FourthPaw",
+    "file": ".unity-results/issue95/captures/pt-BR-430/FourthPaw-two-paw-row.png",
+    "sha256": "1a6b77249602c6a5cde8d833c8ca93113fb66cd5492b83ff726338da92604134"
+  },
+  {
+    "viewport": "pt-BR-430",
+    "step": "FourthPaw",
+    "file": ".unity-results/issue95/captures/pt-BR-430/FourthPaw-diagonal.png",
+    "sha256": "1a6b77249602c6a5cde8d833c8ca93113fb66cd5492b83ff726338da92604134"
+  },
+  {
+    "viewport": "pt-BR-430",
+    "step": "Begin",
+    "file": ".unity-results/issue95/captures/pt-BR-430/Begin-intro-Begin.png",
+    "sha256": "ff7b241136d38be9bb1637f8827a61a81c0f93b90f03b710f0d195c90e399e93"
+  },
+  {
+    "viewport": "pt-BR-430",
+    "step": "Complete",
+    "file": ".unity-results/issue95/captures/pt-BR-430/Complete-complete.png",
+    "sha256": "de4200f9431cbdd6d2e8ebfcce8ed39d0c90a05b70fb58465797b44b3417c371"
+  },
+  {
+    "viewport": "pt-BR-430",
+    "step": "Independent",
+    "file": ".unity-results/issue95/captures/pt-BR-430/Independent-independent.png",
+    "sha256": "daa4419d85e4fa4fb2b02bf2568eb13c7fbe51bb4152a13cafb337a6e6c57dc8"
+  },
+  {
+    "viewport": "pt-BR-430",
+    "step": "Practice",
+    "file": ".unity-results/issue95/captures/pt-BR-430/Practice-intro-Practice.png",
+    "sha256": "34457414ee450e6ab3937b75d3e37e76361849d1b9fd8d5a9e1e9c9abfef11ec"
+  },
+  {
+    "viewport": "pt-BR-430",
+    "step": "DiagonalPaw",
+    "file": ".unity-results/issue95/captures/pt-BR-430/DiagonalPaw-hold-active.png",
+    "sha256": "2088d99a6d02d865aaad73c7269dcae4f612f688f4a1f24b40ba8d84148653c9"
+  },
+  {
+    "viewport": "pt-BR-430",
+    "step": "EmptyState",
+    "file": ".unity-results/issue95/captures/pt-BR-430/EmptyState-intro-EmptyState.png",
+    "sha256": "2e0fee6d1885c6818ee309118273fb22a7c28824c454030f9f373090add8258a"
+  },
+  {
+    "viewport": "pt-BR-430",
+    "step": "XState",
+    "file": ".unity-results/issue95/captures/pt-BR-430/XState-intro-XState.png",
+    "sha256": "9146320f93c4fca3997e0fbd5e13adde0d1b717d2b6140151ba371374dcc51cf"
+  },
+  {
+    "viewport": "pt-BR-430",
+    "step": "Goal",
+    "file": ".unity-results/issue95/captures/pt-BR-430/Goal-intro-Goal.png",
+    "sha256": "b3e649fcd9c5f998ff87993d560adad54b7934369a1fc4526ab418d0c10b5248"
+  },
+  {
+    "viewport": "pt-BR-430",
+    "step": "ZeroRow",
+    "file": ".unity-results/issue95/captures/pt-BR-430/ZeroRow-zero-row.png",
+    "sha256": "cc87ca1fcc52f5ed35b840fefd0dcc53e3205c08d14d0eac610c1fbba7e417de"
+  },
+  {
+    "viewport": "pt-BR-430",
+    "step": "SecondPaw",
+    "file": ".unity-results/issue95/captures/pt-BR-430/SecondPaw-second-paw.png",
+    "sha256": "325a75fbd953f41cb5c6083295b5ca4308344cb52ff669c6b5dd2209447a74de"
+  },
+  {
+    "viewport": "pt-BR-430",
+    "step": "HatchedCells",
+    "file": ".unity-results/issue95/captures/pt-BR-430/HatchedCells-intro-HatchedCells.png",
+    "sha256": "1a6f6813c8196cd745b7ae666fb174c2905ea16c59d73985b796e5078faf0246"
+  },
+  {
+    "viewport": "pt-BR-430",
+    "step": "FirstColumnX",
+    "file": ".unity-results/issue95/captures/pt-BR-430/FirstColumnX-column-x.png",
+    "sha256": "12ed009da6a1f475db1a4802a5bf0f2e20b889d16ea93527ed9943101c79bcfa"
+  },
+  {
+    "viewport": "pt-BR-430",
+    "step": "FinalPaw",
+    "file": ".unity-results/issue95/captures/pt-BR-430/FinalPaw-last-paw.png",
+    "sha256": "660a3dfea6569a5fb81e92e13a418704f412efccbd0af725911b17ac008dd9f4"
+  },
+  {
+    "viewport": "pt-BR-430",
+    "step": "SecondRowX",
+    "file": ".unity-results/issue95/captures/pt-BR-430/SecondRowX-row-x.png",
+    "sha256": "e531f208af13184c1c767328b67b47a921d7f6aaa07ddf743080b23036ca038c"
+  },
+  {
+    "viewport": "pt-BR-430",
+    "step": "PawState",
+    "file": ".unity-results/issue95/captures/pt-BR-430/PawState-intro-PawState.png",
+    "sha256": "0589ee015b6df51f75b5754fac0587d32f50d326013672791ae8dc526112b6d3"
+  },
+  {
+    "viewport": "pt-BR-430",
+    "step": "ZeroColumn",
+    "file": ".unity-results/issue95/captures/pt-BR-430/ZeroColumn-zero-column.png",
+    "sha256": "7fce4c1d971ddf523ee00b386818570214abf20b0da4fad401c0e8e92d9ef10b"
+  },
+  {
+    "viewport": "pt-BR-430",
+    "step": "DiagonalPaw",
+    "file": ".unity-results/issue95/captures/pt-BR-430/DiagonalPaw-hold-released.png",
+    "sha256": "1874232c97d6541764c0742b7f543a5c769e63227c2f75c4d924b14488a740ab"
+  },
+  {
+    "viewport": "pt-BR-430",
+    "step": "Arrows",
+    "file": ".unity-results/issue95/captures/pt-BR-430/Arrows-intro-Arrows.png",
+    "sha256": "527fb55e5f42d1ba564ecf8378707fdefd040b3daacdaa6bfdc8cc3d14057fb8"
+  },
+  {
+    "viewport": "pt-BR-430",
+    "step": "SingleX",
+    "file": ".unity-results/issue95/captures/pt-BR-430/SingleX-single-x.png",
+    "sha256": "a26be571f3d3d0efec05ae520cb97f7f45db55b1869a1241468194b91eec0349"
+  },
+  {
+    "viewport": "pt-BR-430",
+    "step": "DiagonalPaw",
+    "file": ".unity-results/issue95/captures/pt-BR-430/DiagonalPaw-arrow-hold.png",
+    "sha256": "1874232c97d6541764c0742b7f543a5c769e63227c2f75c4d924b14488a740ab"
+  },
+  {
+    "viewport": "es-430",
+    "step": "StatesIntro",
+    "file": ".unity-results/issue95/captures/es-430/StatesIntro-intro-StatesIntro.png",
+    "sha256": "2c81589a2d3d898f574e9ab87864594282a1fe19a634f13546653feee164209e"
+  },
+  {
+    "viewport": "es-430",
+    "step": "FirstPaw",
+    "file": ".unity-results/issue95/captures/es-430/FirstPaw-first-paw.png",
+    "sha256": "a81a73877cd20a69d8195b7fbdb95ccedb6d3fe70e439cf6b2b56579623d90ae"
+  },
+  {
+    "viewport": "es-430",
+    "step": "Welcome",
+    "file": ".unity-results/issue95/captures/es-430/Welcome-welcome.png",
+    "sha256": "9526e908cfc8c4bb83b3762af11774130c572d230a89264dbaaae0c154b13756"
+  },
+  {
+    "viewport": "es-430",
+    "step": "FourthPaw",
+    "file": ".unity-results/issue95/captures/es-430/FourthPaw-two-paw-row.png",
+    "sha256": "c5205039fe58f179ea8ea146c5e80a64e64a0c569a70d7c9d4786e9ad4602fe8"
+  },
+  {
+    "viewport": "es-430",
+    "step": "FourthPaw",
+    "file": ".unity-results/issue95/captures/es-430/FourthPaw-diagonal.png",
+    "sha256": "c5205039fe58f179ea8ea146c5e80a64e64a0c569a70d7c9d4786e9ad4602fe8"
+  },
+  {
+    "viewport": "es-430",
+    "step": "Begin",
+    "file": ".unity-results/issue95/captures/es-430/Begin-intro-Begin.png",
+    "sha256": "6d79bd61e57045f642120fab497095b046a24c7c05f2550b845a77730a859317"
+  },
+  {
+    "viewport": "es-430",
+    "step": "Complete",
+    "file": ".unity-results/issue95/captures/es-430/Complete-complete.png",
+    "sha256": "fc288e1b55ec84e94ef3c64478c875c2684cd03c84d12d9039b4f6eb93038d3c"
+  },
+  {
+    "viewport": "es-430",
+    "step": "Independent",
+    "file": ".unity-results/issue95/captures/es-430/Independent-independent.png",
+    "sha256": "c7bcc522723f6c00b7bf8549ad7546f4cc000a4d5dedfbe0670f4b456fc2068a"
+  },
+  {
+    "viewport": "es-430",
+    "step": "Practice",
+    "file": ".unity-results/issue95/captures/es-430/Practice-intro-Practice.png",
+    "sha256": "56cf96e6b3320fa4a11786b2733bcb2882e172cedd5f8b329e9c64f3321919e8"
+  },
+  {
+    "viewport": "es-430",
+    "step": "DiagonalPaw",
+    "file": ".unity-results/issue95/captures/es-430/DiagonalPaw-hold-active.png",
+    "sha256": "373b8fd8d081197693d89569612e18f2f1a7a81d3002913fdb2a36eff1044e82"
+  },
+  {
+    "viewport": "es-430",
+    "step": "EmptyState",
+    "file": ".unity-results/issue95/captures/es-430/EmptyState-intro-EmptyState.png",
+    "sha256": "fe7a0dcd3ed131b31bc64b5f8732e229ce48cd47cd8770e8cda743b5bdc7651b"
+  },
+  {
+    "viewport": "es-430",
+    "step": "XState",
+    "file": ".unity-results/issue95/captures/es-430/XState-intro-XState.png",
+    "sha256": "df95986c89c1248cf5d2613537e19da635c9ba026e92c70686dfd5fcd546bfe0"
+  },
+  {
+    "viewport": "es-430",
+    "step": "Goal",
+    "file": ".unity-results/issue95/captures/es-430/Goal-intro-Goal.png",
+    "sha256": "8e24df6b90cbdd75b1aa7dd6c275b2c5d7094c695624b960578cd33730348931"
+  },
+  {
+    "viewport": "es-430",
+    "step": "ZeroRow",
+    "file": ".unity-results/issue95/captures/es-430/ZeroRow-zero-row.png",
+    "sha256": "bab0727f4e86171e9538f03fc4716c1644fa570d6bb521ac03c6a83abc8dafd3"
+  },
+  {
+    "viewport": "es-430",
+    "step": "SecondPaw",
+    "file": ".unity-results/issue95/captures/es-430/SecondPaw-second-paw.png",
+    "sha256": "313c087ef5ddbfafb5eebeb9f1aaf86b5f18578f9f5ccc237ce279f2e8d9dc0f"
+  },
+  {
+    "viewport": "es-430",
+    "step": "HatchedCells",
+    "file": ".unity-results/issue95/captures/es-430/HatchedCells-intro-HatchedCells.png",
+    "sha256": "705dc878f9639c7d864661fb0640a6d0f52bd29b0480a2d2819d3753d2b82dfe"
+  },
+  {
+    "viewport": "es-430",
+    "step": "FirstColumnX",
+    "file": ".unity-results/issue95/captures/es-430/FirstColumnX-column-x.png",
+    "sha256": "a3b95bec42cb872c54c616955ca49bd591db08666fb3695105729aff9fa82d3c"
+  },
+  {
+    "viewport": "es-430",
+    "step": "FinalPaw",
+    "file": ".unity-results/issue95/captures/es-430/FinalPaw-last-paw.png",
+    "sha256": "4444282d23c2c691f6cfd4e7630393c2f06413dc9109fb427e23985e422872a7"
+  },
+  {
+    "viewport": "es-430",
+    "step": "SecondRowX",
+    "file": ".unity-results/issue95/captures/es-430/SecondRowX-row-x.png",
+    "sha256": "656305c119c5cdbcddc22fa65ccfb2b2a90e1245d9192b1af2ff7547abdd05d7"
+  },
+  {
+    "viewport": "es-430",
+    "step": "PawState",
+    "file": ".unity-results/issue95/captures/es-430/PawState-intro-PawState.png",
+    "sha256": "b44502cf5b9bcdc38646c3017a475d680f75c1ff2fb231bd38b88c1343781791"
+  },
+  {
+    "viewport": "es-430",
+    "step": "ZeroColumn",
+    "file": ".unity-results/issue95/captures/es-430/ZeroColumn-zero-column.png",
+    "sha256": "90a43f556df10a8dfa7a0918be00485c1c18f7945c2632e73878ca17c786681b"
+  },
+  {
+    "viewport": "es-430",
+    "step": "DiagonalPaw",
+    "file": ".unity-results/issue95/captures/es-430/DiagonalPaw-hold-released.png",
+    "sha256": "00ba1b9697a59726d7924a24a68ce33f2c9d688a4cf11b0eac783f04988b224c"
+  },
+  {
+    "viewport": "es-430",
+    "step": "Arrows",
+    "file": ".unity-results/issue95/captures/es-430/Arrows-intro-Arrows.png",
+    "sha256": "bafc6a726ec479c377469dc1e9137010d32833e26ef519d8714222c3aff5d70c"
+  },
+  {
+    "viewport": "es-430",
+    "step": "SingleX",
+    "file": ".unity-results/issue95/captures/es-430/SingleX-single-x.png",
+    "sha256": "7e6f638d7f3bade4d7e86222e5ccbb8457a442b63f60ccb7073d9ed0d34e078f"
+  },
+  {
+    "viewport": "es-430",
+    "step": "DiagonalPaw",
+    "file": ".unity-results/issue95/captures/es-430/DiagonalPaw-arrow-hold.png",
+    "sha256": "00ba1b9697a59726d7924a24a68ce33f2c9d688a4cf11b0eac783f04988b224c"
+  },
+  {
+    "viewport": "en-430",
+    "step": "StatesIntro",
+    "file": ".unity-results/issue95/captures/en-430/StatesIntro-intro-StatesIntro.png",
+    "sha256": "0cf9726d4e317e15eda597e026ebd1d6875469323fd51193f210979393d64205"
+  },
+  {
+    "viewport": "en-430",
+    "step": "FirstPaw",
+    "file": ".unity-results/issue95/captures/en-430/FirstPaw-first-paw.png",
+    "sha256": "f0dcead4482d0ef8c95fb0f1226d6c96820eb8a3c19d77ff75d3f6dadaf87f56"
+  },
+  {
+    "viewport": "en-430",
+    "step": "Welcome",
+    "file": ".unity-results/issue95/captures/en-430/Welcome-welcome.png",
+    "sha256": "c6919e3657c367a56760d56ba2e63b780326af125b6e0c713494f5929681996e"
+  },
+  {
+    "viewport": "en-430",
+    "step": "FourthPaw",
+    "file": ".unity-results/issue95/captures/en-430/FourthPaw-two-paw-row.png",
+    "sha256": "5ccae762e7f20e90b6462565720385c2d8ca4ca77e7b2c89f2cf07fd895eb5ec"
+  },
+  {
+    "viewport": "en-430",
+    "step": "FourthPaw",
+    "file": ".unity-results/issue95/captures/en-430/FourthPaw-diagonal.png",
+    "sha256": "5ccae762e7f20e90b6462565720385c2d8ca4ca77e7b2c89f2cf07fd895eb5ec"
+  },
+  {
+    "viewport": "en-430",
+    "step": "Begin",
+    "file": ".unity-results/issue95/captures/en-430/Begin-intro-Begin.png",
+    "sha256": "36e451d58a33476df0702d59c96855d8ee539aa73eeba2fd243f2c00d259d4a8"
+  },
+  {
+    "viewport": "en-430",
+    "step": "Complete",
+    "file": ".unity-results/issue95/captures/en-430/Complete-complete.png",
+    "sha256": "f70409fc6e5dc63d17b219cc6730ba81a77ba26a472351b8d393ee93a5d89ba2"
+  },
+  {
+    "viewport": "en-430",
+    "step": "Independent",
+    "file": ".unity-results/issue95/captures/en-430/Independent-independent.png",
+    "sha256": "d65c67eef0f2af76dacc3026fe6d3e7b6a2c614b6222bc27e5527b080c16c31b"
+  },
+  {
+    "viewport": "en-430",
+    "step": "Practice",
+    "file": ".unity-results/issue95/captures/en-430/Practice-intro-Practice.png",
+    "sha256": "681552cf1ba6c70da76620402b8137f2ed910af9d0121734f194aeb2c0fd90af"
+  },
+  {
+    "viewport": "en-430",
+    "step": "DiagonalPaw",
+    "file": ".unity-results/issue95/captures/en-430/DiagonalPaw-hold-active.png",
+    "sha256": "d2cf8800ed254b765a7854d55064f1f516d46c8602f9df92f53007b2bec444eb"
+  },
+  {
+    "viewport": "en-430",
+    "step": "EmptyState",
+    "file": ".unity-results/issue95/captures/en-430/EmptyState-intro-EmptyState.png",
+    "sha256": "7c43bbad2d642b2b36f435e43c82ca44aa2a973eb0bcac8715104a37a43f6887"
+  },
+  {
+    "viewport": "en-430",
+    "step": "XState",
+    "file": ".unity-results/issue95/captures/en-430/XState-intro-XState.png",
+    "sha256": "5e7d6b7733a9341aa645a4b9e5ee2dece81f2cdb03a4d6dc0a49d920c2f79959"
+  },
+  {
+    "viewport": "en-430",
+    "step": "Goal",
+    "file": ".unity-results/issue95/captures/en-430/Goal-intro-Goal.png",
+    "sha256": "bf875335d42759c669bfa962489642aefccd2c14652fa7c6e531a9162c30102d"
+  },
+  {
+    "viewport": "en-430",
+    "step": "ZeroRow",
+    "file": ".unity-results/issue95/captures/en-430/ZeroRow-zero-row.png",
+    "sha256": "240bc9f294d67db628dd550702dbb728c23f6c6dcb0776a8f3eed0e2d3ab5f24"
+  },
+  {
+    "viewport": "en-430",
+    "step": "SecondPaw",
+    "file": ".unity-results/issue95/captures/en-430/SecondPaw-second-paw.png",
+    "sha256": "37ce46f612856d415c3a2e8b1f84c6820e6975f5a2cddf4f76bbdf9a89f2a1dd"
+  },
+  {
+    "viewport": "en-430",
+    "step": "HatchedCells",
+    "file": ".unity-results/issue95/captures/en-430/HatchedCells-intro-HatchedCells.png",
+    "sha256": "67d99f294e57d283c1d8dca78817e287baf72e073bfff3c69586d7063b6d62f0"
+  },
+  {
+    "viewport": "en-430",
+    "step": "FirstColumnX",
+    "file": ".unity-results/issue95/captures/en-430/FirstColumnX-column-x.png",
+    "sha256": "24c0bf0888a7a155d9428b3185ac48ca65aca6251321f32d7ef99db5ddac019c"
+  },
+  {
+    "viewport": "en-430",
+    "step": "FinalPaw",
+    "file": ".unity-results/issue95/captures/en-430/FinalPaw-last-paw.png",
+    "sha256": "e6243db42952b1f85e53b2e86e64c163375ba2fd42a1e1bde6c1cafb70b27476"
+  },
+  {
+    "viewport": "en-430",
+    "step": "SecondRowX",
+    "file": ".unity-results/issue95/captures/en-430/SecondRowX-row-x.png",
+    "sha256": "52172b4b59ee3adf2d6f08e8f45dd51061d698c1e793bfa6a5605c3862aef09b"
+  },
+  {
+    "viewport": "en-430",
+    "step": "PawState",
+    "file": ".unity-results/issue95/captures/en-430/PawState-intro-PawState.png",
+    "sha256": "208c7d22bcc3b2be946e5564595415f463d653ef959212eb6529478629d44ea8"
+  },
+  {
+    "viewport": "en-430",
+    "step": "ZeroColumn",
+    "file": ".unity-results/issue95/captures/en-430/ZeroColumn-zero-column.png",
+    "sha256": "58eb372b1fe7d74965717f96828e6a6f5335a927f4654d5f266e4b6be42f9d5c"
+  },
+  {
+    "viewport": "en-430",
+    "step": "DiagonalPaw",
+    "file": ".unity-results/issue95/captures/en-430/DiagonalPaw-hold-released.png",
+    "sha256": "981378b86a88ed6043f2652fecc0c0c76cc7714ff28fd2914e5739d28b12f411"
+  },
+  {
+    "viewport": "en-430",
+    "step": "Arrows",
+    "file": ".unity-results/issue95/captures/en-430/Arrows-intro-Arrows.png",
+    "sha256": "edb9acb7c8ee739780b211172a940074da89396293caaf443fd66664111c5cd4"
+  },
+  {
+    "viewport": "en-430",
+    "step": "SingleX",
+    "file": ".unity-results/issue95/captures/en-430/SingleX-single-x.png",
+    "sha256": "080e2099425f706898d6ee42e456b1c935a8aec798a2170b29a097c44e6e7c73"
+  },
+  {
+    "viewport": "en-430",
+    "step": "DiagonalPaw",
+    "file": ".unity-results/issue95/captures/en-430/DiagonalPaw-arrow-hold.png",
+    "sha256": "981378b86a88ed6043f2652fecc0c0c76cc7714ff28fd2914e5739d28b12f411"
+  }
+]

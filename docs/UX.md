@@ -214,7 +214,23 @@ Backgrounding retains the in-memory lesson while cancelling gestures; force-quit
 does not save tutorial progress. Reinstallation/resetting app data may reset
 first-play history. English, Brazilian Portuguese and Spanish are required.
 
-The welcome explicitly directs the player to Continue and outlines that button.
+Issue #95 separates the Goal heading from its number explanation. The complete
+instruction block is vertically centered between the difficulty label and the
+board's upper clue-gutter boundary. On every Continue/Start step, the button is
+normal and immediately clickable at entry. After two seconds the same attention
+mechanism as Hint inverts its colors with the existing 200 ms native fade, while
+localized guidance fades in over the same interval. Begin names its localized
+Start action. Guidance is centered between the grid bottom and that button;
+neither text block moves or resizes the board or controls. Navigation, locale,
+replay, Skip, lifecycle interruptions and detach clear attention and restart the
+full delay on eligible return. Tutorial body text remains 16 units, and swipe
+prompts explicitly start from an Empty cell. SecondRowX enters
+the combined DiagonalPaw hold lesson directly; the successful 350 ms hold on
+R1C4 is still mandatory before paw input. The arrow introduction describes the
+exact forward straight path, including diagonals and paws several cells away.
+Compact localized fit and physical acceptance are separate gates recorded in
+[#95](https://github.com/juarezweiss/Paws/issues/95); no physical pass is implied.
+
 A short editable-cell introduction precedes individual Empty, X and Paw examples
 with one highlighted example at a time. Hatching highlights only protected cells; the following
 arrow introduction highlights only arrows. Sample marks never enter the session.

@@ -47,6 +47,14 @@ namespace CatsAndArrows.UI
             var languageCapture = Argument("--language-capture=");
             var settingsReview = !string.IsNullOrEmpty(settingsCapture) || !string.IsNullOrEmpty(languageCapture);
             var tutorialCheck = Argument("--tutorial-check=") == "1";
+            if (tutorialCheck)
+            {
+                // #95: requested review sizes are logical viewport units. Do not
+                // silently scale a compact phone back to the 390-unit reference.
+                document.panelSettings = Instantiate(document.panelSettings);
+                document.panelSettings.scaleMode = PanelScaleMode.ConstantPixelSize;
+                document.panelSettings.scale = 1;
+            }
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
             var monetizationCheck = Argument("--monetization-check=") == "1";
             if (monetizationCheck) Application.runInBackground = true;
@@ -113,7 +121,7 @@ namespace CatsAndArrows.UI
                     tutorialSeen: isolatedReview ? (Func<bool>)(() => reviewSeen) : null,
                     markTutorialSeen: isolatedReview ? (Action)(() => reviewSeen = true) : null,
                     difficultyHistory: isolatedReview ? new MemoryDifficultyHistoryStore() : null,
-                    idleClock: hintIdleCheck ? (Func<double>)(() => holdReviewTime) : null, monetization: monetization,
+                    idleClock: hintIdleCheck || tutorialCheck ? (Func<double>)(() => holdReviewTime) : null, monetization: monetization,
                     completionClock: completionCheck ? (Func<double>)(() => holdReviewTime) : null, adPrivacy: adPrivacy);
                 root.Add(shell);
                 shell.SetApplicationFocus(applicationFocused);
@@ -127,7 +135,7 @@ namespace CatsAndArrows.UI
             if (completionCheck && shell != null) StartCoroutine(CompletionReviewChecks.Run(shell, seconds => holdReviewTime += seconds, Argument("--game-captures=")));
             else if (hintIdleCheck && shell != null) StartCoroutine(HintIdleReviewChecks.Run(shell, seconds => holdReviewTime += seconds, locale, Argument("--game-captures=")));
             else if (arrowHoldCheck && view != null) StartCoroutine(ArrowHoldReviewChecks.Run(view, seconds => holdReviewTime += seconds, locale, Argument("--game-captures=")));
-            else if (tutorialCheck && shell != null) StartCoroutine(TutorialReviewChecks.Run(shell, Argument("--game-captures=")));
+            else if (tutorialCheck && shell != null) StartCoroutine(TutorialReviewChecks.Run(shell, seconds => holdReviewTime += seconds, Argument("--game-captures=")));
             else if ((autoReview || Argument("--game-loop-check=") == "1") && shell != null) StartCoroutine(GameLoopReviewChecks.Run(shell, Argument("--game-captures=")));
             else if (Argument("--board-input-check=") == "1" && view != null) StartCoroutine(BoardInputReviewChecks.Run(view));
             else if (!string.IsNullOrEmpty(capture)) StartCoroutine(Capture(capture));

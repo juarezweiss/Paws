@@ -1218,6 +1218,23 @@ See INLINE_HINT_REVIEW.md for fresh results and owner review status.
 
 ## Issue #26 tutorial checks
 
+Issue #95 extends this gate to the complete 22-step sequence without the redundant
+ArrowHoldIntro page, every localized heading/body/helper visibility state, and
+the required focused hold before the diagonal paw. Mounted checks exercise short,
+cancelled and successful holds, release/pause cleanup, empty-start swipes,
+same-session navigation and independent rebind/completion. Render all steps in
+en/pt-BR/es at logical 320×568, 390×844 and 430×932 with recorded safe insets.
+The tutorial review player uses constant logical pixel scale for these checks;
+the production panel asset is unchanged. The latest #95 refinement also requires
+every advance step at initial and attentive phases, exact 1.999/2.000-second
+timing, 200 ms native opacity/color fades, immediate clicking and cleanup during
+the fade. Assert actual top-block and bottom-helper geometric centers with no
+grid/button movement, then inspect screenshots visually. Check measured text/controls, no clue
+overlap, 16-unit body text, 48-unit targets and stationary grid geometry. Failures
+remain failures even if the gesture walkthrough completes. Physical acceptance
+requires a new explicit owner report. See
+[latest issue95 evidence](evidence/issue95/attention/validation.json) for the current actual results.
+
 Deterministic tests cover exact fixture quotas, true arrows/protection, current
 human-solver completion and independent exhaustive uniqueness; complete lesson
 replay; tap-cycle sequence; off-target input; zero-line overlap; two-cat lessons;
@@ -1230,7 +1247,7 @@ stationary grid and non-color highlights. Owner phone walkthrough remains the
 acceptance gate for touch comfort.
 
 Owner refinements add separate sample-state rendering/mark-isolation tests,
-protected-only and arrow-only highlights, welcome Continue emphasis, a clean
+protected-only and arrow-only highlights, a clean
 same-fixture session swap, and independent play with wrong-cat recovery before
 completion. Native checks must prove the first independent pointer tap works,
 not merely test the replacement session directly.
