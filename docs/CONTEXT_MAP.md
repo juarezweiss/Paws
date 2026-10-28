@@ -36,7 +36,7 @@ If the repo-local `paws-development` Skill is active, follow its workflow and lo
 | Project structure / Unity version / repository layout | `docs/decisions/0001-unity-and-project-structure.md`, `docs/ARCHITECTURE.md` | `docs/RELEASE.md` or `docs/TESTING.md` if build/test behavior changes |
 | Tests / regression coverage | `docs/TESTING.md` | Only the specification for the behavior under test |
 | CI / build / lower-environment release | `docs/RELEASE.md`, `docs/TESTING.md` | `docs/ARCHITECTURE.md` for project/build structure; relevant ADRs when architecture decisions apply |
-| iOS/Android signing or store preparation | `docs/RELEASE.md`, `docs/RELEASE_RC_1_0.md` (free-1.0 gates, #88–#92/#21) | `docs/TESTING.md`; future monetization #67/PR #87 is separate |
+| iOS/Android signing or store preparation | `docs/RELEASE.md`, `docs/RELEASE_RC_1_0.md` (current free-1.0 ledger/order) | `docs/AGE_ELIGIBILITY.md` / #91 for unresolved standalone access scope; `docs/TESTING.md` for validation; future #67/PR #87 stays separate |
 | Monetization / ads / IAP | `docs/MONETIZATION.md` | `docs/ANALYTICS.md` for instrumentation; `docs/UX.md` for player-facing impact; `docs/PRODUCT.md` for product fit |
 | AdMob / UMP provider, consent and privacy | `docs/ADMOB.md`, `docs/MONETIZATION.md`, ADR 0002 | `docs/TESTING.md`, `docs/RELEASE.md` for build/owner gates |
 | Apple purchase adapter / StoreKit validation | `docs/APPLE_IAP.md`, `docs/MONETIZATION.md`, ADR 0002 | `docs/TESTING.md`, `docs/RELEASE.md` for build/review gates |
@@ -63,6 +63,16 @@ the free-release contract. For that future age-assurance research, the immutable
 PR #87 `docs/AGE_ASSURANCE.md` at evidence head
 `4acfb61d9625b271f3203ec8d63a608102fbabfa` retains the source/OS/territory matrix.
 Current free-app compliance assessment is #91; no legal exemption is assumed.
+
+## Current release evidence — 2026-10-28
+
+Use `docs/RELEASE_RC_1_0.md` as the index for fetched develop `3cb814f`, completed
+#94/#95/#99/#96 exact-source receipts and human scope limits. Load a linked
+receipt only for the specific acceptance question; do not reload every review.
+Current order is #88/#93 → #89 → #90 → #92 → #21. #91 runs in parallel and must
+be accepted before final readiness; its early standalone access determination
+precedes final binary/RC acceptance. Never interpret monetization-only age
+exclusion as permission to strip independently required native access handling.
 
 ## Review documents
 

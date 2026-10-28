@@ -54,12 +54,15 @@ is tracked in #61. Every purchase or subscription needs separate explicit owner 
 ## MVP
 - iOS-first; owner playtest and small tester trial before public release. TestFlight
   enrollment and distribution retain their separate approval gates.
-- Easy 5×5, Medium 6×6 and Hard 7×7 ordinary play. `Play` and `Next board`
-  choose among them with a persistent limit of two consecutive successful starts
-  in one mode (#43). Every generated board retains independent uniqueness and
-  no-guess derivation; labels do not imply calibrated difficulty scores.
-- Fixed Easy first-play tutorial and menu replay. Tutorial Skip/Play enters the
-  same ordinary random-difficulty policy without counting the tutorial (#26/#43).
+- Easy 5×5, Medium 6×6 and Hard 7×7 ordinary play. New ordinary players start
+  procedural Easy → Easy → Medium, then use the existing random policy and
+  persistent two-repeat limit (#96/PR #98); legacy ordinary histories bypass the
+  introduction. Every board retains independent uniqueness/no-guess admission.
+- Fixed Easy first-play tutorial and Settings replay. Completion/Skip enters the
+  same ordinary progression; tutorial wins/replays do not advance/reset its starts.
+  #95/PR #97 clarity/centering/delayed guidance and #99/PR #100 wording are merged.
+- Approved pale-sage arrow cells, original dark arrows and 1.10× stronger-ink paw
+  artwork (#94/PR #101), with unchanged interaction geometry and puzzle rules.
 - Procedural seeded board generation.
 - Row and column paw-count clues.
 - Eight-direction arrow clues embedded in cells, including exact 45-degree diagonals.
@@ -73,13 +76,23 @@ is tracked in #61. Every purchase or subscription needs separate explicit owner 
 - Current Paws name/paw artwork, guided tutorial and unlimited clue-derived hints
   while monetization remains disabled.
 
-Start the first tester session with the fixed Easy tutorial; subsequent ordinary
-boards use the current random-difficulty policy. The approved #35 pilot limits
+Start the first tester session with the fixed Easy tutorial; fresh ordinary
+starts follow Easy → Easy → Medium → random, using current generators rather
+than authored boards. Returning-player history follows the #96 migration contract. The approved #35 pilot limits
 Hard lines to 1–3 paws and prunes redundant
 Medium/Hard arrows with both solvability proofs intact; density ranges remain
 soft targets. Current profile rules live in [GAME_DESIGN.md](GAME_DESIGN.md); validation
 and physical-device evidence live in [TESTING.md](TESTING.md). Keep the first trial
 focused on player understanding, comfortable input and concrete feedback.
+
+## Release status — 2026-10-28
+
+Develop `3cb814f` includes the completed work above and its scoped owner review
+receipts. [Release ledger](RELEASE_RC_1_0.md) distinguishes those passes from
+pending #89 UI cleanup, #90 final binary exclusion, parallel #91 public content/
+access/compliance, #92 signed RC/human QA and #21 distribution readiness.
+Two #22 sessions are recorded; trial sufficiency/residual coverage remains an
+owner decision, without reopening completed gameplay or assuming a new tester quota.
 
 ## Not MVP
 - Accounts/cloud save.

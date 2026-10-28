@@ -1,36 +1,45 @@
 # Paws Roadmap
 
-## Current owner amendment — 2026-10-26 (#88)
+## Current delivery reconciliation — 2026-10-28 (#88/#93)
 
-**Paws 1.0 = FREE, ad-free, IAP disabled, unlimited free eligible Hints.**
-No purchase/Restore/Offer Code UI, ads, UMP or unnecessary age prompts. Exclude
-monetization providers/SDKs from shipped binary; retain existing source/pins and
-storage for separately approved 1.1+ monetization (#67/#82). Preserve PR #87 and
-its evidence; never merge its enabled configuration into the free release.
+Paws 1.0 is FREE, ad-free, IAP disabled with unlimited free eligible Hints.
+Retain monetization code/pins/storage for 1.1+; exclude monetization providers/SDKs
+from shipped binary. No commerce UI/placeholders, ads, UMP or unnecessary age
+prompts. Approved access eligibility remains separate and unresolved for final
+candidate acceptance in #91; no automatic legal exemption or new component.
 
-Current execution order: [#88](https://github.com/juarezweiss/Paws/issues/88)
-scope → [#89](https://github.com/juarezweiss/Paws/issues/89) UI →
-[#90](https://github.com/juarezweiss/Paws/issues/90) binary exclusion →
-[#91](https://github.com/juarezweiss/Paws/issues/91) metadata/URLs/compliance →
-[#92](https://github.com/juarezweiss/Paws/issues/92) signed RC/human iPhone QA →
-reused [#21](https://github.com/juarezweiss/Paws/issues/21) distribution readiness.
-#91 drafts may run alongside #89/#90; final declarations require actual binary
-inventory. [Release checklist](../docs/RELEASE_RC_1_0.md) defines current gates.
+Baseline: fetched develop `3cb814f7be0dc117dc4f585bf9e8c8fd65f9d1cd`.
+Completed/closed: #94/PR #101 sage arrows/larger paw, #95/PR #97 tutorial clarity,
+#99/PR #100 wording, #96/PR #98 fresh Easy/Easy/Medium/random and history migration.
+Their exact test receipts and scoped owner iPhone passes are in the
+[release ledger](../docs/RELEASE_RC_1_0.md#completed-development-and-accepted-evidence).
+No final release-candidate pass is inferred. #63 identity/tooling and #64–#66
+provider foundations are integrated; current null monetization composition is
+free, but disabled Settings commerce rows still require #89 cleanup.
 
-Baseline inspected: fetched develop `3a44192697b8f1c416cc49afabeb839c5a0c3dc7`.
-#63 identity/build foundation and real provider foundations #64–#66 are already
-integrated; current production composition is disabled. Shipping exclusion and
-clean UI still require #89/#90 evidence. Older claims that no SDK/provider exists
-refer to their dated baseline, not current repository contents.
+Execution: **#88 / PR #93 contract → #89 UI → #90 binary → #92 signed RC/human
+QA → #21 readiness**. #91 runs in parallel; settle access scope before final
+binary/RC acceptance and accept artifact-based metadata/compliance before #21.
+#89 is the next implementation task after contract acceptance. No new feature
+scope, completed-gameplay reopening, SDK upgrade or build is part of this task.
 
-#67 research/enablement and #82 IAP findings continue separately, without blocking
-purchase-free 1.0. Existing puzzle/accessibility guarantees, #22 trial findings,
-owner physical review and production control remain. The owner must explicitly
-record trial/coverage disposition; this scope decision does not claim a trial pass.
-No feature implementation/build/store action is authorized by this planning task.
-The $500 cash ceiling and separate approval for every charge are unchanged.
-Older priorities, baselines and release gates below are dated history where they
-conflict with this explicit owner amendment; historical results remain scoped.
+#22 has two qualitative sessions. Focused approved follow-ups above are complete;
+trial sufficiency and residual findings/device coverage need owner disposition,
+not an invented 5–8 tester gate. #67/#82 stay future-only; PR #87 stays untouched.
+The [checklist](../docs/RELEASE_RC_1_0.md) owns current remaining work and owner
+inputs: version/build, public URLs/contacts, territories/access/declarations,
+signing/account readiness and distribution route/approvals. The $500 ceiling,
+per-charge approval and all human production boundaries remain unchanged.
+
+## Historical planning snapshot — 2026-10-19
+
+The dated baseline, forecasts/priorities and uncompleted-work statements below
+are retained for traceability. Where they conflict, the explicit owner decisions
+of October 26/27 and current delivery reconciliation above supersede them.
+Historical results remain tied to their original source; no failure is erased.
+
+<details>
+<summary>October 19 planning record (superseded where explicitly reconciled above)</summary>
 
 Reconciled against `develop` and owner-approved Issues/PRs on 2026-10-19. Scope,
 budget and production gates follow the [Master Project Plan](MASTER_PROJECT_PLAN.md).
@@ -109,3 +118,5 @@ Every purchase or subscription still requires separate explicit owner approval.
 
 Do not delay the first controlled trial for a backend, final art, live monetization
 or speculative hardening.
+
+</details>

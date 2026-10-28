@@ -1,5 +1,25 @@
 # Age eligibility and advertising policy
 
+## Free-release ownership clarification — 2026-10-28
+
+The October 27 approved minimum/permission policy below is unchanged; this update
+makes no new legal determination. #91 owns free-1.0 territory/access assessment,
+required signals/native handling, public Terms/Privacy/support and the recorded
+owner disposition. The [release scope matrix](RELEASE_RC_1_0.md#90--91-age-and-access-scope-reconciliation)
+separates unconditional monetization exclusion from unresolved standalone access.
+#90 excludes **monetization-only** age components; any required standalone access
+component must be precisely scoped, separately authorized and verified, with no
+monetization SDK/provider pulled into the free binary. Necessity/implementation
+is not established by these docs. Final #90/#92 acceptance waits for that scope;
+final #91 metadata uses actual artifact evidence and is accepted before #21.
+
+The later #67 implementation/test list describes future monetization. It does
+not defer any applicable free-1.0 access requirement until 1.1+. Known-ineligible
+restrictions/correction must be addressed by the free-release #91 disposition;
+Unknown is not Adult, and unresolved jurisdiction alone is not known ineligibility.
+Normal startup has no custom questionnaire. No gameplay implementation or testing
+is performed by this documentation reconciliation.
+
 Owner approval: 2026-10-27. Traceability: [#91 store/compliance](https://github.com/juarezweiss/Paws/issues/91)
 and [#67 future monetization](https://github.com/juarezweiss/Paws/issues/67).
 This is the approved policy and implementation contract, **not an implemented or

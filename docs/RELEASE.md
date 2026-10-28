@@ -32,35 +32,42 @@ release is authorized by this documentation task.
 
 Environments should differ through build profiles/configuration, not divergent code copies.
 
-## Current release gates — free 1.0
+## Current release gates — free 1.0 (reconciled 2026-10-28)
 
-The owner-approved [age eligibility policy](AGE_ELIGIBILITY.md) (2026-10-27)
-adds contractual minimum 16 EU / 13 elsewhere and under-18 parental permission.
-Reliably known below-minimum users cannot play. No unnecessary age questionnaire;
-required Apple native access handling remains. #91 must establish and reconcile
-any concrete free-app native prerequisite with #90 before binary acceptance.
-Prepare at least a global 16+ rating override, subject to truthful higher content
-rating and verified local/legacy mappings. A12 is no longer an assumed target.
-These are pending implementation/store-evidence gates, not a completed age check
-or authorization to edit App Store Connect. Monetization remains separately gated.
+Current fetched develop is `3cb814f7be0dc117dc4f585bf9e8c8fd65f9d1cd`.
+[Release ledger/checklist](RELEASE_RC_1_0.md) owns exact issue dependencies,
+completed source/evidence receipts and outstanding acceptance. Closed #94/#95/
+#99/#96 and merged PRs #101/#97/#100/#98 are completed development, with scoped
+owner review passes; they are not unfinished release implementation.
 
-Execution order: [#88 scope](https://github.com/juarezweiss/Paws/issues/88) →
-[#89 UI cleanup](https://github.com/juarezweiss/Paws/issues/89) →
-[#90 binary exclusion](https://github.com/juarezweiss/Paws/issues/90) →
-[#91 metadata/URLs/compliance](https://github.com/juarezweiss/Paws/issues/91) →
-[#92 signed RC/human iPhone QA](https://github.com/juarezweiss/Paws/issues/92) →
-[#21 distribution readiness](https://github.com/juarezweiss/Paws/issues/21).
-#91 drafting can run alongside #89/#90; final declarations require the actual
-#90 inventory. #92 acceptance requires reviewed #91 materials. Each issue owns
-one responsibility and its own focused PR/evidence; no implementation occurs
-in #88. All artifact and physical gates remain pending for the new candidate.
+Execution order: **#88 / PR #93 contract → #89 UI cleanup → #90 binary
+verification → #92 signed RC / human QA → #21 distribution readiness**.
+#91 metadata/compliance runs in parallel. Its early access-scope determination is
+needed before final binary/RC acceptance; its final artifact-based declarations
+must be accepted before #21 readiness. Earlier serial #90 → #91 → #92 ordering
+is superseded; no final-candidate gate is marked passed by this update.
 
-The owner selects final marketing version/build allocation, territories/audience,
-public privacy/support URLs/contacts and distribution route; supplies signing
-prerequisites; reviews #22 trial evidence and any uncovered device scope; and
-approves each production action separately. Existing configured 0.1.0 (1) is
-historical identity, not an approved 1.0 distribution allocation. Preserve the
-$500 plan ceiling and separate approval for every charge.
+Current bootstrap is disabled/free, but Settings still constructs disabled
+commerce rows. #89 remains the next implementation issue after contract review.
+#90 must prove actual binary exclusion; old disabled or review-app evidence is
+not a final production-candidate receipt. Preserve the newer gameplay/UI/assets/
+ProjectSettings and all accepted evidence from current develop.
+
+Exclude all monetization SDKs/providers and monetization-only age components.
+Do not silently exclude any independently required native access component:
+[AGE_ELIGIBILITY](AGE_ELIGIBILITY.md) and [#91](https://github.com/juarezweiss/Paws/issues/91)
+own the unresolved selected-territory/native permission/access determination,
+including the approved known-ineligible restriction. Any concrete standalone
+requirement needs a recorded owner disposition, scoped implementation and exact
+verification before final #90/#92 acceptance; no legal exemption or new mandatory
+component is assumed. #67 remains future monetization, not free access clearance.
+
+Pending owner inputs include final version/build allocation, Terms/Privacy/support
+URLs/contacts, territories/declarations and access disposition, current signing/
+account prerequisites, #22 trial/device-coverage disposition and distribution
+route. Production bundle/version remains com.jweiss.paws / 0.1.0 (1) until an
+approved implementation changes it. The $500 ceiling and per-charge approval
+remain unchanged. No implementation/build/store action follows this docs task.
 
 ### Superseded #82 gate — historical record
 
