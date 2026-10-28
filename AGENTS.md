@@ -181,13 +181,13 @@ Omit empty fields. Return evidence or detail only when it materially affects the
 - Avoid singleton proliferation and global mutable state.
 
 ## Game-specific invariants
-- A cell cannot be both an arrow cell and a solution cat cell.
+- A cell cannot be both an arrow cell and a solution paw cell.
 - Arrow cells are non-markable; the presentation-only hold-to-highlight aid (#47) must never mutate board marks.
-- Each arrow means at least one solution cat exists in the arrow's pointing direction within the relevant line/path defined by game rules.
+- Each arrow means at least one solution paw exists in the arrow's pointing direction within the relevant line/path defined by game rules.
 - Row/column clue totals must exactly match the solution.
-- Player cells cycle `Empty -> X -> Cat -> Empty` on discrete tap unless the completed-board state disables interaction.
+- Player cells cycle `Empty -> X -> Paw -> Empty` on discrete tap unless the completed-board state disables interaction.
 - Drag-mark affects eligible empty cells only and must not break normal discrete tap cycling.
-- A win occurs immediately when the player's cat placements exactly equal the solution cat set; non-solution cells may be Empty or X.
+- A win occurs immediately when the player's paw placements exactly equal the solution paw set; non-solution cells may be Empty or X.
 - Completed boards are read-only.
 - Hints are optional assistance, not required for a valid generated puzzle.
 - Accessibility cannot rely on color alone.
