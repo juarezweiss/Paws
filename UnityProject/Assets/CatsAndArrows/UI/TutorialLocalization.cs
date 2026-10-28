@@ -93,9 +93,9 @@ namespace CatsAndArrows.UI
                 "Solo hay un espacio aquí. <b>Toca</b> 2 veces para poner una pata."
             } },
             { "tutorial.first-column-x", new[] {
-                "We've found the only paw in this column.\nStart on an <b>Empty</b> cell and <b>swipe</b> down to mark X.",
-                "Encontramos a única pata desta coluna.\nDe uma célula <b>Vazia</b>, <b>arraste</b> para baixo para X.",
-                "Encontramos la única pata de esta columna.\nDesde una celda <b>Vacía</b>, <b>desliza</b> abajo para X."
+                "We've found the only paw in this column. Start on an <b>Empty</b> cell and <b>swipe</b> down to mark X.",
+                "Encontramos a única pata desta coluna. De uma célula <b>Vazia</b>, <b>arraste</b> para baixo para X.",
+                "Encontramos la única pata de esta columna. Desde una celda <b>Vacía</b>, <b>desliza</b> abajo para X."
             } },
             { "tutorial.second-paw", new[] {
                 "There's also only one space here. <b>Tap</b> it twice to put a paw.",
@@ -103,24 +103,24 @@ namespace CatsAndArrows.UI
                 "Aquí también hay un solo espacio. <b>Toca</b> 2 veces para poner una pata."
             } },
             { "tutorial.second-row-x", new[] {
-                "We've found the only paw in this row.\nStart on an <b>Empty</b> cell and <b>swipe</b> right to mark X.",
-                "Encontramos a única pata desta linha.\nDe uma célula <b>Vazia</b>, <b>arraste</b> à direita para X.",
-                "Encontramos la única pata de esta fila.\nDesde una celda <b>Vacía</b>, <b>desliza</b> a la derecha para X."
+                "We've found the only paw in this row. Start on an <b>Empty</b> cell and <b>swipe</b> right to mark X.",
+                "Encontramos a única pata desta linha. De uma célula <b>Vazia</b>, <b>arraste</b> à direita para X.",
+                "Encontramos la única pata de esta fila. Desde una celda <b>Vacía</b>, <b>desliza</b> a la derecha para X."
             } },
             { "tutorial.diagonal-paw", new[] {
-                "<b>Press and hold</b> the arrow to see its path.\nRelease; <b>tap</b> twice on the only paw cell.",
-                "<b>Pressione e segure</b> a seta: veja o trajeto.\nSolte; <b>toque</b> 2 vezes na única célula com pata.",
-                "<b>Mantén pulsada</b> la flecha para ver su línea.\nSuelta; <b>toca</b> 2 veces la única celda con pata."
+                "<b>Press and hold</b> the arrow\nto see its path. Release; <b>tap</b> twice on the only paw cell.",
+                "<b>Pressione e segure</b> a seta:\nveja o trajeto. Solte; <b>toque</b> 2 vezes na única célula com pata.",
+                "<b>Mantén pulsada</b> la flecha\npara ver su línea. Suelta; <b>toca</b> 2 veces la única celda con pata."
             } },
             { "tutorial.fourth-paw", new[] {
-                "This row needs 2 paws. We've already found one.\n<b>Tap</b> the only remaining cell twice.",
-                "Esta linha precisa de 2 patas. Já encontramos uma.\n<b>Toque</b> 2 vezes na única célula restante.",
-                "Esta fila necesita 2 patas. Ya encontramos una.\n<b>Toca</b> 2 veces la única celda restante."
+                "This row needs 2 paws. We've already found one. <b>Tap</b> the only remaining cell twice.",
+                "Esta linha precisa de 2 patas. Já encontramos uma. <b>Toque</b> 2 vezes na única célula restante.",
+                "Esta fila necesita 2 patas. Ya encontramos una. <b>Toca</b> 2 veces la única celda restante."
             } },
             { "tutorial.single-x", new[] {
-                "We've found the only paw in this column.\n<b>Tap</b> the remaining <b>Empty</b> cell once for X.",
-                "Encontramos a única pata desta coluna.\n<b>Toque</b> uma vez na célula Vazia restante para X.",
-                "Encontramos la única pata de esta columna.\n<b>Toca</b> una vez la celda Vacía restante para X."
+                "We've found the only paw in this column. <b>Tap</b> the remaining <b>Empty</b> cell once for X.",
+                "Encontramos a única pata desta coluna. <b>Toque</b> uma vez na célula Vazia restante para X.",
+                "Encontramos la única pata de esta columna. <b>Toca</b> una vez la celda Vacía restante para X."
             } },
             { "tutorial.final-paw", new[] {
                 "This column needs 2 paws. We've already found one.\n<b>Tap</b> twice for the last paw.",
