@@ -76,12 +76,18 @@ new-test assertions were corrected to account for existing native pixel snapping
 and UI Toolkit's typed Length value; only the final passing reports above are
 gates. No runtime geometry change was made to satisfy an assertion.
 
-## Remaining owner review
+## Owner physical acceptance — 2026-10-28
 
-Physical iPhone appearance/comfort and interaction review are **pending**.
-On a later exact owner-reviewed build, confirm normal/dense Easy/Hard pawn/arrow/X
-readability, compact toe separation, unchanged tap/drag/protection/hold/release,
-Clear/new board and completed-board review. Mockup approval and desktop rendering
-do not close that gate. The requested PR targets develop and must not be merged
-without a separate owner instruction. Rollback is a single revert of #94's
-styling/test/doc commit(s); no data migration or gameplay rollback is required.
+The owner reported **“all pass”** for the installed #94 review build: source
+`39f806901834e7eba0af674941eeaee244c03cb2`, Paws **0.1.0 (1)**, **iPhone 17 /
+iOS 27.0.1**. This covers the handoff's approved sage-arrow/larger-paw readability
+on Easy/Hard boards, tap/drag and arrow-hold behavior. It closes the #94 physical
+review gate for that exact installation; no automated device interaction was
+performed. [Exact owner report and scope](owner-validation-2026-10-28.json).
+
+Other-device, unreported lifecycle, store/distribution and production acceptance
+are not inferred. This record changes documentation only; runtime source and
+previous passing test/native-render inputs remain unchanged. The owner also
+explicitly authorized merging PR #101 into develop and cleanup. Main remains
+outside that authorization. Rollback is a revert of the focused #94 commits;
+no data migration or gameplay rollback is required.

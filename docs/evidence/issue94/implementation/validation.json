@@ -43,12 +43,13 @@
     "nativeFrames": 12,
     "pawClippingFailures": 0
   },
-  "physicalIphone": "pending human review; no automated device input",
-  "scope": "Review-ready PR to develop only; no merge/main changes; no player rebuild",
+  "physicalIphone": "owner reported all pass on installed source 39f8069, iPhone 17 / iOS 27.0.1; exact scope in owner-validation-2026-10-28.json",
+  "scope": "Validated runtime source unchanged; owner-authorized develop integration; no main changes or player rebuild",
   "artifactsSha256": {
     "approved-vs-native-320-color.png": "9bc7ca5ede152c91356eaed8498b080d550a4717ee4c883bb084ba42321ba8e1",
     "native-review.json": "fc293f556939bed7fb037a819e9e057ee0c8249f2053bcce9c1f77603358ef43",
-    "README.md": "ec89059501fb61517f14b1ec932b041ebb195aa30147826eae417bf3122d956c",
+    "README.md": "d06f66c1b4d2b1555a06a984446eee62827d702dd96d0fe1361aeeaaefb00b27",
+    "owner-validation-2026-10-28.json": "6170599f435cfc22e7562e1d1bd7adef76959b33381794ef5e7121380cf30ce1",
     "approved-vs-native-390-color.png": "d1d053c6da7c4ed4092e1ed31847856b7415763db53b3c205a73a8150fbb292d",
     "approved-vs-native-390-gray.png": "862b658fb0eec9842a906c4866f0083bc7f16a251b9a6f0e9680bc4f7161b3d9",
     "approved-vs-native-320-gray.png": "2fac02c8f43ed711f5ac2897ed77adc49dee87ee54830b0ddbffd3b2b385e789"

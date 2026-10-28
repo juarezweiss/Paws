@@ -1321,4 +1321,7 @@ show actual boards against the approved B mockup, with source/capture hashes and
 exact validation scope. Headless tests do not claim native pixel evidence: the
 separate graphical run supplies it. Existing puzzle receipts remain valid; no
 player build or physical-device interaction was required for this evidence.
-Physical-iPhone appearance/comfort remains pending human review.
+Owner reported **“all pass”** on 2026-10-28 for installed source `39f8069`,
+Paws 0.1.0 (1), iPhone 17 / iOS 27.0.1: approved board readability, tap/drag
+and arrow hold. [Exact physical report/scope](evidence/issue94/implementation/owner-validation-2026-10-28.json).
+Other-device, unreported lifecycle and distribution acceptance are not inferred.

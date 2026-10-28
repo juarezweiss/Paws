@@ -30,8 +30,10 @@ backgrounds with the existing dark shafted arrows. Paw artwork is uniformly
 proportions and light cell fill remain unchanged. Protected cells retain their
 existing gray. X marks, other symbols, borders, cell geometry and interaction
 behavior retain their existing rendering/contracts. This supersedes the later
-triangle and filled-paw mockup explorations in #94. Mockup approval does not
-establish physical-iPhone appearance or comfort acceptance of the new build.
+triangle and filled-paw mockup explorations in #94. Owner physical review passed
+on 2026-10-28 for installed source `39f8069`, Paws 0.1.0 (1), iPhone 17 /
+iOS 27.0.1: approved board readability, tap/drag and arrow hold.
+[Exact report and scope](evidence/issue94/implementation/owner-validation-2026-10-28.json).
 
 ## Feedback
 - No punishment animation for a wrong intermediate mark.
