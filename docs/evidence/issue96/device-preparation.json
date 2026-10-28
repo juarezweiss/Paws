@@ -1,0 +1,51 @@
+{
+  "task": "#96 / PR #98 owner-authorized iPhone update",
+  "date_local": "2026-10-28",
+  "source_sha": "10db178d3535f32f0af8192c11cb44b31c70d852",
+  "unity": "6000.3.25f1",
+  "xcode": "27.1 (27A9275)",
+  "bundle_identifier": "com.juarezweiss.catsarrows.inputreview",
+  "version": "0.1.0",
+  "build": "1",
+  "device": "iPhone 17",
+  "device_os": "27.0.1",
+  "configuration": "Release IL2CPP arm64 review build; manual play, no autorun or monetization flags",
+  "profile_expiry_utc": "2027-10-27T22:46:10Z",
+  "signature_type": "Local development; existing valid certificate/profile reused, no account change or renewal",
+  "checks": {
+    "unity_export": "passed",
+    "native_build": "passed",
+    "signature_verification": "passed",
+    "profile_device_and_expiry": "passed",
+    "arm64": "passed",
+    "binary_dsym_uuid_match": "passed",
+    "install_over_existing_app": "passed",
+    "plain_launch": "passed",
+    "running_process": "passed",
+    "repository_validation": "passed"
+  },
+  "signed_executable_sha256": "972584407c35bb485bf680cd57198f30e8b1115b3b799c448806c4622d63ae84",
+  "signed_app_tree_sha256": "785442a8cb55a3fdc2d7d08470e6a4d4cce7e8b4e9960fd95995e07122829601",
+  "preserved_artifacts": "Builds/Issue96-iPhone-10db178/Playable/",
+  "export_metadata": "Builds/Issue96-iPhone-10db178/ExportMetadata/",
+  "logs": [
+    ".unity-results/issue96-ios-export.B1OXW3/Editor.log",
+    ".unity-results/issue96-iphone/xcodebuild.log",
+    ".unity-results/issue96-iphone/"
+  ],
+  "launch_arguments": [],
+  "data_handling": "Installed over the same existing review bundle. No uninstall, app-data reset or preference edits. Production bundle unchanged.",
+  "inputs": "Committed source10db178; standard BoardReviewBuild generated review scene and temporarily changed export identifier. Generated input hashes/metadata retained; original tracked scene/PlayerSettings/panel restored after export.",
+  "physical_review": "pending-owner; launch/process checks establish technical readiness only; no physical input, appearance or lifecycle test automated",
+  "owner_checklist": [
+    "Existing ordinary history should bypass introductory sequence; no third consecutive identical difficulty on Next",
+    "Tutorial replay and Skip must not reset ordinary progress",
+    "Restart, Hint/Clear, tap/drag and completed-board lock",
+    "Fresh-player Easy/Easy/Medium needs separate clean test data; current saved history was preserved"
+  ],
+  "boundaries": "No merge, upload, submission, release, production monetization activation, purchase or automated device gameplay.",
+  "reproducible_intermediates_removed": [
+    "Builds/Issue96-iPhone-10db178/Export/",
+    "Builds/Issue96-iPhone-10db178/DerivedData/"
+  ]
+}
