@@ -37,7 +37,7 @@ namespace CatsAndArrows.Tests
             PlayerPrefs.Save();
         }
 
-        private IEnumerator Mount(MonetizationCoordinator coordinator, int width = 390, int height = 844, string locale = "en")
+        private IEnumerator Mount(MonetizationCoordinator coordinator, int width = 390, int height = 844, string locale = "en", bool enableTutorial = false)
         {
             now = 0;
             panelSettings = ScriptableObject.CreateInstance<PanelSettings>();
@@ -51,8 +51,8 @@ namespace CatsAndArrows.Tests
             document.panelSettings = panelSettings;
             document.rootVisualElement.style.width = width;
             document.rootVisualElement.style.height = height;
-            mountedShell = new GameShellView(14, locale, PlayTestFactory.Loop(), enableTutorial: false,
-                idleClock: () => now, monetization: coordinator);
+            mountedShell = new GameShellView(14, locale, PlayTestFactory.Loop(), enableTutorial: enableTutorial,
+                tutorialSeen: () => true, markTutorialSeen: () => { }, idleClock: () => now, monetization: coordinator);
             document.rootVisualElement.Add(mountedShell);
             Assert.That(mountedShell.StartNewGame(), Is.True);
             yield return null;
@@ -661,7 +661,7 @@ namespace CatsAndArrows.Tests
             {
                 var ports = new OfflineCommercialPorts();
                 using var disabled = new MonetizationCoordinator(false, ports, ports, ports);
-                yield return Mount(explicitlyDisabled ? disabled : null, size.x, size.y, locale);
+                yield return Mount(explicitlyDisabled ? disabled : null, size.x, size.y, locale, enableTutorial: true);
                 var shell = mountedShell;
                 var messages = GameLocalization.CreateCatalog().GetResource(locale).Messages;
                 var top = size.x == 320 ? 20 : 59; var bottom = size.x == 320 ? 0 : 34;
@@ -674,6 +674,7 @@ namespace CatsAndArrows.Tests
                 AssertFreeSurface(shell);
                 Assert.That(shell.Q("settings-list").Children().OfType<Button>().Select(b => b.name),
                     Is.EqualTo(new[] { "settings-language", "settings-tutorial" }));
+                Assert.That(shell.Q<Button>("settings-tutorial").enabledInHierarchy, Is.True);
                 CaptureOfferCodeEvidence(prefix + "-settings", "PAWS_89_CAPTURE");
                 shell.BackToGame(); yield return null; yield return null;
                 AssertFreeSurface(shell);
@@ -708,6 +709,12 @@ namespace CatsAndArrows.Tests
                     Assert.That(shell.ActiveSession, Is.Not.SameAs(session));
                 }
                 Assert.That(totalHints, Is.GreaterThan(5));
+                shell.ShowSettings(); shell.StartTutorial();
+                AssertFreeSurface(shell);
+                Assert.That(shell.Tutorial, Is.Not.Null);
+                var tutorialRevision = shell.ActiveSession.MarkRevision;
+                shell.RequestHint();
+                Assert.That(shell.ActiveSession.MarkRevision, Is.EqualTo(tutorialRevision), "tutorial Hint eligibility is preserved");
                 shell.DisposeMonetization();
                 Assert.That(ports.Calls, Is.Zero, "no ad, purchase, offer-code or monetization storage calls");
                 TearDown(); host = null; panelSettings = null; panelTexture = null;
