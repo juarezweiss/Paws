@@ -1,5 +1,21 @@
 # Apple Remove All Ads adapter — issue #64
 
+## Release scope amendment — 2026-10-26
+
+Paws 1.0 is free, ad-free and IAP disabled, with unlimited free eligible Hints.
+Monetization SDKs/providers must be excluded from its shipped binary; retain the
+implemented source for 1.1+. No purchase/Restore/Offer Code UI, ads, UMP or
+unnecessary age prompts. Current gates: [free release checklist](RELEASE_RC_1_0.md).
+[#67](https://github.com/juarezweiss/Paws/issues/67) and
+[#82](https://github.com/juarezweiss/Paws/issues/82) track future monetization,
+not purchase-free 1.0 blockers. PR #87 and its immutable evidence remain preserved;
+its enabled configuration must not enter free 1.0.
+
+Older blanket #82/monetized-1.0 gate statements below are **historical and
+superseded for free 1.0**. Findings, failed/inconclusive tests, exact source pins
+and future purchase/privacy/age safety requirements remain intact. This amendment
+claims no implementation, new artifact, physical pass or production authorization.
+
 Authority: [#64](https://github.com/juarezweiss/Paws/issues/64), [#29](https://github.com/juarezweiss/Paws/issues/29),
 [#30](https://github.com/juarezweiss/Paws/issues/30), [ADR 0002](decisions/0002-provider-agnostic-monetization.md).
 Dependency #63 is integrated in develop (`10695b018c71bad7bb07b6346b58f99f77d754ee`).

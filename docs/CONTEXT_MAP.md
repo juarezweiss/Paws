@@ -36,7 +36,7 @@ If the repo-local `paws-development` Skill is active, follow its workflow and lo
 | Project structure / Unity version / repository layout | `docs/decisions/0001-unity-and-project-structure.md`, `docs/ARCHITECTURE.md` | `docs/RELEASE.md` or `docs/TESTING.md` if build/test behavior changes |
 | Tests / regression coverage | `docs/TESTING.md` | Only the specification for the behavior under test |
 | CI / build / lower-environment release | `docs/RELEASE.md`, `docs/TESTING.md` | `docs/ARCHITECTURE.md` for project/build structure; relevant ADRs when architecture decisions apply |
-| iOS/Android signing or store preparation | `docs/RELEASE.md` | `docs/TESTING.md`; architecture/ADR only when build structure is relevant |
+| iOS/Android signing or store preparation | `docs/RELEASE.md`, `docs/RELEASE_RC_1_0.md` (current free-1.0 ledger/order) | `docs/AGE_ELIGIBILITY.md` / #91 for unresolved standalone access scope; `docs/TESTING.md` for validation; future #67/PR #87 stays separate |
 | Monetization / ads / IAP | `docs/MONETIZATION.md` | `docs/ANALYTICS.md` for instrumentation; `docs/UX.md` for player-facing impact; `docs/PRODUCT.md` for product fit |
 | AdMob / UMP provider, consent and privacy | `docs/ADMOB.md`, `docs/MONETIZATION.md`, ADR 0002 | `docs/TESTING.md`, `docs/RELEASE.md` for build/owner gates |
 | Apple purchase adapter / StoreKit validation | `docs/APPLE_IAP.md`, `docs/MONETIZATION.md`, ADR 0002 | `docs/TESTING.md`, `docs/RELEASE.md` for build/review gates |
@@ -46,6 +46,33 @@ If the repo-local `paws-development` Skill is active, follow its workflow and lo
 | Roadmap / sequencing / current priorities | `planning/ROADMAP.md`, `planning/CURRENT_SPRINT.md` | GitHub Issues; `planning/MASTER_PROJECT_PLAN.md` only for scope/budget/milestone constraints |
 | Scope, budget, purchases, subscriptions | `planning/MASTER_PROJECT_PLAN.md` | `docs/PRODUCT.md` if product scope is involved |
 | Documentation-only change | The document being changed | Its direct source-of-truth dependency only if needed to verify consistency |
+
+## Release decision routing
+
+Approved age/access policy 2026-10-27: read [AGE_ELIGIBILITY.md](AGE_ELIGIBILITY.md)
+for minimum 16 EU / 13 elsewhere, under-18 parental permission, known-ineligible
+access restriction, frictionless Unknown handling, future regional ad matrix,
+Apple native obligations and rating override. #91 owns current free-app compliance;
+#67 owns future ad-policy implementation. No implementation pass is implied.
+
+Owner decision 2026-10-26: 1.0 is free/ad-free/IAP disabled with unlimited free
+eligible Hints; exclude monetization SDKs/providers from the binary. Read
+`docs/RELEASE_RC_1_0.md` for current gates. #67/#82 and preserved PR #87 are future
+1.1+ research/enablement; do not load their historical monetized-1.0 checklist as
+the free-release contract. For that future age-assurance research, the immutable
+PR #87 `docs/AGE_ASSURANCE.md` at evidence head
+`4acfb61d9625b271f3203ec8d63a608102fbabfa` retains the source/OS/territory matrix.
+Current free-app compliance assessment is #91; no legal exemption is assumed.
+
+## Current release evidence — 2026-10-28
+
+Use `docs/RELEASE_RC_1_0.md` as the index for fetched develop `3cb814f`, completed
+#94/#95/#99/#96 exact-source receipts and human scope limits. Load a linked
+receipt only for the specific acceptance question; do not reload every review.
+Current order is #88/#93 → #89 → #90 → #92 → #21. #91 runs in parallel and must
+be accepted before final readiness; its early standalone access determination
+precedes final binary/RC acceptance. Never interpret monetization-only age
+exclusion as permission to strip independently required native access handling.
 
 ## Review documents
 

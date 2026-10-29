@@ -1,5 +1,35 @@
 # Monetization architecture
 
+## Approved eligibility amendment — 2026-10-27 (#67/#91)
+
+[AGE_ELIGIBILITY.md](AGE_ELIGIBILITY.md) governs access and future ad eligibility:
+minimum 16 EU / 13 elsewhere; under-18 parental permission; no gameplay/free-play
+exception for reliably known below-minimum players. Unknown is never Adult.
+The regional matrix replaces PR #87's universal confirmed-adult requirement as a
+future specification, retaining separate initialization/consent/ownership gates.
+No custom age questionnaire; required Apple native handling remains. Preserved
+PR #87 code/evidence is unchanged and has not passed this revised policy.
+
+## Release scope amendment — 2026-10-26
+
+Paws 1.0 is free, ad-free and IAP disabled, with unlimited free eligible Hints.
+Monetization SDKs/providers must be excluded from its shipped binary; retain the
+implemented source for 1.1+. No purchase/Restore/Offer Code UI, ads, UMP or
+unnecessary age prompts. Current gates: [free release checklist](RELEASE_RC_1_0.md).
+[#67](https://github.com/juarezweiss/Paws/issues/67) and
+[#82](https://github.com/juarezweiss/Paws/issues/82) track future monetization,
+not purchase-free 1.0 blockers. PR #87 and its immutable evidence remain preserved;
+its enabled configuration must not enter free 1.0.
+
+Older blanket #82/monetized-1.0 gate statements below are **historical and
+superseded for free 1.0**. Findings, failed/inconclusive tests, exact source pins
+and future purchase/privacy/age safety requirements remain intact. This amendment
+claims no implementation, new artifact, physical pass or production authorization.
+
+Enabled-mode policies below apply to future separately approved monetization,
+not Paws 1.0. #89 owns UI cleanup and #90 actual binary exclusion; documentation
+alone does not establish their completion.
+
 Design task: [#29](https://github.com/juarezweiss/Paws/issues/29), owner
 requirements dated 2026-10-14. Decision:
 [ADR 0002](decisions/0002-provider-agnostic-monetization.md).

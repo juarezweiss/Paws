@@ -1,5 +1,44 @@
 # Testing Strategy
 
+## Release evidence reconciliation — 2026-10-28 (#88/#93)
+
+Fetched develop: `3cb814f7be0dc117dc4f585bf9e8c8fd65f9d1cd`.
+The [release evidence ledger](RELEASE_RC_1_0.md#completed-development-and-accepted-evidence)
+links exact sources, successful test receipts and scoped owner reports for closed
+#94/#95/#99/#96 and merged PRs #101/#97/#100/#98. Their accepted development
+results remain valid at their documented scope; no final free-RC acceptance or
+new native test run is claimed. All newer develop sections and evidence below
+are retained, including failed/inconclusive history and later scoped passes.
+
+Remaining validation follows #88/#93 → #89 → #90 → #92 → #21, with #91 parallel
+and accepted before final readiness. Free artifact/SDK exclusion, access-scope
+resolution, distribution signing and exact-candidate human QA remain pending.
+#91 must determine any independent native access requirement before final #90/
+#92 acceptance; monetization exclusion does not grant an age/legal exemption.
+This prose-only reconciliation passed structure/JSON/TOML, whitespace, all 157
+changed-document local links/anchors, docs-only and preserved-input/history checks,
+51/51 Python repository/runner contracts and 322 SDK pins. Independent read-only
+QA reported no blocking findings. Relevant remote CI is recorded on PR #93 at its
+published head. No Unity compilation/EditMode, native build or physical-device
+tests were run for these prose changes; historical Unity counts remain attributed
+to their original receipts. Future code changes run affected and required gates.
+
+## Release scope amendment — 2026-10-26
+
+Paws 1.0 is free, ad-free and IAP disabled, with unlimited free eligible Hints.
+Monetization SDKs/providers must be excluded from its shipped binary; retain the
+implemented source for 1.1+. No purchase/Restore/Offer Code UI, ads, UMP or
+unnecessary age prompts. Current gates: [free release checklist](RELEASE_RC_1_0.md).
+[#67](https://github.com/juarezweiss/Paws/issues/67) and
+[#82](https://github.com/juarezweiss/Paws/issues/82) track future monetization,
+not purchase-free 1.0 blockers. PR #87 and its immutable evidence remain preserved;
+its enabled configuration must not enter free 1.0.
+
+Older blanket #82/monetized-1.0 gate statements below are **historical and
+superseded for free 1.0**. Findings, failed/inconclusive tests, exact source pins
+and future purchase/privacy/age safety requirements remain intact. This amendment
+claims no implementation, new artifact, physical pass or production authorization.
+
 ## Issue #96 first-player ordinary progression
 
 2026-10-28: pinned compilation passed (`compile.kcRKr2`); full EditMode

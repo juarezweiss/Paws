@@ -1,10 +1,28 @@
 # Environments, Releases, and Rollback
 
-Apple Offer Code integration (#65) adds the [owner-only redemption matrix](APPLE_OFFER_CODES.md#owner-only-storekit-test-and-sandbox-acceptance)
-to the monetization RC gate (#67). Native sheet, Xcode StoreKit Test and Sandbox
-code results must be recorded before activation; automated contracts or launch
-readiness cannot satisfy physical acceptance. #82 remains a separate hard Paws
-1.0 release blocker, including a release with monetization disabled.
+## Owner decision — 2026-10-26 (#88)
+
+**Paws 1.0 is FREE, ad-free, IAP disabled, with unlimited free eligible Hints.**
+No purchase, Restore, Offer Code, ads, UMP consent or unnecessary age prompts.
+Disabled means monetization providers/SDKs are **excluded from the shipped
+binary**, not only hidden or uninitialized. Retain implemented code, provider
+pins and compatible storage for a separately approved 1.1+ enablement.
+
+The [free-1.0 release checklist](RELEASE_RC_1_0.md) governs current release work.
+[#67](https://github.com/juarezweiss/Paws/issues/67) owns future IAP/AdMob/UMP/
+age-assurance research and enablement; [#82](https://github.com/juarezweiss/Paws/issues/82)
+stays open for future IAP. Neither blocks purchase-free 1.0. Their findings are
+preserved; no fix, new pass or waiver of future purchase safety is implied.
+
+[PR #87](https://github.com/juarezweiss/Paws/pull/87) remains preserved for future
+monetization. **Do not merge its enabled configuration into free 1.0.** Evidence
+head `4acfb61d9625b271f3203ec8d63a608102fbabfa` and runtime/build source
+`c0622a361bcc7c7ae2b04d0642f0ce189b094f68` remain immutable historical inputs;
+their unsigned enabled/rollback archives do not establish the new free RC.
+
+This amendment supersedes all older monetized-1.0 and blanket #82 release gates.
+No implementation, SDK upgrade, build, account/store action, main merge or
+release is authorized by this documentation task.
 
 ## Branch/environment model
 - Feature branches: isolated development.
@@ -13,6 +31,51 @@ readiness cannot satisfy physical acceptance. #82 remains a separate hard Paws
 - `main`: production-ready history only; human-approved merge required.
 
 Environments should differ through build profiles/configuration, not divergent code copies.
+
+## Current release gates — free 1.0 (reconciled 2026-10-28)
+
+Current fetched develop is `3cb814f7be0dc117dc4f585bf9e8c8fd65f9d1cd`.
+[Release ledger/checklist](RELEASE_RC_1_0.md) owns exact issue dependencies,
+completed source/evidence receipts and outstanding acceptance. Closed #94/#95/
+#99/#96 and merged PRs #101/#97/#100/#98 are completed development, with scoped
+owner review passes; they are not unfinished release implementation.
+
+Execution order: **#88 / PR #93 contract → #89 UI cleanup → #90 binary
+verification → #92 signed RC / human QA → #21 distribution readiness**.
+#91 metadata/compliance runs in parallel. Its early access-scope determination is
+needed before final binary/RC acceptance; its final artifact-based declarations
+must be accepted before #21 readiness. Earlier serial #90 → #91 → #92 ordering
+is superseded; no final-candidate gate is marked passed by this update.
+
+Current bootstrap is disabled/free, but Settings still constructs disabled
+commerce rows. #89 remains the next implementation issue after contract review.
+#90 must prove actual binary exclusion; old disabled or review-app evidence is
+not a final production-candidate receipt. Preserve the newer gameplay/UI/assets/
+ProjectSettings and all accepted evidence from current develop.
+
+Exclude all monetization SDKs/providers and monetization-only age components.
+Do not silently exclude any independently required native access component:
+[AGE_ELIGIBILITY](AGE_ELIGIBILITY.md) and [#91](https://github.com/juarezweiss/Paws/issues/91)
+own the unresolved selected-territory/native permission/access determination,
+including the approved known-ineligible restriction. Any concrete standalone
+requirement needs a recorded owner disposition, scoped implementation and exact
+verification before final #90/#92 acceptance; no legal exemption or new mandatory
+component is assumed. #67 remains future monetization, not free access clearance.
+
+Pending owner inputs include final version/build allocation, Terms/Privacy/support
+URLs/contacts, territories/declarations and access disposition, current signing/
+account prerequisites, #22 trial/device-coverage disposition and distribution
+route. Production bundle/version remains com.jweiss.paws / 0.1.0 (1) until an
+approved implementation changes it. The $500 ceiling and per-charge approval
+remain unchanged. No implementation/build/store action follows this docs task.
+
+### Superseded #82 gate — historical record
+
+The following former gate is retained verbatim for traceability. It no longer
+applies to free 1.0. Essential IAP safeguards remain future #67/#82 requirements.
+
+<details>
+<summary>Pre-pivot Paws 1.0 blanket IAP gate (superseded 2026-10-26)</summary>
 
 ## Paws 1.0 App Store hard release gate — #82
 
@@ -46,6 +109,8 @@ If either is missing, do not initiate or approve anything. Historical unverified
 attempts remain separate from verified Sandbox evidence. See [Apple evidence and
 handoff](APPLE_IAP.md); direct StoreKit 2 is only a future architecture option,
 not an approved implementation.
+
+</details>
 
 ## Production control
 Agents may prepare lower-environment artifacts only when explicitly instructed. Production actions require explicit human instruction in the current task.
@@ -95,8 +160,10 @@ code remains excluded. The receipt also checks generated IL2CPP sources.
 
 `PawsBootstrap` starts the ordinary game with saved preferences, real safe area,
 normal tutorial/lifecycle and `monetization: null`. No providers initialize;
-Hints remain free; Settings shows unavailable purchase/restore rows (#76). This
-is the binary disabled/rollback configuration. Future enabled releases require separate approved real adapters
+Hints remain free; Settings currently shows unavailable purchase/restore rows (#76).
+#89 removes those disabled surfaces for free 1.0; #90 must verify actual SDK/provider
+exclusion. This existing composition is a baseline, not completed free-1.0
+acceptance. Future enabled releases require separate approved real adapters
 and tests; reverting to this composition retains existing monetization storage
 and verified ownership. No remote kill switch is claimed.
 

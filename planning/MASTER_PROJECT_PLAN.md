@@ -1,5 +1,46 @@
 # Paws — Master Project Plan
 
+## Current delivery reconciliation — 2026-10-28 (#88/#93)
+
+Paws 1.0 is FREE, ad-free, IAP disabled with unlimited free eligible Hints.
+Retain monetization code/pins/storage for 1.1+; exclude monetization providers/SDKs
+from shipped binary. No commerce UI/placeholders, ads, UMP or unnecessary age
+prompts. Approved access eligibility remains separate and unresolved for final
+candidate acceptance in #91; no automatic legal exemption or new component.
+
+Baseline: fetched develop `3cb814f7be0dc117dc4f585bf9e8c8fd65f9d1cd`.
+Completed/closed: #94/PR #101 sage arrows/larger paw, #95/PR #97 tutorial clarity,
+#99/PR #100 wording, #96/PR #98 fresh Easy/Easy/Medium/random and history migration.
+Their exact test receipts and scoped owner iPhone passes are in the
+[release ledger](../docs/RELEASE_RC_1_0.md#completed-development-and-accepted-evidence).
+No final release-candidate pass is inferred. #63 identity/tooling and #64–#66
+provider foundations are integrated; current null monetization composition is
+free, but disabled Settings commerce rows still require #89 cleanup.
+
+Execution: **#88 / PR #93 contract → #89 UI → #90 binary → #92 signed RC/human
+QA → #21 readiness**. #91 runs in parallel; settle access scope before final
+binary/RC acceptance and accept artifact-based metadata/compliance before #21.
+#89 is the next implementation task after contract acceptance. No new feature
+scope, completed-gameplay reopening, SDK upgrade or build is part of this task.
+
+#22 has two qualitative sessions. Focused approved follow-ups above are complete;
+trial sufficiency and residual findings/device coverage need owner disposition,
+not an invented 5–8 tester gate. #67/#82 stay future-only; PR #87 stays untouched.
+The [checklist](../docs/RELEASE_RC_1_0.md) owns current remaining work and owner
+inputs: version/build, public URLs/contacts, territories/access/declarations,
+signing/account readiness and distribution route/approvals. The $500 ceiling,
+per-charge approval and all human production boundaries remain unchanged.
+
+## Historical planning snapshot — 2026-10-19
+
+The dated baseline, forecasts/priorities and uncompleted-work statements below
+are retained for traceability. Where they conflict, the explicit owner decisions
+of October 26/27 and current delivery reconciliation above supersede them.
+Historical results remain tied to their original source; no failure is erased.
+
+<details>
+<summary>October 19 planning record (superseded where explicitly reconciled above)</summary>
+
 **Version:** 1.1 — current-state reconciliation
 
 **Prepared:** 2026-10-19
@@ -214,3 +255,5 @@ This reconciliation preserves the approved $500 ceiling, per-purchase approval,
 iOS-first delivery, deferred Android gate and all production-safety controls. It
 does not authorize a purchase, enrollment, upload, invitation, production merge,
 store submission, live monetization or release.
+
+</details>
