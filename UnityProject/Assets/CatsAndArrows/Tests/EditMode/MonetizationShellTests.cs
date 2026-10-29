@@ -37,22 +37,22 @@ namespace CatsAndArrows.Tests
             PlayerPrefs.Save();
         }
 
-        private IEnumerator Mount(MonetizationCoordinator coordinator)
+        private IEnumerator Mount(MonetizationCoordinator coordinator, int width = 390, int height = 844, string locale = "en", bool enableTutorial = false)
         {
             now = 0;
             panelSettings = ScriptableObject.CreateInstance<PanelSettings>();
             panelSettings.hideFlags = HideFlags.HideAndDontSave;
             panelSettings.scaleMode = PanelScaleMode.ConstantPixelSize; panelSettings.scale = 1;
-            panelTexture = new RenderTexture(390, 844, 0);
+            panelTexture = new RenderTexture(width, height, 0);
             panelSettings.targetTexture = panelTexture;
             host = new GameObject("issue30-idle-integration", typeof(UIDocument));
             host.hideFlags = HideFlags.HideAndDontSave;
             var document = host.GetComponent<UIDocument>();
             document.panelSettings = panelSettings;
-            document.rootVisualElement.style.width = 390;
-            document.rootVisualElement.style.height = 844;
-            mountedShell = new GameShellView(14, "en", PlayTestFactory.Loop(), enableTutorial: false,
-                idleClock: () => now, monetization: coordinator);
+            document.rootVisualElement.style.width = width;
+            document.rootVisualElement.style.height = height;
+            mountedShell = new GameShellView(14, locale, PlayTestFactory.Loop(), enableTutorial: enableTutorial,
+                tutorialSeen: () => true, markTutorialSeen: () => { }, idleClock: () => now, monetization: coordinator);
             document.rootVisualElement.Add(mountedShell);
             Assert.That(mountedShell.StartNewGame(), Is.True);
             yield return null;
@@ -327,9 +327,9 @@ namespace CatsAndArrows.Tests
                 Assert.That(messages[key], Is.Not.Empty, key);
         }
 
-        private void CaptureOfferCodeEvidence(string name)
+        private void CaptureOfferCodeEvidence(string name, string captureVariable = "PAWS_OFFER_CODE_CAPTURE")
         {
-            var directory = Environment.GetEnvironmentVariable("PAWS_OFFER_CODE_CAPTURE");
+            var directory = Environment.GetEnvironmentVariable(captureVariable);
             if (string.IsNullOrEmpty(directory) || SystemInfo.graphicsDeviceType == UnityEngine.Rendering.GraphicsDeviceType.Null) return;
             System.IO.Directory.CreateDirectory(directory);
             var previous = RenderTexture.active;
@@ -615,12 +615,110 @@ namespace CatsAndArrows.Tests
             Assert.That(freeShell.ActiveSession.Marks.Values.Count(mark => mark != PlayerMark.Empty), Is.EqualTo(1));
             freeShell.ShowMenu(); Assert.That(freeShell.Q<Button>("settings-remove-ads"), Is.Null);
             freeShell.ShowSettings();
-            Assert.That(freeShell.Q<Button>("settings-remove-ads").enabledSelf, Is.False);
-            Assert.That(freeShell.Q<Button>("settings-restore").enabledSelf, Is.False);
-            Assert.That(freeShell.Q<Button>("settings-redeem-offer-code").enabledSelf, Is.False);
+            Assert.That(freeShell.Q<Button>("settings-remove-ads"), Is.Null);
+            Assert.That(freeShell.Q<Button>("settings-restore"), Is.Null);
+            Assert.That(freeShell.Q<Button>("settings-redeem-offer-code"), Is.Null);
             Assert.That(unusedPurchases.Redemptions, Is.Zero);
             Assert.That(freeShell.Q<Label>("monetization-settings-status"), Is.Null);
             Assert.That(freeShell.Modal, Is.Null);
+        }
+
+        // #89: no network/provider is available, and disabled composition must never touch one.
+        private sealed class OfflineCommercialPorts : IAdService, IPurchaseService, IOfferCodeRedemptionService, IMonetizationStateStore
+        {
+            public int Calls;
+            private void Touch() { Calls++; throw new InvalidOperationException("Offline commercial port must not be used"); }
+            public bool IsPresenting { get { Touch(); return false; } }
+            public AdAvailability GetAvailability(AdPlacement placement) { Touch(); return AdAvailability.Offline; }
+            public void Show(long id, AdPlacement placement, Action<AdSignal> receive) => Touch();
+            public void Cancel(long id) => Touch();
+            public event Action<PurchaseResult> Updated { add { Touch(); } remove { Touch(); } }
+            public PurchaseOffer GetOffer() { Touch(); return new PurchaseOffer(false); }
+            public bool VerifyCachedOwnership(string storeNamespace, string evidenceReference) { Touch(); return false; }
+            public void Refresh(Action<PurchaseResult> complete) => Touch();
+            public void Purchase(long id, Action<PurchaseResult> complete) => Touch();
+            public void Restore(long id, Action<PurchaseResult> complete) => Touch();
+            public void Finish(string reference, Action<bool> complete) => Touch();
+            public void RedeemOfferCode(Action<OfferCodeRedemptionResult> complete) => Touch();
+            public bool TryLoad(out MonetizationState state) { state = null; Touch(); return false; }
+            public bool TryCommit(MonetizationState state, long revision) { Touch(); return false; }
+        }
+
+        private static void AssertFreeSurface(GameShellView shell)
+        {
+            foreach (var name in new[] { "settings-remove-ads", "settings-restore", "settings-redeem-offer-code",
+                "monetization-settings-status", "settings-privacy-options", "notification-alert" })
+                Assert.That(shell.Q(name), Is.Null, name);
+            Assert.That(shell.Modal, Is.Null);
+        }
+
+        [UnityTest]
+        public IEnumerator FreeRoutesAndRepeatedOfflineHintsHaveNoCommercialGateAcrossPortraitsAndLocales()
+        {
+            foreach (var explicitlyDisabled in new[] { false, true })
+            foreach (var size in new[] { new Vector2Int(320, 568), new Vector2Int(390, 844), new Vector2Int(430, 932) })
+            foreach (var locale in new[] { "en", "pt-BR", "es" })
+            {
+                var ports = new OfflineCommercialPorts();
+                using var disabled = new MonetizationCoordinator(false, ports, ports, ports);
+                yield return Mount(explicitlyDisabled ? disabled : null, size.x, size.y, locale, enableTutorial: true);
+                var shell = mountedShell;
+                var messages = GameLocalization.CreateCatalog().GetResource(locale).Messages;
+                var top = size.x == 320 ? 20 : 59; var bottom = size.x == 320 ? 0 : 34;
+                shell.ApplySafeArea(new Rect(0, bottom, size.x, size.y - top - bottom), new Vector2(size.x, size.y));
+                shell.ShowMenu(); yield return null; yield return null;
+                AssertFreeSurface(shell);
+                var prefix = (explicitlyDisabled ? "disabled-" : "null-") + locale + "-" + size.x;
+                CaptureOfferCodeEvidence(prefix + "-home", "PAWS_89_CAPTURE");
+                shell.ShowSettings(); yield return null; yield return null;
+                AssertFreeSurface(shell);
+                Assert.That(shell.Q("settings-list").Children().OfType<Button>().Select(b => b.name),
+                    Is.EqualTo(new[] { "settings-language", "settings-tutorial" }));
+                Assert.That(shell.Q<Button>("settings-tutorial").enabledInHierarchy, Is.True);
+                CaptureOfferCodeEvidence(prefix + "-settings", "PAWS_89_CAPTURE");
+                shell.BackToGame(); yield return null; yield return null;
+                AssertFreeSurface(shell);
+                Assert.That(shell.Q<Button>("action-hint").text, Is.EqualTo(messages["game.hint"]));
+                CaptureOfferCodeEvidence(prefix + "-play", "PAWS_89_CAPTURE");
+                var totalHints = 0;
+                for (var board = 0; board < 5; board++)
+                {
+                    var session = shell.ActiveSession;
+                    shell.RequestHint();
+                    Assert.That(session.MarkRevision, Is.GreaterThan(0));
+                    shell.ClearBoard();
+                    Assert.That(session.Marks.Values.All(m => m == PlayerMark.Empty), Is.True);
+                    while (!session.IsCompleted && totalHints < 500)
+                    {
+                        var revision = session.MarkRevision;
+                        shell.RequestHint(); totalHints++;
+                        Assert.That(session.MarkRevision, Is.GreaterThan(revision), "Hint applies synchronously without ticks or callbacks");
+                        AssertFreeSurface(shell);
+                    }
+                    Assert.That(session.IsCompleted, Is.True, "no quota across repeated boards");
+                    Assert.That(shell.BoardView.InteractionEnabled, Is.False);
+                    var completedRevision = session.MarkRevision;
+                    shell.RequestHint(); shell.ClearBoard();
+                    Assert.That(session.MarkRevision, Is.EqualTo(completedRevision));
+                    shell.ShowMenu(); shell.ShowSettings(); AssertFreeSurface(shell);
+                    shell.RefreshMonetization(); shell.TickMonetization(); shell.ShowPrivacyOptions();
+                    shell.SetApplicationPaused(true); shell.SetApplicationPaused(false);
+                    shell.SetApplicationFocus(false); shell.SetApplicationFocus(true);
+                    shell.BackToGame();
+                    Assert.That(shell.StartNewGame(), Is.True);
+                    Assert.That(shell.ActiveSession, Is.Not.SameAs(session));
+                }
+                Assert.That(totalHints, Is.GreaterThan(5));
+                shell.ShowSettings(); shell.StartTutorial();
+                AssertFreeSurface(shell);
+                Assert.That(shell.Tutorial, Is.Not.Null);
+                var tutorialRevision = shell.ActiveSession.MarkRevision;
+                shell.RequestHint();
+                Assert.That(shell.ActiveSession.MarkRevision, Is.EqualTo(tutorialRevision), "tutorial Hint eligibility is preserved");
+                shell.DisposeMonetization();
+                Assert.That(ports.Calls, Is.Zero, "no ad, purchase, offer-code or monetization storage calls");
+                TearDown(); host = null; panelSettings = null; panelTexture = null;
+            }
         }
     }
 }

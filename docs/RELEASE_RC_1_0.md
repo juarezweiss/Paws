@@ -24,8 +24,8 @@ scope, final declarations use #90/#92 evidence, and **#91 must be accepted befor
 
 | Issue | Actual status / remaining deliverable | Dependency and acceptance evidence |
 | --- | --- | --- |
-| [#88 / #93](https://github.com/juarezweiss/Paws/pull/93) contract | Reconciled proposal; owner review/integration pending. | Docs-only diff against latest develop; structure/link/diff/CI checks and independent read-only review. |
-| [#89 UI](https://github.com/juarezweiss/Paws/issues/89) | Pending. Current GameShellView still creates disabled Remove Ads/Restore/Redeem rows. | Accepted #88/#93 contract; focused shell/interaction and EN/pt-BR/ES portrait regressions, preserving all merged work below. |
+| [#88 / #93](https://github.com/juarezweiss/Paws/pull/93) contract | Merged into develop as `fe81861` before #89 implementation. | Existing contract accepted/integrated; #89 did not modify or merge PR #93. |
+| [#89 UI](https://github.com/juarezweiss/Paws/issues/89) | Implemented on focused branch; integration review pending. Null/disabled composition omits commercial Settings rows. | Source `82f0e8c`: pinned compile, 24/24 focused and 755/755 EditMode pass; 18 locale/portrait/composition cases, repeated immediate offline-port Hints across 90 completed boards, 54 desktop captures. [Evidence and limits](evidence/issue89/validation.json). |
 | [#90 binary](https://github.com/juarezweiss/Paws/issues/90) | Pending. Null monetization bootstrap and historical disabled receipts do not prove the final binary. | Integrated #89; #91 early access-scope disposition before final artifact acceptance; exact committed-source export/archive inventory. |
 | [#92 RC / human QA](https://github.com/juarezweiss/Paws/issues/92) | Pending. Prior review-app passes are scoped development evidence. | #90 and settled access scope; owner-approved version/build and signing; reinspection after signing and explicit human checklist result. |
 | [#21 distribution](https://github.com/juarezweiss/Paws/issues/21) | Pending. Prepare final GO/NO-GO and owner action list; no submission authorized. | #88/#93, #89, #90, #92 and accepted #91, plus recorded #22 trial disposition. |
@@ -86,9 +86,11 @@ free-1.0 access requirement. No completed gameplay issue is reopened.
 
 ## Remaining free release gates
 
-- [ ] #88/#93: owner reviews and authorizes develop integration of the reconciled contract.
-- [ ] #89: no commercial rows, labels, placeholders, ad/UMP or unnecessary age routes;
-  repeated eligible Hints remain immediate/free/offline without a commercial gate.
+- [x] #88/#93: reconciled contract merged into develop (`fe81861`).
+- [ ] #89: implementation and automated/desktop verification complete; focused PR
+  integration approval pending. No commercial rows, labels, placeholders, ad/UMP
+  or commercial age routes in free composition; repeated eligible Hints are
+  immediate/free with no provider calls. Physical acceptance remains #92.
 - [ ] #90: actual non-development production artifact excludes monetization SDKs/
   providers, diagnostics/mocks/review/autorun/benchmark code and commercial config;
   inspect managed/IL2CPP symbols, libraries/resources/linkage, Info.plist,

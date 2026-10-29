@@ -1,5 +1,34 @@
 # Testing Strategy
 
+## Issue #89 free-1.0 UI cleanup — 2026-10-29
+
+Source `82f0e8c2118ab5ee92d534ba1fe341d9b11a43ed`, based on develop
+`fe81861be90e19fa6c044092de0ff80d3734a9e5` (merged #93 contract). The only
+runtime change omits commercial Settings rows for null/disabled monetization.
+Pinned Unity **6000.3.25f1** compilation passes (`compile.2dxVMY`); focused native
+UI **24/24** passes (`issue89-focused.RHRnJF`); full EditMode **755/755** passes
+(`editmode.k92mOM`), successful editor exits and zero failed/skipped/inconclusive.
+Repository/whitespace checks, **51/51** Python contracts and **322** SDK pins pass.
+
+The free-shell matrix covers null and explicitly disabled coordinators across
+EN/pt-BR/ES and 320×568, 390×844, 430×932 portraits: Home, Settings, gameplay,
+90 completed boards with repeated synchronous Hints, Clear, Next, completion lock,
+navigation/lifecycle and tutorial Hint eligibility. Unusable offline ad/purchase/
+storage ports receive **zero calls**. Existing full-suite tutorial copy/centering/
+delayed guidance, progression/migration, tap/drag/protection/arrow-hold, rendering,
+language and enabled purchase/Restore/Offer Code regressions pass.
+
+Desktop visual review covers 54 native captures; all 27 null/disabled pairs have
+identical pixels. Settings retains Language and enabled Tutorial without commercial
+rows or placeholders. [Receipt, source hashes and capture inventory](evidence/issue89/validation.json);
+[Settings portrait matrix](evidence/issue89/settings-contact.png).
+No changes to adapters, SDK pins, scenes/assets, ProjectSettings or persistence.
+Production bootstrap still supplies null monetization and no ad privacy service;
+the runtime composition check and fake-port tests are not binary exclusion proof.
+#90 owns that proof, #91 independent public-information/access scope, and #92
+signed RC and human physical-iPhone acceptance. No signing, installation or
+physical review occurred; real-device offline/lifecycle/comfort checks remain pending.
+
 ## Release evidence reconciliation — 2026-10-28 (#88/#93)
 
 Fetched develop: `3cb814f7be0dc117dc4f585bf9e8c8fd65f9d1cd`.

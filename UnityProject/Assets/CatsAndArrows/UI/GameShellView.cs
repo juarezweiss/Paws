@@ -781,6 +781,8 @@ namespace CatsAndArrows.UI
         private void AddMonetizationSettings(VisualElement parent)
         {
             var enabled = monetization?.Enabled == true;
+            // #89: free composition has no commercial rows, including unavailable placeholders.
+            if (!enabled) return;
             var purchase = AddSettingsRow(parent, "settings-remove-ads", "monetization.remove", PurchaseRemoveAds);
             if (enabled && monetization.IsOwned) purchase.text += " · " + text.GetText("monetization.status.Owned");
             else if (enabled && monetization.Offer?.Available == true && !string.IsNullOrEmpty(monetization.Offer.LocalizedPrice))

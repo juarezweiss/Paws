@@ -55,8 +55,8 @@ rendered Paws title width, uses bold text, and is 52 logical units tall (previou
 62). This preserves the 48-unit minimum target in all three locales.
 
 The gear opens a separate Settings screen with a small top-left Back action to
-Home and an extensible vertical scrolling list. Initial rows, in order: Language,
-Tutorial, Remove Ads, Restore Purchases. Language opens a compact selector whose
+Home and an extensible vertical scrolling list. Free-1.0 rows, in order: Language,
+Tutorial (#89). Language opens a compact selector whose
 options are exactly `Português`, `English`, `Español`, in that order in every locale.
 The current option has a non-color selected indicator. Selection applies and
 persists immediately, closes the selector, and relocalizes Settings in place.
@@ -64,9 +64,13 @@ Tutorial starts the existing manual replay. All controls retain at least 48-unit
 touch targets and respect safe portrait bounds at compact, standard and tall sizes;
 short Settings viewports scroll without shrinking targets.
 
-Remove Ads and Restore Purchases delegate to the existing provider-agnostic
-coordinator. Rows remain visible but unavailable when monetization is disabled;
-enabled state retains localized store price, ownership and restore availability.
+Disabled/null monetization omits the entire commercial Settings section, including
+Remove Ads, Restore Purchases, Redeem Offer Code and unavailable placeholders.
+Eligible Hints remain immediate, unlimited and free offline. The free composition
+injects no ad privacy service; no ad consent or commercial age flow is introduced.
+Existing public-information/access requirements remain owned by #91.
+Future enabled Remove Ads/Restore/Offer Code rows still delegate to the existing
+provider-agnostic coordinator and retain localized price, ownership and availability.
 Issue #83 removes the permanent Remove Ads explanation and inline status labels.
 Settings and gameplay show request feedback in a centered message-and-OK alert,
 using the existing modal layer, localized text and a 48-unit minimum button.
