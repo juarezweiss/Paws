@@ -142,16 +142,17 @@ namespace CatsAndArrows.Tests
                 Assert.That(shell.Q<Label>("settings-title").text, Is.EqualTo(messages["settings.title"]));
                 var rows = shell.Q("settings-list").Children().OfType<Button>().ToArray();
                 Assert.That(rows.Select(b => b.name), Is.EqualTo(new[] {
-                    "settings-language", "settings-tutorial", "settings-remove-ads", "settings-restore", "settings-redeem-offer-code" }));
+                    "settings-language", "settings-tutorial" }));
                 Assert.That(rows.Select(b => b.text), Is.EqualTo(new[] {
-                    messages["game.language"], messages["tutorial.title"], messages["monetization.remove"], messages["monetization.restore"], messages["monetization.redeem"] }));
+                    messages["game.language"], messages["tutorial.title"] }));
                 for (var i = 0; i < rows.Length; i++)
                 {
                     shell.Q<ScrollView>("settings-scroll").ScrollTo(rows[i]); yield return Settle();
                     AssertTarget(rows[i], safe);
                     if (i > 0) Assert.That(rows[i].worldBound.yMin, Is.GreaterThan(rows[i - 1].worldBound.yMax));
                 }
-                Assert.That(rows[2].enabledSelf, Is.False); Assert.That(rows[3].enabledSelf, Is.False);
+                Assert.That(rows.All(row => row.enabledInHierarchy), Is.True);
+                Assert.That(shell.Modal, Is.Null);
                 AssertTarget(shell.Q<Button>("settings-back"), safe);
                 shell.Q<ScrollView>("settings-scroll").ScrollTo(rows[0]); yield return Settle();
                 Tap(shell, "settings-language", touch: locale == "es"); yield return Settle();
@@ -185,7 +186,8 @@ namespace CatsAndArrows.Tests
                 var messages = GameLocalization.CreateCatalog().GetResource(locale).Messages;
                 Assert.That(shell.Q<Label>("settings-title").text, Is.EqualTo(messages["settings.title"]));
                 Assert.That(shell.Q<Button>("settings-back").text, Is.EqualTo(messages["settings.back"]));
-                Assert.That(shell.Q<Button>("settings-restore").text, Is.EqualTo(messages["monetization.restore"]));
+                Assert.That(shell.Q<Button>("settings-restore"), Is.Null);
+                Assert.That(shell.Q<Button>("settings-language").text, Is.EqualTo(messages["game.language"]));
                 Assert.That(shell.Q<Label>("monetization-settings-status"), Is.Null);
                 Tap(shell, "settings-language"); yield return Settle();
                 using (var escape = KeyDownEvent.GetPooled('\0', KeyCode.Escape, EventModifiers.None))
