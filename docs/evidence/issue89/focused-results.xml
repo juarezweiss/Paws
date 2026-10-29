@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="24" result="Passed" total="24" passed="24" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-29 03:34:28Z" end-time="2026-10-29 03:34:35Z" duration="7.5427297">
+  <test-suite type="TestSuite" id="1000" name="Paws" fullname="Paws" runstate="Runnable" testcasecount="755" result="Passed" start-time="2026-10-29 03:34:28Z" end-time="2026-10-29 03:34:35Z" duration="7.542730" total="24" passed="24" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1803" name="CatsAndArrows.EditModeTests.dll" fullname="/Users/juarezweiss/App Projects/Cats-Arrows/UnityProject/Library/ScriptAssemblies/CatsAndArrows.EditModeTests.dll" runstate="Runnable" testcasecount="602" result="Passed" start-time="2026-10-29 03:34:28Z" end-time="2026-10-29 03:34:35Z" duration="7.529947" total="24" passed="24" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="72017" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1804" name="CatsAndArrows" fullname="CatsAndArrows" runstate="Runnable" testcasecount="602" result="Passed" start-time="2026-10-29 03:34:28Z" end-time="2026-10-29 03:34:35Z" duration="7.524294" total="24" passed="24" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1805" name="Tests" fullname="CatsAndArrows.Tests" runstate="Runnable" testcasecount="602" result="Passed" start-time="2026-10-29 03:34:28Z" end-time="2026-10-29 03:34:35Z" duration="7.519436" total="24" passed="24" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1543" name="MenuPresentationTests" fullname="CatsAndArrows.Tests.MenuPresentationTests" classname="CatsAndArrows.Tests.MenuPresentationTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-29 03:34:28Z" end-time="2026-10-29 03:34:29Z" duration="0.882093" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1545" name="LanguageSelectionPersistsImmediatelyRelocalizesAndEscapeCancels" fullname="CatsAndArrows.Tests.MenuPresentationTests.LanguageSelectionPersistsImmediatelyRelocalizesAndEscapeCancels" methodname="LanguageSelectionPersistsImmediatelyRelocalizesAndEscapeCancels" classname="CatsAndArrows.Tests.MenuPresentationTests" runstate="Runnable" seed="1027689882" result="Passed" start-time="2026-10-29 03:34:28Z" end-time="2026-10-29 03:34:29Z" duration="0.657937" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1546" name="PlayResumesBoardAndSettingsTutorialExplicitlyReplaysWithoutMutatingHistory" fullname="CatsAndArrows.Tests.MenuPresentationTests.PlayResumesBoardAndSettingsTutorialExplicitlyReplaysWithoutMutatingHistory" methodname="PlayResumesBoardAndSettingsTutorialExplicitlyReplaysWithoutMutatingHistory" classname="CatsAndArrows.Tests.MenuPresentationTests" runstate="Runnable" seed="1839436784" result="Passed" start-time="2026-10-29 03:34:29Z" end-time="2026-10-29 03:34:29Z" duration="0.069531" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1544" name="PortraitHomeSettingsAndSelectorKeepLocalizedTargetsInsideSafeArea" fullname="CatsAndArrows.Tests.MenuPresentationTests.PortraitHomeSettingsAndSelectorKeepLocalizedTargetsInsideSafeArea" methodname="PortraitHomeSettingsAndSelectorKeepLocalizedTargetsInsideSafeArea" classname="CatsAndArrows.Tests.MenuPresentationTests" runstate="Runnable" seed="313625287" result="Passed" start-time="2026-10-29 03:34:29Z" end-time="2026-10-29 03:34:29Z" duration="0.145307" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1547" name="MonetizationShellTests" fullname="CatsAndArrows.Tests.MonetizationShellTests" classname="CatsAndArrows.Tests.MonetizationShellTests" runstate="Runnable" testcasecount="21" result="Passed" start-time="2026-10-29 03:34:29Z" end-time="2026-10-29 03:34:35Z" duration="6.619807" total="21" passed="21" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1550" name="AlertsFitPortraitsBlockInputAndDismissWithoutReplayingRetainedStatus" fullname="CatsAndArrows.Tests.MonetizationShellTests.AlertsFitPortraitsBlockInputAndDismissWithoutReplayingRetainedStatus" methodname="AlertsFitPortraitsBlockInputAndDismissWithoutReplayingRetainedStatus" classname="CatsAndArrows.Tests.MonetizationShellTests" runstate="Runnable" seed="1479193354" result="Passed" start-time="2026-10-29 03:34:29Z" end-time="2026-10-29 03:34:29Z" duration="0.402111" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1549" name="BackgroundRewardWaitsForExplicitHintAndAttentionResumesAfterFullInterval" fullname="CatsAndArrows.Tests.MonetizationShellTests.BackgroundRewardWaitsForExplicitHintAndAttentionResumesAfterFullInterval" methodname="BackgroundRewardWaitsForExplicitHintAndAttentionResumesAfterFullInterval" classname="CatsAndArrows.Tests.MonetizationShellTests" runstate="Runnable" seed="601750073" result="Passed" start-time="2026-10-29 03:34:29Z" end-time="2026-10-29 03:34:29Z" duration="0.027123" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1565" name="FinalRewardOnFourthWinWaitsForExplicitFreshBoardBeforeProgression" fullname="CatsAndArrows.Tests.MonetizationShellTests.FinalRewardOnFourthWinWaitsForExplicitFreshBoardBeforeProgression" classname="CatsAndArrows.Tests.MonetizationShellTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-29 03:34:29Z" end-time="2026-10-29 03:34:30Z" duration="0.355343" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1562" name="FinalRewardOnFourthWinWaitsForExplicitFreshBoardBeforeProgression(&quot;easy&quot;)" fullname="CatsAndArrows.Tests.MonetizationShellTests.FinalRewardOnFourthWinWaitsForExplicitFreshBoardBeforeProgression(&quot;easy&quot;)" methodname="FinalRewardOnFourthWinWaitsForExplicitFreshBoardBeforeProgression" classname="CatsAndArrows.Tests.MonetizationShellTests" runstate="Runnable" seed="2092964683" result="Passed" start-time="2026-10-29 03:34:29Z" end-time="2026-10-29 03:34:29Z" duration="0.049834" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1563" name="FinalRewardOnFourthWinWaitsForExplicitFreshBoardBeforeProgression(&quot;medium&quot;)" fullname="CatsAndArrows.Tests.MonetizationShellTests.FinalRewardOnFourthWinWaitsForExplicitFreshBoardBeforeProgression(&quot;medium&quot;)" methodname="FinalRewardOnFourthWinWaitsForExplicitFreshBoardBeforeProgression" classname="CatsAndArrows.Tests.MonetizationShellTests" runstate="Runnable" seed="277754772" result="Passed" start-time="2026-10-29 03:34:29Z" end-time="2026-10-29 03:34:29Z" duration="0.104965" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1564" name="FinalRewardOnFourthWinWaitsForExplicitFreshBoardBeforeProgression(&quot;hard&quot;)" fullname="CatsAndArrows.Tests.MonetizationShellTests.FinalRewardOnFourthWinWaitsForExplicitFreshBoardBeforeProgression(&quot;hard&quot;)" methodname="FinalRewardOnFourthWinWaitsForExplicitFreshBoardBeforeProgression" classname="CatsAndArrows.Tests.MonetizationShellTests" runstate="Runnable" seed="964976913" result="Passed" start-time="2026-10-29 03:34:29Z" end-time="2026-10-29 03:34:30Z" duration="0.199970" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1571" name="FreeRoutesAndRepeatedOfflineHintsHaveNoCommercialGateAcrossPortraitsAndLocales" fullname="CatsAndArrows.Tests.MonetizationShellTests.FreeRoutesAndRepeatedOfflineHintsHaveNoCommercialGateAcrossPortraitsAndLocales" methodname="FreeRoutesAndRepeatedOfflineHintsHaveNoCommercialGateAcrossPortraitsAndLocales" classname="CatsAndArrows.Tests.MonetizationShellTests" runstate="Runnable" seed="2090818935" result="Passed" start-time="2026-10-29 03:34:30Z" end-time="2026-10-29 03:34:35Z" duration="5.156406" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1555" name="MenuAndHintLabelsReflectVerifiedRemovalInEveryLocale" fullname="CatsAndArrows.Tests.MonetizationShellTests.MenuAndHintLabelsReflectVerifiedRemovalInEveryLocale" classname="CatsAndArrows.Tests.MonetizationShellTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-29 03:34:35Z" end-time="2026-10-29 03:34:35Z" duration="0.027041" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1552" name="MenuAndHintLabelsReflectVerifiedRemovalInEveryLocale(&quot;en&quot;,&quot;Hint (ads)&quot;,&quot;Hint&quot;)" fullname="CatsAndArrows.Tests.MonetizationShellTests.MenuAndHintLabelsReflectVerifiedRemovalInEveryLocale(&quot;en&quot;,&quot;Hint (ads)&quot;,&quot;Hint&quot;)" methodname="MenuAndHintLabelsReflectVerifiedRemovalInEveryLocale" classname="CatsAndArrows.Tests.MonetizationShellTests" runstate="Runnable" seed="1798158381" result="Passed" start-time="2026-10-29 03:34:35Z" end-time="2026-10-29 03:34:35Z" duration="0.009094" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1553" name="MenuAndHintLabelsReflectVerifiedRemovalInEveryLocale(&quot;pt-BR&quot;,&quot;Dica (anúncios)&quot;,&quot;Dica&quot;)" fullname="CatsAndArrows.Tests.MonetizationShellTests.MenuAndHintLabelsReflectVerifiedRemovalInEveryLocale(&quot;pt-BR&quot;,&quot;Dica (anúncios)&quot;,&quot;Dica&quot;)" methodname="MenuAndHintLabelsReflectVerifiedRemovalInEveryLocale" classname="CatsAndArrows.Tests.MonetizationShellTests" runstate="Runnable" seed="1954988630" result="Passed" start-time="2026-10-29 03:34:35Z" end-time="2026-10-29 03:34:35Z" duration="0.006914" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1554" name="MenuAndHintLabelsReflectVerifiedRemovalInEveryLocale(&quot;es&quot;,&quot;Pista (anuncios)&quot;,&quot;Pista&quot;)" fullname="CatsAndArrows.Tests.MonetizationShellTests.MenuAndHintLabelsReflectVerifiedRemovalInEveryLocale(&quot;es&quot;,&quot;Pista (anuncios)&quot;,&quot;Pista&quot;)" methodname="MenuAndHintLabelsReflectVerifiedRemovalInEveryLocale" classname="CatsAndArrows.Tests.MonetizationShellTests" runstate="Runnable" seed="1913257985" result="Passed" start-time="2026-10-29 03:34:35Z" end-time="2026-10-29 03:34:35Z" duration="0.010545" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1551" name="NavigationRebindAndSuspensionDiscardAlertsAndLateNotifications" fullname="CatsAndArrows.Tests.MonetizationShellTests.NavigationRebindAndSuspensionDiscardAlertsAndLateNotifications" methodname="NavigationRebindAndSuspensionDiscardAlertsAndLateNotifications" classname="CatsAndArrows.Tests.MonetizationShellTests" runstate="Runnable" seed="361790490" result="Passed" start-time="2026-10-29 03:34:35Z" end-time="2026-10-29 03:34:35Z" duration="0.079579" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1556" name="OfferCodeRowFitsPortraitsAndForwardsOneIntentWithoutMutatingBoard" fullname="CatsAndArrows.Tests.MonetizationShellTests.OfferCodeRowFitsPortraitsAndForwardsOneIntentWithoutMutatingBoard" methodname="OfferCodeRowFitsPortraitsAndForwardsOneIntentWithoutMutatingBoard" classname="CatsAndArrows.Tests.MonetizationShellTests" runstate="Runnable" seed="332654280" result="Passed" start-time="2026-10-29 03:34:35Z" end-time="2026-10-29 03:34:35Z" duration="0.202994" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1570" name="RestoreRemainsVisibleWhenOfferUnavailableAndDisabledModeKeepsFreeHints" fullname="CatsAndArrows.Tests.MonetizationShellTests.RestoreRemainsVisibleWhenOfferUnavailableAndDisabledModeKeepsFreeHints" methodname="RestoreRemainsVisibleWhenOfferUnavailableAndDisabledModeKeepsFreeHints" classname="CatsAndArrows.Tests.MonetizationShellTests" runstate="Runnable" seed="2087227798" result="Passed" start-time="2026-10-29 03:34:35Z" end-time="2026-10-29 03:34:35Z" duration="0.008608" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1560" name="RewardAppliesOneFactThenClearAndFreshBoardWorkNormally" fullname="CatsAndArrows.Tests.MonetizationShellTests.RewardAppliesOneFactThenClearAndFreshBoardWorkNormally" methodname="RewardAppliesOneFactThenClearAndFreshBoardWorkNormally" classname="CatsAndArrows.Tests.MonetizationShellTests" runstate="Runnable" seed="804026672" result="Passed" start-time="2026-10-29 03:34:35Z" end-time="2026-10-29 03:34:35Z" duration="0.014322" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1559" name="RewardWaitLocksAllShellIntentsAndCloseWithoutRewardRestoresPlay" fullname="CatsAndArrows.Tests.MonetizationShellTests.RewardWaitLocksAllShellIntentsAndCloseWithoutRewardRestoresPlay" methodname="RewardWaitLocksAllShellIntentsAndCloseWithoutRewardRestoresPlay" classname="CatsAndArrows.Tests.MonetizationShellTests" runstate="Runnable" seed="760189909" result="Passed" start-time="2026-10-29 03:34:35Z" end-time="2026-10-29 03:34:35Z" duration="0.006520" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1548" name="RewardWaitSuppressesAttentionAndCloseStartsFreshInterval" fullname="CatsAndArrows.Tests.MonetizationShellTests.RewardWaitSuppressesAttentionAndCloseStartsFreshInterval" methodname="RewardWaitSuppressesAttentionAndCloseStartsFreshInterval" classname="CatsAndArrows.Tests.MonetizationShellTests" runstate="Runnable" seed="1597472141" result="Passed" start-time="2026-10-29 03:34:35Z" end-time="2026-10-29 03:34:35Z" duration="0.028600" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1558" name="SettingsPurchasesKeepBusyPendingAndRestoreStateAcrossLocaleChanges" fullname="CatsAndArrows.Tests.MonetizationShellTests.SettingsPurchasesKeepBusyPendingAndRestoreStateAcrossLocaleChanges" methodname="SettingsPurchasesKeepBusyPendingAndRestoreStateAcrossLocaleChanges" classname="CatsAndArrows.Tests.MonetizationShellTests" runstate="Runnable" seed="1041729559" result="Passed" start-time="2026-10-29 03:34:35Z" end-time="2026-10-29 03:34:35Z" duration="0.121430" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1561" name="SuspendedDeliveryRetainsEarnedHintUntilExplicitRequest" fullname="CatsAndArrows.Tests.MonetizationShellTests.SuspendedDeliveryRetainsEarnedHintUntilExplicitRequest" methodname="SuspendedDeliveryRetainsEarnedHintUntilExplicitRequest" classname="CatsAndArrows.Tests.MonetizationShellTests" runstate="Runnable" seed="248087634" result="Passed" start-time="2026-10-29 03:34:35Z" end-time="2026-10-29 03:34:35Z" duration="0.007899" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1569" name="TutorialWinIsExcludedAndUnavailableOrdinaryHintIsDeliveredFree" fullname="CatsAndArrows.Tests.MonetizationShellTests.TutorialWinIsExcludedAndUnavailableOrdinaryHintIsDeliveredFree" classname="CatsAndArrows.Tests.MonetizationShellTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-29 03:34:35Z" end-time="2026-10-29 03:34:35Z" duration="0.043123" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1566" name="TutorialWinIsExcludedAndUnavailableOrdinaryHintIsDeliveredFree(Offline)" fullname="CatsAndArrows.Tests.MonetizationShellTests.TutorialWinIsExcludedAndUnavailableOrdinaryHintIsDeliveredFree(Offline)" methodname="TutorialWinIsExcludedAndUnavailableOrdinaryHintIsDeliveredFree" classname="CatsAndArrows.Tests.MonetizationShellTests" runstate="Runnable" seed="490362892" result="Passed" start-time="2026-10-29 03:34:35Z" end-time="2026-10-29 03:34:35Z" duration="0.009659" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1567" name="TutorialWinIsExcludedAndUnavailableOrdinaryHintIsDeliveredFree(Unavailable)" fullname="CatsAndArrows.Tests.MonetizationShellTests.TutorialWinIsExcludedAndUnavailableOrdinaryHintIsDeliveredFree(Unavailable)" methodname="TutorialWinIsExcludedAndUnavailableOrdinaryHintIsDeliveredFree" classname="CatsAndArrows.Tests.MonetizationShellTests" runstate="Runnable" seed="59949001" result="Passed" start-time="2026-10-29 03:34:35Z" end-time="2026-10-29 03:34:35Z" duration="0.011592" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1568" name="TutorialWinIsExcludedAndUnavailableOrdinaryHintIsDeliveredFree(Restricted)" fullname="CatsAndArrows.Tests.MonetizationShellTests.TutorialWinIsExcludedAndUnavailableOrdinaryHintIsDeliveredFree(Restricted)" methodname="TutorialWinIsExcludedAndUnavailableOrdinaryHintIsDeliveredFree" classname="CatsAndArrows.Tests.MonetizationShellTests" runstate="Runnable" seed="1756478789" result="Passed" start-time="2026-10-29 03:34:35Z" end-time="2026-10-29 03:34:35Z" duration="0.021281" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1557" name="UnsupportedAndFailedOfferSheetsUseLocalizedDismissibleAlerts" fullname="CatsAndArrows.Tests.MonetizationShellTests.UnsupportedAndFailedOfferSheetsUseLocalizedDismissibleAlerts" methodname="UnsupportedAndFailedOfferSheetsUseLocalizedDismissibleAlerts" classname="CatsAndArrows.Tests.MonetizationShellTests" runstate="Runnable" seed="2047104609" result="Passed" start-time="2026-10-29 03:34:35Z" end-time="2026-10-29 03:34:35Z" duration="0.136407" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: /Users/juarezweiss/App Projects/Cats-Arrows/.unity-results/issue89-focused.RHRnJF/test-results.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

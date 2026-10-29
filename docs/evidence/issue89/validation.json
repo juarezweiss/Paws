@@ -1,0 +1,169 @@
+{
+  "issue": 89,
+  "date": "2026-10-29",
+  "base_develop": "fe81861be90e19fa6c044092de0ff80d3734a9e5",
+  "validated_source": "82f0e8c2118ab5ee92d534ba1fe341d9b11a43ed",
+  "contract_dependency": {
+    "pr": 93,
+    "merged_into_develop": "fe81861be90e19fa6c044092de0ff80d3734a9e5",
+    "modified_or_merged_by_issue89": false
+  },
+  "source_hashes": {
+    "UnityProject/Assets/CatsAndArrows/Tests/EditMode/MenuPresentationTests.cs": "11e0164465774e66c4fff5dada7a2c2bc2c6c1863f945f1bf22c706a376a7326",
+    "UnityProject/Assets/CatsAndArrows/Tests/EditMode/MonetizationShellTests.cs": "edcfa32cc3d72b5079940163ccbd6897b6bbb9f27c98b430524911aaa3952882",
+    "UnityProject/Assets/CatsAndArrows/UI/GameShellView.cs": "728fe2c0a47752c15298dbd2668954da09ff6d8550a8811e84ef293bcc614b62"
+  },
+  "runtime_change": "Return before constructing commercial Settings rows when coordinator is null or Disabled; enabled code unchanged.",
+  "validation": {
+    "unity": "6000.3.25f1",
+    "compile": {
+      "run": "compile.2dxVMY",
+      "editor_exit": 0,
+      "log_sha256": "b927732c23ca086c28a6749bf80b40cf2621abbc053335975154b49f5b125615"
+    },
+    "focused_native_graphics": {
+      "run": "issue89-focused.RHRnJF",
+      "editor_exit": 0,
+      "counts": {
+        "total": 24,
+        "passed": 24,
+        "failed": 0,
+        "skipped": 0,
+        "inconclusive": 0
+      },
+      "report": "focused-results.xml",
+      "report_sha256": "ada525f0e0ddb4c5cb775308dab91fce41159e1ee77070d0e385dda15b6a5245",
+      "log_sha256": "c999afffbe0148a7c9b2b2112ea4848f9c2eccc819d1019a0a6fe013ae626a94"
+    },
+    "full_editmode": {
+      "run": "editmode.k92mOM",
+      "editor_exit": 0,
+      "counts": {
+        "total": 755,
+        "passed": 755,
+        "failed": 0,
+        "skipped": 0,
+        "inconclusive": 0
+      },
+      "report": "editmode-results.xml",
+      "report_sha256": "46dad0cfdd30dbe7f2917b32a0bf0724e301475bbf80fc9476159e8baadea0ae",
+      "log_sha256": "e8f4a2b227f2866b8a23d0a94cfc89ec7d2ab6c7f43f24057b0fb18f0c4649d9"
+    },
+    "repository_validate": "passed",
+    "whitespace": "passed",
+    "python_contracts": {
+      "passed": 51,
+      "failed": 0,
+      "python": "3.12.3"
+    },
+    "sdk_pin_check": {
+      "files": 322,
+      "plugin": "11.6.0",
+      "GMA": "13.11.0",
+      "UMP": "3.1.0"
+    },
+    "independent_qa": {
+      "role": "qa_reviewer",
+      "source_reviewed": "82f0e8c2118ab5ee92d534ba1fe341d9b11a43ed",
+      "result": "No blocking findings."
+    },
+    "post_test_cleanup": "Unity batch tests serialized one trailing space in ProjectSettings.asset and generated SceneTemplateSettings.json. Verified the tracked diff was exactly that whitespace, restored original bytes and removed the generated untracked file; final validate/diff/link/JSON checks pass."
+  },
+  "matrix": {
+    "compositions": [
+      "null",
+      "explicitly_disabled"
+    ],
+    "locales": [
+      "en",
+      "pt-BR",
+      "es"
+    ],
+    "portrait_sizes": [
+      [
+        320,
+        568
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        430,
+        932
+      ]
+    ],
+    "combinations": 18,
+    "surfaces": [
+      "Home",
+      "Settings",
+      "gameplay"
+    ],
+    "completed_boards": 90,
+    "hints": "Repeated synchronous Hint application until exact win on five boards per combination; Clear and post-win Hint/Clear lock verified. No ticking/network callbacks needed.",
+    "offline_method": "All commercial ad/purchase/store ports count then throw on any use; zero calls, including refresh/tick/navigation/lifecycle/disposal. This is an offline independence contract, not a physical network-toggle test.",
+    "tutorial": "Enabled Settings Tutorial, reachable replay and unchanged ineligible Hint no-op. Full existing tutorial suites pass.",
+    "existing_regressions": "Full suite covers #94 palette/paw, #95/#99 wording/centering/2s guidance, #96 progression/migration, tap/drag/protected/hold, Clear/Next, completion/navigation and future enabled monetization."
+  },
+  "visual_review": {
+    "method": "Native Unity Editor RenderTexture captures inspected on desktop; no physical-device interaction.",
+    "captures": 54,
+    "identical_null_disabled_pixel_pairs": 27,
+    "settings": "Only Language and enabled Tutorial rows, no commercial placeholders; all locales and portrait sizes.",
+    "contact_sheets": [
+      "home-contact.png",
+      "settings-contact.png",
+      "play-contact.png"
+    ]
+  },
+  "production_composition": {
+    "bootstrap_sha256": "62c6e348ae1e6957126bb0b5c4f578165e3b0dd900ef11700f8f67a998d9af10",
+    "unchanged_from_base": true,
+    "inspection": "PawsBootstrap passes monetization:null, supplies no IAdPrivacyService and imports only System/Unity; no ad/UMP/commercial age flow is composed. Does not prove shipping binary exclusion."
+  },
+  "preservation": {
+    "changed_unity_paths": [
+      "UnityProject/Assets/CatsAndArrows/Tests/EditMode/MenuPresentationTests.cs",
+      "UnityProject/Assets/CatsAndArrows/Tests/EditMode/MonetizationShellTests.cs",
+      "UnityProject/Assets/CatsAndArrows/UI/GameShellView.cs"
+    ],
+    "all_other_tracked_unity_inputs_identical_to_base": true,
+    "preserved": "SDK pins/adapters and storage contracts, scenes/assets/ProjectSettings, gameplay/tutorial/progression code. PR #87 untouched; owner CSV untracked and untouched."
+  },
+  "preliminary_runs": [
+    {
+      "source": "463c0de",
+      "focused_run": "issue89-focused.w0pZlL",
+      "passed": 24,
+      "limits": "Prior helper omitted explicit tutorial preferences and disabled Tutorial in captures. Superseded by final committed-source evidence; no failure converted to a pass."
+    },
+    {
+      "compile_run": "compile.ZVQqfa",
+      "result": "passed",
+      "source_note": "Initial uncommitted implementation, superseded by exact committed-source final compile."
+    },
+    {
+      "source": "400ef17",
+      "compile_run": "compile.NIqeDy",
+      "result": "passed",
+      "source_note": "Intermediate test-only helper isolation, superseded by final source."
+    }
+  ],
+  "pending_owner_and_following_gates": {
+    "90": "Actual production binary/SDK exclusion, not executed here.",
+    "91": "Required public-information URLs/content and independent access/territory assessment, not changed here.",
+    "92": "Signed RC and explicit human physical-iPhone appearance/input/offline/lifecycle acceptance; not executed here.",
+    "integration": "Owner review/approval; no merge requested or performed."
+  },
+  "not_performed": [
+    "signing",
+    "device installation",
+    "device control",
+    "App Store submission",
+    "release",
+    "purchase",
+    "production activation",
+    "main/develop merge"
+  ],
+  "rollback": "Revert the focused runtime guard commit to restore prior disabled rows; no storage migration or provider/SDK change."
+}
