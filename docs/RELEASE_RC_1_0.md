@@ -18,18 +18,22 @@ Normal Menu → Play and existing puzzle/Hint eligibility/completion locks remai
 
 **#88 / PR #93 contract → #89 UI cleanup → #90 binary verification →
 #92 signed RC / human physical QA → #21 distribution readiness.**
-#91 runs in parallel: early access/territory decisions determine final binary
-scope, final declarations use #90/#92 evidence, and **#91 must be accepted before
-#21 final readiness**. It is not a serial metadata step between #90 and #92.
+#91 runs in parallel: early access/territory decisions feed standalone native
+[#103](https://github.com/juarezweiss/Paws/issues/103); its implementation/native
+evidence and exact allowlist precede final #90 acceptance. Final #91 declarations
+use #90/#92 evidence, and **#91 must be accepted before #21 final readiness**.
+It is not a serial metadata step between #90 and #92. #90 exclusion auditing may
+proceed while #103 is pending; #92 owns final signed-artifact/human acceptance.
 
 | Issue | Actual status / remaining deliverable | Dependency and acceptance evidence |
 | --- | --- | --- |
 | [#88 / #93](https://github.com/juarezweiss/Paws/pull/93) contract | Merged into develop as `fe81861` before #89 implementation. | Existing contract accepted/integrated; #89 did not modify or merge PR #93. |
 | [#89 UI](https://github.com/juarezweiss/Paws/issues/89) | Implemented on focused branch; integration review pending. Null/disabled composition omits commercial Settings rows. | Source `82f0e8c`: pinned compile, 24/24 focused and 755/755 EditMode pass; 18 locale/portrait/composition cases, repeated immediate offline-port Hints across 90 completed boards, 54 desktop captures. [Evidence and limits](evidence/issue89/validation.json). |
-| [#90 binary](https://github.com/juarezweiss/Paws/issues/90) | Pending. Null monetization bootstrap and historical disabled receipts do not prove the final binary. | Integrated #89; #91 early access-scope disposition before final artifact acceptance; exact committed-source export/archive inventory. |
+| [#90 binary](https://github.com/juarezweiss/Paws/issues/90) | Pending. Null monetization bootstrap and historical disabled receipts do not prove the final binary. | Integrated #89; #91 early decisions and #103 implementation/automated-native evidence plus exact allowlist before final acceptance; committed-source export/archive inventory. |
+| [#103 native access](https://github.com/juarezweiss/Paws/issues/103) | Planned, unimplemented. Standalone Declared Age Range/capability/entitlement and required parental-access handling. | Early #91 legal/permission/retention/older-OS decisions; focused automated/native tests and #90 allowlist. Physical report remains #92. No monetization dependency. |
 | [#92 RC / human QA](https://github.com/juarezweiss/Paws/issues/92) | Pending. Prior review-app passes are scoped development evidence. | #90 and settled access scope; owner-approved version/build and signing; reinspection after signing and explicit human checklist result. |
 | [#21 distribution](https://github.com/juarezweiss/Paws/issues/21) | Pending. Prepare final GO/NO-GO and owner action list; no submission authorized. | #88/#93, #89, #90, #92 and accepted #91, plus recorded #22 trial disposition. |
-| [#91 metadata / compliance](https://github.com/juarezweiss/Paws/issues/91) | Parallel, pending. Terms/Privacy/support URLs, content/declarations, territories and access-scope determination. | Draft now; resolve scope before final #90/#92 acceptance; reconcile metadata/screenshots to final candidate before #21. |
+| [#91 metadata / compliance](https://github.com/juarezweiss/Paws/issues/91) | Parallel, pending. Terms/Privacy/support URLs, declarations and early legal/access decisions for #103. | Draft now; early decisions feed #103 before final #90/#92; reconcile metadata/screenshots to final artifacts before #21. |
 
 ## Completed development and accepted evidence
 
@@ -60,26 +64,36 @@ permission, and no gameplay/free-Hint exception for reliably known ineligible
 users. Unknown age is not Adult; Unknown age or unresolved jurisdiction alone is
 not established below-minimum status. No custom questionnaire or birthday
 collection. This is a policy contract, **not implemented or legally cleared
-free-candidate evidence**. No new legal determination is made here.
+free-candidate evidence**.
+
+**2026-10-30 update:** [#90's finding](https://github.com/juarezweiss/Paws/issues/90#issuecomment-6530526490)
+establishes a standalone native prerequisite for global free 1.0. #103 owns its
+focused implementation/test scope, including the required Declared Age Range
+entitlement. [AGE_ELIGIBILITY](AGE_ELIGIBILITY.md#standalone-free-release-prerequisite--2026-10-30-103)
+records dated official sources and remaining decisions. This planning update
+does not authorize implementation or claim worldwide legal/physical acceptance.
 
 | Component / decision | Release treatment |
 | --- | --- |
 | IAP/Offer Code, Unity Purchasing, AdMob/GMA, UMP and monetization-only services/bridges/config/age wrappers | Exclude from free binary unconditionally under #90. An access requirement never authorizes shipping monetization. |
-| Standalone Apple/native access or parental component, framework/entitlement | Necessity and exact scope unresolved in #91. Exclude monetization-only age components; do not impose a blanket ban on an independently required access component. No standalone component is approved, implemented or validated by this document. |
+| Standalone Apple/native access or parental component, framework/entitlement | Concrete global-release prerequisite tracked by #103. Include only its reviewed exact allowlist and Declared Age Range entitlement; implementation/validation remain pending. #91 supplies early scope decisions. |
 | Terms/Privacy/support and limited information/recovery surface | #91 owns reviewed/localized content, owner URLs and access requirements. #89 removes commercial placeholders while preserving existing tutorial/language/settings behavior; it does not implement new age/access policy. |
-| Required access implementation, if established | Record the precise obligation, platform/OS/territory/evidence source, data/persistence/denial/recheck behavior and focused verification in #91; owner confirms disposition and separately authorizes any necessary implementation before final #90/#92 acceptance. Create a separate focused issue only if concrete required work is established. |
+| Required access implementation and verification | #103 owns precise native signals, approved minimums, pending/denied/revoked permission, correction/recheck, significant updates, privacy, OS guards and focused tests. Owner settles #91 policy gaps and separately assigns implementation before final #90 acceptance; #92 verifies the signed candidate and human physical result. |
 
-Exact open decisions for #91: launch territories/audience; which reliable age/
-jurisdiction/native permission signals must be consumed by this free app; whether
-any selected territory/platform requires standalone native handling and its older-
-OS fallback; and the adequate implementation/verification for the approved
-known-ineligible restriction and correction/recovery path. A rating or Terms
-checkbox does not itself prove age or enforce access. Preserve the existing
+Global distribution is the target. Exact open decisions for #91/#103: defensible
+jurisdiction and permission evidence where native signals are insufficient;
+lawful minimum protective-state retention versus Texas post-verification deletion;
+and any demonstrated mandatory-check gap on older supported iOS. Do not silently
+raise the iOS 16.3 minimum, exclude territories or block all Unknown users.
+Known below-minimum access and required denied/pending/revoked permissions remain
+restricted; optional age-sharing refusal alone is not ineligibility. A rating or
+Terms checkbox does not itself prove age or enforce access. Preserve the existing
 at-least-global-16+ rating proposal, truthful questionnaire and actual regional/
 legacy mapping verification; no new rating or legal clearance is asserted here.
 
 #90 can prepare its monetization exclusion audit in parallel, but cannot claim
-final binary acceptance while this scope is unresolved. #91's eventual final
+final binary acceptance before #103 implementation/native evidence and its
+allowlist are accepted. #91's eventual final
 metadata uses actual #90/#92 artifacts; this staged dependency avoids a cycle.
 #67 owns future advertising/IAP/UMP policy, not an excuse to defer an applicable
 free-1.0 access requirement. No completed gameplay issue is reopened.
@@ -95,10 +109,14 @@ free-1.0 access requirement. No completed gameplay issue is reopened.
   providers, diagnostics/mocks/review/autorun/benchmark code and commercial config;
   inspect managed/IL2CPP symbols, libraries/resources/linkage, Info.plist,
   entitlements, privacy manifests/data behavior and approved standalone access
-  allowlist if any. Explain OS-only references separately; source/pin presence
+  allowlist from #103. Explain OS-only references separately; source/pin presence
   alone proves neither shipping nor exclusion. Preserve source/config/tool SHA,
   artifact checksum, receipt and matching dSYMs.
-- [ ] #91: accepted access-scope disposition and any required implementation evidence;
+- [ ] #103: standalone native implementation/automated-native evidence and exact
+  #90 allowlist; required entitlement, age/permission/significant-update states,
+  correction/revocation, older-OS fallback and privacy lifecycle verified. No
+  unnecessary prompt or monetization dependency. Human iPhone report stays #92.
+- [ ] #91: accepted early legal/access/permission/retention/older-OS decisions;
   reviewed localized Terms/Privacy/support and reachable public HTTPS URLs;
   factual metadata, final screenshots, privacy/tracking/required-reason/export/
   age-rating declarations from actual candidate and selected-territory assessment.
