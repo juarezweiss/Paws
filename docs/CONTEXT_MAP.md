@@ -36,7 +36,7 @@ If the repo-local `paws-development` Skill is active, follow its workflow and lo
 | Project structure / Unity version / repository layout | `docs/decisions/0001-unity-and-project-structure.md`, `docs/ARCHITECTURE.md` | `docs/RELEASE.md` or `docs/TESTING.md` if build/test behavior changes |
 | Tests / regression coverage | `docs/TESTING.md` | Only the specification for the behavior under test |
 | CI / build / lower-environment release | `docs/RELEASE.md`, `docs/TESTING.md` | `docs/ARCHITECTURE.md` for project/build structure; relevant ADRs when architecture decisions apply |
-| iOS/Android signing or store preparation | `docs/RELEASE.md`, `docs/RELEASE_RC_1_0.md` (current free-1.0 ledger/order) | `docs/AGE_ELIGIBILITY.md` / #91 for unresolved standalone access scope; `docs/TESTING.md` for validation; future #67/PR #87 stays separate |
+| iOS/Android signing or store preparation | `docs/RELEASE.md`, `docs/RELEASE_RC_1_0.md` (current free-1.0 ledger/order) | `docs/AGE_ELIGIBILITY.md` / #91 for early access decisions; #103 for standalone native implementation/test scope; `docs/TESTING.md` for validation; future #67/PR #87 stays separate |
 | Monetization / ads / IAP | `docs/MONETIZATION.md` | `docs/ANALYTICS.md` for instrumentation; `docs/UX.md` for player-facing impact; `docs/PRODUCT.md` for product fit |
 | AdMob / UMP provider, consent and privacy | `docs/ADMOB.md`, `docs/MONETIZATION.md`, ADR 0002 | `docs/TESTING.md`, `docs/RELEASE.md` for build/owner gates |
 | Apple purchase adapter / StoreKit validation | `docs/APPLE_IAP.md`, `docs/MONETIZATION.md`, ADR 0002 | `docs/TESTING.md`, `docs/RELEASE.md` for build/review gates |

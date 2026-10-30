@@ -1,5 +1,44 @@
 # Age eligibility and advertising policy
 
+## Standalone free-release prerequisite — 2026-10-30 (#103)
+
+[#103](https://github.com/juarezweiss/Paws/issues/103) now owns the focused native
+age/parental-access implementation and test plan for global free 1.0, following
+[#90's finding](https://github.com/juarezweiss/Paws/issues/90#issuecomment-6530526490).
+This supersedes the earlier unresolved-necessity wording below, not the approved
+ages, permission policy or no-questionnaire rule. Planning establishes a concrete
+prerequisite; no implementation, legal clearance or physical pass is claimed.
+
+Official sources rechecked on 2026-10-30: [Texas SB2420 §§121.051–.055](https://capitol.texas.gov/tlodocs/89R/billtext/html/SB02420F.htm),
+[Apple's Texas notice](https://developer.apple.com/news/?id=sg176nne),
+[July 6 court order](https://www.supremecourt.gov/orders/courtorders/070626zr_g3bi.pdf),
+[Declared Age Range](https://developer.apple.com/documentation/declaredagerange/),
+[Apple age-assurance Q&A](https://developer.apple.com/support/age-assurance/) and
+[regional update](https://developer.apple.com/news/?id=f5zj08ey). Texas alone
+establishes concrete work; these checks are not exhaustive global clearance.
+Revalidate current obligations and released API behavior at implementation/release.
+
+#103 includes `com.apple.developer.declared-age-range = true`, required native
+age/access and significant-update handling, denied/pending/revoked permissions,
+correction/recheck and explicit pre-26 / 26.0–26.1 / 26.2–26.3 / 26.4+ behavior.
+No AdMob, UMP, IAP or PR #87 integration. Unknown age or optional sharing refusal
+alone must not block otherwise eligible play; an unavailable mandatory check is
+not approval. Preserve iOS 16.3 support unless the owner approves a change.
+
+#91 supplies early legal/territory and permission-evidence decisions to #103;
+#103's implementation/automated-native evidence and exact allowlist precede final
+#90 acceptance. #92 verifies signing and records explicit human iPhone review;
+final #91 declarations use those artifacts before #21 readiness. The global
+target does not authorize silently narrowing territories or blocking all users.
+
+Resolve before implementation: what demonstrates under-18 product permission
+where native signals are insufficient; any demonstrated mandatory-check gap on
+older supported OS; and lawful protective-state retention/deletion. Texas
+§121.055(b) requires deletion of store-provided personal data after verification,
+while the existing policy below requires minimum protective knowledge to survive
+restart. Do not assume a derived flag is exempt, or silently discard restrictions.
+Record a lawful data/state lifecycle and owner disposition in #91/#103.
+
 ## Free-release ownership clarification — 2026-10-28
 
 The October 27 approved minimum/permission policy below is unchanged; this update

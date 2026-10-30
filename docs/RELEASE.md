@@ -10,7 +10,7 @@ pins and compatible storage for a separately approved 1.1+ enablement.
 
 The [free-1.0 release checklist](RELEASE_RC_1_0.md) governs current release work.
 [#67](https://github.com/juarezweiss/Paws/issues/67) owns future IAP/AdMob/UMP/
-age-assurance research and enablement; [#82](https://github.com/juarezweiss/Paws/issues/82)
+commercial age-policy research and enablement; [#82](https://github.com/juarezweiss/Paws/issues/82)
 stays open for future IAP. Neither blocks purchase-free 1.0. Their findings are
 preserved; no fix, new pass or waiver of future purchase safety is implied.
 
@@ -54,13 +54,20 @@ not a final production-candidate receipt. Preserve the newer gameplay/UI/assets/
 ProjectSettings and all accepted evidence from current develop.
 
 Exclude all monetization SDKs/providers and monetization-only age components.
-Do not silently exclude any independently required native access component:
-[AGE_ELIGIBILITY](AGE_ELIGIBILITY.md) and [#91](https://github.com/juarezweiss/Paws/issues/91)
-own the unresolved selected-territory/native permission/access determination,
-including the approved known-ineligible restriction. Any concrete standalone
-requirement needs a recorded owner disposition, scoped implementation and exact
-verification before final #90/#92 acceptance; no legal exemption or new mandatory
-component is assumed. #67 remains future monetization, not free access clearance.
+The [2026-10-30 finding](https://github.com/juarezweiss/Paws/issues/90#issuecomment-6530526490)
+establishes standalone native access handling as a global free-release prerequisite.
+[#103](https://github.com/juarezweiss/Paws/issues/103) owns the focused Declared Age
+Range bridge/capability/entitlement, required permissions/significant updates,
+correction/revocation, OS guards and tests, independently of monetization/PR #87.
+[AGE_ELIGIBILITY](AGE_ELIGIBILITY.md) and #91 retain policy/legal ownership.
+Early #91 decisions feed #103; #103 implementation/automated-native evidence and
+an exact allowlist precede final #90 acceptance. #90 may audit commercial
+exclusions in parallel. #92 reinspects the signed artifact and obtains explicit
+human iPhone acceptance; final #91 metadata then feeds #21. No circular dependency
+on completing all of #91 first. Implementation remains separately assigned work.
+Global distribution/no unnecessary prompts remain the target; older-OS gaps,
+permission evidence and retention/deletion need the owner disposition recorded
+in #103/#91. #67 remains future monetization, not free access clearance.
 
 Pending owner inputs include final version/build allocation, Terms/Privacy/support
 URLs/contacts, territories/declarations and access disposition, current signing/
