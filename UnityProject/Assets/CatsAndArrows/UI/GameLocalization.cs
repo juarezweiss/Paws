@@ -48,6 +48,7 @@ namespace CatsAndArrows.UI
                 foreach (var entry in extra) messages.Add(entry.Key, entry.Value[index]);
                 TutorialLocalization.AddMessages(messages, index);
                 MonetizationLocalization.AddMessages(messages, index);
+                AccessLocalization.AddMessages(messages, index);
                 return new LocaleResource(locale, messages);
             }));
         }

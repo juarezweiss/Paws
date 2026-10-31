@@ -1,0 +1,7 @@
+{
+  "name": "CatsAndArrows.Access.Editor",
+  "rootNamespace": "CatsAndArrows.Access.Editor",
+  "references": ["CatsAndArrows.Access"],
+  "includePlatforms": ["Editor"],
+  "autoReferenced": true
+}

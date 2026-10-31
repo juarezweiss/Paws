@@ -1,5 +1,24 @@
 # Age eligibility and advertising policy
 
+## Implementation disposition — 2026-10-31 (#103)
+
+The owner's implementation assignment approves normal Unknown play absent reliable
+ineligibility or a missing mandatory permission, minimum iOS 16.3, transient native
+data processing and only minimal lawful protective state. [NATIVE_ACCESS.md](NATIVE_ACCESS.md)
+records the pre-code applicability review, narrow implementation, actual API/OS
+boundaries and verification limits. Current Utah/Louisiana statutes defer their
+developer obligations to 2027, superseding dates in Apple's February notice; do
+not hardcode those outdated 2026 dates into access restrictions.
+
+Standalone native implementation is under review in #103, independent of all
+commercial providers/PR #87. #90 final binary acceptance and #91 final compliance
+remain separate gates. Initial parental download consent is system-managed and
+not exposed as a Boolean; no app verification is inferred from installation or
+parental-control flags. The current significant-change registry is empty; durable
+account-safe no-repeat handling must be settled before a future real significant
+update. Native Sandbox and owner physical acceptance are not inferred from SDK
+compilation or deterministic tests.
+
 ## Standalone free-release prerequisite — 2026-10-30 (#103)
 
 [#103](https://github.com/juarezweiss/Paws/issues/103) now owns the focused native
@@ -147,8 +166,12 @@ Future implementation must keep the following independent:
 | Ownership | Only verified Apple entitlement grants Remove Ads. Age/Terms/consent never grants, revokes or deletes purchase ownership; owned users suppress both ad placements. |
 
 Do not discard protective knowledge when a refresh returns Unknown, fails,
-backgrounds or restarts. Retain only the minimum necessary protective restriction
-and provenance locally, with disclosure and a native correction/recheck path.
+backgrounds or restarts. Standalone #103 retains only a minimal application-owned
+workflow phase, with disclosure and a native correction/recheck path; it stores
+no native age/category/source, response, permission choice or jurisdiction.
+An interrupted optional request alone is not protective knowledge. See
+[the data lifecycle](NATIVE_ACCESS.md#data-lifecycle) for the Texas deletion
+rationale and the distinction between InFlight and AwaitingResolution.
 Relax only with sufficiently reliable superseding information; do not guess a
 birthday, permanently freeze a restriction or use age data for targeting.
 

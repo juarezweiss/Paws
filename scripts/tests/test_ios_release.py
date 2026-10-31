@@ -42,7 +42,7 @@ class IOSReleaseTests(unittest.TestCase):
         self.export.mkdir()
         self.metadata = {"sourceSha": SHA, "unityVersion": "6000.3.25f1", "bundleIdentifier": ios.BUNDLE_ID,
                          "version": "0.1.0", "buildNumber": "1", "minimumIOS": "16.3", "deviceFamily": [1],
-                         "monetizationEnabled": False, "productionDefine": "PAWS_PRODUCTION"}
+                         "monetizationEnabled": False, "nativeAgeAccess": True, "productionDefine": "PAWS_PRODUCTION"}
         self.write_metadata()
         self.info = {"CFBundleIdentifier": "${PRODUCT_BUNDLE_IDENTIFIER}", "CFBundleDisplayName": "Paws",
                      "CFBundleShortVersionString": "0.1.0", "CFBundleVersion": "1",
@@ -55,11 +55,20 @@ class IOSReleaseTests(unittest.TestCase):
             "release": {"isa": "XCBuildConfiguration", "name": "Release", "buildSettings": {
                 "PRODUCT_BUNDLE_IDENTIFIER": ios.BUNDLE_ID, "TARGETED_DEVICE_FAMILY": "1",
                 "IPHONEOS_DEPLOYMENT_TARGET": "16.3",
+                "CODE_SIGN_ENTITLEMENTS": "PawsAccess.entitlements",
                 "PROVISIONING_PROFILE_SPECIFIER": "$(PROVISIONING_PROFILE_SPECIFIER_APP)"}},
-            "framework": {"isa": "PBXNativeTarget", "name": "UnityFramework", "buildConfigurationList": "framework-list"},
+            "framework": {"isa": "PBXNativeTarget", "name": "UnityFramework", "buildConfigurationList": "framework-list",
+                          "buildPhases": ["framework-links"]},
             "framework-list": {"buildConfigurations": ["framework-release"]},
             "framework-release": {"isa": "XCBuildConfiguration", "name": "Release", "buildSettings": {
-                "PROVISIONING_PROFILE_SPECIFIER": ""}}}}
+                "PROVISIONING_PROFILE_SPECIFIER": ""}},
+            "framework-links": {"isa": "PBXFrameworksBuildPhase", "files": ["age-link", "permission-link"]},
+            "age-link": {"isa": "PBXBuildFile", "fileRef": "age-ref", "settings": {"ATTRIBUTES": ["Weak"]}},
+            "permission-link": {"isa": "PBXBuildFile", "fileRef": "permission-ref", "settings": {"ATTRIBUTES": ["Weak"]}},
+            "age-ref": {"isa": "PBXFileReference", "path": "System/Library/Frameworks/DeclaredAgeRange.framework", "sourceTree": "SDKROOT"},
+            "permission-ref": {"isa": "PBXFileReference", "path": "System/Library/Frameworks/PermissionKit.framework", "sourceTree": "SDKROOT"}}}
+        self.access_entitlements = self.export / "PawsAccess.entitlements"
+        self.write_plist(self.access_entitlements, {ios.AGE_ENTITLEMENT: True})
         self.write_project()
         self.generated = self.export / "Il2CppOutputProject/Source/il2cppOutput/CatsAndArrows.UI.cpp"
         self.generated.parent.mkdir(parents=True)
@@ -73,6 +82,8 @@ class IOSReleaseTests(unittest.TestCase):
             "CFBundleIdentifier": ios.BUNDLE_ID, "CFBundleShortVersionString": "0.1.0", "CFBundleVersion": "1"}})
         (self.app / "Paws").write_bytes(b"fixture binary")
         self.entitlements = {}
+        self.binary_load_commands = {}
+        self.binary_libraries = {}
         self.commands = []
         self.dirty_status = ""
         self.mock = patch.object(ios, "command", side_effect=self.run_command)
@@ -99,7 +110,10 @@ class IOSReleaseTests(unittest.TestCase):
         if args[0] == "xcodebuild":
             return "Xcode 27.0\nBuild version fixture\n"
         if args[0] == "otool":
-            return "Paws:\n\t/System/Library/Frameworks/UIKit.framework/UIKit (compatibility version 1.0.0)\n"
+            if args[1] == "-l":
+                return self.binary_load_commands.get(Path(args[2]).name, self.load_command("UIKit.framework", "LC_LOAD_DYLIB"))
+            return self.binary_libraries.get(Path(args[2]).name,
+                "Paws:\n\t/System/Library/Frameworks/UIKit.framework/UIKit (compatibility version 1.0.0)\n")
         if args[0] == "codesign" and "-d" in args:
             return plistlib.dumps(self.entitlements).decode()
         if args[0] == "codesign":
@@ -109,6 +123,13 @@ class IOSReleaseTests(unittest.TestCase):
     def receipt(self, archive=False):
         return ios.build_receipt(self.root, self.export, self.archive if archive else None)
 
+    @staticmethod
+    def load_command(framework, kind, index=0):
+        stem = Path(framework).stem
+        return (f"Load command {index}\n          cmd {kind}\n      cmdsize 104\n"
+                f"         name /System/Library/Frameworks/{framework}/{stem} (offset 24)\n"
+                "   time stamp 2 Thu Jan  1 00:00:02 1970\n      current version 1.0.0\n")
+
     def test_export_receipt_contains_real_config_packages_and_pending_human_gates(self):
         receipt = self.receipt()
         self.assertEqual(receipt["sourceSha"], SHA)
@@ -117,13 +138,17 @@ class IOSReleaseTests(unittest.TestCase):
         self.assertEqual(receipt["unityPackages"]["com.unity.test-framework"]["version"], "1.6.0")
         self.assertEqual(receipt["diagnosticExclusion"]["sourceFilesInspected"], 1)
         self.assertEqual(receipt["physicalIPhoneReview"], "pending-human")
+        self.assertTrue(receipt["nativeAgeAccess"]["exportEntitlementVerified"])
+        self.assertEqual(receipt["nativeAgeAccess"]["signedCapabilityVerification"], "pending-signing")
+        self.assertEqual({link["framework"] for link in receipt["nativeAgeAccess"]["systemFrameworkLinks"]},
+                         set(ios.AGE_FRAMEWORKS))
         self.assertFalse(any(args[0] == "codesign" for args in self.commands))
 
     def test_metadata_mismatches_fail(self):
         for key, value in {"sourceSha": "b" * 40, "unityVersion": "6000.3.1f1", "bundleIdentifier": "old.bundle",
                            "version": "0.2.0", "buildNumber": "2", "minimumIOS": "15.0", "deviceFamily": [1, 2],
                            "monetizationEnabled": True, "productionDefine": "REVIEW", "developmentBuild": True,
-                           "scriptDebugging": True, "profilerEnabled": True}.items():
+                           "scriptDebugging": True, "profilerEnabled": True, "nativeAgeAccess": False}.items():
             with self.subTest(key=key):
                 original = copy.deepcopy(self.metadata)
                 self.metadata[key] = value
@@ -132,6 +157,77 @@ class IOSReleaseTests(unittest.TestCase):
                     self.receipt()
                 self.metadata = original
         self.write_metadata()
+
+    def test_native_access_metadata_requires_boolean_true(self):
+        for value in (None, False, 1, "true"):
+            with self.subTest(value=value):
+                self.metadata["nativeAgeAccess"] = value
+                self.write_metadata()
+                with self.assertRaisesRegex(ios.InspectionError, "nativeAgeAccess"):
+                    self.receipt()
+
+    def test_native_access_entitlement_is_required_and_boolean(self):
+        for values in ({}, {ios.AGE_ENTITLEMENT: False}, {ios.AGE_ENTITLEMENT: 1}, {ios.AGE_ENTITLEMENT: "true"}):
+            with self.subTest(values=values):
+                self.write_plist(self.access_entitlements, values)
+                with self.assertRaisesRegex(ios.InspectionError, "entitlement as Boolean true"):
+                    self.receipt()
+        self.access_entitlements.unlink()
+        with self.assertRaisesRegex(ios.InspectionError, "file is missing"):
+            self.receipt()
+
+    def test_native_access_entitlement_path_cannot_escape_or_use_expansion(self):
+        outside = self.root / "outside.entitlements"
+        self.write_plist(outside, {ios.AGE_ENTITLEMENT: True})
+        (self.export / "escape.entitlements").symlink_to(outside)
+        settings = self.project["objects"]["release"]["buildSettings"]
+        for value in (None, "", "../outside.entitlements", str(outside), "$(SRCROOT)/PawsAccess.entitlements",
+                      "escape.entitlements", "folder\\PawsAccess.entitlements"):
+            with self.subTest(value=value):
+                settings["CODE_SIGN_ENTITLEMENTS"] = value
+                self.write_project()
+                with self.assertRaisesRegex(ios.InspectionError, "entitlement"):
+                    self.receipt()
+
+    def test_native_access_entitlement_cannot_be_assigned_to_framework_or_project(self):
+        for config in ("framework-release", "project-release"):
+            with self.subTest(config=config):
+                original = copy.deepcopy(self.project)
+                self.project["objects"].setdefault(config, {"isa": "XCBuildConfiguration", "name": "Release", "buildSettings": {}})
+                self.project["objects"][config]["buildSettings"]["CODE_SIGN_ENTITLEMENTS"] = "PawsAccess.entitlements"
+                self.write_project()
+                with self.assertRaisesRegex(ios.InspectionError, "scoped to the application"):
+                    self.receipt()
+                self.project = original
+
+    def test_native_access_framework_links_are_weak_and_attached_to_unity_framework(self):
+        for object_id in ("age-link", "permission-link"):
+            for attributes in ([], ["Required"], "NotWeak"):
+                with self.subTest(object_id=object_id, attributes=attributes):
+                    original = copy.deepcopy(self.project)
+                    self.project["objects"][object_id]["settings"]["ATTRIBUTES"] = attributes
+                    self.write_project()
+                    with self.assertRaisesRegex(ios.InspectionError, "weak linkage"):
+                        self.receipt()
+                    self.project = original
+        self.project["objects"]["framework"]["buildPhases"] = []
+        self.write_project()
+        with self.assertRaisesRegex(ios.InspectionError, "Missing weak"):
+            self.receipt()
+
+    def test_native_access_rejects_additional_strong_link_on_app_target(self):
+        self.project["objects"]["target"]["buildPhases"] = ["app-links"]
+        self.project["objects"]["app-links"] = {"isa": "PBXFrameworksBuildPhase", "files": ["strong-age-link"]}
+        self.project["objects"]["strong-age-link"] = {"isa": "PBXBuildFile", "fileRef": "age-ref"}
+        self.write_project()
+        with self.assertRaisesRegex(ios.InspectionError, "weak linkage"):
+            self.receipt()
+
+    def test_native_access_rejects_non_system_framework_reference(self):
+        self.project["objects"]["age-ref"]["sourceTree"] = "SOURCE_ROOT"
+        self.write_project()
+        with self.assertRaisesRegex(ios.InspectionError, "system SDK"):
+            self.receipt()
 
     def test_modified_xcode_identifier_is_rejected(self):
         self.project["objects"]["release"]["buildSettings"]["PRODUCT_BUNDLE_IDENTIFIER"] = "com.review"
@@ -182,7 +278,7 @@ class IOSReleaseTests(unittest.TestCase):
 
     def test_missing_plist_project_metadata_or_il2cpp_fails(self):
         for path in (self.export / "Info.plist", self.export / "paws-export.json", self.generated,
-                     self.export / "Unity-iPhone.xcodeproj/project.pbxproj"):
+                     self.export / "Unity-iPhone.xcodeproj/project.pbxproj", self.access_entitlements):
             with self.subTest(path=path.name):
                 data = path.read_bytes()
                 path.unlink()
@@ -222,31 +318,80 @@ class IOSReleaseTests(unittest.TestCase):
     def test_export_records_system_framework_references(self):
         self.project["objects"]["UIKit"] = {"isa": "PBXFileReference", "path": "System/Library/Frameworks/UIKit.framework"}
         self.write_project()
-        self.assertEqual(self.receipt()["exportLinkedSDKReferences"], ["System/Library/Frameworks/UIKit.framework"])
+        self.assertEqual(self.receipt()["exportLinkedSDKReferences"],
+                         sorted(["System/Library/Frameworks/UIKit.framework"] +
+                                ["System/Library/Frameworks/" + name for name in ios.AGE_FRAMEWORKS]))
 
     def test_unsigned_archive_needs_no_signing_credentials(self):
         result = self.receipt(True)
         self.assertEqual(result["stage"], "unsigned-archive-validated")
         archive = result["archive"]
         self.assertFalse(archive["signatureVerified"])
+        self.assertEqual(archive["nativeAgeCapabilityVerification"], "pending-signing")
         self.assertEqual(len(archive["archiveTreeSha256"]), 64)
         self.assertEqual(archive["capabilities"], ["arm64", "metal"])
         self.assertIn("UIKit.framework", archive["linkedLibraries"][0]["linkedLibraries"][0])
         self.assertFalse(any(args[0] == "codesign" for args in self.commands))
 
+    def test_archived_native_age_frameworks_have_actual_weak_load_commands(self):
+        framework = self.app / "Frameworks/UnityFramework.framework"
+        framework.mkdir(parents=True)
+        (framework / "UnityFramework").write_bytes(b"framework")
+        self.binary_libraries["UnityFramework"] = "UnityFramework:\n" + "".join(
+            f"\t/System/Library/Frameworks/{name}/{Path(name).stem} (compatibility version 1.0.0)\n"
+            for name in ios.AGE_FRAMEWORKS)
+        self.binary_load_commands["UnityFramework"] = "UnityFramework:\n" + "".join(
+            self.load_command(name, "LC_LOAD_WEAK_DYLIB", index) for index, name in enumerate(ios.AGE_FRAMEWORKS))
+        result = self.receipt(True)
+        links = next(item for item in result["archive"]["linkedLibraries"] if item["binary"].endswith("/UnityFramework"))
+        self.assertEqual({item["framework"] for item in links["nativeAgeSystemLoadCommands"]}, set(ios.AGE_FRAMEWORKS))
+        self.assertTrue(all(item["command"] == "LC_LOAD_WEAK_DYLIB" for item in links["nativeAgeSystemLoadCommands"]))
+        self.assertIn(["otool", "-l", str(framework / "UnityFramework")], self.commands)
+
+    def test_archived_native_age_strong_autolinks_are_rejected_despite_weak_project(self):
+        # A valid PBX Weak link must not hide an extra strong Swift-autolink result.
+        for name in ios.AGE_FRAMEWORKS:
+            with self.subTest(framework=name):
+                self.binary_load_commands["Paws"] = (
+                    self.load_command(name, "LC_LOAD_WEAK_DYLIB") + self.load_command(name, "LC_LOAD_DYLIB", 1))
+                with self.assertRaisesRegex(ios.InspectionError, "require LC_LOAD_WEAK_DYLIB"):
+                    self.receipt(True)
+
+    def test_native_age_load_command_inspection_cannot_silently_omit_a_listed_link(self):
+        self.binary_libraries["Paws"] = "Paws:\n\t/System/Library/Frameworks/DeclaredAgeRange.framework/DeclaredAgeRange\n"
+        with self.assertRaisesRegex(ios.InspectionError, "Cannot verify native age framework Mach-O"):
+            self.receipt(True)
+
+    def test_native_age_load_command_does_not_inherit_kind_from_previous_command(self):
+        self.binary_load_commands["Paws"] = self.load_command("UIKit.framework", "LC_LOAD_WEAK_DYLIB") + (
+            "Load command 1\n         name /System/Library/Frameworks/PermissionKit.framework/PermissionKit (offset 24)\n")
+        with self.assertRaisesRegex(ios.InspectionError, "require LC_LOAD_WEAK_DYLIB"):
+            self.receipt(True)
+
     def test_signed_archive_verifies_signature_and_reads_entitlements(self):
         signature = self.app / "_CodeSignature/CodeResources"
         signature.parent.mkdir()
         signature.write_bytes(b"fixture")
-        self.entitlements = {"get-task-allow": False, "aps-environment": "production"}
+        self.entitlements = {"get-task-allow": False, "aps-environment": "production", ios.AGE_ENTITLEMENT: True}
         result = self.receipt(True)
         self.assertEqual(result["stage"], "signed-archive-validated")
         self.assertTrue(result["archive"]["signatureVerified"])
         self.assertEqual(result["archive"]["entitlements"]["aps-environment"], "production")
+        self.assertEqual(result["archive"]["nativeAgeCapabilityVerification"], "signed-entitlement-verified")
         self.assertTrue(any(args[:4] == ["codesign", "--verify", "--deep", "--strict"] for args in self.commands))
         self.entitlements["get-task-allow"] = True
         with self.assertRaisesRegex(ios.InspectionError, "development debugging"):
             self.receipt(True)
+
+    def test_signed_native_age_entitlement_is_required_and_boolean(self):
+        signature = self.app / "_CodeSignature/CodeResources"
+        signature.parent.mkdir()
+        signature.write_bytes(b"fixture")
+        for values in ({}, {ios.AGE_ENTITLEMENT: False}, {ios.AGE_ENTITLEMENT: "true"}, {ios.AGE_ENTITLEMENT: 1}):
+            with self.subTest(values=values):
+                self.entitlements = values
+                with self.assertRaisesRegex(ios.InspectionError, "missing its native age entitlement"):
+                    self.receipt(True)
 
     def test_archive_requires_app_archive_metadata_and_executable(self):
         for path in (self.app / "Info.plist", self.archive / "Info.plist", self.app / "Paws"):

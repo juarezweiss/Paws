@@ -1,0 +1,7 @@
+{
+  "name": "CatsAndArrows.Access.Tests",
+  "references": ["CatsAndArrows.Access", "CatsAndArrows.Access.Editor"],
+  "includePlatforms": ["Editor"],
+  "optionalUnityReferences": ["TestAssemblies"],
+  "autoReferenced": false
+}

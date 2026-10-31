@@ -69,6 +69,12 @@ Global distribution/no unnecessary prompts remain the target; older-OS gaps,
 permission evidence and retention/deletion need the owner disposition recorded
 in #103/#91. #67 remains future monetization, not free access clearance.
 
+The 2026-10-31 owner disposition and pre-code official-source review are recorded
+in [NATIVE_ACCESS.md](NATIVE_ACCESS.md). #103 adds a standalone native layer and
+export capability under review; its SDK compilation does not satisfy native
+Sandbox, signed entitlement/profile or human physical gates. No signing,
+installation, production action or PR #87 integration follows this implementation.
+
 Pending owner inputs include final version/build allocation, Terms/Privacy/support
 URLs/contacts, territories/declarations and access disposition, current signing/
 account prerequisites, #22 trial/device-coverage disposition and distribution

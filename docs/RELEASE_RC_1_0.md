@@ -30,7 +30,7 @@ proceed while #103 is pending; #92 owns final signed-artifact/human acceptance.
 | [#88 / #93](https://github.com/juarezweiss/Paws/pull/93) contract | Merged into develop as `fe81861` before #89 implementation. | Existing contract accepted/integrated; #89 did not modify or merge PR #93. |
 | [#89 UI](https://github.com/juarezweiss/Paws/issues/89) | Implemented on focused branch; integration review pending. Null/disabled composition omits commercial Settings rows. | Source `82f0e8c`: pinned compile, 24/24 focused and 755/755 EditMode pass; 18 locale/portrait/composition cases, repeated immediate offline-port Hints across 90 completed boards, 54 desktop captures. [Evidence and limits](evidence/issue89/validation.json). |
 | [#90 binary](https://github.com/juarezweiss/Paws/issues/90) | Pending. Null monetization bootstrap and historical disabled receipts do not prove the final binary. | Integrated #89; #91 early decisions and #103 implementation/automated-native evidence plus exact allowlist before final acceptance; committed-source export/archive inventory. |
-| [#103 native access](https://github.com/juarezweiss/Paws/issues/103) | Planned, unimplemented. Standalone Declared Age Range/capability/entitlement and required parental-access handling. | Early #91 legal/permission/retention/older-OS decisions; focused automated/native tests and #90 allowlist. Physical report remains #92. No monetization dependency. |
+| [#103 native access](https://github.com/juarezweiss/Paws/issues/103) | Implementation under review. Standalone Declared Age Range/capability/entitlement and observable required parental-access handling. | [Current scope and limits](NATIVE_ACCESS.md); automated/native compile evidence remains separate from 26+ Sandbox and owner physical review under #92. No monetization dependency. |
 | [#92 RC / human QA](https://github.com/juarezweiss/Paws/issues/92) | Pending. Prior review-app passes are scoped development evidence. | #90 and settled access scope; owner-approved version/build and signing; reinspection after signing and explicit human checklist result. |
 | [#21 distribution](https://github.com/juarezweiss/Paws/issues/21) | Pending. Prepare final GO/NO-GO and owner action list; no submission authorized. | #88/#93, #89, #90, #92 and accepted #91, plus recorded #22 trial disposition. |
 | [#91 metadata / compliance](https://github.com/juarezweiss/Paws/issues/91) | Parallel, pending. Terms/Privacy/support URLs, declarations and early legal/access decisions for #103. | Draft now; early decisions feed #103 before final #90/#92; reconcile metadata/screenshots to final artifacts before #21. |
@@ -99,6 +99,13 @@ metadata uses actual #90/#92 artifacts; this staged dependency avoids a cycle.
 free-1.0 access requirement. No completed gameplay issue is reopened.
 
 ## Remaining free release gates
+
+#103 implementation disposition (2026-10-31): use the
+[dated native-access assessment](NATIVE_ACCESS.md), including Utah/Louisiana 2027
+deferrals, Unknown/older-OS handling, no stored age/source/answers, system-managed
+initial consent and the future significant-change restart durability limit.
+Do not turn current implementation tests into final native Sandbox, signed-profile,
+legal or human physical acceptance. #90/#91/#92 remain open for their actual gates.
 
 - [x] #88/#93: reconciled contract merged into develop (`fe81861`).
 - [ ] #89: implementation and automated/desktop verification complete; focused PR

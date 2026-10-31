@@ -78,6 +78,7 @@ namespace CatsAndArrows.UI.Editor
                 var report = BuildPipeline.BuildPlayer(options);
                 if (report.summary.result != BuildResult.Succeeded)
                     throw new InvalidOperationException("Production iOS export failed: " + report.summary.result);
+                CatsAndArrows.Access.Editor.NativeAccessBuild.Configure(options.locationPathName);
                 File.WriteAllText(Path.Combine(options.locationPathName, "paws-export.json"), JsonUtility.ToJson(new ExportReceipt
                 {
                     sourceSha = revision, unityVersion = Application.unityVersion,
@@ -110,6 +111,7 @@ namespace CatsAndArrows.UI.Editor
             public string sourceSha, unityVersion, bundleIdentifier, version, buildNumber, minimumIOS, productionDefine;
             public int[] deviceFamily;
             public bool monetizationEnabled = false, developmentBuild = false, scriptDebugging = false, profilerEnabled = false;
+            public bool nativeAgeAccess = true;
         }
     }
 }
