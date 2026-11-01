@@ -1,0 +1,138 @@
+{
+  "schema": "paws-native-access-validation-v1",
+  "issue": 103,
+  "recordedOn": "2026-11-01",
+  "runtimeSourceSha": "b9793cc36ec5589ebbc538709c78a328b32ee13a",
+  "baseDevelopSha": "a08e254444742bfaec6572f7552d4b1cbc06aceb",
+  "scope": "Standalone observable native age/permission mechanisms; current significant-change registry empty; no full legal or device acceptance",
+  "repositoryValidation": "passed",
+  "whitespace": "passed",
+  "unity": {
+    "version": "6000.3.25f1",
+    "compile": "passed",
+    "compileLog": ".unity-results/compile.4pHj10/Editor.log",
+    "editMode": {
+      "result": "Passed",
+      "total": "806",
+      "passed": "806",
+      "failed": "0",
+      "skipped": "0",
+      "inconclusive": "0"
+    },
+    "editModeXml": ".unity-results/editmode.MFAPcX/test-results.xml",
+    "editModeXmlSha256": "2c23e95c5b8e8a318aa0fdcf0a0bf03cd8fabdf8b0aa587ce737a14f97ed2b9b",
+    "scopeNote": "Final C# inputs tested. Subsequent Swift-only QA fixes were separately workflow-tested, SDK-typechecked, and compiled in the source-linked unsigned archive."
+  },
+  "python": {
+    "passed": 63,
+    "failed": 0,
+    "log": ".unity-results/issue103-python.log",
+    "logSha256": "be793c411e11a494d1672f4ec836cae5785abf5b591988c9bf92ae963abb7f88"
+  },
+  "native": {
+    "workflowChecksPassed": 83,
+    "sdk": "Xcode 27.2\nBuild version 27B52",
+    "arm64DeploymentTargetsTypechecked": [
+      "16.3",
+      "26.0",
+      "26.2",
+      "26.4",
+      "27.0"
+    ],
+    "log": ".unity-results/issue103-native-access.log",
+    "logSha256": "726c579ed7360c0ba57ef055a77990a5ccb411a10ca229ece7afa621a13e1ee4",
+    "iosRuntimeTested": false,
+    "sandboxTested": false
+  },
+  "portraits": {
+    "method": "mounted UI Toolkit panels; automated geometry/target/recovery checks",
+    "sizes": [
+      "320x568",
+      "393x852",
+      "430x932"
+    ],
+    "locales": [
+      "en",
+      "pt-BR",
+      "es"
+    ],
+    "physicalAcceptance": false,
+    "screenshots": "not captured in headless EditMode"
+  },
+  "sdkPins": {
+    "filesVerified": 322,
+    "changed": false
+  },
+  "independentQa": {
+    "role": "qa_reviewer",
+    "readOnly": true,
+    "finalResult": "No blocking findings",
+    "resolved": [
+      "Explicit navigation discarded stale auto-resume intent",
+      "Opaque native session/request/account correlation",
+      "Protective native observation persisted before managed resolution",
+      "Out-of-order refresh rejected",
+      "Handled update not repeated for ordinary background/resume"
+    ]
+  },
+  "archive": {
+    "receipt": "unsigned-release-receipt.json",
+    "receiptSha256": "99acb70e88bb02854d396f09f7190b6ea87b0977730741b0c8e745dde1077c10",
+    "stage": "unsigned-archive-validated",
+    "checksum": "334cbacfc172ccf128e69110188ccfc695d2af8b253d7f8c71b611acc34a21f7",
+    "localPath": ".unity-results/issue103-unsigned.xcarchive",
+    "exportPath": ".unity-results/issue103-ios-export",
+    "dSYMs": [
+      "Paws.app.dSYM",
+      "UnityFramework.framework.dSYM"
+    ],
+    "signatureVerified": false,
+    "minimumIOS": "16.3"
+  },
+  "nativeAllowlist": {
+    "assembly": "CatsAndArrows.Access",
+    "nativeSources": [
+      "PawsNativeAccess.swift",
+      "PawsAccessWorkflow.swift"
+    ],
+    "appEntitlements": {
+      "com.apple.developer.declared-age-range": true
+    },
+    "weakSystemFrameworks": [
+      "DeclaredAgeRange.framework",
+      "PermissionKit.framework",
+      "_PermissionKit_UIKit.framework"
+    ],
+    "scopeNote": "Foundation/UIKit/Swift runtime support remains ordinary system linkage. The access layer adds no IAP/AdMob/UMP adapter or PR87 integration. This receipt is not the complete #90 commercial-exclusion audit."
+  },
+  "dataRetention": {
+    "stored": [
+      "Application workflow phase only (None/InFlight/AwaitingResolution)",
+      "Application content baseline and pending app-generated question/change identifiers"
+    ],
+    "notStored": [
+      "Birthdate",
+      "Identity documents/user IDs",
+      "Apple response or age/category/source",
+      "Permission choice/history",
+      "Jurisdiction"
+    ],
+    "approvalPersistence": "Transient current-account/lifetime only; no globally reusable stored approval"
+  },
+  "pending": [
+    "iOS16.3/older and iOS26+ actual runtime/regional/Sandbox coverage",
+    "Owner human iPhone acceptance under #92",
+    "Signed capability/profile verification",
+    "Final #90 commercial exclusion and #91 legal/public-material acceptance",
+    "Account-safe durable significant-update no-repeat across process restart before a future real change is configured"
+  ],
+  "simulatorInventoryNote": "A read-only xcrun simctl inventory unexpectedly began setup; interrupted. No further simulator setup and no app signing or installation performed.",
+  "productionActions": {
+    "merged": false,
+    "signed": false,
+    "appInstalled": false,
+    "uploaded": false,
+    "released": false
+  },
+  "editedDocumentationLinksChecked": 17
+}

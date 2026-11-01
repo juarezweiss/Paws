@@ -107,6 +107,14 @@ initial consent and the future significant-change restart durability limit.
 Do not turn current implementation tests into final native Sandbox, signed-profile,
 legal or human physical acceptance. #90/#91/#92 remain open for their actual gates.
 
+Evidence recorded 2026-11-01 for runtime source `b9793cc`: pinned compilation,
+806/806 EditMode, 63/63 scripts, 83 native workflow checks, five native SDK deployment
+targets, independent QA and a clean unsigned production archive pass. The
+[receipt](evidence/issue103/unsigned-release-receipt.json) verifies app entitlement
+configuration and actual weak linkage of DeclaredAgeRange, PermissionKit and its
+system UIKit overlay. [Coverage limits](evidence/issue103/validation.json) and
+[pending human checklist](evidence/issue103/OWNER_REVIEW.md) remain explicit.
+
 - [x] #88/#93: reconciled contract merged into develop (`fe81861`).
 - [ ] #89: implementation and automated/desktop verification complete; focused PR
   integration approval pending. No commercial rows, labels, placeholders, ad/UMP

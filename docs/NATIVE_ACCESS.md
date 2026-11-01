@@ -1,5 +1,11 @@
 # Native age and parental access — #103
 
+Validation recorded 2026-11-01: [source-linked results](evidence/issue103/validation.json),
+[unsigned archive receipt](evidence/issue103/unsigned-release-receipt.json) and
+[pending owner checklist](evidence/issue103/OWNER_REVIEW.md). Implementation is
+review-ready; actual iOS runtime/Sandbox, signed capability and physical gates
+remain open. This is not final #91 legal or #90 binary-exclusion acceptance.
+
 ## Scope settled before coding — 2026-10-31
 
 Owner assignment authorizes implementation and one PR to develop, with no merge,
