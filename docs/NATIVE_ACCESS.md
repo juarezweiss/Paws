@@ -1,5 +1,12 @@
 # Native age and parental access — #103
 
+Follow-up 2026-11-02: [native verification and signing readiness](evidence/issue103/native-verification-2026-11-02/README.md)
+reuse the unchanged runtime/archive. The existing local profile does not authorize
+the age entitlement, so a development-signed device candidate is blocked. Native
+Simulator diagnostic controls are reported separately from entitlement-enabled
+Paws, authenticated Apple Sandbox and human iPhone acceptance. No phone install,
+account/profile change or merge is authorized by that verification task.
+
 Validation recorded 2026-11-01: [source-linked results](evidence/issue103/validation.json),
 [unsigned archive receipt](evidence/issue103/unsigned-release-receipt.json) and
 [pending owner checklist](evidence/issue103/OWNER_REVIEW.md). Implementation is
@@ -150,8 +157,9 @@ short/tall portrait rendering and actionable recovery without an assent bypass.
    native build evidence for #90/#91, with signed/profile review deferred to #92.
 4. Focused policy/interaction/build/native tests, pinned Unity compile/EditMode,
    repository validation and independent read-only QA. Report unavailable native
-   OS/regional/sandbox coverage explicitly. Existing installed simulator runtimes
-   are iOS 17.0/18.5; 26.x sandbox/physical scenarios remain separate evidence.
+   OS/regional/sandbox coverage explicitly. The November 2 direct CoreSimulator
+   inventory and qualified diagnostic controls are recorded in the follow-up;
+   they do not satisfy authenticated age-assurance Sandbox or physical acceptance.
 
 Rollback must retain the standalone protections when legally required; returning
 to the old free bootstrap is not a compliant release rollback. Owner retains

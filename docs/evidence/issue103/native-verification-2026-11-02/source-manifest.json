@@ -1,0 +1,16 @@
+{
+  "sourceRevision": "b9793cc36ec5589ebbc538709c78a328b32ee13a",
+  "inspectionRevision": "dc57b86c05afe97a790c7101f480e6b4be68a51b",
+  "inputs": [
+    {
+      "path": "UnityProject/Assets/CatsAndArrows/Access/Plugins/iOS/PawsAccessWorkflow.swift",
+      "sha256": "a260e90ffe5fc8164269273b312b71e77bdfbecc9dfde0fd8122e864a188f049",
+      "gitBlob": "cac8d88d583ce3924650f1762c0b6c2a5afee219"
+    },
+    {
+      "path": "UnityProject/Assets/CatsAndArrows/Access/Plugins/iOS/PawsNativeAccess.swift",
+      "sha256": "b423db77ed10bbf4d72becadc2dac5c525e2fa1e2936dd3c15d87aa7e21a5b01",
+      "gitBlob": "86a368f2ea0b5eef8e6a81dc6a751244b11feaac"
+    }
+  ]
+}

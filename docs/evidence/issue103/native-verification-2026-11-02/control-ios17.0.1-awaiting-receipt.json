@@ -1,0 +1,36 @@
+{
+  "ageResponsePersisted": false,
+  "appOwnedPhaseAfter": 2,
+  "appOwnedPhaseBefore": 2,
+  "assertions": {
+    "currentNativeSessionMatched": true,
+    "currentRequestMatched": true,
+    "pre26CheckpointMatchesAppOwnedFixture": true,
+    "pre26InitialPermissionRemainsSystemManaged": true,
+    "pre26NoMandatoryRangeInvented": true,
+    "pre26NoSignificantUpdateInvented": true,
+    "pre26UnavailableFallback": true,
+    "probeRootHasNoPresentedController": true,
+    "productionNativeReportReceived": true,
+    "unresolvedAppRecoveryRemainsProtective": true
+  },
+  "mode": "awaiting",
+  "observation": {
+    "adultAcknowledgementRequiredFlag": false,
+    "nativeCategory": "Unavailable",
+    "permissionSystemManaged": true,
+    "protectiveWorkflowFlag": true,
+    "requiredRangeFlag": false,
+    "significantUpdateRequiredFlag": false
+  },
+  "passed": true,
+  "physicalCoverage": false,
+  "probeKind": "isolated-UIApplication-not-Unity-gameplay",
+  "sandboxRegionalCoverage": false,
+  "sourceKind": "actual-committed-native-bridge",
+  "systemVersion": "17.0.1",
+  "probeAgeEntitlementEnabled": false,
+  "signing": "Simulator-ad-hoc-control-no-production-profile",
+  "authenticatedSandboxScenario": false,
+  "accountLoginOrChangePerformed": false
+}

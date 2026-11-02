@@ -100,6 +100,13 @@ free-1.0 access requirement. No completed gameplay issue is reopened.
 
 ## Remaining free release gates
 
+Native verification follow-up (2026-11-02): [local readiness evidence](evidence/issue103/native-verification-2026-11-02/README.md)
+finds that the existing valid profile/certificate covers Paws but lacks the required
+age-entitlement authorization. Device signing, installation and human acceptance
+remain pending; no profile/account action or new production build was performed.
+Qualified Simulator controls do not close actual Apple age-assurance Sandbox or
+regional access gates. #90/#91/#92 must retain these distinctions.
+
 #103 implementation disposition (2026-10-31): use the
 [dated native-access assessment](NATIVE_ACCESS.md), including Utah/Louisiana 2027
 deferrals, Unknown/older-OS handling, no stored age/source/answers, system-managed

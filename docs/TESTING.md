@@ -1,5 +1,25 @@
 # Testing Strategy
 
+## Issue #103 native verification follow-up — 2026-11-02
+
+[Follow-up evidence](evidence/issue103/native-verification-2026-11-02/README.md)
+preserves the prior source-linked archive and all tests below. Runtime inputs
+remain identical to `b9793cc`. Device-signing preparation is blocked by the
+existing profile's missing Declared Age Range authorization; the certificate and
+bundle coverage otherwise match. No signed-device acceptance is claimed.
+
+Actual Simulator probe/control results must be read at their qualified scope:
+production native bridge in an isolated UIKit harness, separate from the whole
+Unity application, entitlement-enabled device signing and authenticated Apple
+Sandbox scenarios. No Apple Sandbox scenario has completed in this follow-up.
+Unentitled iOS17.0.1/18.5 controls pass 8/8 scenarios (80/80 assertions); the
+unentitled iOS27.0 control returns no native report within 20 seconds. All
+entitlement-bearing ad-hoc probes failed launch. Exact iOS16.3 and26.x runtimes
+are unavailable. These failures/gaps do not establish candidate acceptance or a
+production defect.
+[Exact owner steps](evidence/issue103/OWNER_REVIEW.md) retain the human-only phone
+review and distinguish server-notification revocation from OS launch enforcement.
+
 ## Issue #103 standalone native access — 2026-11-01
 
 Implementation source `b9793cc36ec5589ebbc538709c78a328b32ee13a`:
