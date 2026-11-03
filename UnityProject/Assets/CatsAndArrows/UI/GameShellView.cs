@@ -1,4 +1,5 @@
 using System;
+using CatsAndArrows.Access;
 using System.Collections.Generic;
 using System.Diagnostics;
 using CatsAndArrows.Core;
@@ -45,6 +46,12 @@ namespace CatsAndArrows.UI
         private readonly IAdPrivacyService adPrivacy;
         private bool privacyRequest;
         private bool disposed;
+        private readonly IAccessService access;
+        private bool resumeAfterAccessCheck;
+        private Rect lastSafeAreaPixels;
+        private Vector2 lastSafeAreaScreen;
+        private bool hasSafeArea;
+        private bool AccessAllowed => access?.CanPlay != false;
         private bool CommercialBusy => monetization?.IsBusy == true || privacyRequest || adPrivacy?.IsPrivacyFormPresenting == true;
         private readonly bool enableTutorial;
         private readonly Func<bool> tutorialSeen;
@@ -64,10 +71,22 @@ namespace CatsAndArrows.UI
 
         public GameShellView(int initialSeed = 14, string locale = null, EasyGameLoop loop = null, bool useInlineHints = true,
             bool enableTutorial = true, Func<bool> tutorialSeen = null, Action markTutorialSeen = null, IDifficultyHistoryStore difficultyHistory = null, Func<double> idleClock = null, MonetizationCoordinator monetization = null, Func<double> completionClock = null, IAdPrivacyService adPrivacy = null)
+            : this(null, initialSeed, locale, loop, useInlineHints, enableTutorial, tutorialSeen, markTutorialSeen,
+                difficultyHistory, idleClock, monetization, completionClock, adPrivacy) { }
+
+        // Separate named factory keeps historical constructor overload resolution independent of access.
+        public static GameShellView WithAccess(IAccessService access, int initialSeed = 14, string locale = null, EasyGameLoop loop = null, bool useInlineHints = true,
+            bool enableTutorial = true, Func<bool> tutorialSeen = null, Action markTutorialSeen = null, IDifficultyHistoryStore difficultyHistory = null, Func<double> idleClock = null, MonetizationCoordinator monetization = null, Func<double> completionClock = null, IAdPrivacyService adPrivacy = null) =>
+            new GameShellView(access, initialSeed, locale, loop, useInlineHints, enableTutorial, tutorialSeen, markTutorialSeen,
+                difficultyHistory, idleClock, monetization, completionClock, adPrivacy);
+
+        private GameShellView(IAccessService access, int initialSeed, string locale, EasyGameLoop loop, bool useInlineHints,
+            bool enableTutorial, Func<bool> tutorialSeen, Action markTutorialSeen, IDifficultyHistoryStore difficultyHistory, Func<double> idleClock, MonetizationCoordinator monetization, Func<double> completionClock, IAdPrivacyService adPrivacy)
         {
             name = "game-shell";
             this.monetization = monetization;
             this.adPrivacy = adPrivacy;
+            this.access = access;
             if (adPrivacy != null) adPrivacy.Changed += OnAdPrivacyChanged;
             var clock = idleClock ?? (() => Time.realtimeSinceStartupAsDouble);
             hintAttention = new HintIdleAttention(clock);
@@ -104,7 +123,11 @@ namespace CatsAndArrows.UI
             safeFrame.Add(controls);
             overlay.name = "game-overlay"; Fill(overlay); overlay.style.backgroundColor = PortraitBoardView.Background;
             safeFrame.Add(overlay);
-            RegisterCallback<GeometryChangedEvent>(_ => UpdateSafeArea());
+            RegisterCallback<GeometryChangedEvent>(_ =>
+            {
+                if (hasSafeArea) ApplySafeArea(lastSafeAreaPixels, lastSafeAreaScreen);
+                else UpdateSafeArea();
+            });
             RegisterCallback<KeyDownEvent>(evt =>
             {
                 if (evt.keyCode != KeyCode.Escape || loading || CommercialBusy) return;
@@ -125,7 +148,68 @@ namespace CatsAndArrows.UI
             schedule.Execute(TickHintAttention).Every(50);
             // One view-owned tick; no per-win callbacks survive navigation or rebind.
             schedule.Execute(TickCompletion).Every(16);
+            if (access != null) access.Changed += OnAccessChanged;
             ShowMenu();
+        }
+
+        // #103: UI consumes the independent access decision; no age/permission truth lives here.
+        private void OnAccessChanged()
+        {
+            if (disposed) return;
+            if (!AccessAllowed)
+            {
+                if (Screen == "play") resumeAfterAccessCheck = true;
+                queuedRequest++; loading = false; nextBoardPending = false;
+                CancelInteraction(); CancelCompletion(); ResetNotifications();
+                monetization?.CancelHintDelivery();
+                if (Screen == "settings") ShowSettings();
+                else if (Screen != "access-information") ShowAccessScreen();
+            }
+            else if (Screen == "access")
+            {
+                var resume = resumeAfterAccessCheck;
+                resumeAfterAccessCheck = false;
+                if (resume && ActiveSession != null && applicationFocused && !applicationPaused) BackToGame();
+                else ShowMenu();
+            }
+            else if (Screen == "settings") ShowSettings();
+            TickHintAttention();
+        }
+
+        private void ShowAccessScreen()
+        {
+            CancelInteraction(); CancelCompletion();
+            BoardView.SetInteractionSuspended(true); BoardView.style.display = DisplayStyle.None;
+            controls.style.display = DisplayStyle.None;
+            Screen = "access"; Modal = null; overlay.Clear(); overlay.style.display = DisplayStyle.None;
+            menu.style.display = DisplayStyle.Flex; menu.SetEnabled(true); menu.Clear();
+            var scroll = new ScrollView(ScrollViewMode.Vertical) { name = "access-scroll" };
+            scroll.style.flexGrow = 1; scroll.horizontalScrollerVisibility = ScrollerVisibility.Hidden;
+            menu.Add(scroll);
+            var content = new VisualElement { name = "access-content" };
+            content.style.width = Length.Percent(100); content.style.maxWidth = 360;
+            content.style.alignSelf = Align.Center; scroll.Add(content);
+            content.Add(Heading(text.GetText("access.title"), 23));
+            var message = Paragraph(text.GetText("access.status." + access.State)); message.name = "access-status";
+            content.Add(message);
+            var recheck = MakeButton("access-recheck", "access.recheck", () => access.Refresh(true));
+            recheck.SetEnabled(!access.IsChecking); content.Add(recheck);
+            content.Add(MakeButton("access-system-settings", "access.system-settings", access.OpenSystemSettings));
+            content.Add(MakeButton("access-information", "access.information", ShowAccessInformation));
+            content.Add(MakeButton("access-settings", "settings.title", ShowSettings));
+            TickHintAttention();
+        }
+
+        public void ShowAccessInformation()
+        {
+            if (access == null || disposed) return;
+            resumeAfterAccessCheck = false;
+            CancelInteraction(); CancelCompletion();
+            BoardView.SetInteractionSuspended(true); BoardView.style.display = DisplayStyle.None;
+            menu.style.display = controls.style.display = DisplayStyle.None;
+            Screen = "access-information";
+            ShowModal("access-information", text.GetText("access.information"), text.GetText("access.information-body"),
+                MakeButton("access-information-back", "settings.back", ShowSettings));
         }
 
         public void SetApplicationFocus(bool focused)
@@ -143,7 +227,7 @@ namespace CatsAndArrows.UI
         // Manual ticking uses the same injected clock and lifecycle decisions as the scheduler.
         public void TickHintAttention()
         {
-            var eligible = panel != null && applicationFocused && !applicationPaused && !loading &&
+            var eligible = AccessAllowed && panel != null && applicationFocused && !applicationPaused && !loading &&
                 Screen == "play" && Modal == null && Tutorial == null && ActiveSession != null &&
                 !ActiveSession.IsCompleted && BoardView.IsBoundTo(ActiveSession) && BoardView.InteractionEnabled &&
                 BoardView.style.display.value != DisplayStyle.None && controls.style.display.value != DisplayStyle.None &&
@@ -180,7 +264,7 @@ namespace CatsAndArrows.UI
         }
         public void TickTutorialAttention()
         {
-            var eligible = panel != null && !disposed && applicationFocused && !applicationPaused && !loading && !CommercialBusy &&
+            var eligible = AccessAllowed && panel != null && !disposed && applicationFocused && !applicationPaused && !loading && !CommercialBusy &&
                 Screen == "play" && Modal == null && Tutorial?.CanContinue == true && ActiveSession != null &&
                 BoardView.IsBoundTo(ActiveSession) && BoardView.InteractionEnabled &&
                 BoardView.style.display.value != DisplayStyle.None && controls.style.display.value != DisplayStyle.None &&
@@ -253,7 +337,7 @@ namespace CatsAndArrows.UI
             celebration.Tick();
             RenderCompletion();
         }
-        private bool CanPresentCompletion() => panel != null && applicationFocused && !applicationPaused && !loading &&
+        private bool CanPresentCompletion() => AccessAllowed && panel != null && applicationFocused && !applicationPaused && !loading &&
             !CommercialBusy && Screen == "play" && Modal == null && Tutorial == null &&
             ActiveSession?.IsCompleted == true && ReferenceEquals(celebratingSession, ActiveSession) && BoardView.IsBoundTo(ActiveSession);
         private bool CanUseCompletionActions() => celebration.ActionsEnabled && CanPresentCompletion();
@@ -282,6 +366,8 @@ namespace CatsAndArrows.UI
 
         public void ApplySafeArea(Rect pixels, Vector2 screenPixels)
         {
+            // Keep the supplied device/simulated insets through a deferred panel relayout.
+            lastSafeAreaPixels = pixels; lastSafeAreaScreen = screenPixels; hasSafeArea = true;
             BoardView.ApplySafeArea(pixels, screenPixels);
             if (!float.IsFinite(contentRect.width) || !float.IsFinite(contentRect.height) || contentRect.width <= 0 || contentRect.height <= 0) return;
             var safe = SafeAreaLayout.ToPanelRect(pixels, screenPixels, new Vector2(contentRect.width, contentRect.height));
@@ -294,6 +380,8 @@ namespace CatsAndArrows.UI
         public void ShowMenu()
         {
             if (loading || CommercialBusy) return;
+            resumeAfterAccessCheck = false;
+            if (!AccessAllowed) { ShowAccessScreen(); return; }
             ResetNotifications(); CancelCompletion();
             BoardView.SetInteractionSuspended(true);
             BoardView.style.display = DisplayStyle.None;
@@ -364,6 +452,7 @@ namespace CatsAndArrows.UI
         public void ShowSettings()
         {
             if (loading || CommercialBusy) return;
+            resumeAfterAccessCheck = false;
             ResetNotifications(); CancelCompletion(); CancelInteraction();
             BoardView.SetInteractionSuspended(true); BoardView.style.display = DisplayStyle.None;
             Screen = "settings"; Modal = null; overlay.style.display = DisplayStyle.None;
@@ -383,7 +472,9 @@ namespace CatsAndArrows.UI
             list.style.alignSelf = Align.Center; scroll.Add(list);
             AddSettingsRow(list, "settings-language", "game.language", ShowLanguageSelector);
             var tutorial = AddSettingsRow(list, "settings-tutorial", "tutorial.title", StartTutorial);
-            tutorial.SetEnabled(enableTutorial);
+            tutorial.SetEnabled(enableTutorial && AccessAllowed);
+            if (access != null)
+                AddSettingsRow(list, "settings-access-information", "access.information", ShowAccessInformation);
             AddMonetizationSettings(list);
             if (adPrivacy?.PrivacyOptionsRequired == true)
                 AddSettingsRow(list, "settings-privacy-options", "privacy.options", ShowPrivacyOptions);
@@ -448,6 +539,7 @@ namespace CatsAndArrows.UI
         }
         public void StartPlaying()
         {
+            if (!AccessAllowed || disposed) return;
             if (loading || CommercialBusy || Screen != "menu" || Modal != null) return;
             if (ActiveSession != null) { BackToGame(); return; }
             if (enableTutorial && !tutorialSeen())
@@ -459,6 +551,7 @@ namespace CatsAndArrows.UI
         }
         public void StartTutorial()
         {
+            if (!AccessAllowed || disposed) return;
             if (loading || CommercialBusy || !enableTutorial) return;
             ResetNotifications(); CancelCompletion();
             CancelInteraction(); completionHint = null;
@@ -470,17 +563,20 @@ namespace CatsAndArrows.UI
         }
         public void ContinueTutorial()
         {
+            if (!AccessAllowed || disposed) return;
             if (loading || CommercialBusy || Screen != "play" || Modal != null || Tutorial == null || !Tutorial.CanContinue) return;
             CancelInteraction();
             if (Tutorial.Continue()) RefreshTutorial();
         }
         public void SkipTutorial()
         {
+            if (!AccessAllowed || disposed) return;
             if (loading || CommercialBusy || Tutorial == null) return;
             QueueNewGame();
         }
         private void OnTutorialGestureEnded()
         {
+            if (!AccessAllowed || disposed) return;
             if (Tutorial == null) return;
             var previousSession = Tutorial.Session;
             if (!Tutorial.EndGesture()) return;
@@ -490,7 +586,7 @@ namespace CatsAndArrows.UI
                 // the pointer recognizer as well as visuals to the new authority.
                 monetization?.BindSession(Tutorial.Session, ordinary: false);
                 BoardView.Bind(Tutorial.Session, Locale);
-                BoardView.SetInteractionSuspended(Screen != "play" || Modal != null || Tutorial.Session.IsCompleted);
+                BoardView.SetInteractionSuspended(!AccessAllowed || Screen != "play" || Modal != null || Tutorial.Session.IsCompleted);
             }
             RefreshTutorial();
         }
@@ -509,6 +605,7 @@ namespace CatsAndArrows.UI
         }
         public bool StartNewGame()
         {
+            if (!AccessAllowed || disposed) return false;
             if (nextBoardPending || CommercialBusy) return false;
             ResetNotifications(); CancelCompletion();
             // Consume any queued command before an asynchronous next-board transition.
@@ -531,6 +628,7 @@ namespace CatsAndArrows.UI
         }
         private bool GenerateNewGame()
         {
+            if (!AccessAllowed || disposed) { loading = false; return false; }
             LeaveTutorial();
             completionHint = null; BoardView.SetCompletionFeedback(null);
             if (!loading) NewGameStartedAtTimestamp = Stopwatch.GetTimestamp();
@@ -553,6 +651,7 @@ namespace CatsAndArrows.UI
         }
         private void QueueNewGame()
         {
+            if (!AccessAllowed || disposed) return;
             if (loading || CommercialBusy) return;
             ResetNotifications(); CancelCompletion();
             NewGameStartedAtTimestamp = Stopwatch.GetTimestamp();
@@ -566,11 +665,12 @@ namespace CatsAndArrows.UI
         }
         public void BackToGame()
         {
+            if (!AccessAllowed || disposed) return;
             if (loading || CommercialBusy || ActiveSession == null) return;
             ResetNotifications();
             Screen = "play"; Modal = null; menu.style.display = overlay.style.display = DisplayStyle.None;
             BoardView.style.display = controls.style.display = DisplayStyle.Flex;
-            BoardView.SetInteractionSuspended(ActiveSession.IsCompleted);
+            BoardView.SetInteractionSuspended(!AccessAllowed || ActiveSession.IsCompleted);
             if (Tutorial != null) RefreshTutorial(); else { BuildControls(); UpdateCompletionFeedback(); }
         }
         private void BuildControls()
@@ -591,7 +691,7 @@ namespace CatsAndArrows.UI
             foreach (var row in new[] { first, second })
                 foreach (var child in row.Children()) { child.style.flexGrow = 1; child.style.flexBasis = 0; }
             controls.Add(first); controls.Add(second);
-            controls.SetEnabled(!CommercialBusy && Modal == null);
+            controls.SetEnabled(AccessAllowed && !CommercialBusy && Modal == null);
             TickHintAttention();
         }
         private void BuildTutorialControls()
@@ -634,12 +734,14 @@ namespace CatsAndArrows.UI
         }
         public void ClearBoard()
         {
+            if (!AccessAllowed || disposed) return;
             if (Tutorial != null || loading || CommercialBusy || Screen != "play" || Modal != null || ActiveSession == null || ActiveSession.IsCompleted) return;
             ResetHintAttention(); CancelInteraction(); ActiveSession.Clear(); BoardView.Refresh();
             TickHintAttention();
         }
         public void RequestHint()
         {
+            if (!AccessAllowed || disposed) return;
             if (Tutorial != null || loading || CommercialBusy || Screen != "play" || Modal != null || ActiveSession == null || ActiveSession.IsCompleted) return;
             ResetHintAttention(); CancelInteraction();
             if (monetization?.Enabled == true)
@@ -654,6 +756,7 @@ namespace CatsAndArrows.UI
         }
         private void PresentHint(HintResult result)
         {
+            if (!AccessAllowed || disposed) return;
             monetization?.RecordCompletion();
             BoardView.Refresh();
             TickHintAttention();
@@ -716,6 +819,7 @@ namespace CatsAndArrows.UI
         }
         public void ShowLastHint()
         {
+            if (!AccessAllowed || disposed) return;
             if (UseInlineHints || loading || CommercialBusy || Screen != "play" || Modal != null || ActiveSession?.IsCompleted != true || completionHint == null) return;
             ShowModal("last-hint", text.GetText("game.last-hint"), FormatHint(completionHint),
                 MakeButton("modal-back", "game.close", BackToGame));
@@ -743,8 +847,8 @@ namespace CatsAndArrows.UI
             notificationScreen = null; notificationSession = null;
             if (Modal != "notification") return;
             Modal = null; overlay.Clear(); overlay.style.display = DisplayStyle.None;
-            menu.SetEnabled(!CommercialBusy); controls.SetEnabled(!CommercialBusy);
-            BoardView.SetInteractionSuspended(Screen != "play" || CommercialBusy || ActiveSession?.IsCompleted == true);
+            menu.SetEnabled(!CommercialBusy); controls.SetEnabled(AccessAllowed && !CommercialBusy);
+            BoardView.SetInteractionSuspended(!AccessAllowed || Screen != "play" || CommercialBusy || ActiveSession?.IsCompleted == true);
             alertReturnFocus = null;
         }
         private void DismissNotification()
@@ -819,8 +923,8 @@ namespace CatsAndArrows.UI
             if (disposed || loading) return;
             if (Screen == "settings" && !CommercialBusy && Modal == null) ShowSettings();
             menu.SetEnabled(!CommercialBusy && Modal == null);
-            controls.SetEnabled(!CommercialBusy && Modal == null);
-            BoardView.SetInteractionSuspended(Screen != "play" || CommercialBusy || Modal != null || ActiveSession?.IsCompleted == true);
+            controls.SetEnabled(AccessAllowed && !CommercialBusy && Modal == null);
+            BoardView.SetInteractionSuspended(!AccessAllowed || Screen != "play" || CommercialBusy || Modal != null || ActiveSession?.IsCompleted == true);
         }
         public void PurchaseRemoveAds()
         {
@@ -857,7 +961,7 @@ namespace CatsAndArrows.UI
             else if (Screen == "play")
             {
                 BuildControls();
-                BoardView.SetInteractionSuspended(CommercialBusy || Modal != null || ActiveSession?.IsCompleted == true);
+                BoardView.SetInteractionSuspended(!AccessAllowed || CommercialBusy || Modal != null || ActiveSession?.IsCompleted == true);
                 if (Tutorial == null) UpdateCompletionFeedback();
             }
             if (message != null) ShowNotification(message);
@@ -872,6 +976,7 @@ namespace CatsAndArrows.UI
         {
             if (disposed) return;
             disposed = true;
+            if (access != null) access.Changed -= OnAccessChanged;
             ResetTutorialAttention();
             if (adPrivacy != null) adPrivacy.Changed -= OnAdPrivacyChanged;
             ResetNotifications();
