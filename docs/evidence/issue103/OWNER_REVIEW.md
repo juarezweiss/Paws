@@ -1,5 +1,51 @@
 # #103 owner iPhone review — pending
 
+## Development-signed copy ready — 2026-11-02
+
+The owner refreshed/downloaded the explicit Paws development profile. Signing
+preparation has now completed on a **copy** of the existing archive, with no
+Unity/Xcode rebuild. [Sanitized signature/artifact receipt](development-signing-2026-11-02.json).
+
+- Runtime/archive source: `b9793cc36ec5589ebbc538709c78a328b32ee13a`; reviewed
+  documentation head before signing: `ba66da6c91204d9c8cdf384b30086c7e9aa733b6`.
+- Owner-installable app (local, ignored):
+  `Builds/Issue103-Development-b9793cc-20261102/Paws-Development.xcarchive/Products/Applications/Paws.app`.
+  Archive/dSYMs and a receipt/OWNER-INSTALL.txt remain in the same output directory.
+- Paws **0.1.0 (1)**, bundle **com.jweiss.paws**, iPhone/portrait, minimum iOS16.3.
+  Signature is **local development**, with `get-task-allow=true`, expiring
+  **2027-11-03 01:12:21 UTC**. This is not App Store distribution acceptance.
+- Exact explicit app authorization, profile plist/authoritative DER age entitlement,
+  existing valid local certificate/team/prefix, previously registered test-phone
+  coverage/expiry and embedded profile bytes pass. Actual app XML/DER entitlements,
+  extracted leaf certificate and deep/strict app/nested-framework signatures pass.
+- Both ARM64 binaries match retained dSYMs; code sections, nonsignature load commands
+  and original bundled resources are unchanged. Original unsigned archive remains
+  at SHA256 `334cbacfc172ccf128e69110188ccfc695d2af8b253d7f8c71b611acc34a21f7`.
+- The first certificate-extraction verification invocation used incorrect optional-
+  argument syntax. It was recorded as incomplete, corrected, and verification
+  passed without rebuilding or signing again; no product defect was established.
+
+Independent read-only QA found no blocking findings and independently confirmed
+artifact/executable hashes, strict signatures and matching ARM64/dSYM pairs.
+Restricted-sandbox trust-service errors disappeared with the same read-only
+checks outside that sandbox; no app/signing change was needed.
+
+**Next owner steps:** install that exact signed app through the local Xcode
+workflow; record device/OS, bundle/version/build and source/artifact; then perform
+and report the human checklist below in available authenticated Sandbox contexts.
+If the signed candidate remains Checking for 20 seconds, report its exact build/
+OS/native scenario. No phone installation, launch or physical interaction was
+performed by the agent. Sandbox remains **0 executed / 0 passed / 0 failed**;
+physical review and final #90/#91/#92 acceptance remain pending. No new product
+policy decision, account change, purchase, merge, submission or release occurred.
+
+The pre-refresh blocked readiness record below is historical and superseded for
+signing availability only. Its original unsigned/Simulator/Sandbox findings and
+all missing coverage remain unchanged.
+
+<details>
+<summary>Historical November 2 handoff before owner profile refresh</summary>
+
 ## Native verification handoff — 2026-11-02
 
 The owner authorized development-signing preparation with existing credentials,
@@ -38,6 +84,8 @@ Remaining steps, in order:
 
 Apple references: [profile entitlement authorization](https://developer.apple.com/documentation/technotes/tn3125-inside-code-signing-provisioning-profiles)
 and [age-assurance Sandbox procedure](https://developer.apple.com/documentation/storekit/testing-age-assurance-in-sandbox).
+
+</details>
 
 ## Human checklist
 

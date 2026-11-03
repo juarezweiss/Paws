@@ -1,5 +1,22 @@
 # Native age and parental access — #103
 
+## Owner profile refresh and development-signing handoff — 2026-11-02
+
+[The refreshed-profile receipt](evidence/issue103/development-signing-2026-11-02.json)
+records successful development signing/verification of a copy of the unchanged
+source-`b9793cc` archive. The explicit profile authorizes Declared Age Range in
+plist and authoritative DER, covers the prior test phone, and matches an existing
+valid local identity. Actual signed entitlement/certificate, strict nested
+signatures, ARM64/dSYMs, unchanged code/resources and original archive checksum
+pass. Profile expiry: 2027-11-03 01:12:21 UTC; `get-task-allow=true` marks local
+development signing, not distribution approval. No rebuild or agent phone install.
+
+[Current owner handoff](evidence/issue103/OWNER_REVIEW.md) identifies the exact app.
+Owner installation and explicit human/Sandbox results remain pending; no native
+region/OS gap or final #90/#91/#92 gate is closed by a valid signature. The older
+November 2 missing-profile statement below describes the pre-refresh snapshot,
+now superseded for signing availability only; its diagnostic findings are retained.
+
 Follow-up 2026-11-02: [native verification and signing readiness](evidence/issue103/native-verification-2026-11-02/README.md)
 reuse the unchanged runtime/archive. The existing local profile does not authorize
 the age entitlement, so a development-signed device candidate is blocked. Native

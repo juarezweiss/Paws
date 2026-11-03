@@ -1,5 +1,16 @@
 # #103 native verification — 2026-11-02
 
+## Later owner-profile refresh — signing availability superseded
+
+After this diagnostic snapshot, the owner refreshed the explicit Paws profile.
+A copy of the original source-`b9793cc` archive is now development-signed and
+verified; [exact sanitized receipt](../development-signing-2026-11-02.json) and
+[current owner install/review handoff](../OWNER_REVIEW.md). The original unsigned
+archive is unchanged. No new build, agent phone install/launch, physical pass or
+Apple Sandbox scenario occurred. Local development signing is not distribution
+acceptance. The missing-profile status below remains the dated pre-refresh
+record; original diagnostic/Sandbox/OS coverage findings are unchanged.
+
 PR #104 remains on `feat/103-native-age-access`. Review starting head:
 `dc57b86c05afe97a790c7101f480e6b4be68a51b`; unchanged runtime source:
 `b9793cc36ec5589ebbc538709c78a328b32ee13a`.
