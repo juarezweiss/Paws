@@ -1,0 +1,115 @@
+{
+  "schema": "paws-issue103-development-signing-v2",
+  "issue": 103,
+  "pr": 104,
+  "recordedAtUtc": "2026-11-12T03:46:19.882816+00:00",
+  "runtimeSourceSha": "b9793cc36ec5589ebbc538709c78a328b32ee13a",
+  "reviewHeadSha": "2d8eed8ce7515ca6561a147287d41b1b389cde44",
+  "newBuildPerformed": false,
+  "freshCopyForOwnerRefreshedProfile": true,
+  "priorSignedCandidateWasValid": true,
+  "installed": false,
+  "launched": false,
+  "deviceOperationsPerformed": false,
+  "accountOrProfileChangesByAgent": false,
+  "physicalIPhoneReview": "pending-owner",
+  "appleSandbox": {
+    "executed": 0,
+    "passed": 0,
+    "failed": 0
+  },
+  "distributionApproval": "pending-owner; development signature is not distribution acceptance",
+  "failures": [],
+  "status": "passed",
+  "runtimeAndScriptsEqualRecordedSource": true,
+  "originalArchivePath": ".unity-results/issue103-unsigned.xcarchive",
+  "originalArchiveTreeSha256": "334cbacfc172ccf128e69110188ccfc695d2af8b253d7f8c71b611acc34a21f7",
+  "originalPreserved": true,
+  "priorSignedArchivePreserved": true,
+  "priorSignedArchiveTreeSha256": "b2b40c9f1998fe015c31f7e09488b999211ab5b592888bbe82981d9c0923534f",
+  "signedArchivePath": "Builds/Issue103-Development-b9793cc-20261112/Paws-Development.xcarchive",
+  "signedAppPath": "Builds/Issue103-Development-b9793cc-20261112/Paws-Development.xcarchive/Products/Applications/Paws.app",
+  "signedArchiveTreeSha256": "1928ec715fd5b54e6d3a1a43b727674911128fef8706360c87d92f62b67d208f",
+  "signedAppTreeSha256": "c839964371f455997f6c0ab11b9b7e7f5da1259f48233d058541b394a2da60e3",
+  "signedExecutableSha256": "738068fabb3bd71f0282a7acc9001efd758b000abb476ebee0d7facee6da4489",
+  "bundleIdentifier": "com.jweiss.paws",
+  "version": "0.1.0",
+  "build": "1",
+  "minimumIOS": "16.3",
+  "profileExpiresAtUtc": "2027-11-12T03:37:53+00:00",
+  "profileAuthorization": {
+    "latestOwnerSuppliedProfileEmbeddedExactly": true,
+    "explicitPawsApp": true,
+    "plistAgeEntitlementTrue": true,
+    "authoritativeDerAgeEntitlementTrue": true,
+    "previousRegisteredDeviceMembershipCovered": true,
+    "provisionedDeviceCount": 1,
+    "validMatchingLocalIdentity": true,
+    "certificateTeamAndAppPrefixVerified": true,
+    "developmentClass": true,
+    "unexpired": true
+  },
+  "signatureChecks": {
+    "appDeepStrictVerified": true,
+    "actualSignedXmlEntitlementsMatchDevelopmentSet": true,
+    "actualSignedDerAgeEntitlementTrue": true,
+    "actualLeafCertificateMatchesProfileAndLocalIdentity": true,
+    "getTaskAllow": true,
+    "allOriginalBundledResourcesUnchanged": true
+  },
+  "nestedSignatures": [
+    {
+      "path": "Frameworks/UnityFramework.framework",
+      "strictSignatureVerified": true,
+      "appAgeEntitlementAbsent": true,
+      "actualLeafCertificateMatchesProfile": true
+    }
+  ],
+  "binaryModules": [
+    {
+      "binary": "Frameworks/UnityFramework.framework/UnityFramework",
+      "arm64": true,
+      "dsymMatches": true,
+      "codeSectionsAndNonSignatureLoadCommandsUnchanged": true,
+      "ageFrameworkLoadCommands": [
+        {
+          "framework": "DeclaredAgeRange.framework",
+          "loadCommand": "LC_LOAD_WEAK_DYLIB"
+        },
+        {
+          "framework": "PermissionKit.framework",
+          "loadCommand": "LC_LOAD_WEAK_DYLIB"
+        },
+        {
+          "framework": "_PermissionKit_UIKit.framework",
+          "loadCommand": "LC_LOAD_WEAK_DYLIB"
+        }
+      ]
+    },
+    {
+      "binary": "Paws",
+      "arm64": true,
+      "dsymMatches": true,
+      "codeSectionsAndNonSignatureLoadCommandsUnchanged": true,
+      "ageFrameworkLoadCommands": []
+    }
+  ],
+  "signed": true,
+  "sanitization": "No profile names/UUIDs/payloads, team/account/device identifiers, signing identity names, certificate fingerprints, private keys or passwords retained in receipt. Private transient signing-input files are removed.",
+  "independentReadOnlyQA": {
+    "result": "no blocking findings",
+    "strictAppAndFrameworkSignaturesPass": true,
+    "newArtifactAndExecutableHashesMatch": true,
+    "earlierArtifactsPreserved": true,
+    "runtimeAndScriptsMatchRecordedSource": true,
+    "arm64DsymPairsMatch": true,
+    "allNativeAgeFrameworksWeakLinked": true,
+    "deviceOperationsPerformed": false
+  },
+  "repositoryValidation": {
+    "validate": "passed",
+    "whitespace": "passed",
+    "unityAndNativeCompilation": "prior evidence preserved; not rerun for signing-only copy",
+    "appleSandbox": "not executed"
+  }
+}

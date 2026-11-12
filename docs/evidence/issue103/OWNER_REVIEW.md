@@ -1,5 +1,31 @@
 # #103 owner iPhone review — pending
 
+## Latest owner-profile signed copy ready — 2026-11-12
+
+[Verified receipt](development-signing-2026-11-12.json). The latest downloaded
+profile authorizes Declared Age Range in both plist and authoritative DER and
+matches the existing certificate/team, explicit bundle and registered phone.
+A new copy embeds that exact profile; the previous signed candidate remains
+valid and preserved. No Unity/Xcode rebuild was needed.
+
+- **Use this app for the next owner review:**
+  `Builds/Issue103-Development-b9793cc-20261112/Paws-Development.xcarchive/Products/Applications/Paws.app`.
+  Its archive/dSYMs, receipt and `OWNER-INSTALL.txt` remain together locally.
+- Paws **0.1.0 (1)**, `com.jweiss.paws`, minimum iOS16.3; unchanged runtime source
+  `b9793cc36ec5589ebbc538709c78a328b32ee13a`. Local development signature,
+  `get-task-allow=true`; embedded profile expires **2027-11-12 03:37:53 UTC**.
+- Actual app XML/DER entitlement, leaf certificate, strict app/framework signatures,
+  weak framework links, ARM64/dSYMs and unchanged code/resources pass. Original
+  unsigned and November 2 signed archives retain their recorded checksums.
+
+Independent read-only QA confirms artifact hashes, strict signatures, weak links
+and matching ARM64/dSYMs with no blocking findings. Repository validation passes.
+
+Owner installation and the human checklist below remain the next steps. No agent
+installation, launch or physical-device action occurred; native Sandbox remains
+**0 executed / 0 passed / 0 failed**. Prior Unity/native test evidence and missing
+OS/regional coverage are preserved. No merge, upload or release.
+
 ## Development-signed copy ready — 2026-11-02
 
 The owner refreshed/downloaded the explicit Paws development profile. Signing
