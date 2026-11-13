@@ -113,7 +113,6 @@ private enum PawsNativeAccess {
                 required = features.contains(.declaredAgeRangeRequired)
                 parentalUpdate = pending != nil && features.contains(.significantAppChangeRequiresParentalConsent)
                 adultUpdate = pending != nil && features.contains(.significantAppChangeRequiresAdultNotification)
-                regulated = !features.isEmpty
             } else if #available(iOS 26.2, *) {
                 regulated = try await AgeRangeService.shared.isEligibleForAgeFeatures
                 // The old Boolean is not evidence that optional sharing is legally mandatory.
@@ -125,9 +124,16 @@ private enum PawsNativeAccess {
             return
         }
         guard epoch == accountEpoch, lifetime.accepts(session: session, request: id) else { return }
-        let needsRange = PawsAccessWorkflow.needsRange(required: required, checkpoint: checkpoint,
-            userInitiated: userInitiated, regulated: regulated,
-            pendingSignificantChange: parentalUpdate || adultUpdate)
+        let needsRange: Bool
+        if #available(iOS 26.4, *) {
+            needsRange = PawsAccessWorkflow.needsRangeForRegulatoryFeatures(required: required,
+                checkpoint: checkpoint, userInitiated: userInitiated,
+                pendingSignificantChange: parentalUpdate || adultUpdate)
+        } else {
+            needsRange = PawsAccessWorkflow.needsRange(required: required, checkpoint: checkpoint,
+                userInitiated: userInitiated, regulated: regulated,
+                pendingSignificantChange: parentalUpdate || adultUpdate)
+        }
         guard needsRange else {
             report(id, checkpoint: checkpoint)
             return

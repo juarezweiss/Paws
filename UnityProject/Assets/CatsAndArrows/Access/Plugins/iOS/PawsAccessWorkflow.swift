@@ -8,6 +8,14 @@ struct PawsSignificantChange: Equatable {
 }
 
 enum PawsAccessWorkflow {
+    // 26.4+ has precise requirements. An unrelated regulatory feature must not
+    // act as legacy regional eligibility and cause an optional age request.
+    static func needsRangeForRegulatoryFeatures(required: Bool, checkpoint: Bool,
+                                                userInitiated: Bool, pendingSignificantChange: Bool) -> Bool {
+        needsRange(required: required, checkpoint: checkpoint, userInitiated: userInitiated,
+                   regulated: false, pendingSignificantChange: pendingSignificantChange)
+    }
+
     static func needsRange(required: Bool, checkpoint: Bool, userInitiated: Bool,
                            regulated: Bool, pendingSignificantChange: Bool) -> Bool {
         required || checkpoint || userInitiated || regulated || pendingSignificantChange

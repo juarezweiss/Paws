@@ -24,6 +24,34 @@ private enum NativeAccessTests {
                 }
             }
         }
+        // #103 / PR104 B1: modern feature membership is not a range obligation.
+        // Exercise all range/update flags, actual-change and recovery combinations
+        // using the same modern routing entry point as the production bridge.
+        for required in [false, true] {
+            for parentalUpdateFlag in [false, true] {
+                for adultUpdateFlag in [false, true] {
+                    for pendingChange in [false, true] {
+                        for checkpoint in [false, true] {
+                            for userInitiated in [false, true] {
+                                let applicableUpdate = pendingChange && (parentalUpdateFlag || adultUpdateFlag)
+                                let result = PawsAccessWorkflow.needsRangeForRegulatoryFeatures(required: required,
+                                    checkpoint: checkpoint, userInitiated: userInitiated,
+                                    pendingSignificantChange: applicableUpdate)
+                                if required {
+                                    check(result, "26.4+ mandatory range checks must remain reachable")
+                                } else if checkpoint || userInitiated {
+                                    check(result, "26.4+ prior protection and explicit recovery must remain reachable")
+                                } else if applicableUpdate {
+                                    check(result, "26.4+ an actual required significant change must remain reachable")
+                                } else {
+                                    check(!result, "26.4+ update-only flags without an applicable change must not request age")
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
         let first = PawsSignificantChange(id: "actual-change-a", introducedVersion: "1.1", description: "A reviewed change.")
         let second = PawsSignificantChange(id: "actual-change-b", introducedVersion: "1.2", description: "Another reviewed change.")
         check(PawsAccessWorkflow.pendingChanges([first], previousVersion: nil, currentVersion: "1.1", handled: []).isEmpty,
