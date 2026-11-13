@@ -24,10 +24,27 @@ RULES = {
     "monetization-only-age": rb"PawsAgeAssurance|AppleAgeAssurance|AdAgeEligibility|MonetizationAgeGate",
     "monetization-domain": rb"CatsAndArrows[._]Monetization|MonetizationCoordinator|FileMonetizationStateStore|MonetizationState|RewardedHint|IAdPrivacyService|GoogleAdsContracts|IConsentBridge",
     "commercial-ui": rb"MonetizationLocalization|monetization[.](?:remove|restore|status|privacy|hint-ads|redeem)|Remove Ads|Restore Purchases|Ad Privacy|Redeem Offer Code",
+    "mock-review-resources": rb"Mock purchases only|Compras apenas simuladas|Solo compras simuladas",
     "diagnostics-tests": rb"BoardReviewBootstrap|(?:BoardInput|GameLoop|Completion|HintIdle|ArrowHold|Tutorial|Monetization)ReviewChecks|ReviewAdService|ReviewPurchaseService|GenerationBenchmark|AdMobReviewBootstrap|AppleIapReviewBootstrap|nunit[.]framework|UnityEngine[.]TestRunner|UnityEditor[.]TestRunner|NativeAccessReview|PAWS_ACCESS_AUTORUN",
 }
 COMPILED = {name: re.compile(pattern, re.I) for name, pattern in RULES.items()}
-DOMAIN_RULES = {"monetization-domain", "commercial-ui"}
+# Each regex alternative contains at least one corresponding literal prefix.
+# bytes substring search uses C's fast search; avoid repeated case-insensitive
+# regex scans over hundreds of MiB of ordinary engine code and native archives.
+RULE_PREFIXES = {
+    "unity-iap": (b"unity.purchasing", b"unity_purchasing", b"unitypurchasing", b"unitystorekitplugin", b"unityearlytransactionobserver", b"storekitmanager"),
+    "unity-commercial-services": (b"unity.services.core", b"unity_services_core", b"unity.services_core", b"unity_services.core", b"unityservicesprojectconfiguration", b"unityservicesinitialization", b"unityadsidentifier"),
+    "apple-purchase-provider": (b"pawsappleevidence", b"pawsappleoffercode", b"pawsevidencerecord", b"pawsoffercodesheet", b"applepurchaseservice", b"applestoreclient", b"iap-evidence-v1"),
+    "google-ads-consent": (b"googlemobileads", b"usermessagingplatform", b"admobadservice", b"googleadsbridge", b"gadapplicationidentifier", b"gadmobileads", b"umpconsent", b"umpprivacy", b"unity-plugin-library", b"pawsadmob"),
+    "commercial-identifiers": (b"ca-app-pub-", b"com.jweiss.paws.removeads", b"test.paws.removeads"),
+    "commercial-configuration": (b"skadnetworkitems", b"skadnetworkidentifier", b"nsusertrackingusagedescription", b"iapproductcatalog", b"unityiap", b"paws-admob-review", b"paws-apple-iap-review"),
+    "monetization-only-age": (b"pawsageassurance", b"appleageassurance", b"adageeligibility", b"monetizationagegate"),
+    "monetization-domain": (b"catsandarrows.monetization", b"catsandarrows_monetization", b"monetizationcoordinator", b"filemonetizationstatestore", b"monetizationstate", b"rewardedhint", b"iadprivacyservice", b"googleadscontracts", b"iconsentbridge"),
+    "commercial-ui": (b"monetizationlocalization", b"monetization.", b"remove ads", b"restore purchases", b"ad privacy", b"redeem offer code"),
+    "mock-review-resources": (b"mock purchases only", b"compras apenas simuladas", b"solo compras simuladas"),
+    "diagnostics-tests": (b"boardreviewbootstrap", b"reviewchecks", b"reviewadservice", b"reviewpurchaseservice", b"generationbenchmark", b"admobreviewbootstrap", b"appleiapreviewbootstrap", b"nunit.framework", b"unityengine.testrunner", b"unityeditor.testrunner", b"nativeaccessreview", b"paws_access_autorun"),
+}
+DOMAIN_RULES = {"monetization-domain", "commercial-ui", "mock-review-resources"}
 AGE_FRAMEWORKS = ("DeclaredAgeRange.framework", "PermissionKit.framework", "_PermissionKit_UIKit.framework")
 AGE_ENTITLEMENT = "com.apple.developer.declared-age-range"
 CHUNK = 1024 * 1024
@@ -63,12 +80,18 @@ def content_hits(data):
     """Find exact ASCII and UTF-16 tokens; keep one representative per rule."""
     hits = {}
     compact = data.replace(b"\0", b"")
+    lower, compact_lower = data.lower(), compact.lower()
     for name, pattern in COMPILED.items():
-        match = pattern.search(data)
+        prefixes = RULE_PREFIXES[name]
+        ascii_candidate = any(prefix in lower for prefix in prefixes)
+        compact_candidate = any(prefix in compact_lower for prefix in prefixes)
+        if not ascii_candidate and not compact_candidate:
+            continue
+        match = pattern.search(data) if ascii_candidate else None
         if match:
             hits[name] = {"token": match.group().decode("ascii", "replace")[:180], "encoding": "ascii"}
             continue
-        for match in pattern.finditer(compact):
+        for match in pattern.finditer(compact) if compact_candidate else ():
             token = match.group().decode("ascii", "replace")
             for encoding in ("utf-16-le", "utf-16-be"):
                 if token.encode(encoding) in data:
@@ -120,6 +143,7 @@ def uuid_pairs(text):
 
 
 def audit(export, archive, source_sha, receipt=None):
+    tool_sha_at_start = sha256(Path(__file__))
     findings, checks, inventory, commands = [], [], [], []
 
     def check(name, passed, detail):
@@ -197,6 +221,22 @@ def audit(export, archive, source_sha, receipt=None):
             check("entitlement-readable:" + path.name, False, str(error))
     check("native-access-entitlement-input", any(p["values"].get(AGE_ENTITLEMENT) is True for p in entitlement_files), entitlement_files)
 
+    boot_paths = list(archive.glob("Products/Applications/*.app/**/boot.config"))
+    check("production-boot-config-present", len(boot_paths) == 1, [str(p.relative_to(archive)) for p in boot_paths])
+    debug_keys = {"wait-for-native-debugger", "player-connection-debug", "connect-profiler", "player-connection-allow-debugging", "profiler-enable"}
+    for path in boot_paths:
+        try:
+            boot = path.read_text()
+            settings = {}
+            for line in boot.splitlines():
+                key, separator, value = line.partition("=")
+                if separator:
+                    settings.setdefault(key.strip(), []).append(value.strip())
+            safe = settings.get("wait-for-native-debugger") == ["0"] and all(value == "0" for key in debug_keys for value in settings.get(key, []))
+            check("no-debug-boot-config", safe, {"path": str(path.relative_to(archive)), "settings": settings})
+        except (OSError, UnicodeError) as error:
+            check("no-debug-boot-config", False, str(error))
+
     applications = list(archive.glob("Products/Applications/*.app"))
     check("single-app", len(applications) == 1, len(applications))
     native_inventory = []
@@ -215,6 +255,10 @@ def audit(export, archive, source_sha, receipt=None):
         binaries += list(app.rglob("*.dylib"))
         frameworks = [str(p.relative_to(app)) for p in app.rglob("*.framework")]
         check("embedded-framework-allowlist", frameworks == ["Frameworks/UnityFramework.framework"], frameworks)
+        native_libraries = sorted(str(p.relative_to(app)) for p in app.rglob("*")
+                                  if p.suffix in (".a", ".dylib", ".tbd", ".so", ".xcframework"))
+        check("embedded-native-library-allowlist", not native_libraries,
+              {"allowed": [], "found": native_libraries, "reason": "This selected unsigned candidate embeds UnityFramework only; no additional native library is approved."})
         all_age_loads = []
         native_symbol_text = ""
         for binary in binaries:
@@ -268,11 +312,30 @@ def audit(export, archive, source_sha, receipt=None):
             check("archive-tree-hash", True, archive_hash)
         except (ValueError, OSError) as error:
             check("archive-tree-hash", False, str(error))
+    production_receipt = {"path": str(receipt) if receipt else None}
+    try:
+        if receipt is None:
+            raise ValueError("A production release receipt is required to bind source and archived artifact.")
+        receipt_bytes = receipt.read_bytes()
+        production_receipt["sha256"] = hashlib.sha256(receipt_bytes).hexdigest()
+        receipt_values = json.loads(receipt_bytes)
+        if not isinstance(receipt_values, dict) or not isinstance(receipt_values.get("archive"), dict):
+            raise ValueError("Production receipt must contain sourceSha and an archive dictionary.")
+        check("production-receipt-source", receipt_values.get("sourceSha") == source_sha,
+              {"requested": source_sha, "receipt": receipt_values.get("sourceSha")})
+        recorded_hash = receipt_values["archive"].get("archiveTreeSha256")
+        check("production-receipt-archive-hash", bool(archive_hash) and recorded_hash == archive_hash,
+              {"actual": archive_hash, "receipt": recorded_hash})
+        production_receipt["bindingVerified"] = receipt_values.get("sourceSha") == source_sha and bool(archive_hash) and recorded_hash == archive_hash
+    except (ValueError, OSError) as error:
+        check("production-receipt-readable", False, str(error))
+        production_receipt["bindingVerified"] = False
     incomplete_inspection = any(c["result"] == "FAIL" for c in checks
-                                if c["name"].startswith(("tool:", "export-present", "archive-present", "il2cpp-source-present", "shipped-il2cpp-metadata-present", "single-app", "file-readable:", "file-scannable:", "archive-tree-hash", "binary-present:", "committed-export-source", "production-config")))
+                                if c["name"].startswith(("tool:", "export-present", "archive-present", "il2cpp-source-present", "shipped-il2cpp-metadata-present", "single-app", "file-readable:", "file-scannable:", "archive-tree-hash", "binary-present:", "committed-export-source", "production-config", "embedded-framework-allowlist", "embedded-native-library-allowlist", "privacy-", "production-receipt-", "production-boot-config-present", "no-debug-boot-config")))
     provider_result = "PASS" if not incomplete_inspection and all(count == 0 for rule, count in rule_counts.items() if rule not in DOMAIN_RULES) else "FAIL"
     all_components_result = "PASS" if provider_result == "PASS" and all(rule_counts[rule] == 0 for rule in DOMAIN_RULES) else "FAIL"
     result = {"schema": "paws-free-ios-exclusion-audit-v1", "sourceSha": source_sha,
+              "auditToolSha256": tool_sha_at_start,
               "result": "PASS" if checks and all(c["result"] == "PASS" for c in checks) else "FAIL",
               "scope": "Static unsigned production export/archive inspection; no signing, install, runtime data capture or legal/physical acceptance.",
               "providerSdkExclusionResult": provider_result,
@@ -285,8 +348,7 @@ def audit(export, archive, source_sha, receipt=None):
               "entitlementInputs": entitlement_files, "toolVersions": tool_versions,
               "archiveTreeSha256": archive_hash,
               "checksumAlgorithm": "paws-tree-sha256-v1", "commands": commands}
-    if receipt:
-        result["productionReceipt"] = {"path": str(receipt), "sha256": sha256(receipt)}
+    result["productionReceipt"] = production_receipt
     return result
 
 
@@ -295,7 +357,7 @@ def main():
     parser.add_argument("--export", required=True, type=Path)
     parser.add_argument("--archive", required=True, type=Path)
     parser.add_argument("--source-sha", required=True)
-    parser.add_argument("--receipt", type=Path)
+    parser.add_argument("--receipt", required=True, type=Path)
     parser.add_argument("--output", required=True, type=Path)
     args = parser.parse_args()
     if not re.fullmatch(r"[a-f0-9]{40}", args.source_sha):

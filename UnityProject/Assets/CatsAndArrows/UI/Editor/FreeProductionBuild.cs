@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEditor.Build;
 using UnityEditor.iOS.Xcode;
+using UnityEngine;
 
 namespace CatsAndArrows.UI.Editor
 {
@@ -42,9 +43,13 @@ namespace CatsAndArrows.UI.Editor
 
         private sealed class Scope : IDisposable
         {
+            private readonly string generatedSettings = Path.Combine(Path.GetDirectoryName(Application.dataPath),
+                "ProjectSettings/Packages/com.unity.services.core/Settings.json");
+            private readonly bool settingsExisted;
             private readonly List<PluginImporter> plugins = new List<PluginImporter>();
             public Scope()
             {
+                settingsExisted = File.Exists(generatedSettings);
                 active = true;
                 foreach (var plugin in PluginImporter.GetAllImporters())
                 {
@@ -57,7 +62,32 @@ namespace CatsAndArrows.UI.Editor
             {
                 foreach (var plugin in plugins) plugin.SetIncludeInBuildDelegate(null);
                 active = false;
+                RemoveNewEmptySettings(generatedSettings, settingsExisted);
             }
+        }
+
+        // The services editor package creates a zero-byte file during export.
+        // Remove only that new empty scratch file; never hide or overwrite settings.
+        public static void RemoveNewEmptySettings(string path, bool existedBeforeBuild)
+        {
+            if (!existedBeforeBuild && File.Exists(path) && new FileInfo(path).Length == 0) File.Delete(path);
+        }
+
+        [Serializable] private sealed class Initializers { public Initializer[] root; }
+        [Serializable] private sealed class Initializer { public string assemblyName; }
+
+        public static void RemoveCommercialInitializers(string path)
+        {
+            if (!File.Exists(path)) return;
+            var initializers = JsonUtility.FromJson<Initializers>(File.ReadAllText(path));
+            if (initializers?.root == null || initializers.root.Any(item => item == null || string.IsNullOrEmpty(item.assemblyName)))
+                throw new InvalidOperationException("Invalid runtime initializer inventory.");
+            if (!initializers.root.Any(item => ExcludesAssembly(item.assemblyName + ".dll"))) return;
+            // This pinned Unity export contains only commercial initializers. Fail
+            // on a future mixed list rather than delete an ordinary/native callback.
+            if (initializers.root.Any(item => !ExcludesAssembly(item.assemblyName + ".dll")))
+                throw new InvalidOperationException("Mixed runtime initializers require reviewed build filtering.");
+            File.Delete(path);
         }
 
         public static void ConfigureExport(string output)
@@ -72,6 +102,7 @@ namespace CatsAndArrows.UI.Editor
             // Services injects this streaming asset independently of player assemblies.
             var config = Path.Combine(output, "Data/Raw/UnityServicesProjectConfiguration.json");
             if (File.Exists(config)) File.Delete(config);
+            RemoveCommercialInitializers(Path.Combine(output, "Data/RuntimeInitializeOnLoads.json"));
         }
     }
 }

@@ -82,6 +82,47 @@ namespace CatsAndArrows.Tests
             }
             finally { Directory.Delete(directory, true); }
         }
+        [Test]
+        public void GeneratedSettingsCleanupPreservesPreexistingAndNonemptyFiles()
+        {
+            var path = Path.Combine(Path.GetTempPath(), "paws-settings-" + Guid.NewGuid().ToString("N"));
+            try
+            {
+                File.WriteAllText(path, "");
+                FreeProductionBuild.RemoveNewEmptySettings(path, true);
+                Assert.That(File.Exists(path), Is.True);
+                File.WriteAllText(path, "owner-settings");
+                FreeProductionBuild.RemoveNewEmptySettings(path, false);
+                Assert.That(File.ReadAllText(path), Is.EqualTo("owner-settings"));
+                File.WriteAllText(path, "");
+                FreeProductionBuild.RemoveNewEmptySettings(path, false);
+                Assert.That(File.Exists(path), Is.False);
+                FreeProductionBuild.RemoveNewEmptySettings(path, false);
+            }
+            finally { if (File.Exists(path)) File.Delete(path); }
+        }
+
+        [Test]
+        public void InitializerCleanupNeverDeletesOrdinaryOrMixedCallbacks()
+        {
+            var path = Path.Combine(Path.GetTempPath(), "paws-initializers-" + Guid.NewGuid().ToString("N"));
+            try
+            {
+                var ordinary = "{\"root\":[{\"assemblyName\":\"CatsAndArrows.Access\",\"methodName\":\"Required\"}]}";
+                File.WriteAllText(path, ordinary);
+                FreeProductionBuild.RemoveCommercialInitializers(path);
+                Assert.That(File.ReadAllText(path), Is.EqualTo(ordinary));
+                var mixed = "{\"root\":[{\"assemblyName\":\"CatsAndArrows.Access\"},{\"assemblyName\":\"Unity.Purchasing\"}]}";
+                File.WriteAllText(path, mixed);
+                Assert.Throws<InvalidOperationException>(() => FreeProductionBuild.RemoveCommercialInitializers(path));
+                Assert.That(File.ReadAllText(path), Is.EqualTo(mixed));
+                File.WriteAllText(path, "{\"root\":[{\"assemblyName\":\"Unity.Purchasing\"},{\"assemblyName\":\"Unity.Services.Core\"}]}");
+                FreeProductionBuild.RemoveCommercialInitializers(path);
+                Assert.That(File.Exists(path), Is.False);
+            }
+            finally { if (File.Exists(path)) File.Delete(path); }
+        }
+
         private const string Fixture = @"// !$*UTF8*$!
 {
  archiveVersion = 1;

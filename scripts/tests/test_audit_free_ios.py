@@ -16,6 +16,31 @@ AGE_LOADS = "\n".join(f"Load command {i}\n cmd LC_LOAD_WEAK_DYLIB\n name /System
 
 
 class ContentTests(unittest.TestCase):
+    def test_prefilters_preserve_every_regex_alternative_and_utf16_encoding(self):
+        # Enumerate variable separator branches too; a missing necessary prefix
+        # must fail this positive-control suite instead of hiding an exclusion.
+        alternatives = {
+            "unity-iap": ["Unity.Purchasing.Stores", "Unity_Purchasing", "UnityPurchasing", "UnityStoreKitPlugin", "UnityEarlyTransactionObserver", "StoreKitManager"],
+            "unity-commercial-services": ["Unity.Services.Core", "Unity_Services_Core", "Unity.Services_Core", "Unity_Services.Core", "UnityServicesProjectConfiguration", "UnityServicesInitialization", "UnityAdsIdentifier"],
+            "apple-purchase-provider": ["PawsAppleEvidence", "PawsAppleOfferCode", "PawsEvidenceRecord", "PawsOfferCodeSheet", "ApplePurchaseService", "AppleStoreClient", "iap-evidence-v1"],
+            "google-ads-consent": ["GoogleMobileAds", "UserMessagingPlatform", "AdMobAdService", "GoogleAdsBridge", "GADApplicationIdentifier", "GADMobileAds", "UMPConsent", "UMPPrivacy", "unity-plugin-library", "PawsAdMob"],
+            "commercial-identifiers": ["ca-app-pub-3940256099942544", "com.jweiss.paws.removeads", "test.paws.removeads"],
+            "commercial-configuration": ["SKAdNetworkItems", "SKAdNetworkIdentifier", "NSUserTrackingUsageDescription", "IAPProductCatalog", "UnityIAP", "paws-admob-review", "paws-apple-iap-review"],
+            "monetization-only-age": ["PawsAgeAssurance", "AppleAgeAssurance", "AdAgeEligibility", "MonetizationAgeGate"],
+            "monetization-domain": ["CatsAndArrows.Monetization", "CatsAndArrows_Monetization", "MonetizationCoordinator", "FileMonetizationStateStore", "MonetizationState", "RewardedHint", "IAdPrivacyService", "GoogleAdsContracts", "IConsentBridge"],
+            "commercial-ui": ["MonetizationLocalization", "monetization.remove", "monetization.restore", "monetization.status", "monetization.privacy", "monetization.hint-ads", "monetization.redeem", "Remove Ads", "Restore Purchases", "Ad Privacy", "Redeem Offer Code"],
+            "mock-review-resources": ["Mock purchases only", "Compras apenas simuladas", "Solo compras simuladas"],
+            "diagnostics-tests": ["BoardReviewBootstrap", *[v + "ReviewChecks" for v in ("BoardInput", "GameLoop", "Completion", "HintIdle", "ArrowHold", "Tutorial", "Monetization")], "ReviewAdService", "ReviewPurchaseService", "GenerationBenchmark", "AdMobReviewBootstrap", "AppleIapReviewBootstrap", "nunit.framework", "UnityEngine.TestRunner", "UnityEditor.TestRunner", "NativeAccessReview", "PAWS_ACCESS_AUTORUN"],
+        }
+        self.assertEqual(set(audit.RULES), set(audit.RULE_PREFIXES))
+        self.assertEqual(set(audit.RULES), set(alternatives))
+        for rule, tokens in alternatives.items():
+            for token in tokens:
+                for value in (token, token.upper(), token.lower()):
+                    for encoding in ("ascii", "utf-16-le", "utf-16-be"):
+                        with self.subTest(rule=rule, token=value, encoding=encoding):
+                            self.assertIn(rule, audit.content_hits(b"x" + value.encode(encoding) + b"\xff"))
+
     def test_each_exclusion_has_a_positive_control(self):
         examples = {
             "unity-iap": b"Unity.Purchasing.Stores",
@@ -28,6 +53,7 @@ class ContentTests(unittest.TestCase):
             "monetization-domain": b"MonetizationCoordinator",
             "commercial-ui": b"MonetizationLocalization",
             "diagnostics-tests": b"GenerationBenchmark",
+            "mock-review-resources": b"Mock purchases only",
         }
         self.assertEqual(set(examples), set(audit.RULES))
         for rule, text in examples.items():
@@ -89,6 +115,8 @@ class IntegrationTests(unittest.TestCase):
         metadata = self.app / "Data/Managed/Metadata"
         metadata.mkdir(parents=True)
         (metadata / "global-metadata.dat").write_bytes(b"fixture-metadata")
+        (self.app / "Data/boot.config").write_text("wait-for-native-debugger=0\n")
+        self.receipt = root / "production-receipt.json"
         (self.app / "Info.plist").write_bytes(plistlib.dumps({
             "CFBundleIdentifier": "com.jweiss.paws", "CFBundleDisplayName": "Paws", "CFBundleExecutable": "Paws",
             "CFBundleShortVersionString": "0.1.0", "CFBundleVersion": "1", "UIDeviceFamily": [1],
@@ -109,8 +137,16 @@ class IntegrationTests(unittest.TestCase):
         return {"command": args, "exitCode": 0, "stdout": stdout, "stderr": ""}
 
     def run_audit(self):
+        self.write_receipt()
         with patch.object(audit, "run", side_effect=self.command):
-            return audit.audit(self.export, self.archive, SHA)
+            return audit.audit(self.export, self.archive, SHA, self.receipt)
+
+    def write_receipt(self, source=SHA, archive_hash=None):
+        try:
+            archive_hash = archive_hash or audit.tree_hash(self.archive)
+        except ValueError:
+            archive_hash = "cannot-hash-malformed-archive"
+        self.receipt.write_text(json.dumps({"sourceSha": source, "archive": {"archiveTreeSha256": archive_hash}}))
 
     def test_clean_fixture_and_system_storekit_linkage_pass(self):
         result = self.run_audit()
@@ -196,6 +232,61 @@ class IntegrationTests(unittest.TestCase):
         self.assertEqual("FAIL", result["result"])
         self.assertEqual("FAIL", result["providerSdkExclusionResult"])
         self.assertIsNone(result["archiveTreeSha256"])
+
+    def test_unknown_framework_and_native_library_fail_provider_gate(self):
+        for relative in ("Frameworks/Unknown.framework", "Frameworks/libUnknown.dylib"):
+            with self.subTest(relative=relative):
+                path = self.app / relative
+                if path.suffix == ".framework":
+                    path.mkdir()
+                else:
+                    path.write_bytes(b"unknown-native-library")
+                result = self.run_audit()
+                self.assertEqual("FAIL", result["result"])
+                self.assertEqual("FAIL", result["providerSdkExclusionResult"])
+                self.assertTrue(any(c["name"].startswith("embedded-") and c["result"] == "FAIL" for c in result["checks"]))
+                path.rmdir() if path.is_dir() else path.unlink()
+
+    def test_tracking_declaration_and_missing_manifest_fail_provider_gate(self):
+        manifest = self.app / "Frameworks/UnityFramework.framework/PrivacyInfo.xcprivacy"
+        manifest.write_bytes(plistlib.dumps({"NSPrivacyTracking": True}))
+        result = self.run_audit()
+        self.assertEqual("FAIL", result["providerSdkExclusionResult"])
+        manifest.unlink()
+        result = self.run_audit()
+        self.assertEqual("FAIL", result["providerSdkExclusionResult"])
+
+    def test_production_receipt_requires_matching_source_and_actual_archive_hash(self):
+        for source, archive_hash in (("b" * 40, None), (SHA, "0" * 64)):
+            with self.subTest(source=source, archive_hash=archive_hash):
+                self.write_receipt(source, archive_hash)
+                with patch.object(audit, "run", side_effect=self.command):
+                    result = audit.audit(self.export, self.archive, SHA, self.receipt)
+                self.assertEqual("FAIL", result["providerSdkExclusionResult"])
+                self.assertFalse(result["productionReceipt"]["bindingVerified"])
+                self.assertTrue(any(c["name"].startswith("production-receipt-") and c["result"] == "FAIL" for c in result["checks"]))
+
+    def test_missing_or_malformed_receipt_aggregates_without_aborting(self):
+        for value in (None, b"not-json", b"[]"):
+            with self.subTest(value=value):
+                if value is not None:
+                    self.receipt.write_bytes(value)
+                with patch.object(audit, "run", side_effect=self.command):
+                    result = audit.audit(self.export, self.archive, SHA, self.receipt if value else None)
+                self.assertEqual("FAIL", result["providerSdkExclusionResult"])
+                self.assertTrue(result["nativeBinaries"])
+
+    def test_missing_nonzero_or_duplicate_debug_boot_config_fails(self):
+        boot = self.app / "Data/boot.config"
+        for contents in (None, "wait-for-native-debugger=1\n", "wait-for-native-debugger=0\nconnect-profiler=1\n", "wait-for-native-debugger=0\nplayer-connection-debug=2\n", "wait-for-native-debugger=0\nwait-for-native-debugger=1\n"):
+            with self.subTest(contents=contents):
+                if contents is None:
+                    boot.unlink()
+                else:
+                    boot.write_text(contents)
+                result = self.run_audit()
+                self.assertEqual("FAIL", result["providerSdkExclusionResult"])
+                self.assertTrue(any(c["name"] in ("production-boot-config-present", "no-debug-boot-config") and c["result"] == "FAIL" for c in result["checks"]))
 
 
 if __name__ == "__main__":
