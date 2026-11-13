@@ -1,5 +1,13 @@
 # #103 owner iPhone review — reported pass; coverage limits remain
 
+## Candidate boundary after B1 fix — 2026-11-13
+
+[B1 source `190693d`](b1-fix-2026-11-13/README.md) changes native request routing.
+Your recorded pass below remains accepted for the November12 `b9793cc` signed
+candidate and its reported scope. It does not automatically cover the changed
+native source. Selected-candidate signature/native/targeted human evidence stays
+a pre-submission release gate; no new build signing or phone action occurred here.
+
 ## Owner report — 2026-11-13
 
 Owner explicitly reported: **“iPhone 17, iOS 27.0.1, pass for all items.”** This

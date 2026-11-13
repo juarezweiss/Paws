@@ -1,16 +1,19 @@
 # Native age and parental access — #103
 
-## Final acceptance review — 2026-11-13
+## B1 resolved / merge reassessment — 2026-11-13
 
-[Final assessment](evidence/issue103/acceptance-2026-11-13/README.md): **NOT READY**
-for develop merge. One current blocker:26.4+ update-only regulatory flags trigger
-an unnecessary age request with no pending change. The focused host reproduction
-fails3/5 cases; it is not native/Sandbox coverage. No production code changed.
-Retained806/806 EditMode and other prior evidence remain valid at their recorded
-source; CI is green. The owner iPhone17/iOS27.0.1 pass is preserved within its
-reported scope. Remaining native/legal/final-artifact evidence is classified as
-release gates; dormant significant-update gaps are explicit activation gates.
+[B1 fix evidence](evidence/issue103/b1-fix-2026-11-13/README.md): **MERGE READY**
+for develop integration after green CI and explicit owner approval. Source
+`190693d` separates precise26.4+ range obligations from update-only flags; no
+ordinary startup age request arises from update-only flags without an applicable
+pending change. Mandatory checks, prior protection, explicit recovery and older
+OS behavior are preserved. Independent QA found no blocking findings.
 
+Fresh147/147 native workflow checks, five SDK targets, pinned compilation,
+806/806 EditMode and63/63 Python pass. These are automated/compile results, not
+new native Sandbox or physical acceptance. The owner pass and signed app at
+`b9793cc` remain preserved within their original scope. The [earlier assessment](evidence/issue103/acceptance-2026-11-13/README.md)
+is historical for B1; G1–G6 release gates and D1–D4 activation gates still apply.
 
 ## Owner profile refresh and development-signing handoff — 2026-11-02
 
@@ -92,7 +95,7 @@ change the iOS 16.3 deployment minimum.
 | 16.3–18.x | No range API or speculative native mandate. Unknown permits ordinary play absent existing protective workflow requiring recovery. No blanket upgrade. |
 | 26.0–26.1 | Range API exists; no regulatory preflight. No unsolicited optional request. A user recovery/recheck can request a range. |
 | 26.2–26.3 | Use `isEligibleForAgeFeatures` for per-account native applicability and range checks; use PermissionKit for actual significant changes. |
-| 26.4+ | Inspect the complete `requiredRegulatoryFeatures` set: required range, parental significant-change consent, adult acknowledgement. Do not hardcode state dates as runtime restrictions. |
+| 26.4+ | Inspect the complete `requiredRegulatoryFeatures` set. Required range sharing is independent of update flags; update flags alone only request age for an actual pending applicable change. Prior protection and explicit recheck remain valid reasons. Do not hardcode state dates. |
 
 Native eligibility is not proof of adulthood, consent or EU residence. Apple
 provides no residence field and no initial-download-consent Boolean. Keep initial

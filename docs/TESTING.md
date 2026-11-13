@@ -1,16 +1,19 @@
 # Testing Strategy
 
-## Final acceptance review — 2026-11-13
+## Issue #103 B1 fix — 2026-11-13
 
-[Final assessment](evidence/issue103/acceptance-2026-11-13/README.md): **NOT READY**
-for develop merge. One current blocker:26.4+ update-only regulatory flags trigger
-an unnecessary age request with no pending change. The focused host reproduction
-fails3/5 cases; it is not native/Sandbox coverage. No production code changed.
-Retained806/806 EditMode and other prior evidence remain valid at their recorded
-source; CI is green. The owner iPhone17/iOS27.0.1 pass is preserved within its
-reported scope. Remaining native/legal/final-artifact evidence is classified as
-release gates; dormant significant-update gaps are explicit activation gates.
+[Exact-source B1 validation](evidence/issue103/b1-fix-2026-11-13/validation.json),
+source `190693d`: **147/147 host native workflow checks** (83 retained +64 new
+modern routing combinations); five real iPhoneOS SDK typechecks pass at ARM64
+16.3/26.0/26.2/26.4/27.0. Pinned Unity6000.3.25f1 compilation and fresh **806/806
+EditMode**, zero failed/skipped/inconclusive, pass; **63/63 Python**, repository
+and whitespace checks pass. Independent read-only QA has no blocking findings.
 
+[B1 reassessment](evidence/issue103/b1-fix-2026-11-13/README.md): MERGE READY for
+develop after green CI/owner approval. The [original failed reproduction](evidence/issue103/acceptance-2026-11-13/routing-repro.json)
+remains pre-fix evidence. No automated result here is a new Apple native/Sandbox
+or physical-device pass. Prior signed-source `b9793cc` owner acceptance is retained,
+not extended to the fix. G1–G6 release and D1–D4 activation gates remain open.
 
 ## Issue #103 native verification follow-up — 2026-11-02
 

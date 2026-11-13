@@ -1,5 +1,10 @@
 # #103 / PR #104 final acceptance review — 2026-11-13
 
+**Historical pre-fix assessment.** B1 is resolved at source `190693d`;
+[current fix/reassessment](../b1-fix-2026-11-13/README.md) supersedes the merge
+verdict below. Original reproduction/results are preserved. G1–G6 and conditional
+D1–D4 retain their release/activation meaning; they are not marked complete.
+
 **NOT READY for develop merge: one current implementation blocker (B1).**
 Review head `734037ffb446f6523731ad8cd3abb4de10acafef`; runtime/source-linked
 artifacts `b9793cc36ec5589ebbc538709c78a328b32ee13a`; develop
