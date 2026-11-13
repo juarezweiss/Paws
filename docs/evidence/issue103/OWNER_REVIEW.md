@@ -1,4 +1,25 @@
-# #103 owner iPhone review — pending
+# #103 owner iPhone review — reported pass; coverage limits remain
+
+## Owner report — 2026-11-13
+
+Owner explicitly reported: **“iPhone 17, iOS 27.0.1, pass for all items.”** This
+responds to the simple human checklist for the November 12 signed candidate
+(runtime `b9793cc`, Paws 0.1.0 (1); receipt below). Record a human physical pass on
+that device/OS for startup, play/free offline Hints, available Sandbox age cases,
+restriction/recovery, lifecycle, controls and EN/pt-BR/ES readability.
+
+The owner did not enumerate the Sandbox scenario names or regional contexts;
+therefore no exact scenario count or worldwide/other-OS coverage is inferred.
+Significant-update approval/pending/denial remains unavailable with the empty
+production change registry. The Sandbox revocation notification alone does not
+establish OS launch blocking. Those limits were explicit in the supplied checklist
+and are not converted into passes by the all-items report.
+
+This supersedes physical-pending statements below only for the reported human
+scope. Earlier signing-time Sandbox0 records remain historical; current evidence
+is owner-reported available-case pass with an unspecified scenario/region matrix.
+Final #103 acceptance and #90/#91/#92 release gates remain open. No merge or release
+is authorized by this report.
 
 ## Latest owner-profile signed copy ready — 2026-11-12
 
