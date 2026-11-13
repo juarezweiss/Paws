@@ -1,7 +1,7 @@
 {
   "name": "CatsAndArrows.UI.Editor",
   "rootNamespace": "CatsAndArrows.UI.Editor",
-  "references": ["CatsAndArrows.UI"],
+  "references": ["CatsAndArrows.UI", "CatsAndArrows.Access.Editor"],
   "includePlatforms": ["Editor"],
   "autoReferenced": true,
   "noEngineReferences": false

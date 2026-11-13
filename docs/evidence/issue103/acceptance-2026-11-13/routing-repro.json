@@ -1,0 +1,71 @@
+{
+  "appleSandboxExecuted": false,
+  "failed": 3,
+  "nativeApiCallsPerformed": false,
+  "passed": 2,
+  "rows": [
+    {
+      "actualRangeRequest": true,
+      "expectedRangeRequest": false,
+      "features": [
+        "significantAppChangeRequiresParentalConsent"
+      ],
+      "passed": false,
+      "pendingActualChange": false,
+      "scenario": "parental-update-only"
+    },
+    {
+      "actualRangeRequest": true,
+      "expectedRangeRequest": false,
+      "features": [
+        "significantAppChangeRequiresAdultNotification"
+      ],
+      "passed": false,
+      "pendingActualChange": false,
+      "scenario": "adult-update-only"
+    },
+    {
+      "actualRangeRequest": true,
+      "expectedRangeRequest": false,
+      "features": [
+        "significantAppChangeRequiresParentalConsent",
+        "significantAppChangeRequiresAdultNotification"
+      ],
+      "passed": false,
+      "pendingActualChange": false,
+      "scenario": "both-update-only"
+    },
+    {
+      "actualRangeRequest": false,
+      "expectedRangeRequest": false,
+      "features": [],
+      "passed": true,
+      "pendingActualChange": false,
+      "scenario": "ordinary-no-features"
+    },
+    {
+      "actualRangeRequest": true,
+      "expectedRangeRequest": true,
+      "features": [
+        "declaredAgeRangeRequired"
+      ],
+      "passed": true,
+      "pendingActualChange": false,
+      "scenario": "required-range"
+    }
+  ],
+  "testKind": "deterministic host Swift routing reproduction; not Apple runtime or Sandbox",
+  "total": 5,
+  "reviewHeadSha": "734037ffb446f6523731ad8cd3abb4de10acafef",
+  "runtimeSourceSha": "b9793cc36ec5589ebbc538709c78a328b32ee13a",
+  "verificationDate": "2026-11-13",
+  "reproductionExitCode": 1,
+  "producerPath": "UnityProject/Assets/CatsAndArrows/Access/Plugins/iOS/PawsAccessWorkflow.swift",
+  "producerSha256": "a260e90ffe5fc8164269273b312b71e77bdfbecc9dfde0fd8122e864a188f049",
+  "probeSha256": "0389f3ac61bc2dfbefead54fa1d1b6e7dd17036bdc99427d2e98608b0a1dfa7e",
+  "runtimeInputsChanged": false,
+  "compiler": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+  "sdk": "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.2.sdk",
+  "initialInvocation": "did not execute test: standard library unavailable without explicit macOS SDK; original compile.log retained",
+  "finalInvocation": "compiled with explicit installed MacOSX27.2 SDK; no setup, download or toolchain change"
+}

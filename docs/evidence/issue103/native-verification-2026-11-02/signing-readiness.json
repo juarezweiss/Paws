@@ -1,0 +1,64 @@
+{
+  "schema": "paws-native-access-signing-readiness-v1",
+  "recordedAtUtc": "2026-11-02T15:25:58.132844+00:00",
+  "inspectionContext": "escalated-local-read-only",
+  "identityInspectionSucceeded": true,
+  "validCodeSigningIdentityCount": 2,
+  "localProfileCount": 1,
+  "profileChecks": [
+    {
+      "localProfileIndex": 1,
+      "decoded": true,
+      "exactPawsBundleIdentifier": false,
+      "declaredAgeRangeEntitlement": false,
+      "expiresAtUtc": "2027-10-27T22:46:10+00:00",
+      "unexpired": true,
+      "developmentClass": true,
+      "hasMatchingValidLocalCertificate": true,
+      "teamIdentifiersConsistent": true,
+      "provisionedDeviceCount": 1,
+      "compatible": false,
+      "pawsBundleIdentifierAuthorized": true,
+      "usesWildcardAppIdentifier": true,
+      "authoritativeDerProfilePresent": true,
+      "authoritativeDerDecoded": true,
+      "declaredAgeRangeKeyPresentInAuthoritativeDer": false
+    }
+  ],
+  "originalPreserved": true,
+  "signed": false,
+  "installed": false,
+  "compatibleExistingProfileCount": 0,
+  "blocker": "Existing local development profile lacks com.apple.developer.declared-age-range=true.",
+  "source": {
+    "runtimeSourceSha": "b9793cc36ec5589ebbc538709c78a328b32ee13a",
+    "reviewHeadSha": "dc57b86c05afe97a790c7101f480e6b4be68a51b",
+    "currentRuntimeAndScriptsEqualRecordedSource": true,
+    "exportSourceMatchesRecordedRuntime": true
+  },
+  "originalArchive": {
+    "path": ".unity-results/issue103-unsigned.xcarchive",
+    "treeSha256": "334cbacfc172ccf128e69110188ccfc695d2af8b253d7f8c71b611acc34a21f7",
+    "matchesRecordedChecksum": true,
+    "bundleIdentifier": "com.jweiss.paws",
+    "minimumIOS": "16.3",
+    "signed": false,
+    "embeddedProfilePresent": false,
+    "requiredExportAgeEntitlementTrue": true
+  },
+  "readinessOnly": true,
+  "technicalSigningPreparation": "blocked-missing-profile-authorization",
+  "sanitization": "No identity names, certificate fingerprints, profile names/UUIDs, team/account identifiers, device IDs, passwords, private keys or decoded profile payloads retained in this receipt.",
+  "capabilityAuthorizationBasis": {
+    "officialSource": "https://developer.apple.com/documentation/technotes/tn3125-inside-code-signing-provisioning-profiles?changes=_4",
+    "officialEntitlementSource": "https://developer.apple.com/documentation/bundleresources/entitlements/com.apple.developer.declared-age-range",
+    "rule": "For iOS, every entitlement claimed by an app must be authorized by its provisioning profile allowlist; the unrestricted-entitlement exception described in TN3125 is for macOS.",
+    "specificCapabilityMetadataSource": "/Applications/Xcode.app/Contents/SharedFrameworks/DVTPortal.framework/Versions/A/Resources/DVTPortalCachedPortalCapabilities.json",
+    "capabilityId": "DECLARED_AGE_RANGE",
+    "profileKey": "com.apple.developer.declared-age-range",
+    "requiredInAppEntitlementsPlist": true,
+    "distributionApprovalRequired": false,
+    "interpretation": "The app claims the required Boolean age entitlement; the existing iOS profile does not authorize it. This is a missing profile authorization, not an assertion of separate Apple managed-entitlement approval."
+  },
+  "ownerActionRequired": "Enable Declared Age Range for the explicit com.jweiss.paws application and refresh/provide a development provisioning profile that authorizes com.apple.developer.declared-age-range=true with an existing valid certificate. No account or profile operation was performed by this check."
+}

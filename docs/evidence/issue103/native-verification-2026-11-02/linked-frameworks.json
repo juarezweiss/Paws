@@ -1,0 +1,106 @@
+[
+  {
+    "command": "LC_LOAD_WEAK_DYLIB",
+    "path": "/System/Library/Frameworks/DeclaredAgeRange.framework/DeclaredAgeRange"
+  },
+  {
+    "command": "LC_LOAD_WEAK_DYLIB",
+    "path": "/System/Library/Frameworks/PermissionKit.framework/PermissionKit"
+  },
+  {
+    "command": "LC_LOAD_DYLIB",
+    "path": "/usr/lib/libSystem.B.dylib"
+  },
+  {
+    "command": "LC_LOAD_DYLIB",
+    "path": "/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation"
+  },
+  {
+    "command": "LC_LOAD_DYLIB",
+    "path": "/System/Library/Frameworks/Foundation.framework/Foundation"
+  },
+  {
+    "command": "LC_LOAD_DYLIB",
+    "path": "/System/Library/Frameworks/UIKit.framework/UIKit"
+  },
+  {
+    "command": "LC_LOAD_WEAK_DYLIB",
+    "path": "/System/Library/Frameworks/_PermissionKit_UIKit.framework/_PermissionKit_UIKit"
+  },
+  {
+    "command": "LC_LOAD_DYLIB",
+    "path": "/usr/lib/libobjc.A.dylib"
+  },
+  {
+    "command": "LC_LOAD_DYLIB",
+    "path": "/usr/lib/swift/libswiftCore.dylib"
+  },
+  {
+    "command": "LC_LOAD_WEAK_DYLIB",
+    "path": "/usr/lib/swift/libswiftCoreAudio.dylib"
+  },
+  {
+    "command": "LC_LOAD_WEAK_DYLIB",
+    "path": "/usr/lib/swift/libswiftCoreFoundation.dylib"
+  },
+  {
+    "command": "LC_LOAD_WEAK_DYLIB",
+    "path": "/usr/lib/swift/libswiftCoreImage.dylib"
+  },
+  {
+    "command": "LC_LOAD_WEAK_DYLIB",
+    "path": "/usr/lib/swift/libswiftCoreLocation.dylib"
+  },
+  {
+    "command": "LC_LOAD_DYLIB",
+    "path": "/usr/lib/swift/libswiftDarwin.dylib"
+  },
+  {
+    "command": "LC_LOAD_DYLIB",
+    "path": "/usr/lib/swift/libswiftDispatch.dylib"
+  },
+  {
+    "command": "LC_LOAD_WEAK_DYLIB",
+    "path": "/usr/lib/swift/libswiftMetal.dylib"
+  },
+  {
+    "command": "LC_LOAD_WEAK_DYLIB",
+    "path": "/usr/lib/swift/libswiftOSLog.dylib"
+  },
+  {
+    "command": "LC_LOAD_DYLIB",
+    "path": "/usr/lib/swift/libswiftObjectiveC.dylib"
+  },
+  {
+    "command": "LC_LOAD_WEAK_DYLIB",
+    "path": "/usr/lib/swift/libswiftQuartzCore.dylib"
+  },
+  {
+    "command": "LC_LOAD_WEAK_DYLIB",
+    "path": "/usr/lib/swift/libswiftSpatial.dylib"
+  },
+  {
+    "command": "LC_LOAD_WEAK_DYLIB",
+    "path": "/usr/lib/swift/libswiftUniformTypeIdentifiers.dylib"
+  },
+  {
+    "command": "LC_LOAD_WEAK_DYLIB",
+    "path": "/usr/lib/swift/libswiftXPC.dylib"
+  },
+  {
+    "command": "LC_LOAD_DYLIB",
+    "path": "/usr/lib/swift/libswift_Concurrency.dylib"
+  },
+  {
+    "command": "LC_LOAD_WEAK_DYLIB",
+    "path": "/usr/lib/swift/libswiftos.dylib"
+  },
+  {
+    "command": "LC_LOAD_WEAK_DYLIB",
+    "path": "/usr/lib/swift/libswiftsimd.dylib"
+  },
+  {
+    "command": "LC_LOAD_DYLIB",
+    "path": "/usr/lib/swift/libswiftUIKit.dylib"
+  }
+]

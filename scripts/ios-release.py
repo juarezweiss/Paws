@@ -12,6 +12,8 @@ import sys
 from pathlib import Path
 
 BUNDLE_ID = "com.jweiss.paws"
+AGE_ENTITLEMENT = "com.apple.developer.declared-age-range"
+AGE_FRAMEWORKS = ("DeclaredAgeRange.framework", "PermissionKit.framework")
 EXCLUDED_TYPES = re.compile(rb"BoardReviewBootstrap|(?:BoardInput|GameLoop|Completion|HintIdle|ArrowHold|Tutorial|Monetization)ReviewChecks|ReviewAdService|ReviewPurchaseService|GenerationBenchmark")
 
 
@@ -166,6 +168,103 @@ def resolve_setting(value, settings):
     return value
 
 
+def inspect_native_access(export, project, app_settings):
+    """#103: inspect app-scoped capability and weak system links, without signing.
+
+    Entitlement paths are generated project-relative inputs, never expanded shell
+    or Xcode expressions. Resolve symlinks too before reading their contents.
+    """
+    def entitlement_file(value):
+        if not isinstance(value, str) or not value.strip() or "$" in value or "\\" in value:
+            raise InspectionError("Native age entitlements require a literal project-relative path.")
+        path = Path(value)
+        if path.is_absolute() or ".." in path.parts:
+            raise InspectionError("Native age entitlement path escapes the export.")
+        resolved = (export / path).resolve()
+        if not resolved.is_relative_to(export.resolve()) or not resolved.is_file():
+            raise InspectionError("Native age entitlement file is missing or escapes the export.")
+        return resolved, read_plist(resolved)
+
+    path, values = entitlement_file(app_settings.get("CODE_SIGN_ENTITLEMENTS"))
+    if values.get(AGE_ENTITLEMENT) is not True:
+        raise InspectionError("Application must declare the native age entitlement as Boolean true.")
+    objects = project.get("objects", {})
+    for item in objects.values():
+        if item.get("isa") != "XCBuildConfiguration" or item.get("name") != "Release":
+            continue
+        settings = item.get("buildSettings", {})
+        if settings is app_settings:
+            continue
+        entitlement = settings.get("CODE_SIGN_ENTITLEMENTS")
+        if entitlement not in (None, "", "$(inherited)"):
+            _, other_values = entitlement_file(entitlement)
+            if AGE_ENTITLEMENT in other_values:
+                raise InspectionError("Native age entitlement must be scoped to the application, not a framework/project.")
+
+    links = []
+    for target in objects.values():
+        if target.get("isa") != "PBXNativeTarget":
+            continue
+        for phase_id in target.get("buildPhases", []):
+            phase = objects.get(phase_id, {})
+            if phase.get("isa") != "PBXFrameworksBuildPhase":
+                continue
+            for build_id in phase.get("files", []):
+                build = objects.get(build_id, {})
+                reference = objects.get(build.get("fileRef"), {})
+                name = Path(str(reference.get("path", ""))).name
+                if name not in AGE_FRAMEWORKS:
+                    continue
+                attributes = build.get("settings", {}).get("ATTRIBUTES", [])
+                if build.get("isa") != "PBXBuildFile" or not isinstance(attributes, list) or "Weak" not in attributes:
+                    raise InspectionError("Native age system frameworks must use weak linkage for older iOS.")
+                if reference.get("sourceTree") != "SDKROOT":
+                    raise InspectionError("Native age frameworks must reference the system SDK.")
+                links.append({"target": target.get("name"), "framework": name, "weak": True})
+    for name in AGE_FRAMEWORKS:
+        if not any(link["target"] == "UnityFramework" and link["framework"] == name for link in links):
+            raise InspectionError(f"Missing weak {name} linkage on UnityFramework.")
+    return {"enabled": True, "entitlement": AGE_ENTITLEMENT,
+            "entitlementFile": path.relative_to(export.resolve()).as_posix(),
+            "exportEntitlementVerified": True, "systemFrameworkLinks": links,
+            "signedCapabilityVerification": "pending-signing"}
+
+
+def age_framework_reference(value):
+    return next((name for name in AGE_FRAMEWORKS
+                 if re.search(rf"(?:^|/){re.escape(name)}/", value)), None)
+
+
+def inspect_age_load_commands(output, linked_libraries):
+    """Verify actual Mach-O load commands, including Swift-autolink results.
+
+    PBX Weak attributes describe intended linker inputs; only LC_LOAD_WEAK_DYLIB
+    proves a produced binary will tolerate these newer frameworks being absent.
+    """
+    kind = None
+    references = []
+    for line in output.splitlines():
+        if re.fullmatch(r"\s*Load command\s+\d+\s*", line):
+            kind = None
+        command_match = re.fullmatch(r"\s*cmd\s+(LC_[A-Z0-9_]+)\s*", line)
+        if command_match:
+            kind = command_match.group(1)
+        library = re.match(r"\s*name\s+(.+?)\s+\(offset\s+\d+\)\s*$", line)
+        if not library or kind == "LC_ID_DYLIB":
+            continue
+        framework = age_framework_reference(library.group(1))
+        if not framework:
+            continue
+        if kind != "LC_LOAD_WEAK_DYLIB":
+            raise InspectionError("Native age frameworks require LC_LOAD_WEAK_DYLIB in the archived binary.")
+        references.append({"framework": framework, "command": kind})
+    listed = {name for line in linked_libraries if (name := age_framework_reference(line))}
+    verified = {reference["framework"] for reference in references}
+    if not listed.issubset(verified):
+        raise InspectionError("Cannot verify native age framework Mach-O load commands.")
+    return references
+
+
 def inspect_identity(info, config, settings=None, archived=False):
     settings = settings or {}
     value = lambda key: resolve_setting(info.get(key), settings)
@@ -246,6 +345,8 @@ def inspect_archive(archive, config):
             raise InspectionError("Cannot inspect signed application entitlements.") from error
         if entitlements.get("get-task-allow"):
             raise InspectionError("Archive permits development debugging (get-task-allow).")
+        if entitlements.get(AGE_ENTITLEMENT) is not True:
+            raise InspectionError("Signed application is missing its native age entitlement.")
     binaries = [executable]
     for framework in app.rglob("*.framework"):
         binary = framework / framework.stem
@@ -255,11 +356,14 @@ def inspect_archive(archive, config):
     dependencies = []
     for binary in sorted(set(binaries)):
         lines = command(["otool", "-L", str(binary)]).splitlines()
+        linked_libraries = [line.strip() for line in lines[1:] if line.strip()]
+        age_loads = inspect_age_load_commands(command(["otool", "-l", str(binary)]), linked_libraries)
         dependencies.append({"binary": binary.relative_to(archive).as_posix(),
-                             "linkedLibraries": [line.strip() for line in lines[1:] if line.strip()]})
+                             "linkedLibraries": linked_libraries, "nativeAgeSystemLoadCommands": age_loads})
     return {"stage": "signed-archive-validated" if signed else "unsigned-archive-validated",
             "archiveTreeSha256": tree_sha256(archive), "checksumAlgorithm": "paws-tree-sha256-v1",
             "signatureVerified": signed, "entitlements": entitlements,
+            "nativeAgeCapabilityVerification": "signed-entitlement-verified" if signed else "pending-signing",
             "capabilities": app_info.get("UIRequiredDeviceCapabilities", []),
             "backgroundModes": app_info.get("UIBackgroundModes", []),
             "infoPlist": app_info, "inventory": inventory(archive), "linkedLibraries": dependencies,
@@ -285,10 +389,13 @@ def build_receipt(root, export, archive=None):
     for key in ("bundleIdentifier", "version", "buildNumber", "minimumIOS", "deviceFamily", "unityVersion"):
         expect(metadata.get(key), config[key], f"export {key}")
     expect(metadata.get("monetizationEnabled"), False, "disabled monetization")
+    if metadata.get("nativeAgeAccess") is not True:
+        raise InspectionError("Production export must enable nativeAgeAccess.")
     expect(metadata.get("productionDefine"), "PAWS_PRODUCTION", "production compilation define")
     for flag in ("developmentBuild", "scriptDebugging", "profilerEnabled"):
         expect(metadata.get(flag, False), False, flag)
     settings, project = project_settings(export)
+    native_access = inspect_native_access(export, project, settings)
     expect(settings.get("PRODUCT_BUNDLE_IDENTIFIER"), BUNDLE_ID, "Unity-generated Xcode bundle identifier")
     info = read_plist(export / "Info.plist")
     inspect_identity(info, config, settings)
@@ -305,6 +412,7 @@ def build_receipt(root, export, archive=None):
                "exportProjectCapabilities": [item.get("attributes", {}).get("TargetAttributes", {})
                                              for item in project.get("objects", {}).values() if item.get("isa") == "PBXProject"],
                "unityPackages": packages, "diagnosticExclusion": exclusion,
+               "nativeAgeAccess": native_access,
                "physicalIPhoneReview": "pending-human", "distributionApproval": "pending-owner"}
     if archive:
         receipt["archive"] = inspect_archive(archive, config)

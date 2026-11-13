@@ -1,5 +1,67 @@
 # Testing Strategy
 
+## Issue #103 B1 fix — 2026-11-13
+
+[Exact-source B1 validation](evidence/issue103/b1-fix-2026-11-13/validation.json),
+source `190693d`: **147/147 host native workflow checks** (83 retained +64 new
+modern routing combinations); five real iPhoneOS SDK typechecks pass at ARM64
+16.3/26.0/26.2/26.4/27.0. Pinned Unity6000.3.25f1 compilation and fresh **806/806
+EditMode**, zero failed/skipped/inconclusive, pass; **63/63 Python**, repository
+and whitespace checks pass. Independent read-only QA has no blocking findings.
+
+[B1 reassessment](evidence/issue103/b1-fix-2026-11-13/README.md): MERGE READY for
+develop after green CI/owner approval. The [original failed reproduction](evidence/issue103/acceptance-2026-11-13/routing-repro.json)
+remains pre-fix evidence. No automated result here is a new Apple native/Sandbox
+or physical-device pass. Prior signed-source `b9793cc` owner acceptance is retained,
+not extended to the fix. G1–G6 release and D1–D4 activation gates remain open.
+
+## Issue #103 native verification follow-up — 2026-11-02
+
+[Follow-up evidence](evidence/issue103/native-verification-2026-11-02/README.md)
+preserves the prior source-linked archive and all tests below. Runtime inputs
+remain identical to `b9793cc`. Device-signing preparation is blocked by the
+existing profile's missing Declared Age Range authorization; the certificate and
+bundle coverage otherwise match. No signed-device acceptance is claimed.
+
+Actual Simulator probe/control results must be read at their qualified scope:
+production native bridge in an isolated UIKit harness, separate from the whole
+Unity application, entitlement-enabled device signing and authenticated Apple
+Sandbox scenarios. No Apple Sandbox scenario has completed in this follow-up.
+Unentitled iOS17.0.1/18.5 controls pass 8/8 scenarios (80/80 assertions); the
+unentitled iOS27.0 control returns no native report within 20 seconds. All
+entitlement-bearing ad-hoc probes failed launch. Exact iOS16.3 and26.x runtimes
+are unavailable. These failures/gaps do not establish candidate acceptance or a
+production defect.
+[Exact owner steps](evidence/issue103/OWNER_REVIEW.md) retain the human-only phone
+review and distinguish server-notification revocation from OS launch enforcement.
+
+## Issue #103 standalone native access — 2026-11-01
+
+Implementation source `b9793cc36ec5589ebbc538709c78a328b32ee13a`:
+pinned Unity 6000.3.25f1 compilation and **806/806 EditMode** tests pass;
+**63/63 Python** contracts and **83 native workflow checks** pass. Real Xcode27.2
+SDK typechecks cover ARM64 deployment targets 16.3/26.0/26.2/26.4/27.0. Independent
+read-only QA found no remaining blockers after lifecycle/persistence fixes.
+
+[Validation and limits](evidence/issue103/validation.json) and
+[unsigned archive receipt](evidence/issue103/unsigned-release-receipt.json)
+record exact source/checksums. Clean production export/unsigned archive verifies
+the app-only entitlement, actual weak native age/permission/UIKit-overlay load
+commands and minimum iOS16.3. No signature/profile pass or device acceptance is
+implied. The receipt is not the complete #90 commercial-exclusion audit.
+
+Mounted recovery tests cover nine locale/portrait combinations, restricted entry/
+resume/tutorial/Hint paths, preserved state and completed-board locks. Existing
+tap/drag/protected-cell/Clear/new-game regressions pass in the full suite. SDK
+typechecking and host workflow tests do not establish actual iOS runtime or
+regional Sandbox behavior. Those checks, signed-capability verification and
+[owner physical review](evidence/issue103/OWNER_REVIEW.md) remain pending.
+
+The production significant-change registry is empty. A future real change needs
+account-safe durable no-repeat handling across restart and exact-candidate native
+Sandbox validation; current-process background/resume is covered. See
+[NATIVE_ACCESS](NATIVE_ACCESS.md) for current legal/API scope and the privacy model.
+
 ## Issue #89 free-1.0 UI cleanup — 2026-10-29
 
 Source `82f0e8c2118ab5ee92d534ba1fe341d9b11a43ed`, based on develop

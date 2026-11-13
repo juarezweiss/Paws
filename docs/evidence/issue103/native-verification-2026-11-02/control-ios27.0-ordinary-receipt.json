@@ -1,0 +1,21 @@
+{
+  "ageResponsePersisted": false,
+  "appOwnedPhaseAfter": 0,
+  "appOwnedPhaseBefore": 0,
+  "assertions": {
+    "probeRootHasNoPresentedController": true,
+    "productionNativeReportReceived": false
+  },
+  "mode": "ordinary",
+  "observation": {},
+  "passed": false,
+  "physicalCoverage": false,
+  "probeKind": "isolated-UIApplication-not-Unity-gameplay",
+  "sandboxRegionalCoverage": false,
+  "sourceKind": "actual-committed-native-bridge",
+  "systemVersion": "27.0",
+  "probeAgeEntitlementEnabled": false,
+  "signing": "Simulator-ad-hoc-control-no-production-profile",
+  "authenticatedSandboxScenario": false,
+  "accountLoginOrChangePerformed": false
+}

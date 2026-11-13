@@ -1,0 +1,8 @@
+{
+  "name": "CatsAndArrows.Access",
+  "rootNamespace": "CatsAndArrows.Access",
+  "references": [],
+  "autoReferenced": true,
+  "overrideReferences": false,
+  "noEngineReferences": false
+}

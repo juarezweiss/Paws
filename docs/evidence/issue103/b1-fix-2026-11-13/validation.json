@@ -1,0 +1,112 @@
+{
+  "schema": "paws-issue103-b1-fix-validation-v1",
+  "issue": 103,
+  "pr": 104,
+  "verificationDate": "2026-11-13",
+  "recordedAtUtc": "2026-11-13T21:04:31.752041+00:00",
+  "runtimeSourceSha": "190693d3ca1c2db61f3f35f3a714076519056480",
+  "preFixAssessmentSha": "a9730b741f5c0478b8995577bc7a8d963490b070",
+  "inputs": [
+    {
+      "path": "UnityProject/Assets/CatsAndArrows/Access/Plugins/iOS/PawsAccessWorkflow.swift",
+      "sha256": "6f4379b742ce964467cb7c98180c185b00f92c445ecc2240278df59b3782e6d1"
+    },
+    {
+      "path": "UnityProject/Assets/CatsAndArrows/Access/Plugins/iOS/PawsNativeAccess.swift",
+      "sha256": "d2b58e667f3b681c78605925e3e98001323776462e9959dbe3a57246fffdf951"
+    },
+    {
+      "path": "scripts/tests/native_access_tests.swift",
+      "sha256": "e5e42d805a4276d5b6af112d0d876f34696ad85a470bb568e8766963e17c2ab6"
+    }
+  ],
+  "behavior": "26.4+ uses precise required-range/recovery/applicable-change routing; generic eligibility is only used by the unchanged older-OS path",
+  "native": {
+    "result": "passed",
+    "workflowChecksPassed": 147,
+    "newModernRoutingCases": 64,
+    "existingChecksRetained": 83,
+    "testKind": "host Swift workflow tests and real iPhoneOS SDK typechecks; not native runtime/Sandbox",
+    "arm64DeploymentTargetsTypechecked": [
+      "16.3",
+      "26.0",
+      "26.2",
+      "26.4",
+      "27.0"
+    ],
+    "log": ".unity-results/issue103-b1-20261113/native-access.log",
+    "logSha256": "294aee413eb05213aed72a100efa45ac22ad4bacc9db148972979210eb9d4af7",
+    "hostSdk": "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.2.sdk",
+    "invocation": "SDKROOT=<installed MacOSX27.2.sdk> bash scripts/test-native-access.sh",
+    "warnings": "Existing availability/deprecated legacy significant-change-control diagnostics remain; their dormant flow remains D2."
+  },
+  "unity": {
+    "version": "6000.3.25f1",
+    "discovery": "bash scripts/unity.sh",
+    "guiEditorRunningBeforeValidation": false,
+    "compile": {
+      "command": "bash scripts/compile.sh",
+      "exitCode": 0,
+      "log": ".unity-results/compile.jfpHdF/Editor.log",
+      "logSha256": "299a298f64cccfc6edca29979cc1542a6fb49c7a153006883beb47f6f97e3907"
+    },
+    "editMode": {
+      "command": "bash scripts/test.sh",
+      "editorExitCode": 0,
+      "result": "Passed",
+      "total": 806,
+      "passed": 806,
+      "failed": 0,
+      "skipped": 0,
+      "inconclusive": 0,
+      "xml": ".unity-results/editmode.Cpoi2W/test-results.xml",
+      "xmlSha256": "0239b5c49297be073a7c0acda1534ca667df4ab6f59e0a22caf47c7f729eb851"
+    }
+  },
+  "python": {
+    "command": "python3 -m unittest discover -s scripts/tests -v",
+    "result": "passed",
+    "total": 63,
+    "log": ".unity-results/issue103-b1-20261113/python.log",
+    "logSha256": "8986d6a65383756fd734adae5e93f3e85dc3ebf8b878a426cf8cd42341e9fcd4"
+  },
+  "repositoryValidation": "passed",
+  "whitespace": "passed",
+  "independentReadOnlyQA": {
+    "role": "qa_reviewer",
+    "result": "No blocking findings",
+    "scope": "B1 routing, regression coverage, mandatory/recovery/older-OS preservation; no new physical/native acceptance"
+  },
+  "mergeReadiness": "MERGE READY for develop integration after CI success and explicit owner approval; not App Store submission acceptance",
+  "releaseGatesStillOpen": [
+    "G1",
+    "G2",
+    "G3",
+    "G4",
+    "G5",
+    "G6"
+  ],
+  "deferredActivationGatesStillOpen": [
+    "D1",
+    "D2",
+    "D3",
+    "D4"
+  ],
+  "priorPhysicalReview": {
+    "result": "owner pass retained",
+    "device": "iPhone 17",
+    "os": "27.0.1",
+    "runtimeSourceSha": "b9793cc36ec5589ebbc538709c78a328b32ee13a",
+    "extendedToFixedCandidate": false
+  },
+  "productionActions": {
+    "signed": false,
+    "installed": false,
+    "launchedOnDevice": false,
+    "merged": false,
+    "released": false,
+    "nativeSandboxExecuted": false,
+    "newProductionArchiveBuilt": false
+  },
+  "workspaceCleanup": "Only Unity-generated trailing whitespace and new SceneTemplateSettings.json removed from change set; generated JSON retained under ignored run directory; unrelated tutorial_texts.csv untouched."
+}

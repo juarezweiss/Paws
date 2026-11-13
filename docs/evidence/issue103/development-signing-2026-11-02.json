@@ -1,0 +1,90 @@
+{
+  "schema": "paws-issue103-development-signing-v1",
+  "recordedAtUtc": "2026-11-03T01:19:43.343600+00:00",
+  "issue": 103,
+  "pr": 104,
+  "runtimeSourceSha": "b9793cc36ec5589ebbc538709c78a328b32ee13a",
+  "reviewHeadSha": "ba66da6c91204d9c8cdf384b30086c7e9aa733b6",
+  "runtimeAndScriptsEqualRecordedSource": true,
+  "originalArchivePath": ".unity-results/issue103-unsigned.xcarchive",
+  "originalArchiveTreeSha256": "334cbacfc172ccf128e69110188ccfc695d2af8b253d7f8c71b611acc34a21f7",
+  "originalPreserved": true,
+  "signedArchivePath": "Builds/Issue103-Development-b9793cc-20261102/Paws-Development.xcarchive",
+  "signedAppPath": "Builds/Issue103-Development-b9793cc-20261102/Paws-Development.xcarchive/Products/Applications/Paws.app",
+  "signedArchiveTreeSha256": "b2b40c9f1998fe015c31f7e09488b999211ab5b592888bbe82981d9c0923534f",
+  "signedAppTreeSha256": "279d30f825bb9d8081899a555b4d5d4287f3a95234089d185c4d0b5b856b4472",
+  "signedExecutableSha256": "1ae1a925985c4b7d94e42823759132fc0f4db40e7e99021e36a9c0ca1de017f4",
+  "configuration": "Non-development production code; owner-provided local development signature, not App Store distribution",
+  "bundleIdentifier": "com.jweiss.paws",
+  "version": "0.1.0",
+  "build": "1",
+  "minimumIOS": "16.3",
+  "profileExpiresAtUtc": "2027-11-03T01:12:21+00:00",
+  "profileAuthorization": {
+    "explicitPawsApp": true,
+    "plistAgeEntitlementTrue": true,
+    "authoritativeDERAgeEntitlementTrue": true,
+    "previousRegisteredTestPhoneCovered": true,
+    "provisionedDeviceCount": 1,
+    "validMatchingLocalIdentity": true,
+    "teamAndAppIdentifierPrefixCheckedIndependently": true,
+    "profileUnexpired": true,
+    "embeddedBytesMatchDownloadedProfile": true
+  },
+  "signatureChecks": {
+    "deepStrictAppVerification": true,
+    "nestedFrameworkVerification": true,
+    "actualSignedEntitlementsMatchRequiredDevelopmentSet": true,
+    "actualSignedDERAgeEntitlementTrue": true,
+    "actualLeafCertificateMatchesProfileAndLocalIdentity": true,
+    "getTaskAllow": true,
+    "allOriginalBundledResourcesUnchanged": true
+  },
+  "binaryModules": [
+    {
+      "binary": "Frameworks/UnityFramework.framework/UnityFramework",
+      "arm64": true,
+      "uuids": [
+        "80824E9E-DF3C-30B0-811D-DA5D7FDDA4B3"
+      ],
+      "dsymMatches": true,
+      "codeSectionsAndNonSignatureLoadCommandsUnchanged": true
+    },
+    {
+      "binary": "Paws",
+      "arm64": true,
+      "uuids": [
+        "521F455E-165D-392A-8705-F26D80196F46"
+      ],
+      "dsymMatches": true,
+      "codeSectionsAndNonSignatureLoadCommandsUnchanged": true
+    }
+  ],
+  "signed": true,
+  "installed": false,
+  "launched": false,
+  "physicalIPhoneReview": "pending-owner",
+  "appleSandbox": {
+    "executed": 0,
+    "passed": 0,
+    "failed": 0
+  },
+  "distributionApproval": "pending-owner; development signature is not distribution acceptance",
+  "newBuildPerformed": false,
+  "accountOrProfileChangesByAgent": false,
+  "sanitization": "No profile name/UUID/payload, team/account/device identifiers, identity names, certificate fingerprints, passwords or private keys retained in this receipt.",
+  "verificationAttemptHistory": {
+    "initial": "incomplete; local certificate-extraction optional argument syntax corrected",
+    "final": "passed all signing and artifact checks without a rebuild or second signing",
+    "productDefectEstablished": false,
+    "privateDiagnosticRecord": ".unity-results/issue103-development-signing-20261102/initial-verification-attempt.json"
+  },
+  "independentReadOnlyQA": {
+    "result": "no blocking findings",
+    "originalAndSignedArtifactAndExecutableHashesMatch": true,
+    "strictAppAndFrameworkSignaturesPass": true,
+    "arm64DsymPairsMatch": true,
+    "restrictedSandboxTrustError": "Environmental: CSSMERR_TP_NOT_TRUSTED under restricted sandbox; identical read-only checks outside sandbox exited 0. No product defect established.",
+    "deviceOperationsPerformed": false
+  }
+}

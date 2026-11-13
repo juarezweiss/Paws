@@ -1,0 +1,308 @@
+{
+  "issue": 103,
+  "pr": 104,
+  "verificationDate": "2026-11-02",
+  "source": {
+    "sourceRevision": "b9793cc36ec5589ebbc538709c78a328b32ee13a",
+    "inspectionRevision": "dc57b86c05afe97a790c7101f480e6b4be68a51b",
+    "inputs": [
+      {
+        "path": "UnityProject/Assets/CatsAndArrows/Access/Plugins/iOS/PawsAccessWorkflow.swift",
+        "sha256": "a260e90ffe5fc8164269273b312b71e77bdfbecc9dfde0fd8122e864a188f049",
+        "gitBlob": "cac8d88d583ce3924650f1762c0b6c2a5afee219"
+      },
+      {
+        "path": "UnityProject/Assets/CatsAndArrows/Access/Plugins/iOS/PawsNativeAccess.swift",
+        "sha256": "b423db77ed10bbf4d72becadc2dac5c525e2fa1e2936dd3c15d87aa7e21a5b01",
+        "gitBlob": "86a368f2ea0b5eef8e6a81dc6a751244b11feaac"
+      }
+    ]
+  },
+  "probeScope": "Isolated UIKit application executing the two exact committed Swift native bridge sources through their C ABI; no Unity gameplay or physical-device execution.",
+  "simulatorTool": {
+    "binary": "/Library/Developer/PrivateFrameworks/CoreSimulator.framework/Versions/A/Resources/bin/simctl",
+    "kind": "actual Mach-O arm64e",
+    "coreSimulatorVersion": "1174.21",
+    "wrapperExecuted": false,
+    "xcodeFirstLaunchOrSetupExecuted": false
+  },
+  "build": {
+    "sdk": "iPhoneSimulator27.2",
+    "deploymentTarget": "16.3",
+    "architecture": "arm64",
+    "signature": "ad-hoc Simulator only; no Apple signing credentials",
+    "commandFile": "build-command.json",
+    "probeSourceFile": "sources/NativeAccessCompatibilityProbe.swift",
+    "probeSourceSha256": "320de2f7bf7945552ad0f3405cba8a9a402c1d08d878afb5986afd04c754d6c6",
+    "producerSourcesModified": false,
+    "artifactBinarySha256": {
+      "NativeAccessCompatibilityProbe.app": "2a65b5f90804da400c44e0ebdcad044126909cc3dc8bc0822b1f54628e1a00b9",
+      "NativeAccessCompatibilityBaseline.app": "29333106635634cdd6e1282f6d73cdb24345c69659958e9ec64579b5d6db1e48"
+    }
+  },
+  "availableRuntimes": [
+    {
+      "identifier": "com.apple.CoreSimulator.SimRuntime.iOS-17-0",
+      "version": "17.0.1",
+      "build": "21A342",
+      "bundlePath": "/Library/Developer/CoreSimulator/Volumes/iOS_21A342/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 17.0.simruntime"
+    },
+    {
+      "identifier": "com.apple.CoreSimulator.SimRuntime.iOS-18-5",
+      "version": "18.5",
+      "build": "22F77",
+      "bundlePath": "/Library/Developer/CoreSimulator/Volumes/iOS_22F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 18.5.simruntime"
+    },
+    {
+      "identifier": "com.apple.CoreSimulator.SimRuntime.iOS-27-0",
+      "version": "27.0",
+      "build": "24A434",
+      "bundlePath": "/private/var/run/com.apple.security.cryptexd/mnt/com.apple.iPhoneOS.SimulatorRuntime-v24.1.434.0.7f9l1G/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 27.0.simruntime"
+    }
+  ],
+  "requiredEntitlementProbe": {
+    "requiredEntitlementPresent": true,
+    "launchAttemptsByRuntime": [
+      "17.0.1",
+      "18.5",
+      "27.0"
+    ],
+    "nativeScenariosExecuted": 0,
+    "result": "launch blocked before a native result; not a candidate acceptance pass",
+    "errors": {
+      "17.0.1": "FBSOpenApplicationServiceErrorDomain1 / underlying Launchd job spawn failed NSPOSIX153",
+      "18.5": "FBSOpenApplicationServiceErrorDomain1",
+      "27.0": "NSPOSIXErrorDomain3; no process handle"
+    },
+    "artifacts": "execution-results.json",
+    "packagingNote": "Initial three-OS attempts preceded supplemental Simulator Info.plist metadata; an iOS17 retry with the completed metadata still failed. No full-candidate or provisioning conclusion follows from these isolated harness failures."
+  },
+  "diagnosticControl": {
+    "requiredAgeEntitlementPresent": false,
+    "sameCommittedProducerBridgeCode": true,
+    "modernFrameworksWeakLinked": true,
+    "scenarios": [
+      {
+        "version": "17.0.1",
+        "scenario": "ordinary",
+        "passed": true,
+        "harnessAssertionsTotal": 10,
+        "harnessAssertionsPassed": 10,
+        "nativeReportReceived": true,
+        "receipt": "control-ios17.0.1-ordinary-receipt.json",
+        "runtimeAgeEntitlementEnabled": false,
+        "observation": {
+          "adultAcknowledgementRequiredFlag": false,
+          "nativeCategory": "Unavailable",
+          "permissionSystemManaged": true,
+          "protectiveWorkflowFlag": false,
+          "requiredRangeFlag": false,
+          "significantUpdateRequiredFlag": false
+        },
+        "appOwnedPhaseBefore": 0,
+        "appOwnedPhaseAfter": 0
+      },
+      {
+        "version": "17.0.1",
+        "scenario": "inflight",
+        "passed": true,
+        "harnessAssertionsTotal": 10,
+        "harnessAssertionsPassed": 10,
+        "nativeReportReceived": true,
+        "receipt": "control-ios17.0.1-inflight-receipt.json",
+        "runtimeAgeEntitlementEnabled": false,
+        "observation": {
+          "adultAcknowledgementRequiredFlag": false,
+          "nativeCategory": "Unavailable",
+          "permissionSystemManaged": true,
+          "protectiveWorkflowFlag": false,
+          "requiredRangeFlag": false,
+          "significantUpdateRequiredFlag": false
+        },
+        "appOwnedPhaseBefore": 1,
+        "appOwnedPhaseAfter": 0
+      },
+      {
+        "version": "17.0.1",
+        "scenario": "awaiting",
+        "passed": true,
+        "harnessAssertionsTotal": 10,
+        "harnessAssertionsPassed": 10,
+        "nativeReportReceived": true,
+        "receipt": "control-ios17.0.1-awaiting-receipt.json",
+        "runtimeAgeEntitlementEnabled": false,
+        "observation": {
+          "adultAcknowledgementRequiredFlag": false,
+          "nativeCategory": "Unavailable",
+          "permissionSystemManaged": true,
+          "protectiveWorkflowFlag": true,
+          "requiredRangeFlag": false,
+          "significantUpdateRequiredFlag": false
+        },
+        "appOwnedPhaseBefore": 2,
+        "appOwnedPhaseAfter": 2
+      },
+      {
+        "version": "17.0.1",
+        "scenario": "relaunch-awaiting",
+        "passed": true,
+        "harnessAssertionsTotal": 10,
+        "harnessAssertionsPassed": 10,
+        "nativeReportReceived": true,
+        "receipt": "control-ios17.0.1-relaunch-awaiting-receipt.json",
+        "runtimeAgeEntitlementEnabled": false,
+        "observation": {
+          "adultAcknowledgementRequiredFlag": false,
+          "nativeCategory": "Unavailable",
+          "permissionSystemManaged": true,
+          "protectiveWorkflowFlag": true,
+          "requiredRangeFlag": false,
+          "significantUpdateRequiredFlag": false
+        },
+        "appOwnedPhaseBefore": 2,
+        "appOwnedPhaseAfter": 2
+      },
+      {
+        "version": "18.5",
+        "scenario": "ordinary",
+        "passed": true,
+        "harnessAssertionsTotal": 10,
+        "harnessAssertionsPassed": 10,
+        "nativeReportReceived": true,
+        "receipt": "control-ios18.5-ordinary-receipt.json",
+        "runtimeAgeEntitlementEnabled": false,
+        "observation": {
+          "adultAcknowledgementRequiredFlag": false,
+          "nativeCategory": "Unavailable",
+          "permissionSystemManaged": true,
+          "protectiveWorkflowFlag": false,
+          "requiredRangeFlag": false,
+          "significantUpdateRequiredFlag": false
+        },
+        "appOwnedPhaseBefore": 0,
+        "appOwnedPhaseAfter": 0
+      },
+      {
+        "version": "18.5",
+        "scenario": "inflight",
+        "passed": true,
+        "harnessAssertionsTotal": 10,
+        "harnessAssertionsPassed": 10,
+        "nativeReportReceived": true,
+        "receipt": "control-ios18.5-inflight-receipt.json",
+        "runtimeAgeEntitlementEnabled": false,
+        "observation": {
+          "adultAcknowledgementRequiredFlag": false,
+          "nativeCategory": "Unavailable",
+          "permissionSystemManaged": true,
+          "protectiveWorkflowFlag": false,
+          "requiredRangeFlag": false,
+          "significantUpdateRequiredFlag": false
+        },
+        "appOwnedPhaseBefore": 1,
+        "appOwnedPhaseAfter": 0
+      },
+      {
+        "version": "18.5",
+        "scenario": "awaiting",
+        "passed": true,
+        "harnessAssertionsTotal": 10,
+        "harnessAssertionsPassed": 10,
+        "nativeReportReceived": true,
+        "receipt": "control-ios18.5-awaiting-receipt.json",
+        "runtimeAgeEntitlementEnabled": false,
+        "observation": {
+          "adultAcknowledgementRequiredFlag": false,
+          "nativeCategory": "Unavailable",
+          "permissionSystemManaged": true,
+          "protectiveWorkflowFlag": true,
+          "requiredRangeFlag": false,
+          "significantUpdateRequiredFlag": false
+        },
+        "appOwnedPhaseBefore": 2,
+        "appOwnedPhaseAfter": 2
+      },
+      {
+        "version": "18.5",
+        "scenario": "relaunch-awaiting",
+        "passed": true,
+        "harnessAssertionsTotal": 10,
+        "harnessAssertionsPassed": 10,
+        "nativeReportReceived": true,
+        "receipt": "control-ios18.5-relaunch-awaiting-receipt.json",
+        "runtimeAgeEntitlementEnabled": false,
+        "observation": {
+          "adultAcknowledgementRequiredFlag": false,
+          "nativeCategory": "Unavailable",
+          "permissionSystemManaged": true,
+          "protectiveWorkflowFlag": true,
+          "requiredRangeFlag": false,
+          "significantUpdateRequiredFlag": false
+        },
+        "appOwnedPhaseBefore": 2,
+        "appOwnedPhaseAfter": 2
+      },
+      {
+        "version": "27.0",
+        "scenario": "ordinary",
+        "passed": false,
+        "harnessAssertionsTotal": 2,
+        "harnessAssertionsPassed": 1,
+        "nativeReportReceived": false,
+        "receipt": "control-ios27.0-ordinary-receipt.json",
+        "runtimeAgeEntitlementEnabled": false,
+        "observation": {},
+        "appOwnedPhaseBefore": 0,
+        "appOwnedPhaseAfter": 0
+      }
+    ],
+    "interpretation": "iOS17/18 actual-runtime fallback/workflow controls only. iOS27 native result completion timed out at20seconds; cannot attribute to account/region/age or a production code defect from this unentitled probe."
+  },
+  "coverageTotals": {
+    "legacyControlScenariosPassed": 8,
+    "legacyControlAssertionsPassed": 80,
+    "legacyControlAssertionsTotal": 80,
+    "iOS27ControlScenariosPassed": 0,
+    "iOS27ControlScenariosAttempted": 1,
+    "requiredEntitlementScenariosExecuted": 0,
+    "authenticatedAppleSandboxScenariosExecuted": 0,
+    "physicalScenariosExecuted": 0
+  },
+  "testData": {
+    "phaseCases": "InFlight/AwaitingResolution are explicit application-owned workflow-state fixtures, not injected Apple age/permission responses. Relaunch case uses actual process exit/new launch and the probe own preferences.",
+    "appleAgeDataOrRawResponsesPersisted": false,
+    "accountIdentityPersisted": false,
+    "accountLoginOrAccountChangePerformed": false,
+    "existingAccountStoresInspected": false,
+    "physicalSandboxStateInspected": false
+  },
+  "cleanup": {
+    "existingSimulatorCount": 32,
+    "existingSimulatorStatesPreserved": true,
+    "createdTestSimulatorCount": 3,
+    "allOwnedTestSimulatorsShutdown": true,
+    "existingSimulatorErasedOrDeleted": false,
+    "runtimeInstalledOrDownloaded": false
+  },
+  "limitations": [
+    "Neither diagnostic control nor ad-hoc entitlement-bearing probe proves production provisioning/signature readiness.",
+    "No native age-category, regional applicability, parental response, significant-update, revocation or authenticated Sandbox flow was validated.",
+    "iOS16.3 and26.x runtime execution remain unavailable/not run in this task; only17.0.1/18.5 successful controls,27.0 incomplete native report.",
+    "A UIKit bridge probe is not full Unity shell/gameplay regression or owner physical acceptance."
+  ],
+  "reproductionArtifacts": [
+    "source-manifest.json",
+    "sources/PawsAccessWorkflow.swift",
+    "sources/PawsNativeAccess.swift",
+    "sources/NativeAccessCompatibilityProbe.swift",
+    "build-command.json",
+    "probe.entitlements",
+    "baseline-empty.entitlements",
+    "executed-commands.json",
+    "control-executed-commands.json",
+    "run-compatibility.py",
+    "run-control-compatibility.py",
+    "linked-frameworks.json"
+  ],
+  "ownerFollowUp": "On an appropriately entitled signed Paws candidate, check that the native startup check resolves or offers recovery. If Checking remains for20 seconds, record exact build/source, OS and authorized account/scenario scope and investigate as a candidate-specific issue. The unentitled probe timeout alone does not establish a production defect."
+}
