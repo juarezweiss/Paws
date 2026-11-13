@@ -100,6 +100,19 @@ free-1.0 access requirement. No completed gameplay issue is reopened.
 
 ## Remaining free release gates
 
+Final #104 acceptance review (2026-11-13): **NOT READY for develop merge** until
+B1's26.4+ update-only unnecessary-range-request route is fixed and re-reviewed.
+[Evidence and complete B1/G1–G6/D1–D4 matrix](evidence/issue103/acceptance-2026-11-13/README.md)
+supersede older pending-signing/physical snapshots below: November12 development
+signing and November13 owner iPhone17/iOS27.0.1 pass exist, within their recorded
+scope. They do not settle named regional Sandbox, older-OS or launch-revocation
+coverage. Keep #91 legal/public/rating/retention/trigger decisions, #90 full binary
+exclusion and #92/#21 final candidate/distribution gates open. Significant-update
+restart durability and legacy26.2–26.3/account/rating paths must be resolved before
+an actual update is enabled; an empty registry does not waive an applicable law.
+No merge, signing, installation or release is authorized by this review.
+
+
 Native verification follow-up (2026-11-02): [local readiness evidence](evidence/issue103/native-verification-2026-11-02/README.md)
 finds that the existing valid profile/certificate covers Paws but lacks the required
 age-entitlement authorization. Device signing, installation and human acceptance

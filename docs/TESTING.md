@@ -1,5 +1,17 @@
 # Testing Strategy
 
+## Final acceptance review — 2026-11-13
+
+[Final assessment](evidence/issue103/acceptance-2026-11-13/README.md): **NOT READY**
+for develop merge. One current blocker:26.4+ update-only regulatory flags trigger
+an unnecessary age request with no pending change. The focused host reproduction
+fails3/5 cases; it is not native/Sandbox coverage. No production code changed.
+Retained806/806 EditMode and other prior evidence remain valid at their recorded
+source; CI is green. The owner iPhone17/iOS27.0.1 pass is preserved within its
+reported scope. Remaining native/legal/final-artifact evidence is classified as
+release gates; dormant significant-update gaps are explicit activation gates.
+
+
 ## Issue #103 native verification follow-up — 2026-11-02
 
 [Follow-up evidence](evidence/issue103/native-verification-2026-11-02/README.md)
