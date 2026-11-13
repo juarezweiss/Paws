@@ -75,9 +75,11 @@ namespace CatsAndArrows.UI.Editor
             try
             {
                 EditorUserBuildSettings.iOSXcodeBuildConfig = XcodeBuildConfig.Release;
-                var report = BuildPipeline.BuildPlayer(options);
+                BuildReport report;
+                using (FreeProductionBuild.Begin()) report = BuildPipeline.BuildPlayer(options);
                 if (report.summary.result != BuildResult.Succeeded)
                     throw new InvalidOperationException("Production iOS export failed: " + report.summary.result);
+                FreeProductionBuild.ConfigureExport(options.locationPathName);
                 CatsAndArrows.Access.Editor.NativeAccessBuild.Configure(options.locationPathName);
                 File.WriteAllText(Path.Combine(options.locationPathName, "paws-export.json"), JsonUtility.ToJson(new ExportReceipt
                 {
