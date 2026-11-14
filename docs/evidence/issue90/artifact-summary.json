@@ -1,0 +1,117 @@
+{
+  "actualRuntimeDataCapture": "not performed; remains #91/#103/#92 scoped evidence",
+  "archivePath": "Builds/Issue90-final-0ff97c1.xcarchive",
+  "archiveTreeSha256": "767491d6e6da5f82d91a3a0ec1065a695c3da355df8b9a3a97fe5f9458531195",
+  "baselineDevelopSha": "3ef4e4c2efe33d578559b02f872dc14e20c04dff",
+  "baselineRefreshedOnResume": true,
+  "binaries": [
+    {
+      "dsymPath": "Builds/Issue90-final-0ff97c1.xcarchive/dSYMs/Paws.app.dSYM",
+      "dsymUuid": "UUID: 2985FDB6-2443-31DF-B2D5-5C0EB17B3B49 (arm64) /Users/juarezweiss/App Projects/Cats-Arrows/Builds/Issue90-final-0ff97c1.xcarchive/dSYMs/Paws.app.dSYM/Contents/Resources/DWARF/Paws",
+      "path": "Builds/Issue90-final-0ff97c1.xcarchive/Products/Applications/Paws.app/Paws",
+      "sha256": "9bb5f655c0632a4f0e501c6e3d25eb69199c6ef5a83fe07a070ffddb0dcf31ff",
+      "uuid": "UUID: 2985FDB6-2443-31DF-B2D5-5C0EB17B3B49 (arm64) /Users/juarezweiss/App Projects/Cats-Arrows/Builds/Issue90-final-0ff97c1.xcarchive/Products/Applications/Paws.app/Paws"
+    },
+    {
+      "dsymPath": "Builds/Issue90-final-0ff97c1.xcarchive/dSYMs/UnityFramework.framework.dSYM",
+      "dsymUuid": "UUID: 4D48236A-77D6-3CE1-8FC6-AD975A6C52A3 (arm64) /Users/juarezweiss/App Projects/Cats-Arrows/Builds/Issue90-final-0ff97c1.xcarchive/dSYMs/UnityFramework.framework.dSYM/Contents/Resources/DWARF/UnityFramework",
+      "path": "Builds/Issue90-final-0ff97c1.xcarchive/Products/Applications/Paws.app/Frameworks/UnityFramework.framework/UnityFramework",
+      "sha256": "7b2e81e128c42a939f0e57e7dfdc3113c86e6eaa026cc223cffd033c7dc42b48",
+      "uuid": "UUID: 4D48236A-77D6-3CE1-8FC6-AD975A6C52A3 (arm64) /Users/juarezweiss/App Projects/Cats-Arrows/Builds/Issue90-final-0ff97c1.xcarchive/Products/Applications/Paws.app/Frameworks/UnityFramework.framework/UnityFramework"
+    }
+  ],
+  "buildDate": "2026-11-13",
+  "checksumAlgorithm": "paws-tree-sha256-v1",
+  "commands": [
+    "bash scripts/validate.sh",
+    "bash scripts/compile.sh",
+    "bash scripts/test.sh",
+    "python3 -m unittest discover -s scripts/tests -v",
+    "bash scripts/test-native-access.sh",
+    "bash scripts/build-ios.sh export \"$PWD/Builds/Issue90-final-0ff97c1-export\"",
+    "bash scripts/build-ios.sh archive-unsigned \"$PWD/Builds/Issue90-final-0ff97c1-export\" \"$PWD/Builds/Issue90-final-0ff97c1.xcarchive\"",
+    "python3 scripts/audit-free-ios.py --export \"$PWD/Builds/Issue90-final-0ff97c1-export\" --archive \"$PWD/Builds/Issue90-final-0ff97c1.xcarchive\" --source-sha 0ff97c17401c16970a25c4a62db84f3829ab3ca1 --receipt \"$PWD/.unity-results/ios-archive.GrPgPN/release-receipt.json\" --output \"$PWD/.unity-results/issue90-final-audit.json\""
+  ],
+  "configuration": {
+    "buildNumber": "1",
+    "bundleIdentifier": "com.jweiss.paws",
+    "deviceFamily": [
+      1
+    ],
+    "displayName": "Paws",
+    "minimumIOS": "16.3",
+    "unityVersion": "6000.3.25f1",
+    "version": "0.1.0"
+  },
+  "evidenceFiles": [
+    {
+      "path": "README.md",
+      "sha256": "482c4d7b7be47a06fb05ebb345f5bd59c866e2e7c5d2c2302ba2da40bc5abd1f"
+    },
+    {
+      "path": "baseline-audit.json",
+      "sha256": "ab749abf219cfd91932f44484463d0f2be3a7b22be9d0378d3eab1860a838f97"
+    },
+    {
+      "path": "baseline-release-receipt.json",
+      "sha256": "1bcdd7001ffaa97dde705257df0b2605dd9dedc8a63784705dd81bbe5361b283"
+    },
+    {
+      "path": "final-audit.json",
+      "sha256": "c0e01f69cdff5ceaf236c74174d5d7b9812124255c00d8b3f28d3eeecf17b79a"
+    },
+    {
+      "path": "final-release-receipt.json",
+      "sha256": "0ca6e8f7b074ceb6ceab4630bf7d56558398e62b9b7dbc572c1fa9d17dd84fca"
+    },
+    {
+      "path": "validation.json",
+      "sha256": "01d8cb14e44650ba6de0a2262a69096ddd43073849dfef28025a6e2441fb9628"
+    }
+  ],
+  "exportPath": "Builds/Issue90-final-0ff97c1-export",
+  "inspectionDate": "2026-11-14",
+  "logs": [
+    {
+      "path": ".unity-results/ios-export.mlvxb1/Editor.log",
+      "sha256": "15baff936644f239f14823c21f833312a52123214dd880aefac24396240a3e10"
+    },
+    {
+      "path": ".unity-results/ios-export.mlvxb1/export-receipt.json",
+      "sha256": "073030bb506a28e43d45132fdbe5df6bd1620df5318fc3be7c7ca71c0b936def"
+    },
+    {
+      "path": ".unity-results/ios-archive.GrPgPN/prearchive-receipt.json",
+      "sha256": "073030bb506a28e43d45132fdbe5df6bd1620df5318fc3be7c7ca71c0b936def"
+    },
+    {
+      "path": ".unity-results/ios-archive.GrPgPN/xcodebuild.log",
+      "sha256": "4595c758c64180d6fb3184b3b54371c299ed18851504dc634743258e3b6ec6ce"
+    },
+    {
+      "path": ".unity-results/ios-archive.GrPgPN/release-receipt.json",
+      "sha256": "0ca6e8f7b074ceb6ceab4630bf7d56558398e62b9b7dbc572c1fa9d17dd84fca"
+    }
+  ],
+  "nativeAccessAllowlist": {
+    "applicationEntitlement": {
+      "com.apple.developer.declared-age-range": true
+    },
+    "assembly": "CatsAndArrows.Access",
+    "plugins": [
+      "PawsNativeAccess.swift",
+      "PawsAccessWorkflow.swift"
+    ],
+    "signedCapabilityVerification": "pending-signing",
+    "weakSystemFrameworks": [
+      "DeclaredAgeRange.framework",
+      "PermissionKit.framework",
+      "_PermissionKit_UIKit.framework"
+    ]
+  },
+  "noSigningInstallationAccountChangeMergeRelease": true,
+  "result": "FAIL; retained monetization domain/UI and raw resource references",
+  "schema": "paws-issue90-artifact-summary-v1",
+  "sourceSha": "0ff97c17401c16970a25c4a62db84f3829ab3ca1",
+  "stage": "unsigned-archive-validated"
+}
