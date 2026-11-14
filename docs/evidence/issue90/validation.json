@@ -1,0 +1,105 @@
+{
+  "baselineDevelopSha": "3ef4e4c2efe33d578559b02f872dc14e20c04dff",
+  "binaryAudit": {
+    "archiveTreeSha256": "767491d6e6da5f82d91a3a0ec1065a695c3da355df8b9a3a97fe5f9458531195",
+    "date": "2026-11-14",
+    "productionReceiptBindingVerified": true,
+    "rawFileRuleMatches": 39,
+    "reason": "Retained monetization domain/UI code, commercial/mock text and raw serialized references; export-only engine and host-tool hits separately classified.",
+    "result": "FAIL",
+    "sourceSha": "0ff97c17401c16970a25c4a62db84f3829ab3ca1"
+  },
+  "compile": "PASS",
+  "date": "2026-11-13",
+  "editMode": {
+    "failed": "0",
+    "inconclusive": "0",
+    "passed": "822",
+    "result": "Passed",
+    "skipped": "0",
+    "total": "822"
+  },
+  "independentQA": {
+    "resolvedFindings": [
+      "Unknown framework/library/privacy/boot evidence now prevents provider PASS.",
+      "Required production receipt source and actual archive hash bound independently.",
+      "Export correction fixture preserves weak age links/entitlement and ordinary resources.",
+      "Export-only UnityPurchasingSettings engine input and NUnit host-linker references classified separately from shipped code."
+    ],
+    "result": "No additional blocking code findings after fixes; strict ALL-components acceptance remains blocked.",
+    "scope": "Read-only independent qa_reviewer review of configuration, direct dependencies, regression tests and audit result semantics."
+  },
+  "logs": [
+    {
+      "path": ".unity-results/compile.8Sn2zF/Editor.log",
+      "sha256": "5dc059e5627bd924dc804f1f2c0a3c60d0da2c87cd92534f31eb8fa927179812"
+    },
+    {
+      "path": ".unity-results/editmode.rjV5E1/test-results.xml",
+      "sha256": "13520870bd000d979edb40ffe4eab3aa0ac4cfaaa9248d573a963f82ceea401a"
+    },
+    {
+      "path": ".unity-results/editmode.rjV5E1/Editor.log",
+      "sha256": "0279d26858a74bab92e60ed4f1d748c2bd5a409d6f83f17154d9c262a84e1e98"
+    },
+    {
+      "path": ".unity-results/issue90-python-final2-tests.log",
+      "sha256": "0c8b4eb73ffe13d60ade13ce2ebdf153f34bd5f5614c38dcac0117aa3a9689d7"
+    },
+    {
+      "path": ".unity-results/issue90-native-tests.log",
+      "sha256": "78b3e3d3ba03a50d006c157b77597c2311354d2f3be36b284a8246632f473a66"
+    }
+  ],
+  "nativeAccess": {
+    "hostWorkflowChecks": 147,
+    "result": "PASS",
+    "scope": "Host deterministic checks and real iPhoneOS SDK typechecking; no Apple API/Sandbox/phone runtime acceptance.",
+    "sdkTypecheckTargets": [
+      "arm64-apple-ios16.3",
+      "arm64-apple-ios26.0",
+      "arm64-apple-ios26.2",
+      "arm64-apple-ios26.4",
+      "arm64-apple-ios27.0"
+    ]
+  },
+  "physicalIPhoneReview": "pending-human; no new result",
+  "preservedInputs": {
+    "PR87": "no source, branch, PR or evidence changes",
+    "runtimeSourceScenesAssetsProjectSettings": "identical to baseline develop",
+    "sdkPinsAndPackages": "identical to baseline develop"
+  },
+  "python": {
+    "auditToolTests": 22,
+    "result": "PASS",
+    "tests": 85
+  },
+  "repositoryValidation": "PASS",
+  "schema": "paws-issue90-validation-v1",
+  "signingInstallationAccountMergeRelease": "not performed",
+  "sourceSha": "0ff97c17401c16970a25c4a62db84f3829ab3ca1",
+  "tools": {
+    "codesign": {
+      "path": "/usr/bin/codesign",
+      "sha256": "844d30a12929b59c9f2215e2a308c3e1db572831a478f35906e452a54025603e"
+    },
+    "dwarfdump": {
+      "path": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/dwarfdump",
+      "sha256": "95670ea5fa064049b73c8b3f076dcebe20d817517deac4f6fa8a9b862493bbce"
+    },
+    "macOS": "ProductName:\t\tmacOS\nProductVersion:\t\t26.6.2\nBuildVersion:\t\t25G83",
+    "nm": {
+      "path": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/nm",
+      "sha256": "06cf29c8e3d60ab11959e6d75618d43e2c43f618b79fc56abd3749c0a43ad587"
+    },
+    "otool": {
+      "path": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/otool",
+      "sha256": "bb522e392b7834c29ff579ba8c9259293229163e0fd28b7c64d323d7a858f9d4"
+    },
+    "python": "Python 3.12.3",
+    "sdk": "27.2",
+    "swift": "Apple Swift version 6.4.2 (swiftlang-6.4.2.1.9 clang-2100.4.1.1)\nTarget: arm64-apple-macosx26.0",
+    "xcode": "Xcode 27.2\nBuild version 27B52"
+  },
+  "unityVersion": "6000.3.25f1"
+}

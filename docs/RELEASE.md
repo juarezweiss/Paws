@@ -1,5 +1,23 @@
 # Environments, Releases, and Rollback
 
+## Issue #90 unsigned binary audit — 2026-11-14 (builds 2026-11-13)
+
+**FAIL: the strict ALL-monetization exclusion gate remains open.** The
+[artifact evidence and limits](evidence/issue90/README.md) record a fresh baseline
+from merged develop `3ef4e4c` and the focused build-configuration correction at
+`0ff97c1`. Compiled commercial SDK/provider payloads are excluded by the correction;
+monetization domain/UI code, commercial/mock text and serialized type references
+remain. Disabled initialization is not complete binary exclusion.
+
+#89 / PR #102 and #103 / PR #104 are merged into develop. Native #103 access,
+its application entitlement input and three weak system framework loads are
+preserved. #91 legal/public-content/native coverage, #103 release gates and
+#92 signed selected-candidate/human acceptance remain separate and unresolved.
+No signing, installation, account change, merge or release is authorized here.
+Source-level removal of remaining runtime/UI references needs separately scoped
+work; this change only corrects build configuration and adds audit evidence.
+
+
 ## Owner decision — 2026-10-26 (#88)
 
 **Paws 1.0 is FREE, ad-free, IAP disabled, with unlimited free eligible Hints.**
@@ -47,11 +65,12 @@ needed before final binary/RC acceptance; its final artifact-based declarations
 must be accepted before #21 readiness. Earlier serial #90 → #91 → #92 ordering
 is superseded; no final-candidate gate is marked passed by this update.
 
-Current bootstrap is disabled/free, but Settings still constructs disabled
-commerce rows. #89 remains the next implementation issue after contract review.
-#90 must prove actual binary exclusion; old disabled or review-app evidence is
-not a final production-candidate receipt. Preserve the newer gameplay/UI/assets/
-ProjectSettings and all accepted evidence from current develop.
+Merged #89/PR #102 omits commercial Settings rows in the free composition.
+The fresh #90 production audit remains FAIL after configuration-only corrections:
+compiled SDK/provider payloads are excluded, but runtime/UI code and commercial
+resource references remain. Old disabled or review-app evidence is not substituted
+for this receipt. Preserve current gameplay/UI/assets/ProjectSettings and accepted
+develop evidence.
 
 Exclude all monetization SDKs/providers and monetization-only age components.
 The [2026-10-30 finding](https://github.com/juarezweiss/Paws/issues/90#issuecomment-6530526490)
@@ -71,7 +90,7 @@ in #103/#91. #67 remains future monetization, not free access clearance.
 
 The 2026-10-31 owner disposition and pre-code official-source review are recorded
 in [NATIVE_ACCESS.md](NATIVE_ACCESS.md). #103 adds a standalone native layer and
-export capability under review; its SDK compilation does not satisfy native
+export capability integrated via PR #104 at `3ef4e4c`; SDK compilation does not satisfy native
 Sandbox, signed entitlement/profile or human physical gates. No signing,
 installation, production action or PR #87 integration follows this implementation.
 
@@ -173,9 +192,9 @@ code remains excluded. The receipt also checks generated IL2CPP sources.
 
 `PawsBootstrap` starts the ordinary game with saved preferences, real safe area,
 normal tutorial/lifecycle and `monetization: null`. No providers initialize;
-Hints remain free; Settings currently shows unavailable purchase/restore rows (#76).
-#89 removes those disabled surfaces for free 1.0; #90 must verify actual SDK/provider
-exclusion. This existing composition is a baseline, not completed free-1.0
+Hints remain free; merged #89/PR #102 omits commercial Settings rows in free
+composition. #90 has verified executable SDK/provider exclusion after the focused
+configuration correction, but its strict domain/resource exclusion gate fails. This existing composition is a baseline, not completed free-1.0
 acceptance. Future enabled releases require separate approved real adapters
 and tests; reverting to this composition retains existing monetization storage
 and verified ownership. No remote kill switch is claimed.

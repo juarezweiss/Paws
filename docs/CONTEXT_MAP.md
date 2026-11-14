@@ -65,9 +65,10 @@ PR #87 `docs/AGE_ASSURANCE.md` at evidence head
 `4acfb61d9625b271f3203ec8d63a608102fbabfa` retains the source/OS/territory matrix.
 Current free-app compliance assessment is #91; no legal exemption is assumed.
 
-## Current release evidence — 2026-10-28
+## Current release evidence — 2026-11-14
 
-Use `docs/RELEASE_RC_1_0.md` as the index for fetched develop `3cb814f`, completed
+Use `docs/RELEASE_RC_1_0.md` as the index for fetched develop `3ef4e4c` (merged
+#89/PR #102 and #103/PR #104), the failing strict #90 binary audit and completed
 #94/#95/#99/#96 exact-source receipts and human scope limits. Load a linked
 receipt only for the specific acceptance question; do not reload every review.
 Current order is #88/#93 → #89 → #90 → #92 → #21. #91 runs in parallel and must

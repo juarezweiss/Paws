@@ -1,5 +1,23 @@
 # Paws 1.0 — free release checklist
 
+## Current binary disposition — 2026-11-14 (#90; builds 2026-11-13)
+
+**FAIL / no final binary acceptance.** [Exact-source audit](evidence/issue90/README.md):
+latest develop `3ef4e4c` includes merged #89/PR #102 and #103/PR #104. Focused
+configuration source `0ff97c1` excludes compiled IAP/services/Apple/ad provider
+payloads, native commerce plugins and generated commercial startup configuration.
+The strict resource/domain audit still fails: monetization runtime/UI code,
+commercial/mock text and serialized provider/review type-name references remain.
+No package pin, future provider source, #103 access code, scene or ProjectSettings
+is changed. This is a reviewable correction, not permission to merge or release.
+
+Required validation and independent QA are recorded with artifact hashes in the
+linked receipt. #91 decisions/declarations/public content and #103 actual native/
+regional/older-OS/revocation coverage remain release gates. #92 must independently
+inspect the signed selected candidate and obtain an explicit human iPhone report.
+Existing owner passes are not extended to this unsigned candidate.
+
+
 Reconciled 2026-10-28 for [#88](https://github.com/juarezweiss/Paws/issues/88) /
 [PR #93](https://github.com/juarezweiss/Paws/pull/93), against fetched develop
 `3cb814f7be0dc117dc4f585bf9e8c8fd65f9d1cd`. Authority:
@@ -28,9 +46,9 @@ proceed while #103 is pending; #92 owns final signed-artifact/human acceptance.
 | Issue | Actual status / remaining deliverable | Dependency and acceptance evidence |
 | --- | --- | --- |
 | [#88 / #93](https://github.com/juarezweiss/Paws/pull/93) contract | Merged into develop as `fe81861` before #89 implementation. | Existing contract accepted/integrated; #89 did not modify or merge PR #93. |
-| [#89 UI](https://github.com/juarezweiss/Paws/issues/89) | Implemented on focused branch; integration review pending. Null/disabled composition omits commercial Settings rows. | Source `82f0e8c`: pinned compile, 24/24 focused and 755/755 EditMode pass; 18 locale/portrait/composition cases, repeated immediate offline-port Hints across 90 completed boards, 54 desktop captures. [Evidence and limits](evidence/issue89/validation.json). |
-| [#90 binary](https://github.com/juarezweiss/Paws/issues/90) | Pending. Null monetization bootstrap and historical disabled receipts do not prove the final binary. | Integrated #89; #91 early decisions and #103 implementation/automated-native evidence plus exact allowlist before final acceptance; committed-source export/archive inventory. |
-| [#103 native access](https://github.com/juarezweiss/Paws/issues/103) | Implementation under review. Standalone Declared Age Range/capability/entitlement and observable required parental-access handling. | [Current scope and limits](NATIVE_ACCESS.md); automated/native compile evidence remains separate from 26+ Sandbox and owner physical review under #92. No monetization dependency. |
+| [#89 UI](https://github.com/juarezweiss/Paws/issues/89) | Merged via PR #102 (`a08e254`). Null/disabled composition omits commercial Settings rows. | Source `82f0e8c`: pinned compile, 24/24 focused and 755/755 EditMode pass; 18 locale/portrait/composition cases, repeated immediate offline-port Hints across 90 completed boards, 54 desktop captures. [Evidence and limits](evidence/issue89/validation.json). |
+| [#90 binary](https://github.com/juarezweiss/Paws/issues/90) | **FAIL**: fresh unsigned audit and configuration correction; runtime/UI/commercial resource references remain. [Evidence](evidence/issue90/README.md). | Integrated #89; #91 early decisions and #103 implementation/automated-native evidence plus exact allowlist before final acceptance; committed-source export/archive inventory. |
+| [#103 native access](https://github.com/juarezweiss/Paws/issues/103) | Merged via PR #104 (`3ef4e4c`); release/native gates remain open. Standalone capability and required access preserved by #90. | [Current scope and limits](NATIVE_ACCESS.md); automated/native compile evidence remains separate from 26+ Sandbox and owner physical review under #92. No monetization dependency. |
 | [#92 RC / human QA](https://github.com/juarezweiss/Paws/issues/92) | Pending. Prior review-app passes are scoped development evidence. | #90 and settled access scope; owner-approved version/build and signing; reinspection after signing and explicit human checklist result. |
 | [#21 distribution](https://github.com/juarezweiss/Paws/issues/21) | Pending. Prepare final GO/NO-GO and owner action list; no submission authorized. | #88/#93, #89, #90, #92 and accepted #91, plus recorded #22 trial disposition. |
 | [#91 metadata / compliance](https://github.com/juarezweiss/Paws/issues/91) | Parallel, pending. Terms/Privacy/support URLs, declarations and early legal/access decisions for #103. | Draft now; early decisions feed #103 before final #90/#92; reconcile metadata/screenshots to final artifacts before #21. |
@@ -100,14 +118,15 @@ free-1.0 access requirement. No completed gameplay issue is reopened.
 
 ## Remaining free release gates
 
-#104 B1 fix reassessment (2026-11-13): **MERGE READY for develop**, subject to
-current CI success and explicit owner merge approval. [Fix/tests/QA evidence](evidence/issue103/b1-fix-2026-11-13/README.md)
+#104 B1 fix integrated (2026-11-13): owner approved the green reviewed head and
+merged PR #104 into develop at `3ef4e4c`. [Fix/tests/QA evidence](evidence/issue103/b1-fix-2026-11-13/README.md)
 resolves the update-only26.4+ unnecessary request. Required range checks,
 protection/recovery and older OS behavior remain covered. This is not submission
 acceptance; retain all [G1–G6 release / D1–D4 activation gates](evidence/issue103/acceptance-2026-11-13/README.md).
 The November12 signature and November13 iPhone17/iOS27.0.1 pass remain scoped to
 `b9793cc`; source `190693d` needs selected-candidate evidence before submission.
-No signing, installation, merge or release was performed for B1. Older pending-
+No new signing, installation or release was performed for B1; the subsequent
+owner-approved develop merge is recorded above. Older pending-
 signing/physical statements below are historical snapshots, not current status.
 
 Native verification follow-up (2026-11-02): [local readiness evidence](evidence/issue103/native-verification-2026-11-02/README.md)
@@ -133,8 +152,8 @@ system UIKit overlay. [Coverage limits](evidence/issue103/validation.json) and
 [pending human checklist](evidence/issue103/OWNER_REVIEW.md) remain explicit.
 
 - [x] #88/#93: reconciled contract merged into develop (`fe81861`).
-- [ ] #89: implementation and automated/desktop verification complete; focused PR
-  integration approval pending. No commercial rows, labels, placeholders, ad/UMP
+- [x] #89: implementation and automated/desktop verification integrated via PR
+  #102 (`a08e254`). No commercial rows, labels, placeholders, ad/UMP
   or commercial age routes in free composition; repeated eligible Hints are
   immediate/free with no provider calls. Physical acceptance remains #92.
 - [ ] #90: actual non-development production artifact excludes monetization SDKs/
@@ -144,10 +163,11 @@ system UIKit overlay. [Coverage limits](evidence/issue103/validation.json) and
   allowlist from #103. Explain OS-only references separately; source/pin presence
   alone proves neither shipping nor exclusion. Preserve source/config/tool SHA,
   artifact checksum, receipt and matching dSYMs.
-- [ ] #103: standalone native implementation/automated-native evidence and exact
-  #90 allowlist; required entitlement, age/permission/significant-update states,
-  correction/revocation, older-OS fallback and privacy lifecycle verified. No
-  unnecessary prompt or monetization dependency. Human iPhone report stays #92.
+- [x] #103 implementation/automated evidence integrated via PR #104 (`3ef4e4c`);
+  exact standalone #90 allowlist, entitlement input and weak linkage preserved.
+- [ ] #103 release/native acceptance: actual regional/Sandbox, older-OS mandatory
+  gaps and launch revocation/selected-candidate evidence remain G1–G6. Retain
+  conditional D1–D4 before real significant updates. Human iPhone report stays #92.
 - [ ] #91: accepted early legal/access/permission/retention/older-OS decisions;
   reviewed localized Terms/Privacy/support and reachable public HTTPS URLs;
   factual metadata, final screenshots, privacy/tracking/required-reason/export/
